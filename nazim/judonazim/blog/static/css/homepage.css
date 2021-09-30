@@ -1,0 +1,74 @@
+
+
+body
+{
+  background-color: white/*#5B587E;*/
+
+}
+.leftmostdiv
+{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+}
+
+#imghitler
+{
+  height: 10px;
+  width: 200px;
+  opacity: 0;
+  display: none;
+
+}
+
+#navbar
+{
+  position: absolute;
+  background-color: #010001;
+  height: 150px;
+  width: 100%;
+  filter: blur(1px);
+}
+
+
+
+#judonazimnavimg
+{
+position: absolute;
+top:10px;
+left:30%;
+ padding-top: 10px;
+ height:125px;
+ filter:saturate(50%);
+ z-index: 2;
+
+}
+#fire
+{
+  width: 800px;
+  height: 150px;
+  position: absolute;
+  top:0px;
+  left:25%;
+  filter:saturate(0%);
+  display: none;
+  z-index: 1;
+}
+#judonazimnavimg:hover
+{
+   filter:saturate(100%);
+}
+
+.navbarcol
+{
+  padding-left: 500px;
+  display: inline-block;
+
+}
+
+.divbody
+{
+   position: relative;
+   top: 160px;
+   padding-top:20px;
+}
