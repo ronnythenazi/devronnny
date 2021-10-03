@@ -15,8 +15,9 @@
 
 #menulogo3lineswhite
 {
-  padding: 50px;
-  top: 0px;
-  left: 0px;
+  position: absolute;
+  left: 25px;
+  padding-right: 25px;
+  top: 52.5px;
 
 }

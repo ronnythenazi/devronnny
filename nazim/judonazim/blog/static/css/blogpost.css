@@ -4,6 +4,7 @@
    opacity: 0.5;
 
 }
+
 .apublish
 {
   position: relative;
@@ -29,9 +30,13 @@
   /* background-image:linear-gradient(180deg, #320d7c, #ffffff);*/
 
  background: -webkit-linear-gradient(-90deg, #050538, #1915ef, #ffffff);
+ background: -moz-linear-gradient(-90deg, #050538, #1915ef, #ffffff);
+ background: -o-linear-gradient(-90deg, #050538, #1915ef, #ffffff);
+ background: -ms-linear-gradient(-90deg, #050538, #1915ef, #ffffff);
+
  -webkit-background-clip: text;
  -webkit-text-fill-color: transparent;
-   float: right;
+  float: right;
    padding-right: 0px;
 
   /* -webkit-text-stroke-width: 1px;*/

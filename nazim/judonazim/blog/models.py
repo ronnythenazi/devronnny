@@ -6,7 +6,7 @@ class BlogPost(models.Model):
     title = models.CharField(max_length = 100, null = False, default = '')
     subtitle = models.CharField(max_length = 200, null = False , default ='')
     #author_name =  models.TextField(max_length = 50, null = false, default = "רוני הנאצי")
-    author_email = models.EmailField(unique = True,  null = False, blank = True, default = "ronnythenazi@gmail.com")
+    author_email = models.EmailField( null = False, blank = True, default = "ronnythenazi@gmail.com")
     datepublished= models.DateField(auto_now_add = True)
     datelastupdated= models.DateField(auto_now = True)
     content =  RichTextField() #models.TextField(null = False)

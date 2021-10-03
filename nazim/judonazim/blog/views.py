@@ -14,7 +14,7 @@ def fwriteblog(request):
 def fhome(request):
 
 
-    return render(request, 'home.html')
+    return render(request, 'index.html')
 
 def fbase(request):
 
