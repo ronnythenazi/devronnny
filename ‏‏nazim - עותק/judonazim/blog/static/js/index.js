@@ -3,28 +3,8 @@
 //aimed to open hidden box when item has been clickedin nav bar
 //nextall select the first matched element after the ellment
 //in this case, after the clicked element
-
-
-$(".sub_subject_box").click(
-  function ()
-  {
-
-    var displaystatus = $(this).nextAll(".sub_list").css('display');
-
-    if(displaystatus == 'none')
-    {
-
-      $(this).nextAll(".sub_list").show('slow')
-    }
-    else
-    {
-      $(this).nextAll(".sub_list").hide('slow');
-    }
-  }
-);
-$('.sub_list').dblclick(function(){$(this).hide('slow');});
-
-
+$(".sub_subject_box").click(function (){$(this).nextAll(".sub_list").css('display','block');});
+$(".sub_list").click(function(){$(this).css('display', 'none')});
 
 
 

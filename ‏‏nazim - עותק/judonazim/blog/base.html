@@ -5,23 +5,21 @@
 
   <head>
     <meta charset="utf-8">
-    <title>  {%block title%} base page{%endblock%}</title>
-  {%block loadstat%}  {% load static %} {%endblock%}
+    <title>  {%block title%} base pageי{%endblock%}</title>
+    {% load static %}
 
 
   <!--<link  rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css'%}">-->
-  {%block links%}
   <link  rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css'%}">
    <link rel="stylesheet" href="{% static 'css/homepage.css'%}">
-{%endblock%}
-{%block additionallinks%}
-{%endblock%}
+
+
 
   </head>
 
   <body>
 
-<header>
+
   <div id="navbar">
 
     <div id="navcol1" class = "navbarcol">
@@ -40,26 +38,15 @@
     </div>
 
   </div>
-  </header>
 
   {%block content%}
 
   {%endblock%}
-
-
-{%block scripts%}
 <script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>
-<!--<script type="text/javascript" src="{% static 'plugins/css/textedit.js'%}"> </script>-->
-	<!--<script type="text/javascript" src="{%static 'plugins/texteditor/jquery.js'%}"></script>-->
- <script type="text/javascript" src="{% static 'plugins/bootstrap/js/bootstrap.js'%}"> </script>
+<script type="text/javascript" src="{% static 'plugins/bootstrap/js/bootstrap.js'%}"> </script>-->
 <script type="text/javascript" src="{% static 'js/navbar.js'%}"> </script>
 <script type="text/javascript" src="{% static 'js/index.js'%}"> </script>
 <script type="text/javascript" src="{% static 'plugins/popper.js'%}">  </script>
-
-
-<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-{%endblock%}
   </body>
 
 </html>

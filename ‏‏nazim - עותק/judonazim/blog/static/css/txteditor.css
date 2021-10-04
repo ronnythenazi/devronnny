@@ -1,0 +1,97 @@
+.container-fluid
+{
+ position: relative;
+ /*top:150px;*/
+ text-align: right;
+ background-color: white;
+
+
+}
+/*#btn_txteditor_container-far-right
+{
+  position: relative;
+  margin-left:470px;
+}*/
+.apublish
+{
+  position: relative;
+  text-align: right;
+  padding-left: 5px;
+  display: inline;
+}
+
+.ico_small
+{
+  position: relative;
+  float: left;
+  display: inline;
+  padding-right: 1px;
+  font-size: 16px;
+}
+.btn_txteditor_container
+{
+
+  text-align: right;
+  position: relative;
+
+  float:left;
+  display:inline;
+  width: 80px;
+  padding-right: 0px;
+  font-size: 16px;
+
+}
+.col-lg-9
+{
+
+  background-color:white;
+  width:70%;
+  margin-left: 15%;
+  margin-top:20px;
+/*  border: 10px solid black;
+  border-radius: 20px;
+  border-color: black;
+/*  box-shadow:*/
+    0 0 10px 10px #001000,  /
+    0 0 10px 3px #ffffff,
+    0 0 400px 20px #597dff; */
+}
+#txteditortitle
+{
+  display: none;
+}
+#footer
+{
+
+   background-color: black;
+   font-size: 20px;
+   color:yellow;
+   width: 70%;
+   padding-right: 20%;
+   margin-left: 15%;
+   padding-top: 20px;
+   border-radius: 20px;
+   display: none;
+  /* box-shadow:
+     0 0 10px 10px #001000,
+     0 0 10px 3px #ffffff,
+     0 0 400px 20px #000000; */
+}
+
+.row
+{
+
+
+}
+
+.container
+{
+  background-color: white;
+}
+/*
+body
+{
+  background-image: url("../images/space.jpg");
+  background-repeat: repeat;
+  background-color: #5B587E;
+}*/
