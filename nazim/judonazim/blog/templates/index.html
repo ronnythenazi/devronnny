@@ -2,303 +2,81 @@
 {%extends "base.html"%}
 {%block title%}יהודונאציזם{%endblock%}
 {%load static%}
-{%block links%}
-<link  rel="stylesheet" href="{% static 'css/index.css'%}">
-<link rel="stylesheet" href="{% static 'css/homepage.css'%}">
-{%endblock%}
 {%block content%}
-<main>
-<nav>
-
- <div class="subject s1">
-     <div class="subject_header_box">
-       <img src="" class = "subject_icons">
-       <h2 class="subject_title">בואו ננפץ טאבו</h2>
-     </div>
-
-    <div class="subject_body_box">
-
-       <div>
-    <div class= "sub_subject_box">
-     <img  src="{%static 'images/judonazimlogo.jpg'%}" class = "subject_icons" id="swastica-magendavid-img">
-     <h4>נאציזם זו אידיאולוגיה לגיטימית</h4>
-     </div>
-     <div class="shadow_line"></div>
-      <div class= "sub_list">
-       <div>
-       <img src="" alt="" class = "subject_icons subsubject_icon">
-         <span>נאציזם לא מה שחשבתם</span>
-       </div>
-       <div>
-         <img src="" alt="" class = "subject_icons subsubject_icon">
-         <span>למה נאציזם זו אידיאולוגיה אסורה בישראל</span>
-       </div>
-       <div>
-         <img src="" alt="" class = "subject_icons subsubject_icon">
-         <span>פלורליזם זה אסון</span>
-       </div>
-       <div>
-         <img src="" alt="" class = "subject_icons subsubject_icon">
-         <span>אנחנו מאמינים באאוגניקה</span>
-       </div>
-      </div>
-    </div>
-
-   <div>
-     <div class= "sub_subject_box">
-      <img src="{%static 'images/judonazimlogo.jpg'%}" alt="" class = "subject_icons">
-      <h4>גזענות זו לא מילה גסה</h4>
-      </div>
-      <div class="shadow_line"></div>
-       <div class= "sub_list">
-         <div>
-         <img src="" alt="" class = "subject_icons subsubject_icon">
-           <span>תהיו יותר גזענים אם אתם רוצים לשרוד</span>
-         </div>
-         <div>
-         <img src="" alt="" class = "subject_icons subsubject_icon">
-           <span>למה אני בעד מדינת גזע ולא רק מדינת ללאום</span>
-         </div>
-         <div>
-         <img src="" alt="" class = "subject_icons subsubject_icon">
-           <span>למה אשכנזים נגד גזענות</span>
-         </div>
-         <div>
-         <img src="" alt="" class = "subject_icons subsubject_icon">
-           <span>למה זה לא אמור לעניין אותנו בכלל אם הם חוקיים או פליטים</span>
-         </div>
-       </div>
-    </div>
-
-    <div>
-      <div class= "sub_subject_box">
-      <img src="{%static 'images/judonazimlogo.jpg'%}" alt="" class = "subject_icons">
-      <h4>יש הבדל בין דם לדם</h4>
-      </div>
-      <div class="shadow_line"></div>
-       <div class= "sub_list">
-         <div>
-         <img src="" alt="" class = "subject_icons subsubject_icon">
-           <span>גזעים זו עובדה ביולוגית</span>
-         </div>
-         <div>
-           <img src="" alt="" class = "subject_icons subsubject_icon">
-           <span>יש גזעים יותר טובים וטובים פחות</span>
-         </div>
-         <div>
-           <img src="" alt="" class = "subject_icons subsubject_icon">
-           <span>הבדלים בין גזעים באינטליגנציה</span>
-         </div>
-         <div>
-           <img src="" alt="" class = "subject_icons subsubject_icon">
-           <span>לכושים יש מנת משכל של פיגור שכלי</span>
-         </div>
-         <div>
-           <img src="" alt="" class = "subject_icons subsubject_icon">
-           <span>המציאות האבולוציונית הביולוגית של גזעים</span>
-         </div>
-         <div>
-           <img src="" alt="" class = "subject_icons subsubject_icon">
-           <span>הסיבה להבדלים בין כושים ללבנים</span>
-         </div>
-         <div>
-           <img src="" alt="" class = "subject_icons subsubject_icon">
-           <span>הכושים קרובים לשימפנזים יותר מכל גזע אחר</span>
-         </div>
-         <div>
-           <img src="" alt="" class = "subject_icons subsubject_icon">
-           <span>לא התפתחנו מכושים</span>
-         </div>
-       </div>
-    </div>
-
+<div class="middle_section">
+  <div class="hg1bgc">
   </div>
- </div>
-
- <div class="subject s2">
-  <div class="subject_header_box">
-    <img src="" class = "subject_icons">
-    <h2 class="subject_title">פמיניזם/נקביזם זה סרטן</h2>
-  </div>
-
-  <div class="subject_body_box">
-    <div>
-      <div class= "sub_subject_box">
-     <img src="{%static 'images/no-feminism.jpg'%}" alt="" class = "subject_icons">
-     <h4>פמיניזם כלי של חתרנות בידי אשכנזים</h4>
-     </div>
-     <div class="shadow_line"></div>
-      <div class= "sub_list">
-       <div>
-       <img src="" alt="" class = "subject_icons subsubject_icon">
-         <span>פמיניזם זה בסך הכל רצח עם של היהודים</span>
-       </div>
-       <div>
-         <img src="" alt="" class = "subject_icons subsubject_icon">
-         <span>פמיניזם כלי של אשכנזים בעמדות מפתח שנועד לבצע רצח עם</span>
-       </div>
-       <div>
-         <img src="" alt="" class = "subject_icons subsubject_icon">
-         <span>כך הפמיניזם האשכנזי הורס בכוונת זדון את התא המשפחתי וגורם לרצח העם שלנו</span>
-       </div>
-      </div>
-    </div>
-
-    <div>
-      <div class= "sub_subject_box">
-      <img src="{%static 'images/no-feminism.jpg'%}" alt="" class = "subject_icons">
-      <h4>פמיניזם הורס את העם</h4>
-      </div>
-      <div class="shadow_line"></div>
-       <div class= "sub_list">
-         <div>
-           <img src="" alt="" class = "subject_icons subsubject_icon">
-           <span>כיצד הפך צה"ל לצבא של פות מכיל"</span>
-         </div>
-         <div>
-         <img src="" alt="" class = "subject_icons subsubject_icon">
-           <span>איך נקבות הורסות מדינות ולמה גברים מאפשרים להן</span>
-         </div>
-       </div>
-    </div>
-
-    <div>
-      <div class= "sub_subject_box">
-      <img src="{%static 'images/no-feminism.jpg'%}" alt="" class = "subject_icons">
-      <h4>קריאת תיגר על מוסכמות חברתיות</h4>
-      </div>
-      <div class="shadow_line"></div>
-       <div class= "sub_list">
-         <div>
-          <img src="" alt="" class = "subject_icons subsubject_icon">
-          <span>הענישה על אונס זה אובר-קיל</span>
-         </div>
-         <div>
-          <img src="" alt="" class = "subject_icons subsubject_icon">
-          <span>נשים גומרות מאונס</span>
-         </div>
-         <div>
-          <img src="" alt="" class = "subject_icons subsubject_icon">
-          <span>מעולם לא היה דיכוי נגד נשים</span>
-         </div>
-         <div>
-          <img src="" alt="" class = "subject_icons subsubject_icon">
-          <span>נישואים זה לקנות זונה במשכנתא לכל החיים</span>
-         </div>
-         <div>
-          <img src="" alt="" class = "subject_icons subsubject_icon">
-          <span>גברים מעט יותר חכמים מנשים</span>
-         </div>
-         <div>
-          <img src="" alt="" class = "subject_icons subsubject_icon">
-          <span>גברים תורמים הרבה יותר מנשים</span>
-         </div>
-        </div>
-    </div>
-
-    <div>
-      <div class= "sub_subject_box">
-      <img src="{%static 'images/no-feminism.jpg'%}" alt="" class = "subject_icons">
-      <h4>עוולות הפמיניזם כלפי גברים יהודים</h4>
-      </div>
-      <div class="shadow_line"></div>
-       <div class= "sub_list">
-         <div>
-          <img src="" alt="" class = "subject_icons subsubject_icon">
-          <span>ח-פות מפשע</span>
-         </div>
-         <div>
-          <img src="" alt="" class = "subject_icons subsubject_icon">
-          <span>הדרת בנים בבתי הספר הממלכתים</span>
-         </div>
-         <div>
-          <img src="" alt="" class = "subject_icons subsubject_icon">
-          <span>חוק הפללת הזיינים</span>
-         </div>
-         <div>
-          <img src="" alt="" class = "subject_icons subsubject_icon">
-          <span>לאף אחד לא אכפת מגברים</span>
-         </div>
-        </div>
-    </div>
-   <!--</div>-->
- </div>
+<div class="hg1middleimg">
+ <img class="arnoldimg" src="{%static 'images/comewithmeifyouwanttolive.jpg'%}" alt="">-
+</div>
+<div class="judonazimlogorotate logoleft">
+<img class= "judonazimlogorotate" src="{%static 'images/judonazimlogoglow.jpg'%}" alt="">
+</div>
+<div class="judonazimlogorotate logoright">
+<img class= "judonazimlogorotate" src="{%static 'images/judonazimlogoglow.jpg'%}" alt="">
 </div>
 
-<div class="subject s3">
- <div class="subject_header_box">
-   <img src="" class = "subject_icons">
-   <h2 class="subject_title">מעלליהם של האשכנזים</h2>
- </div>
+<h1 class="sloganh1">תהיו יותר גזענים אם אתם רוצים לחיות</h1>
 
- <div class="subject_body_box">
-  <!--<div class= "subject_list">-->
-   <div>
-     <div class= "sub_subject_box">
-    <img src="{%static 'images/sneakyashkenazi.jpg'%}" alt="" class = "subject_icons">
-    <h4>למה אשכנזים חותרים נגד ישראל</h4>
-    </div>
-    <div class="shadow_line"></div>
-     <div class= "sub_list">
-      <div>
-      <img src="" alt="" class = "subject_icons subsubject_icon">
-        <span>חלק 1</span>
-      </div>
-      <div>
-        <img src="" alt="" class = "subject_icons subsubject_icon">
-        <span>חלק 2</span>
-      </div>
-      <div>
-        <img src="" alt="" class = "subject_icons subsubject_icon">
-        <span>חלק 3</span>
-      </div>
-     </div>
-   </div>
+<div class="hg1bottomleft">
 
-   <div>
-     <div class= "sub_subject_box">
-     <img src="{%static 'images/sneakyashkenazi.jpg'%}" alt="" class = "subject_icons">
-     <h4>מעשיהם הנפשעים של האשכנזים</h4>
-     </div>
-     <div class="shadow_line"></div>
-      <div class= "sub_list">
-        <div>
-          <img src="" alt="" class = "subject_icons subsubject_icon">
-          <span>למה אשכנזים לכאורה בעד ערבים וסודנים</span>
-        </div>
-        <div>
-        <img src="" alt="" class = "subject_icons subsubject_icon">
-          <span>האקדמיה האשכנזית נגד יהודים ספרדים</span>
-        </div>
-        <div>
-        <img src="" alt="" class = "subject_icons subsubject_icon">
-          <span>התקשורת האשכנזית נגד היהודים הספרדים</span>
-        </div>
-      </div>
-   </div>
-  <!--</div>-->
 </div>
+<div class="hg1bottomright">
+
 </div>
-
-
-</nav>
-</main>
-{%endblock content%}
-
-
-
-
-
-
-<!--
-{%block button%}
-<div class="divbody">
-
-  <button type="button" id="btn_expose_img" class="btn btn-primary">לחץ כדי לראות משהו מגניב</button>
+<div class="hg1bottomrmiddle">
 
 </div>
 
-<div class="divbody">
-  <a href="{%url 'ftxteditor'%}">cdivck me</a>
+<div class="bottom_context">
+
 </div>
-{%endblock%}-->
+</div>
+{%endblock%}
+<!--<div class="text">
+  שכחו את כל הסיפורים המפחידים ששמעתם על נאציזם.
+נאציזם זו לא אידיאולוגית שנאה.
+אז מה נאציזם לא?
+
+נאצים הם לא אנשים רעים שרוצים לפגוע בגזעים אחרים.
+נאצים הם לא חייבים להיות שייכים לגזע הלבן.
+נאצים למעשה יכולים להיות מכל גזע או קבוצה אתנית.
+נאצים לא תמיד שונאים יהודים.
+נאצים לא בעד להרוג יהודים.
+אנשים נאצים לא בהכרח רואים את הגזע שלהם נעלה על פני גזעים אחרים.
+לא כל הנאצים בהכרח תומכים בהיטלר.
+
+אז מה נאציזם כן.
+
+נאציזם זו בסך הכל אידיאולוגיה, שתכליתה, לאומנות על בסיס גזע, לאומיות, תרבות, דת(אם כי רוב הנאצים הם אתאיסטים), וכדומה
+
+חובה לעשות אבחנה בין נאציזם קיצוני לנאציזם מתון, אני לא נמנה עם הנאצים הרדיקלים
+אין שום בעיה עם הנאציזם המתון, הבעיה היא רק עם הנאציזם הקיצוני
+ואפילו הנאצים הקיצונים, רובם לא מסכימים עם כל מה שהיטלר עשה
+רק בגלל שמשהו עשה שמוש פסול באידיאולוגיה, לא בהכרח פוסל אותה
+הקומוניזם רצח מאות מיליוני בני אדם, למה מדינת אשכנזיסטן לא פוסלת את האידיאולוגיה הזו כמו שהיא פוסלת את האידיאולוגיה הנאצית
+נאציזם זה בסך הכל אומר, מדינה הומוגנית גזעית, ללא לאומים וגזעים אחרים
+אנחנו לא רוצים להרוג או לפגוע בגזעים ולאומים אחרים, פשוט לא רוצים אותם במדינה שלנו, זה הכול
+אם הם סובלים כל כך הרבה מאפליה וגזענות, הפתרון הוא פשוט, שיעזבו את המדינה שלנו, אנחנו לא רוצים אותם בכל מקרה
+שהמלוכסנים יחזרו למזרח אסיה, ושהאפריקאים יחזרו לאפריקה, ושהמוסלמים יחזרו לירדן,  ונפתרה הבעיה, לא תהיה גזענות, לא יכולה להיות גזענות אם אין גזעים ולאומים שונים שחולקים אותה טריטוריה
+סתם יצא שם רע לנאציזם ולגזענות, ומי שאחראי לכך זה האשכנזים
+
+אני מזמין אתכם לצפות בסרטון: "נאציזם זו אידיאולוגיה לגיטמית"
+כדי לקבל תובנה יותר מלאה על האידיאולוגיה
+https://youtu.be/mEUxpb7nDvc
+
+אז מי רשאי להתקבל לקבוצה?
+כל מי ששייך למין ה Caucasian והוא אינו מוסלמי, שזה כולל לבנים ורוב היהודים בני עדות המזרח.
+
+מי לא רשאי להתקבל לקבוצה?
+כל מי שאינו עונה על ההגדרה לעיל.
+
+אז האם אנחנו בעצם גזענים? זה תלוי מה ההגדרה שלכם למילה "גזעני".
+לכן, כדי להבין יותר טוב את העמדה שלנו, ממליץ לכם לצפות בסרטון "תהי יותר גזענית אם את רוצה לחיות"
+https://youtu.be/hchVvRyoInI
+
+
+לינק לקבוצה "נאציזם מתון"
+
+https://t.me/ModerateNazim
+</div>-->

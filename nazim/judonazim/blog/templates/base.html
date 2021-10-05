@@ -6,15 +6,15 @@
   <head>
     <meta charset="utf-8">
     <title>  {%block title%} base page{%endblock%}</title>
-  {%block loadstat%}  {% load static %} {%endblock%}
+  {% load static %}
 
-
-  <!--<link  rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css'%}">-->
   {%block links%}
-  <link  rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css'%}">
+    <!--<link  rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css'%}">-->
    <link rel="stylesheet" href="{% static 'css/homepage.css'%}">
-{%endblock%}
+   <link rel="stylesheet" href="{%static 'css/index.css'%}">
+ {%endblock%}
 {%block additionallinks%}
+
 {%endblock%}
 
   </head>
@@ -41,6 +41,281 @@
 
   </div>
   </header>
+
+  <nav>
+
+   <div class="subject s1">
+       <div class="subject_header_box">
+         <img src="" class = "subject_icons">
+         <h2 class="subject_title">בואו ננפץ טאבו</h2>
+       </div>
+
+      <div class="subject_body_box">
+
+         <div>
+      <div class= "sub_subject_box">
+       <img  src="{%static 'images/judonazimlogo.jpg'%}" class = "subject_icons" id="swastica-magendavid-img">
+       <h4>נאציזם זו אידיאולוגיה לגיטימית</h4>
+       </div>
+       <div class="shadow_line"></div>
+        <div class= "sub_list">
+         <div>
+         <img src="" alt="" class = "subject_icons subsubject_icon">
+           <span>נאציזם לא מה שחשבתם</span>
+         </div>
+         <div>
+           <img src="" alt="" class = "subject_icons subsubject_icon">
+           <span>למה נאציזם זו אידיאולוגיה אסורה בישראל</span>
+         </div>
+         <div>
+           <img src="" alt="" class = "subject_icons subsubject_icon">
+           <span>פלורליזם זה אסון</span>
+         </div>
+         <div>
+           <img src="" alt="" class = "subject_icons subsubject_icon">
+           <span>אנחנו מאמינים באאוגניקה</span>
+         </div>
+        </div>
+      </div>
+
+     <div>
+       <div class= "sub_subject_box">
+        <img src="{%static 'images/judonazimlogo.jpg'%}" alt="" class = "subject_icons">
+        <h4>גזענות זו לא מילה גסה</h4>
+        </div>
+        <div class="shadow_line"></div>
+         <div class= "sub_list">
+           <div>
+           <img src="" alt="" class = "subject_icons subsubject_icon">
+             <span>תהיו יותר גזענים אם אתם רוצים לשרוד</span>
+           </div>
+           <div>
+           <img src="" alt="" class = "subject_icons subsubject_icon">
+             <span>למה אני בעד מדינת גזע ולא רק מדינת ללאום</span>
+           </div>
+           <div>
+           <img src="" alt="" class = "subject_icons subsubject_icon">
+             <span>למה אשכנזים נגד גזענות</span>
+           </div>
+           <div>
+           <img src="" alt="" class = "subject_icons subsubject_icon">
+             <span>למה זה לא אמור לעניין אותנו בכלל אם הם חוקיים או פליטים</span>
+           </div>
+         </div>
+      </div>
+
+      <div>
+        <div class= "sub_subject_box">
+        <img src="{%static 'images/judonazimlogo.jpg'%}" alt="" class = "subject_icons">
+        <h4>יש הבדל בין דם לדם</h4>
+        </div>
+        <div class="shadow_line"></div>
+         <div class= "sub_list">
+           <div>
+           <img src="" alt="" class = "subject_icons subsubject_icon">
+             <span>גזעים זו עובדה ביולוגית</span>
+           </div>
+           <div>
+             <img src="" alt="" class = "subject_icons subsubject_icon">
+             <span>יש גזעים יותר טובים וטובים פחות</span>
+           </div>
+           <div>
+             <img src="" alt="" class = "subject_icons subsubject_icon">
+             <span>הבדלים בין גזעים באינטליגנציה</span>
+           </div>
+           <div>
+             <img src="" alt="" class = "subject_icons subsubject_icon">
+             <span>לכושים יש מנת משכל של פיגור שכלי</span>
+           </div>
+           <div>
+             <img src="" alt="" class = "subject_icons subsubject_icon">
+             <span>המציאות האבולוציונית הביולוגית של גזעים</span>
+           </div>
+           <div>
+             <img src="" alt="" class = "subject_icons subsubject_icon">
+             <span>הסיבה להבדלים בין כושים ללבנים</span>
+           </div>
+           <div>
+             <img src="" alt="" class = "subject_icons subsubject_icon">
+             <span>הכושים קרובים לשימפנזים יותר מכל גזע אחר</span>
+           </div>
+           <div>
+             <img src="" alt="" class = "subject_icons subsubject_icon">
+             <span>לא התפתחנו מכושים</span>
+           </div>
+         </div>
+      </div>
+
+    </div>
+   </div>
+
+   <div class="subject s2">
+    <div class="subject_header_box">
+      <img src="" class = "subject_icons">
+      <h2 class="subject_title">פמיניזם/נקביזם זה סרטן</h2>
+    </div>
+
+    <div class="subject_body_box">
+      <div>
+        <div class= "sub_subject_box">
+       <img src="{%static 'images/no-feminism.jpg'%}" alt="" class = "subject_icons">
+       <h4>פמיניזם כלי של חתרנות בידי אשכנזים</h4>
+       </div>
+       <div class="shadow_line"></div>
+        <div class= "sub_list">
+         <div>
+         <img src="" alt="" class = "subject_icons subsubject_icon">
+           <span>פמיניזם זה בסך הכל רצח עם של היהודים</span>
+         </div>
+         <div>
+           <img src="" alt="" class = "subject_icons subsubject_icon">
+           <span>פמיניזם כלי של אשכנזים בעמדות מפתח שנועד לבצע רצח עם</span>
+         </div>
+         <div>
+           <img src="" alt="" class = "subject_icons subsubject_icon">
+           <span>כך הפמיניזם האשכנזי הורס בכוונת זדון את התא המשפחתי וגורם לרצח העם שלנו</span>
+         </div>
+        </div>
+      </div>
+
+      <div>
+        <div class= "sub_subject_box">
+        <img src="{%static 'images/no-feminism.jpg'%}" alt="" class = "subject_icons">
+        <h4>פמיניזם הורס את העם</h4>
+        </div>
+        <div class="shadow_line"></div>
+         <div class= "sub_list">
+           <div>
+             <img src="" alt="" class = "subject_icons subsubject_icon">
+             <span>כיצד הפך צה"ל לצבא של פות מכיל"</span>
+           </div>
+           <div>
+           <img src="" alt="" class = "subject_icons subsubject_icon">
+             <span>איך נקבות הורסות מדינות ולמה גברים מאפשרים להן</span>
+           </div>
+         </div>
+      </div>
+
+      <div>
+        <div class= "sub_subject_box">
+        <img src="{%static 'images/no-feminism.jpg'%}" alt="" class = "subject_icons">
+        <h4>קריאת תיגר על מוסכמות חברתיות</h4>
+        </div>
+        <div class="shadow_line"></div>
+         <div class= "sub_list">
+           <div>
+            <img src="" alt="" class = "subject_icons subsubject_icon">
+            <span>הענישה על אונס זה אובר-קיל</span>
+           </div>
+           <div>
+            <img src="" alt="" class = "subject_icons subsubject_icon">
+            <span>נשים גומרות מאונס</span>
+           </div>
+           <div>
+            <img src="" alt="" class = "subject_icons subsubject_icon">
+            <span>מעולם לא היה דיכוי נגד נשים</span>
+           </div>
+           <div>
+            <img src="" alt="" class = "subject_icons subsubject_icon">
+            <span>נישואים זה לקנות זונה במשכנתא לכל החיים</span>
+           </div>
+           <div>
+            <img src="" alt="" class = "subject_icons subsubject_icon">
+            <span>גברים מעט יותר חכמים מנשים</span>
+           </div>
+           <div>
+            <img src="" alt="" class = "subject_icons subsubject_icon">
+            <span>גברים תורמים הרבה יותר מנשים</span>
+           </div>
+          </div>
+      </div>
+
+      <div>
+        <div class= "sub_subject_box">
+        <img src="{%static 'images/no-feminism.jpg'%}" alt="" class = "subject_icons">
+        <h4>עוולות הפמיניזם כלפי גברים יהודים</h4>
+        </div>
+        <div class="shadow_line"></div>
+         <div class= "sub_list">
+           <div>
+            <img src="" alt="" class = "subject_icons subsubject_icon">
+            <span>ח-פות מפשע</span>
+           </div>
+           <div>
+            <img src="" alt="" class = "subject_icons subsubject_icon">
+            <span>הדרת בנים בבתי הספר הממלכתים</span>
+           </div>
+           <div>
+            <img src="" alt="" class = "subject_icons subsubject_icon">
+            <span>חוק הפללת הזיינים</span>
+           </div>
+           <div>
+            <img src="" alt="" class = "subject_icons subsubject_icon">
+            <span>לאף אחד לא אכפת מגברים</span>
+           </div>
+          </div>
+      </div>
+     <!--</div>-->
+   </div>
+  </div>
+
+  <div class="subject s3">
+   <div class="subject_header_box">
+     <img src="" class = "subject_icons">
+     <h2 class="subject_title">מעלליהם של האשכנזים</h2>
+   </div>
+
+   <div class="subject_body_box">
+    <!--<div class= "subject_list">-->
+     <div>
+       <div class= "sub_subject_box">
+      <img src="{%static 'images/sneakyashkenazi.jpg'%}" alt="" class = "subject_icons">
+      <h4>למה אשכנזים חותרים נגד ישראל</h4>
+      </div>
+      <div class="shadow_line"></div>
+       <div class= "sub_list">
+        <div>
+        <img src="" alt="" class = "subject_icons subsubject_icon">
+          <span>חלק 1</span>
+        </div>
+        <div>
+          <img src="" alt="" class = "subject_icons subsubject_icon">
+          <span>חלק 2</span>
+        </div>
+        <div>
+          <img src="" alt="" class = "subject_icons subsubject_icon">
+          <span>חלק 3</span>
+        </div>
+       </div>
+     </div>
+
+     <div>
+       <div class= "sub_subject_box">
+       <img src="{%static 'images/sneakyashkenazi.jpg'%}" alt="" class = "subject_icons">
+       <h4>מעשיהם הנפשעים של האשכנזים</h4>
+       </div>
+       <div class="shadow_line"></div>
+        <div class= "sub_list">
+          <div>
+            <img src="" alt="" class = "subject_icons subsubject_icon">
+            <span>למה אשכנזים לכאורה בעד ערבים וסודנים</span>
+          </div>
+          <div>
+          <img src="" alt="" class = "subject_icons subsubject_icon">
+            <span>האקדמיה האשכנזית נגד יהודים ספרדים</span>
+          </div>
+          <div>
+          <img src="" alt="" class = "subject_icons subsubject_icon">
+            <span>התקשורת האשכנזית נגד היהודים הספרדים</span>
+          </div>
+        </div>
+     </div>
+    <!--</div>-->
+  </div>
+  </div>
+
+
+  </nav>
 
   {%block content%}
 
