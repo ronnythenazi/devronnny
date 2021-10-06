@@ -15,10 +15,11 @@
 
 .frmcenterform
 {
-  position: relative;
-  top:200px;
-  padding-right: 400px;
-  padding-left: 400px;
+  position: absolute;
+  top:400px;
+  left:10%;
+
+  direction: rtl;
 
 }
 

@@ -5,6 +5,25 @@
 //in this case, after the clicked element
 $(document).ready(fload);
 
+$(function() {
+ $(window).scroll(
+  function()
+   {
+    var atop = $(this).scrollTop;
+    //alert(atop);
+     if(atop>0)
+     {
+
+      $('#navbar').animate({height:'100px'}, 100);
+     }
+     else {
+
+       $('#navbar').animate({height:'150px'}, 100);
+     }
+}
+);
+});
+
 function fload()
 {
 
@@ -61,15 +80,15 @@ $(".sub_subject_box").click(
     if(displaystatus == 'none')
     {
 
-      $(this).nextAll(".sub_list").show('slow')
+      $(this).nextAll(".sub_list").show('fast')
     }
     else
     {
-      $(this).nextAll(".sub_list").hide('slow');
+      $(this).nextAll(".sub_list").hide('fast');
     }
   }
 );
-$('.sub_list').dblclick(function(){$(this).hide('slow');});
+$('.sub_list').dblclick(function(){$(this).hide('fast');});
 
 
 
