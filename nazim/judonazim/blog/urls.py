@@ -17,14 +17,17 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from blog import urls
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from . import views
 
+app_name = 'blog'
 urlpatterns = [
 
  path('', views.fhome, name = 'homepage' ),
  path('base/', views.fbase, name = 'basehtml' ),
+ #path('blog/<str:slug>/', views.fwriteblog, name = 'blogfrm' ),
  path('blog/', views.fwriteblog, name = 'blogfrm' ),
  path('texteditorbase/', views.ftxteditor, name = 'edtxt' ),
  #path('admin/', admin.site.urls)
-
 ]

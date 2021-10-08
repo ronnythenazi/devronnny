@@ -4,14 +4,14 @@
 {%load static%}
 {%block additionallinks%}
   <link rel="stylesheet" href="{%static 'css/blogpost.css'%}">
-  <!--<link  rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css'%}">-->
+  <link  rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css'%}">
 {%endblock%}
 
 {%block content%}
 
 <div class="frmcenterform">
 
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
 {%csrf_token%}
 {{frm.media}}
 <div class="mb-5 row">
@@ -65,6 +65,12 @@
 </div>
 </div>
 
+<div class="mb-5 row">
+  <div class="col-sm-9">
+  <label for="formGroupExampleInput2" class="form-label"> תמונה לתצוגה</label>
+  {{frm.thumb}}
+  </div>
+</div>
  </form>
 
  </div>

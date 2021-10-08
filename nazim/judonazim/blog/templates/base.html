@@ -12,6 +12,8 @@
     <!--<link  rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css'%}">-->
    <link rel="stylesheet" href="{% static 'css/homepage.css'%}">
    <link rel="stylesheet" href="{%static 'css/index.css'%}">
+   <link rel="stylesheet" href="{%static 'css/huerotation.css'%}">
+
  {%endblock%}
 {%block additionallinks%}
 
@@ -41,7 +43,8 @@
 
   </div>
   </header>
-
+<form class="frmnavbar" method="POST" name="frmnavbar">
+  {%csrf_token%}
   <div class="nav">
 
    <div class="subject s1">
@@ -61,19 +64,20 @@
         <div class= "sub_list">
          <div>
          <img src="" alt="" class = "subject_icons subsubject_icon">
-           <span>נאציזם לא מה שחשבתם</span>
+        <button type="submit" class="btnspan" name="btnnazimbg">נאציזם לא מה שחשבתם</button>
+
          </div>
          <div>
            <img src="" alt="" class = "subject_icons subsubject_icon">
-           <span>למה נאציזם זו אידיאולוגיה אסורה בישראל</span>
+           <button type="submit" class="btnspan" name="btnnazimtaboo">למה נאציזם זו אידיאולוגיה אסורה בישראל</button>
          </div>
          <div>
            <img src="" alt="" class = "subject_icons subsubject_icon">
-           <span>פלורליזם זה אסון</span>
+           <button type="submit" class="btnspan" name="btndiversity">פלורליזם זה אסון</button>
          </div>
          <div>
            <img src="" alt="" class = "subject_icons subsubject_icon">
-           <span>אנחנו מאמינים באאוגניקה</span>
+           <button type="submit" class="btnspan" name="btneugenics">אנחנו מאמינים באאוגניקה</button>
          </div>
         </div>
       </div>
@@ -87,19 +91,19 @@
          <div class= "sub_list">
            <div>
            <img src="" alt="" class = "subject_icons subsubject_icon">
-             <span>תהיו יותר גזענים אם אתם רוצים לשרוד</span>
+             <button type="submit" class="btnspan" name="btnbemoreracist">תהיו יותר גזענים אם אתם רוצים לשרוד</button>
            </div>
            <div>
            <img src="" alt="" class = "subject_icons subsubject_icon">
-             <span>למה אני בעד מדינת גזע ולא רק מדינת ללאום</span>
+             <button type="submit" class="btnspan" name="btnethnostate">למה אני בעד מדינת גזע ולא רק מדינת ללאום</button>
            </div>
            <div>
            <img src="" alt="" class = "subject_icons subsubject_icon">
-             <span>למה אשכנזים נגד גזענות</span>
+             <button type="submit" class="btnspan" name="btnashkenazimsjw">למה אשכנזים נגד גזענות</button>
            </div>
            <div>
            <img src="" alt="" class = "subject_icons subsubject_icon">
-             <span>למה זה לא אמור לעניין אותנו בכלל אם הם חוקיים או פליטים</span>
+             <button type="submit" class="btnspan" name="btnrefugee">למה זה לא אמור לעניין אותנו בכלל אם הם חוקיים או פליטים</button>
            </div>
          </div>
       </div>
@@ -113,35 +117,35 @@
          <div class= "sub_list">
            <div>
            <img src="" alt="" class = "subject_icons subsubject_icon">
-             <span>גזעים זו עובדה ביולוגית</span>
+             <button type="submit" class="btnspan" name="btnracisabiologicalfacts">גזעים זו עובדה ביולוגית</button>
            </div>
            <div>
              <img src="" alt="" class = "subject_icons subsubject_icon">
-             <span>יש גזעים יותר טובים וטובים פחות</span>
+             <button type="submit" class="btnspan" name="btnsomeracesarebetter">יש גזעים יותר טובים וטובים פחות</button>
            </div>
            <div>
              <img src="" alt="" class = "subject_icons subsubject_icon">
-             <span>הבדלים בין גזעים באינטליגנציה</span>
+             <button type="submit" class="btnspan" name="btnracialdiffiniq">הבדלים בין גזעים באינטליגנציה</button>
            </div>
            <div>
              <img src="" alt="" class = "subject_icons subsubject_icon">
-             <span>לכושים יש מנת משכל של פיגור שכלי</span>
+             <button type="submit" class="btnspan" name="btnnegroesaredumb">לכושים יש מנת משכל של פיגור שכלי</button>
            </div>
            <div>
              <img src="" alt="" class = "subject_icons subsubject_icon">
-             <span>המציאות האבולוציונית הביולוגית של גזעים</span>
+             <button type="submit" class="btnspan" name="btnevolutionandrace">המציאות האבולוציונית הביולוגית של גזעים</button>
            </div>
            <div>
              <img src="" alt="" class = "subject_icons subsubject_icon">
-             <span>הסיבה להבדלים בין כושים ללבנים</span>
+             <button type="submit" class="btnspan" name="btnwhywearediff">הסיבה להבדלים בין כושים ללבנים</button>
            </div>
            <div>
              <img src="" alt="" class = "subject_icons subsubject_icon">
-             <span>הכושים קרובים לשימפנזים יותר מכל גזע אחר</span>
+             <button type="submit" class="btnspan" name="btnnegroesareapes">הכושים קרובים לשימפנזים יותר מכל גזע אחר</button>
            </div>
            <div>
              <img src="" alt="" class = "subject_icons subsubject_icon">
-             <span>לא התפתחנו מכושים</span>
+             <button type="submit" class="btnspan" name="btnooamyth">לא התפתחנו מכושים</button>
            </div>
          </div>
       </div>
@@ -165,15 +169,15 @@
         <div class= "sub_list">
          <div>
          <img src="" alt="" class = "subject_icons subsubject_icon">
-           <span>פמיניזם זה בסך הכל רצח עם של היהודים</span>
+           <button type="submit" class="btnspan" name="btnfeminisgenocide">פמיניזם זה בסך הכל רצח עם של היהודים</button>
          </div>
          <div>
            <img src="" alt="" class = "subject_icons subsubject_icon">
-           <span>פמיניזם כלי של אשכנזים בעמדות מפתח שנועד לבצע רצח עם</span>
+           <button type="submit" class="btnspan" name="btnrfeminismandashk">פמיניזם כלי של אשכנזים בעמדות מפתח שנועד לבצע רצח עם</button>
          </div>
          <div>
            <img src="" alt="" class = "subject_icons subsubject_icon">
-           <span>כך הפמיניזם האשכנזי הורס בכוונת זדון את התא המשפחתי וגורם לרצח העם שלנו</span>
+           <button type="submit" class="btnspan" name="btnfeminismdestroyfamly">כך הפמיניזם האשכנזי הורס בכוונת זדון את התא המשפחתי וגורם לרצח העם שלנו</button>
          </div>
         </div>
       </div>
@@ -187,11 +191,11 @@
          <div class= "sub_list">
            <div>
              <img src="" alt="" class = "subject_icons subsubject_icon">
-             <span>כיצד הפך צה"ל לצבא של פות מכיל"</span>
+             <button type="submit" class="btnspan" name="btngeminismidf">כיצד הפך צה"ל לצבא של פות מכיל"</button>
            </div>
            <div>
            <img src="" alt="" class = "subject_icons subsubject_icon">
-             <span>איך נקבות הורסות מדינות ולמה גברים מאפשרים להן</span>
+             <button type="submit" class="btnspan" name="btnfemalesdestorynations">איך נקבות הורסות מדינות ולמה גברים מאפשרים להן</button>
            </div>
          </div>
       </div>
@@ -205,27 +209,27 @@
          <div class= "sub_list">
            <div>
             <img src="" alt="" class = "subject_icons subsubject_icon">
-            <span>הענישה על אונס זה אובר-קיל</span>
+            <button type="submit" class="btnspan" name="btnrapeisnotacrime">הענישה על אונס זה אובר-קיל</button>
            </div>
            <div>
             <img src="" alt="" class = "subject_icons subsubject_icon">
-            <span>נשים גומרות מאונס</span>
+            <button type="submit" class="btnspan" name="btnfemaleslikerape">נשים גומרות מאונס</button>
            </div>
            <div>
             <img src="" alt="" class = "subject_icons subsubject_icon">
-            <span>מעולם לא היה דיכוי נגד נשים</span>
+            <button type="submit" class="btnspan" name="btnopressionmyth">מעולם לא היה דיכוי נגד נשים</button>
            </div>
            <div>
             <img src="" alt="" class = "subject_icons subsubject_icon">
-            <span>נישואים זה לקנות זונה במשכנתא לכל החיים</span>
+            <button type="submit" class="btnspan" name="btnmarrigemortage">נישואים זה לקנות זונה במשכנתא לכל החיים</button>
            </div>
            <div>
             <img src="" alt="" class = "subject_icons subsubject_icon">
-            <span>גברים מעט יותר חכמים מנשים</span>
+            <button type="submit" class="btnspan" name="btnmensmarter">גברים מעט יותר חכמים מנשים</button>
            </div>
            <div>
             <img src="" alt="" class = "subject_icons subsubject_icon">
-            <span>גברים תורמים הרבה יותר מנשים</span>
+            <button type="submit" class="btnspan" name="btnequalcontribution">גברים תורמים הרבה יותר מנשים</button>
            </div>
           </div>
       </div>
@@ -239,19 +243,19 @@
          <div class= "sub_list">
            <div>
             <img src="" alt="" class = "subject_icons subsubject_icon">
-            <span>ח-פות מפשע</span>
+            <button type="submit" class="btnspan" name="btnfemvictims">ח-פות מפשע</button>
            </div>
            <div>
             <img src="" alt="" class = "subject_icons subsubject_icon">
-            <span>הדרת בנים בבתי הספר הממלכתים</span>
+            <button type="submit" class="btnspan" name="btnboysdiscrimnation">הדרת בנים בבתי הספר הממלכתים</button>
            </div>
            <div>
             <img src="" alt="" class = "subject_icons subsubject_icon">
-            <span>חוק הפללת הזיינים</span>
+            <button type="submit" class="btnspan" name="btnlawsprostitution">חוק הפללת הזיינים</button>
            </div>
            <div>
             <img src="" alt="" class = "subject_icons subsubject_icon">
-            <span>לאף אחד לא אכפת מגברים</span>
+            <button type="submit" class="btnspan" name="btnmenlivesischeap">לאף אחד לא אכפת מגברים</button>
            </div>
           </div>
       </div>
@@ -276,15 +280,15 @@
        <div class= "sub_list">
         <div>
         <img src="" alt="" class = "subject_icons subsubject_icon">
-          <span>חלק 1</span>
+          <button type="submit" class="btnspan" name="btnpart1">חלק 1</button>
         </div>
         <div>
           <img src="" alt="" class = "subject_icons subsubject_icon">
-          <span>חלק 2</span>
+          <button type="submit" class="btnspan" name="btnpart2">חלק 2</button>
         </div>
         <div>
           <img src="" alt="" class = "subject_icons subsubject_icon">
-          <span>חלק 3</span>
+          <button type="submit" class="btnspan" name="btnpart3">חלק 3</button>
         </div>
        </div>
      </div>
@@ -298,15 +302,15 @@
         <div class= "sub_list">
           <div>
             <img src="" alt="" class = "subject_icons subsubject_icon">
-            <span>למה אשכנזים לכאורה בעד ערבים וסודנים</span>
+            <button type="submit" class="btnspan" name="btnwhyashkleftist">למה אשכנזים לכאורה בעד ערבים וסודנים</button>
           </div>
           <div>
           <img src="" alt="" class = "subject_icons subsubject_icon">
-            <span>האקדמיה האשכנזית נגד יהודים ספרדים</span>
+            <button type="submit" class="btnspan" name="btnashksacademic">האקדמיה האשכנזית נגד יהודים ספרדים</button>
           </div>
           <div>
           <img src="" alt="" class = "subject_icons subsubject_icon">
-            <span>התקשורת האשכנזית נגד היהודים הספרדים</span>
+            <button type="submit" class="btnspan" name="btnashkmedia">התקשורת האשכנזית נגד היהודים הספרדים</button>
           </div>
         </div>
      </div>
@@ -314,7 +318,7 @@
   </div>
   </div>
 </div> <!--end tag of .nav class, used to be <nav> element, now it's div-->
-
+</form>
 
   {%block content%}
 
@@ -329,8 +333,6 @@
 <script type="text/javascript" src="{% static 'js/navbar.js'%}"> </script>
 <script type="text/javascript" src="{% static 'js/index.js'%}"> </script>
 <script type="text/javascript" src="{% static 'plugins/popper.js'%}">  </script>
-
-
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 {%endblock%}

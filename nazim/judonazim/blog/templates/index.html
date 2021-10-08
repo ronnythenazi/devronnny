@@ -2,6 +2,7 @@
 {%extends "base.html"%}
 {%block title%}יהודונאציזם{%endblock%}
 {%load static%}
+
 {%block content%}
 <div class="middle_section">
   <div class="hg1bgc">
@@ -9,11 +10,11 @@
 <div class="hg1middleimg">
  <img class="arnoldimg" src="{%static 'images/comewithmeifyouwanttolive.jpg'%}" alt="">-
 </div>
-<div class="judonazimlogorotate logoleft">
+<div class="judonazimlogorotate logoleft smallbg animated">
 <img class= "judonazimlogorotate" src="{%static 'images/judonazimlogoglow.jpg'%}" alt="">
 </div>
-<div class="judonazimlogorotate logoright">
-<img class= "judonazimlogorotate" src="{%static 'images/judonazimlogoglowrlighterbg.jpg'%}" alt="">
+<div class="judonazimlogorotate logoright smallbg animated">
+<img class= "judonazimlogorotate" src="{%static 'images/judonazimlogoglow.jpg'%}" alt="">
 </div>
 
 <h1 class="sloganh1">תהיו יותר גזענים אם אתם רוצים לחיות</h1>
@@ -29,88 +30,12 @@
 </div>
 <div class="bgtxtcover"></div>
 <div class="maincontext">
-  <p>
-  שכחו את כל הסיפורים המפחידים ששמעתם על נאציזם.
-  <br>
-נאציזם זו לא אידיאולוגית שנאה.
-<br>
-אז מה נאציזם לא?
-<br>
-נאצים הם לא אנשים רעים שרוצים לפגוע בגזעים אחרים.
-<br>
-נאצים הם לא חייבים להיות שייכים לגזע הלבן.
-<br>
-נאצים למעשה יכולים להיות מכל גזע או קבוצה אתנית.
-<br>
-נאצים לא תמיד שונאים יהודים.
-<br>
-נאצים לא בעד להרוג יהודים.
-<br>
-אנשים נאצים לא בהכרח רואים את הגזע שלהם נעלה על פני גזעים אחרים.
-<br>
-לא כל הנאצים בהכרח תומכים בהיטלר.
-<br>
-<img class="aricleimages" src="{%static 'images/lawisamatterofpower.jpg'%}" alt="">
-</p>
-
-<p>
-אז מה נאציזם כן.
-<br>
-נאציזם זו בסך הכל אידיאולוגיה, שתכליתה, לאומנות על בסיס גזע, לאומיות, תרבות, דת(אם כי רוב הנאצים הם אתאיסטים), וכדומה
-<br>
-חובה לעשות אבחנה בין נאציזם קיצוני לנאציזם מתון, אני לא נמנה עם הנאצים הרדיקלים
-<br>
-אין שום בעיה עם הנאציזם המתון, הבעיה היא רק עם הנאציזם הקיצוני
-<br>
-ואפילו הנאצים הקיצונים, רובם לא מסכימים עם כל מה שהיטלר עשה
-<br>
-רק בגלל שמשהו עשה שמוש פסול באידיאולוגיה, לא בהכרח פוסל אותה
-<br>
-הקומוניזם רצח מאות מיליוני בני אדם, למה מדינת אשכנזיסטן לא פוסלת את האידיאולוגיה הזו כמו שהיא פוסלת את האידיאולוגיה הנאצית
-<br>
-נאציזם זה בסך הכל אומר, מדינה הומוגנית גזעית, ללא לאומים וגזעים אחרים
-<br>
-אנחנו לא רוצים להרוג או לפגוע בגזעים ולאומים אחרים, פשוט לא רוצים אותם במדינה שלנו, זה הכול
-<br>
-אם הם סובלים כל כך הרבה מאפליה וגזענות, הפתרון הוא פשוט, שיעזבו את המדינה שלנו, אנחנו לא רוצים אותם בכל מקרה
-<br>
-שהמלוכסנים יחזרו למזרח אסיה, ושהאפריקאים יחזרו לאפריקה, ושהמוסלמים יחזרו לירדן,  ונפתרה הבעיה, לא תהיה גזענות, לא יכולה להיות גזענות אם אין גזעים ולאומים שונים שחולקים אותה טריטוריה
-<br>
-סתם יצא שם רע לנאציזם ולגזענות, ומי שאחראי לכך זה האשכנזים
-</p>
-
-<p>
-אני מזמין אתכם לצפות בסרטון:
-<a href="https://youtu.be/mEUxpb7nDvc">
-נאציזם זו אידיאולוגיה לגיטמית
-</a>
-<br>
-כדי לקבל תובנה יותר מלאה על האידיאולוגיה
-<br>
+  {%with "tableofcontent/txt/"|add:txtfilename as template%}
+  {%include template%}
+  {%endwith%}
 
 
-אז מי רשאי להתקבל לקבוצה?
-<br>
-כל מי ששייך למין ה Caucasian והוא אינו מוסלמי, שזה כולל לבנים ורוב היהודים בני עדות המזרח.
-<br>
-מי לא רשאי להתקבל לקבוצה?
-<br>
-כל מי שאינו עונה על ההגדרה לעיל.
-<br>
-
-אז האם אנחנו בעצם גזענים? זה תלוי מה ההגדרה שלכם למילה "גזעני".
-<br>
-לכן, כדי להבין יותר טוב את העמדה שלנו, ממליץ לכם לצפות בסרטון
-<a href="https://youtu.be/hchVvRyoInI">
-תהי יותר גזענית אם את רוצה לחיות
-</a>
-<br>
-
-<a href="https://t.me/ModerateNazim">
-לינק לקבוצה "נאציזם מתון"
-</a>
-<br>
-</p>
 </div>
+
 </div>
 {%endblock%}

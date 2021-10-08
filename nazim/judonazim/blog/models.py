@@ -5,6 +5,7 @@ class BlogPost(models.Model):
 
     title = models.CharField(max_length = 100, null = False, default = '')
     subtitle = models.CharField(max_length = 200, null = False , default ='')
+    thumb = models.ImageField(blank = True, null = True)
     #author_name =  models.TextField(max_length = 50, null = false, default = "רוני הנאצי")
     author_email = models.EmailField( null = False, blank = True, default = "ronnythenazi@gmail.com")
     datepublished= models.DateField(auto_now_add = True)
@@ -21,7 +22,7 @@ class BlogPost(models.Model):
 
     ]
     publishstatus = models.CharField(
-        max_length=2,
+        max_length = 10,
         choices=visibility,
         default=private,)
 
@@ -41,7 +42,7 @@ class User(models.Model):
     (deactivated, "לא פעיל"),
     ]
     userstatus = models.CharField(
-    max_length = 4,
+    max_length = 10,
     choices = status,
     default = active,
     )
@@ -59,7 +60,7 @@ class User(models.Model):
     (typeowner, "מאסטר"),
     ]
 
-    usrrole = models.CharField(max_length = 4, choices = roles, default = typregular)
+    usrrole = models.CharField(max_length = 10, choices = roles, default = typregular)
 
 
 

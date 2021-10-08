@@ -7,7 +7,8 @@ class BlogPostForm(forms.ModelForm):
         fields = [
         'title',
         'subtitle',
-        'content'
+        'content',
+        'thumb',
         ]
 
         widgets = {

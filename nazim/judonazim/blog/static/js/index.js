@@ -35,15 +35,15 @@ rotate($('.logoright'));
 
 setInterval(function() {
 //console.log("timer!");
-rotate($('.logoleft'),-1);
+rotate($('.logoleft'), -1);
 },100);
+
 
 }
 
 
 function rotate(elem, dir=1)
 {
-
     var angel = getRotationDegrees(elem);
     elem.animate(
     { deg:(angel + (100*dir))},

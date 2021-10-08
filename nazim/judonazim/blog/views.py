@@ -1,6 +1,9 @@
-from django.shortcuts import render
+
 from .blogpublishing import BlogPostForm
 from .models import BlogPost
+from django.urls import reverse
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
 
 def fwriteblog(request):
     frm = BlogPostForm(request.POST or None)
@@ -11,10 +14,16 @@ def fwriteblog(request):
     }
     return render(request, 'blogpost.html', context)
 
+
 def fhome(request):
+    if(request.method == 'POST'):
+        if('btnnazimbg' in request.POST):
+            obj = {'txtfilename':'nazimbg.html'}
+            return render(request, 'index.html', {'txtfilename':'nazimbg.html'})
+    return render(request, 'index.html', {'txtfilename':'nazimtaboo.html'})
 
 
-    return render(request, 'index.html')
+
 
 def fbase(request):
 
