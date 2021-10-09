@@ -20,6 +20,8 @@ def fhome(request):
         if('btnnazimbg' in request.POST):
             obj = {'txtfilename':'nazimbg.html'}
             return render(request, 'index.html', {'txtfilename':'nazimbg.html'})
+        elif('btndiversity' in request.POST):
+            return render(request, 'index.html',{'txtfilename':'diversity.html'})
     return render(request, 'index.html', {'txtfilename':'nazimtaboo.html'})
 
 

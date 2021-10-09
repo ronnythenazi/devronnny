@@ -6,6 +6,9 @@
 {%block content%}
 <div class="middle_section">
   <div class="hg1bgc">
+    {%with "tableofcontent/titles/"|add:txtfilename as template%}
+    {%include template%}
+    {%endwith%}
   </div>
 <div class="hg1middleimg">
  <img class="arnoldimg" src="{%static 'images/comewithmeifyouwanttolive.jpg'%}" alt="">-
@@ -33,9 +36,14 @@
   {%with "tableofcontent/txt/"|add:txtfilename as template%}
   {%include template%}
   {%endwith%}
+  <ul id="ulnavpages">
 
-
+  </ul>
 </div>
 
 </div>
+{%endblock%}
+
+{%block additionalscripts%}
+<script type="text/javascript" src="{%static 'js/pagesnav.js'%}"> </script>
 {%endblock%}
