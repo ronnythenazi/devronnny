@@ -1,12 +1,26 @@
 
+
 $(document).ready(finit);
+var curr_active_page = 1;
 
 function finit()
 {
+  $('.center').show();
+  if(get_num_of_pages() <= 1)
+  {
+    $('#ulnavpages').hide();
+    playfirst(1);
+    return;
+  }
   init_pages_nav_links();
+  $('#ulnavpages li').eq(get_num_of_pages()-1).after("<li class='arrows next'><a>&#10095;</a></li>");
+  $('#ulnavpages li').eq(0).before("<li class='arrows prev'><a>&#10094;</a></li>");
   displaypage();
-
+  $('#ulnavpages li.arrows.next').on('click', function(){nextarrow();});
+  $('#ulnavpages li.arrows.prev').on('click', function(){prevarrow();});
+  playfirst(1);
 }
+
 function init_pages_nav_links()
 {
   var num_of_pages = get_num_of_pages();
@@ -19,31 +33,59 @@ function init_pages_nav_links()
         $('#ulnavpages li a:contains('+i+')').parent().css('display', 'none');
     }
   }
-  $('#ulnavpages li').on('click', function(){display($(this).index());}); //assign event handler\delegate to list items on click
+  $('#ulnavpages li:not(.arrows)').on('click', function(){display($(this).index());}); //assign event handler\delegate to list items on click
+
+}
+function prevarrow()
+{
+
+  var prevpage = curr_active_page - 1;
+  if(prevpage<1)
+  {
+    return;
+  }
+  display(prevpage); //because of zero index
+
+}
+function nextarrow()
+{
+
+  var nextpage = curr_active_page + 1;
+  if(nextpage > get_num_of_pages())
+  {
+    return;
+  }
+  display(nextpage); //because of zero index
 
 }
 
 function display(index)
 {
-
   displaypage(index);
   pages_nav_to_display(index);
+  curr_active_page = index;
+  playfirst(index);
 }
 
-function displaypage(activepage = 0)
+function displaypage(activepage = 1)
 {
+
   var num_of_pages = get_num_of_pages();
-  for(i=0;i<num_of_pages;i++)
+  var selector_pagination = $('#ulnavpages li');
+  var selector_pages = $('#ulpages li');
+  for(i=1;i<=num_of_pages;i++)
   {
     if(i==activepage)
     {
-      $('#ulpages li').eq(i).css('display', 'block');
-      $('#ulnavpages li').eq(i).css('color', 'blue');
+      selector_pages.eq(i-1).css('display', 'block'); //-1 because of the arrow
+    /*  $('#ulnavpages li').eq(i).css('color', 'blue');*/
+      selector_pagination.eq(i).css('background-color', '#4CAF50');
       continue;
     }
 
-    $('#ulpages li').eq(i).css('display', 'none');
-    $('#ulnavpages li').eq(i).css('color', 'black');
+     selector_pages.eq(i-1).css('display', 'none');
+  /*  $('#ulnavpages li').eq(i).css('color', 'black');*/
+    selector_pagination.eq(i).css('background-color', '#ffffff');
 
   }
 
@@ -51,40 +93,29 @@ function displaypage(activepage = 0)
 
 function pages_nav_to_display(activepage)
 {
-
   var num_of_pages = get_num_of_pages();
-  if(activepage  == (num_of_pages-1) || activepage == 0)
+  if(activepage  >= num_of_pages || activepage <= 1)
   {
     return;
   }
+  var selector = $('#ulnavpages li');
 
-
-
-  //var nextpage = activepage+1;
-  if($('#ulnavpages li').eq(activepage+1).css('display') == 'none')
+  if(selector.eq(activepage+1).css('display') == 'none')
   {
-    $('#ulnavpages li').eq(activepage+1).show();
-    $('#ulnavpages li').eq(activepage-2).css('display', 'none');
+    selector.eq(activepage+1).show();
+    selector.eq(activepage-2).css('display', 'none');
   }
 
-  if($('#ulnavpages li').eq(activepage-1).css('display') == 'none')
+  if(selector.eq(activepage-1).css('display') == 'none')
   {
-    $('#ulnavpages li').eq(activepage-1).show();
-    $('#ulnavpages li').eq(activepage+2).css('display', 'none');
+    selector.eq(activepage-1).show();
+    selector.eq(activepage+2).css('display', 'none');
 
   }
 
 }
 function get_num_of_pages()
 {
+
   return $('#ulpages li').length;
 }
-
-
-
-
-/*
-$('ul li a').live('click', function() {
-    console.log($(this).parent('li').index());
-});
-*/

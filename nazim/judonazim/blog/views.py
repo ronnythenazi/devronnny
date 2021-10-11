@@ -16,12 +16,18 @@ def fwriteblog(request):
 
 
 def fhome(request):
+    page = 'index.html'
     if(request.method == 'POST'):
         if('btnnazimbg' in request.POST):
-            obj = {'txtfilename':'nazimbg.html'}
-            return render(request, 'index.html', {'txtfilename':'nazimbg.html'})
+            return render(request, page, {'txtfilename':'nazimbg.html'})
         elif('btndiversity' in request.POST):
-            return render(request, 'index.html',{'txtfilename':'diversity.html'})
+            return render(request, page,{'txtfilename':'diversity.html'})
+        elif('btneugenics' in request.POST):
+            return render(request, page,{'txtfilename':'eugenics.html'})
+        elif('btnbemoreracist' in request.POST):
+            return render(request, page, {'txtfilename':'bemoreracist.html'})
+        else:
+            pass
     return render(request, 'index.html', {'txtfilename':'nazimtaboo.html'})
 
 

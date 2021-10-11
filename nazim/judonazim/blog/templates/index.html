@@ -36,14 +36,18 @@
   {%with "tableofcontent/txt/"|add:txtfilename as template%}
   {%include template%}
   {%endwith%}
+
+  <div class="center">
   <ul id="ulnavpages">
 
   </ul>
+  </div>
 </div>
 
 </div>
 {%endblock%}
 
 {%block additionalscripts%}
+<script type="text/javascript" src="{%static 'js/videos.js'%}"></script>
 <script type="text/javascript" src="{%static 'js/pagesnav.js'%}"> </script>
 {%endblock%}
