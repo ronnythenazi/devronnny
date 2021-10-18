@@ -362,6 +362,7 @@ body
   direction: rtl;
   width: 80%;
   right:10%;
+  top:0px;
   /*height:210px;*/
   margin-top:0px;
   margin-bottom: 0px;
@@ -370,6 +371,7 @@ body
 }
 .playgifico
 {
+
   direction: rtl;
   width: 100px;
   height: 100px;
@@ -415,7 +417,7 @@ div.ptitle.bg
   max-width: 500px;
   width: 100%;
 }
-.maincontext img
+.maincontext img:not(.centerfootage)
 {
   max-width: 500px;
   max-height: 500px;
