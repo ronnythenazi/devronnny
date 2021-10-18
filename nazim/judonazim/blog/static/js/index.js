@@ -38,7 +38,6 @@ setInterval(function() {
 rotate($('.logoleft'), -1);
 },100);
 
-
 }
 
 

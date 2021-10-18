@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 
-
+{% load static %}
 <html lang="en" dir="ltr">
 
   <head>
     <meta charset="utf-8">
     <title>  {%block title%} base page{%endblock%}</title>
-  {% load static %}
-
+    <link rel = "icon" href ="{%static 'images/judonazimlogoglow.jpg'%}"  type = "image/x-icon">
   {%block links%}
     <!--<link  rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css'%}">-->
    <link rel="stylesheet" href="{% static 'css/homepage.css'%}">
    <link rel="stylesheet" href="{%static 'css/index.css'%}">
    <link rel="stylesheet" href="{%static 'css/huerotation.css'%}">
+   <link rel="stylesheet" href="{%static 'css/flexstyle.css'%}">
 
  {%endblock%}
 {%block additionallinks%}
@@ -62,23 +62,26 @@
        </div>
        <div class="shadow_line"></div>
         <div class= "sub_list">
+          <div>
+            <img src="" alt="" class = "subject_icons subsubject_icon">
+            <button type="submit" class="btnspan" name="btnnazimtaboo">למה נאציזם זו אידיאולוגיה אסורה בישראל</button>
+          </div>
+
          <div>
          <img src="" alt="" class = "subject_icons subsubject_icon">
         <button type="submit" class="btnspan" name="btnnazimbg">נאציזם לא מה שחשבתם</button>
+         </div>
 
-         </div>
-         <div>
-           <img src="" alt="" class = "subject_icons subsubject_icon">
-           <button type="submit" class="btnspan" name="btnnazimtaboo">למה נאציזם זו אידיאולוגיה אסורה בישראל</button>
-         </div>
          <div>
            <img src="" alt="" class = "subject_icons subsubject_icon">
            <button type="submit" class="btnspan" name="btndiversity">פלורליזם זה אסון</button>
          </div>
+
          <div>
            <img src="" alt="" class = "subject_icons subsubject_icon">
            <button type="submit" class="btnspan" name="btneugenics">אנחנו מאמינים באאוגניקה</button>
          </div>
+
         </div>
       </div>
 
@@ -327,14 +330,15 @@
 
 {%block scripts%}
 <script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>
-<!--<script type="text/javascript" src="{% static 'plugins/css/textedit.js'%}"> </script>-->
-	<!--<script type="text/javascript" src="{%static 'plugins/texteditor/jquery.js'%}"></script>-->
- <script type="text/javascript" src="{% static 'plugins/bootstrap/js/bootstrap.js'%}"> </script>
+<script type="text/javascript" src="{% static 'plugins/bootstrap/js/bootstrap.js'%}"> </script>
 <script type="text/javascript" src="{% static 'js/navbar.js'%}"> </script>
 <script type="text/javascript" src="{% static 'js/index.js'%}"> </script>
 <script type="text/javascript" src="{% static 'plugins/popper.js'%}">  </script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+{%endblock%}
+
+{%block additionalscripts%}
 {%endblock%}
   </body>
 

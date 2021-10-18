@@ -1,0 +1,95 @@
+.circ200
+{
+  height: 400px;
+  width: 400px;
+  border-radius: 100%;
+}
+
+.abscontainer
+{
+  position: relative;
+  direction: rtl;
+  display:flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: center;
+  width: 100%;
+  row-gap:0px;
+  align-content:center;
+}
+.spintxt
+{
+  font-size: 30px;
+}
+.horzmove.stick .spintxt
+{
+  position: sticky;
+
+}
+.horzmove .spintxt
+{
+  position: relative;
+  /*position: absolute;*/
+}
+.abs
+{
+  position: absolute;
+  left: 200px;
+  top:0px;
+  z-index: 1000;
+}
+.hidtxt
+{
+  display: none;
+}
+.spacevertically100
+{
+  display: relative;
+  height: 100px;
+  width: 100%;
+}
+.horzmove.reverse
+{
+  direction: rtl;
+  right: 0px;
+}
+.horzmove
+{
+  direction: rtl;
+  max-height: 50px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap:5px;
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+.leftcover
+{
+  z-index: 2;
+  flex-grow: 20;
+  background-color: white;
+}
+
+.rightcover
+{
+  z-index: 2;
+  flex-grow: 20;
+  background-color: white;
+}
+.row
+{
+  direction: rtl;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  /*overflow: hidden;*/
+  justify-content: space-between;
+
+}
+.rowdefaultsize
+{
+  height: 50px;
+  width: 80%;
+}
