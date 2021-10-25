@@ -7,6 +7,42 @@ function start()
   movehorz($('.horzmove:not(.reverse)'));
   movehorz($('.horzmove.reverse'), dir = -1);
 }*/
+ $('.subject *').hover(function(){
+  let ancestor = $(this).parents('.subject');
+  $(ancestor).siblings().addClass('greyblur');
+  $(ancestor).removeClass('greyblur');
+});
+
+$('.subject').mouseleave(function(){
+  $(this).siblings().removeClass('greyblur');
+});
+
+$('.sub_subject_box>*').hover(function(){
+  $('.sub_subject_box').children().addClass('hueimg');
+  $('.sub_subject_box').children().removeClass('defaultimg');
+  $(this).removeClass('hueimg');
+  $(this).addClass('defaultimg');
+  $(this).siblings().removeClass('hueimg');
+  $(this).siblings().addClass('defaultimg');
+  $(this).addClass('focus');
+  $(this).siblings().addClass('focus');
+});
+
+
+
+$('.sub_subject_box').hover(function(){
+  $('.sub_subject_box').children().addClass('hueimg');
+  $('.sub_subject_box').children().removeClass('defaultimg');
+  $(this).children().removeClass('hueimg');
+  $(this).children().addClass('defaultimg');
+});
+$('.sub_subject_box').mouseleave(function(){
+  $('.sub_subject_box').children().removeClass('hueimg');
+  $('.sub_subject_box').children().addClass('defaultimg');
+  $(this).children().removeClass('focus');
+  /*$(this).children().removeClass('hueimg');
+  $(this).children().addClass('defaultimg');*/
+});
 
 function movehorz(elem_to_move, dir = 1, index = 0, tmax=10000, toffsetunit=100)
 {

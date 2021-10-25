@@ -3,8 +3,10 @@
 //aimed to open hidden box when item has been clickedin nav bar
 //nextall select the first matched element after the ellment
 //in this case, after the clicked element
-$(document).ready(fload);
 
+var isaudioplay;
+$(document).ready(fload);
+var arrColors = ['red', 'orange', 'blue', 'green', 'white', 'purple', 'yellow', 'pink', '#9b4a17', '#00fff6'];
 $(function() {
  $(window).scroll(
   function()
@@ -24,9 +26,20 @@ $(function() {
 );
 });
 
+$(window).scroll(function(){
+ var distanceY = window.pageYOffset || document.documentElement.scrollTop,
+ shrinkOn = 300,
+ body = document.querySelector('.item0');
+ if ($(this).scrollTop() > 450){
+     $('body').addClass("scroll");
+ }
+ else{
+     $('body').removeClass("scroll");
+ }
+ });
+
 function fload()
 {
-
 
 setInterval(function() {
 //console.log("timer!");
@@ -38,6 +51,96 @@ setInterval(function() {
 rotate($('.logoleft'), -1);
 },100);
 
+setInterval(isended, 1000);
+
+
+$('.txtaudio').mouseover(function(){
+  $(this).css('background-color', 'black');
+
+});
+$('.txtaudio').mouseout(function(){
+  $(this).css('background-color', 'black');
+
+});
+
+$('#pushbutton').click(function(){
+  setaudiotxt();
+
+});
+
+$('.txtaudioparent').click(function(){
+  if(isaudioplay == true)
+  {
+    resetaudiotxt($('.txtaudio'));
+  }
+});
+}
+
+
+function isended()
+{
+  var aud = $('.hiddenaudio')[0];
+  try {
+
+    if(aud.ended)
+    {
+      resetaudiotxt($('.txtaudio'));
+
+    }
+
+  } catch (e) {
+    
+    return;
+
+  } finally {
+
+  }
+
+}
+
+
+function setaudiotxt()
+{
+  setTimeout(function(){
+    $('.hiddenaudio')[0].play();
+
+
+  isaudioplay = true;
+  $('.txtaudio').css({border:'0 blue solid'}).animate({borderWidth:5}, 100);
+/*  $('.txtaudio').children().css({border:'0 blue solid'}).animate({borderWidth:5}, 100);*/
+  $('.txtaudio').show('fast');
+  $('#pushbutton').hide('fast');
+}, 300);
+  setInterval(rotatecolors, 200);
+
+}
+
+function rotatecolors()
+{
+  let childs = $('.txtaudio span');
+  let l = childs.length;
+  for(var i=0;i<l;i++)
+  {
+     var kid = childs[i];
+     $(kid).css('border-top-color', arrColors[i]);
+     $(kid).css('border-bottom-color', arrColors[i+1]);
+
+  }
+
+  let lastcolor = arrColors[l-1];
+  arrColors.pop();
+  arrColors.unshift(lastcolor);
+
+}
+
+function resetaudiotxt(e)
+{
+  isaudioplay = false;
+  //$(e).animate({borderWidth:0}, 500);
+  //$(e).children().animate({borderWidth:0}, 500);
+  $('.hiddenaudio')[0].pause();
+  $('.txtaudio').hide('fast');
+  $('#pushbutton').show('slow');
 }
 
 

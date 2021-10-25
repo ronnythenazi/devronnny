@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 {% load static %}
-<html lang="en" dir="ltr">
+<html lang="en" dir="rtl">
 
   <head>
     <meta charset="utf-8">
@@ -13,7 +13,6 @@
    <link rel="stylesheet" href="{%static 'css/index.css'%}">
    <link rel="stylesheet" href="{%static 'css/huerotation.css'%}">
    <link rel="stylesheet" href="{%static 'css/flexstyle.css'%}">
-
  {%endblock%}
 {%block additionallinks%}
 
@@ -22,10 +21,22 @@
   </head>
 
   <body>
+<!--<div class="maingridvertical">
 
-<header>
+<div class="gridverticalheader">-->
+<!--<header>-->
+<div class="maingrid">
+  <div class="lefedge"></div>
+  <div class="item0">
   <div id="navbar">
 
+    <div id="navcol3" class = "navbarcol">
+
+    </div>
+    <div id="navcol2" class = "navbarcol">
+    <img src="{% static 'images/judonazim_clip_art.jpg'%}" id = "judonazimnavimg"  onmouseover="nazilogohover()" onmouseout="nazilogoleave()">
+    <img src="{% static 'images/fire.gif'%}" id = "fire"  onmouseover="nazilogohover()" onmouseout="nazilogoleave()">
+    </div>
     <div id="navcol1" class = "navbarcol">
       <div class="leftmostdiv">
      {%block bar%}
@@ -33,18 +44,19 @@
      {%endblock%}
    </div>
     </div>
-    <div id="navcol2" class = "navbarcol">
-    <img src="{% static 'images/judonazim_clip_art.jpg'%}" id = "judonazimnavimg"  onmouseover="nazilogohover()" onmouseout="nazilogoleave()">
-    <img src="{% static 'images/fire.gif'%}" id = "fire"  onmouseover="nazilogohover()" onmouseout="nazilogoleave()">
-    </div>
-    <div id="navcol3" class = "navbarcol">
 
-    </div>
 
   </div>
-  </header>
+</div>
+  <!--</header>-->
+<!--  </div>-->
+  <!--<div class="gridbodyvertical">-->
+
+
+<div class="item1">
 <form class="frmnavbar" method="POST" name="frmnavbar">
   {%csrf_token%}
+
   <div class="nav">
 
    <div class="subject s1">
@@ -176,11 +188,11 @@
          </div>
          <div>
            <img src="" alt="" class = "subject_icons subsubject_icon">
-           <button type="submit" class="btnspan" name="btnrfeminismandashk">פמיניזם כלי של אשכנזים בעמדות מפתח שנועד לבצע רצח עם</button>
+           <button type="submit" class="btnspan" name="btnfeminismandashk">פמיניזם כלי של אשכנזים בעמדות מפתח שנועד לבצע רצח עם</button>
          </div>
          <div>
            <img src="" alt="" class = "subject_icons subsubject_icon">
-           <button type="submit" class="btnspan" name="btnfeminismdestroyfamly">כך הפמיניזם האשכנזי הורס בכוונת זדון את התא המשפחתי וגורם לרצח העם שלנו</button>
+           <button type="submit" class="btnspan" name="btnfeminismdestroyfamily">כך הפמיניזם האשכנזי הורס בכוונת זדון את התא המשפחתי וגורם לרצח העם שלנו</button>
          </div>
         </div>
       </div>
@@ -194,7 +206,7 @@
          <div class= "sub_list">
            <div>
              <img src="" alt="" class = "subject_icons subsubject_icon">
-             <button type="submit" class="btnspan" name="btngeminismidf">כיצד הפך צה"ל לצבא של פות מכיל"</button>
+             <button type="submit" class="btnspan" name="btnfeminismidf">כיצד הפך צה"ל לצבא של פות מכיל"</button>
            </div>
            <div>
            <img src="" alt="" class = "subject_icons subsubject_icon">
@@ -214,10 +226,7 @@
             <img src="" alt="" class = "subject_icons subsubject_icon">
             <button type="submit" class="btnspan" name="btnrapeisnotacrime">הענישה על אונס זה אובר-קיל</button>
            </div>
-           <div>
-            <img src="" alt="" class = "subject_icons subsubject_icon">
-            <button type="submit" class="btnspan" name="btnfemaleslikerape">נשים גומרות מאונס</button>
-           </div>
+
            <div>
             <img src="" alt="" class = "subject_icons subsubject_icon">
             <button type="submit" class="btnspan" name="btnopressionmyth">מעולם לא היה דיכוי נגד נשים</button>
@@ -322,11 +331,15 @@
   </div>
 </div> <!--end tag of .nav class, used to be <nav> element, now it's div-->
 </form>
-
+</div>
+<div class="item2">
   {%block content%}
 
   {%endblock%}
-
+  </div>
+  <div class="rightedge"></div>
+</div>
+<!--</div>-->
 
 {%block scripts%}
 <script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>

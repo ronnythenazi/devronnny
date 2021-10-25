@@ -4,6 +4,7 @@ from .models import BlogPost
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from .content.homepage import navtemplates
 
 def fwriteblog(request):
     frm = BlogPostForm(request.POST or None)
@@ -18,34 +19,8 @@ def fwriteblog(request):
 def fhome(request):
     page = 'index.html'
     if(request.method == 'POST'):
-        if('btnnazimtaboo' in request.POST):
-            return render(request, page, {'txtfilename':'nazimtaboo.html'})
-        elif('btndiversity' in request.POST):
-            return render(request, page,{'txtfilename':'diversity.html'})
-        elif('btneugenics' in request.POST):
-            return render(request, page,{'txtfilename':'eugenics.html'})
-        elif('btnbemoreracist' in request.POST):
-            return render(request, page, {'txtfilename':'bemoreracist.html'})
-        elif('btnracisabiologicalfacts' in request.POST):
-            return render(request, page, {'txtfilename':'racisabiologicalfacts.html'})
-        elif('btnsomeracesarebetter' in request.POST):
-            return render(request, page, {'txtfilename':'someracesarebetter.html'})
-        elif('btnracialdiffiniq' in request.POST):
-            return render(request, page, {'txtfilename':'racialdiffiniq.html'})
-        elif('btnethnostate' in request.POST):
-            return render(request, page, {'txtfilename':'ethnostate.html'})
-        elif('btnevolutionandrace' in request.POST):
-            return render(request, page, {'txtfilename':'evolutionandrace.html'})
-        elif('btnnegroesaredumb' in request.POST):
-            return render(request, page, {'txtfilename':'negroesaredumb.html'})
-        elif('btnnegroesareapes' in request.POST):
-            return render(request, page, {'txtfilename':'negroesareapes.html'})
-        elif('btnwhywearediff' in request.POST):
-            return render(request, page, {'txtfilename':'whywearediff.html'})
-        elif('btnooamyth' in request.POST):
-            return render(request, page, {'txtfilename':'ooamyth.html'})
-        else:
-            pass
+        obj = navtemplates(request)
+        return render(request, page, obj)
     return render(request, page, {'txtfilename':'nazimbg.html'})
 
 

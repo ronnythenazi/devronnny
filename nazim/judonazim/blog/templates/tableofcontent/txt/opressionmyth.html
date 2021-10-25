@@ -1,0 +1,45 @@
+{%load static%}
+{%csrf_token%}
+<ul id="ulpages">
+<li>
+  <div class="stopinheriting column">
+
+    <div class="subtitleraw redglowclr column gaptop">
+    <span>הסכנה בחזרה למסורתיות:</span>
+    </div>
+
+    <div class="smallcolumn regularfont">
+      <span class="blueglowclr">פמיניזם ופטריארכיה זה שני צדדים של אותו מטבע</span>
+      <span class="blueglowclr"> שנהם משמרים את המעמד האריסטוקרטי של הנשים</span>
+    </div>
+
+    <div class="column fingercurs gapbottom">
+    <video class="vid" controls>
+      <source src="{{MEDIA_URL}}media/myvideos/feminism/malesprivellgemyth/patriarchymyth.mp4" type="video/mp4">
+    </video>
+    </div>
+
+   {%include 'tableofcontent/txt/feminismsloganfooter.html'%}
+
+  </div>
+</li>
+
+<li>
+  <div class="stopinheriting column">
+
+    <div class="subtitleraw redglowclr column gaptop">
+    <span>כשנשים מקבלות שוויון באמת</span>
+    </div>
+
+    <div class="column fingercurs gapbottom">
+    <video class="vid" controls>
+      <source src="{{MEDIA_URL}}media/myvideos/feminism/malesprivellgemyth/whenmenbeatfemales.mp4" type="video/mp4">
+    </video>
+    </div>
+
+   {%include 'tableofcontent/txt/feminismsloganfooter.html'%}
+  </div>
+
+</li>
+
+</ul>
