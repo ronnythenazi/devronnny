@@ -42,6 +42,32 @@ def navtemplates(request):
         return {'txtfilename':'opressionmyth.html'}
     elif('btnmarrigemortage' in request.POST):
         return {'txtfilename':'marrigemortage.html'}
+    elif('btnmensmarter' in request.POST):
+        return {'txtfilename':'mensmarter.html'}
+    elif('btnequalcontribution' in request.POST):
+        return {'txtfilename' : 'equalcontribution.html'}
+    elif('btnashkenazimsjw' in request.POST):
+        return {'txtfilename': 'ashkenazimsjw.html'}
+    elif('btnrefugee' in request.POST):
+        return {'txtfilename': 'refugee.html'}
+    elif('btnfemvictims' in request.POST):
+        return {'txtfilename':'femvictims.html'}
+    elif('btnboysdiscrimnation' in request.POST):
+        return {'txtfilename':'boysdiscrimnation.html'}
+    elif('btnmenlivesischeap' in request.POST):
+        return {'txtfilename':'menlivesischeap.html'}
+    elif('btnpart1' in request.POST):
+        return {'txtfilename':'part1.html'}
+    elif('btnpart2' in request.POST):
+        return {'txtfilename':'part2.html'}
+    elif('btnpart3' in request.POST):
+        return {'txtfilename':'part3.html'}
+    elif('btnwhyashkleftist' in request.POST):
+        return {'txtfilename':'whyashkleftist.html'}
+    elif('btnashksacademic' in request.POST):
+        return {'txtfilename':'ashksacademic.html'}
+    elif('btnashkmedia' in request.POST):
+        return {'txtfilename':'ashkmedia.html'}
     else:
         pass
     return {'txtfilename':'nazimbg.html'}

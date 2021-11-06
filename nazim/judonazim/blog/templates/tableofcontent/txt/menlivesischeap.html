@@ -1,0 +1,33 @@
+{%load static%}
+{%csrf_token%}
+
+<ul id="ulpages" class="stopinheriting">
+  <li>
+    <div class="column">
+    <span class="subtitle verybold blueglowclr">אל תלכו בחוקות אשכנזים</span>
+    <video class="vid txtcenter50" poster="{%static 'images/dontfollowashks.jpg'%}" controls>
+      <source src="{{MEDIA_URL}}media/myvideos/feminism/ashksandfeminsim/dontfollowashkenazimway.mp4" type="video/mp4">
+    </video>
+    </div>
+</li>
+<li>
+  <div class="column">
+
+
+    <div class="txtaudioparent txtcenter50">
+      <p class="txtaudio">
+      <span>פמיניזם = נשק עוצמתי שטני</span>
+      <span>של אשכנזים פושעים מרצחים ורקובים</span>
+      <span>לחתור נגד ישראל</span>
+      <span>ולהשמיד את המדינה היהודית</span>
+      <!--<span>כאלו מדובר בפשע</span>-->
+      </p>
+      <img id="pushbutton" src="{%static 'images/pushbutton.gif'%}" alt="">
+    </div>
+    <audio class="hiddenaudio noauto" controls>
+     <source src="{{MEDIA_URL}}media/myvideos/feminism/ashksandfeminsim/ashkenazimusefemalesasshield.ogg" type="audio/ogg">
+    </audio>
+    </div>
+
+</li>
+</ul>

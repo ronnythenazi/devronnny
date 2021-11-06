@@ -1,0 +1,12 @@
+{%load static%}
+{%csrf_token%}
+<ul id="ulpages" class="stopinheriting">
+  <li>
+    <div class="column">
+    <span class="subtitle verybold blueglowclr">הסרטון הזה זה הסיוט הכי גדול של האשכנזים</span>
+    <video class="vid txtcenter50" poster="{%static 'images/ashksgreatestnightmareisthisvideo.jpg'%}" controls>
+      <source src="{{MEDIA_URL}}media/myvideos/ashkenazim/whyashkssubvertus/part3.mp4" type="video/mp4">
+    </video>
+    </div>
+</li>
+</ul>

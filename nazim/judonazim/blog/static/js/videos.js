@@ -11,7 +11,7 @@ function playfirst(plylist_index)
 {
   pausemediainpreviouspage(currPage);
   currPage = plylist_index;
-  var media_elems = $('li').eq(plylist_index-1).find('video, audio').not('.noauto');
+  var media_elems = $('#ulpages>li').eq(plylist_index-1).find('video, audio').not('.noauto');
   var length = media_elems.length;
   if(length<=0)
   {
@@ -21,7 +21,7 @@ function playfirst(plylist_index)
 }
 function pausemediainpreviouspage(prevpageindex)
 {
-  var media_elems = $('li').eq(prevpageindex-1).find('video, audio').not('.noauto');
+  var media_elems = $('#ulpages>li').eq(prevpageindex-1).find('video, audio').not('.noauto');
   var length = media_elems.length;
     for(i=0;i<length;i++)
     {
@@ -31,8 +31,7 @@ function pausemediainpreviouspage(prevpageindex)
 }
 function playlist()
 {
-
-  var media_elems = $('li').eq(currPage-1).find('video, audio').not('.noauto');
+  var media_elems = $('#ulpages>li').eq(currPage-1).find('video, audio').not('.noauto');
   var length = media_elems.length;
 
   for(i=length;i>0;i--)

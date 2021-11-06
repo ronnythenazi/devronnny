@@ -5,24 +5,29 @@
 
 {%block content%}
 <div class="middle_section">
-  <div class="hg1bgc" id = "hg1bgc">
-    {%with "tableofcontent/titles/"|add:txtfilename as template%}
-    {%include template%}
-    {%endwith%}
+<div id="upperrow">
+
+  <div class="judonazimlogorotate logoright smallbg animated">
+  <img class= "judonazimlogorotate" src="{%static 'images/judonazimlogoglow.jpg'%}" alt="">
   </div>
-<div class="hg1middleimg">
- <img class="arnoldimg" src="{%static 'images/comewithmeifyouwanttolive.jpg'%}" alt="">-
-</div>
-<div class="judonazimlogorotate logoleft smallbg animated">
-<img class= "judonazimlogorotate" src="{%static 'images/judonazimlogoglow.jpg'%}" alt="">
-</div>
-<div class="judonazimlogorotate logoright smallbg animated">
-<img class= "judonazimlogorotate" src="{%static 'images/judonazimlogoglow.jpg'%}" alt="">
+
+<div id="centersloganandfootage">
+  <div class="hg1middleimgwarpper" id="hg1bgc">
+  <div class="hg1middleimg">
+  <img class="arnoldimg" src="{%static 'images/comewithmeifyouwanttolive.jpg'%}" alt="">
+  </div>
+  </div>
+  <div class="solganwarper"><div class="sloganh1">תהיו יותר גזענים אם אתם רוצים לחיות</div></div>
 </div>
 
-<h1 class="sloganh1">תהיו יותר גזענים אם אתם רוצים לחיות</h1>
 
-<div class="hg1bottomleft">
+  <div class="judonazimlogorotate logoleft smallbg animated">
+  <img class= "judonazimlogorotate" src="{%static 'images/judonazimlogoglow.jpg'%}" alt="">
+  </div>
+
+
+</div>
+<!--<div class="hg1bottomleft">
 
 </div>
 <div class="hg1bottomright">
@@ -30,8 +35,8 @@
 </div>
 <div class="hg1bottomrmiddle">
 
-</div>
-<div class="bgtxtcover"></div>
+</div>-->
+<!--<div class="bgtxtcover"></div>-->
 <div class="maincontext">
   {%with "tableofcontent/txt/"|add:txtfilename as template%}
   {%include template%}
@@ -43,11 +48,11 @@
   </ul>
   </div>
 </div>
-
 </div>
 {%endblock%}
 
 {%block additionalscripts%}
+<!--<script type="text/javascript" src="{%static 'js/adjustment/zoomindex.js'%}"></script>-->
 <script type="text/javascript" src="{%static 'js/videos.js'%}"></script>
 <script type="text/javascript" src="{%static 'js/pagesnav.js'%}"> </script>
 <script type="text/javascript" src="{%static 'js/effects.js'%}"> </script>

@@ -3,10 +3,12 @@
 //aimed to open hidden box when item has been clickedin nav bar
 //nextall select the first matched element after the ellment
 //in this case, after the clicked element
-
 var isaudioplay;
 $(document).ready(fload);
 var arrColors = ['red', 'orange', 'blue', 'green', 'white', 'purple', 'yellow', 'pink', '#9b4a17', '#00fff6'];
+
+$('.arrow-up').click(function(){$(document).scrollTop(0);});
+
 $(function() {
  $(window).scroll(
   function()
@@ -89,7 +91,7 @@ function isended()
     }
 
   } catch (e) {
-    
+
     return;
 
   } finally {
@@ -181,7 +183,7 @@ $(".sub_subject_box").click(
 
     if(displaystatus == 'none')
     {
-
+      $('.sub_list').hide('fast');
       $(this).nextAll(".sub_list").show('fast')
     }
     else

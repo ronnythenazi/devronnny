@@ -6,6 +6,7 @@ $(document).ready(finit);
 
 function finit()
 {
+
   $('.center').show();
   if(get_num_of_pages() <= 1)
   {
@@ -118,5 +119,5 @@ function pages_nav_to_display(activepage)
 function get_num_of_pages()
 {
 
-  return $('#ulpages li').length;
+  return $('#ulpages>li').length;
 }
