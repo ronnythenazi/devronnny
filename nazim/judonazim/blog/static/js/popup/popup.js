@@ -1,11 +1,8 @@
 var popupselector = '.popupmenu';
 var popup;
-//let topY = -1;
-//let leftX = -1;
 var duration = 0;
-var maxpopupheight = 10;
 
-function addimages(menuitemidname){
+/*function addimages(menuitemidname){
   var imgparent = $("#"+menuitemidname).siblings('.popupmenu').children('ul').children('li').children('button').children('ul').children('li');
   if($(imgparent).children('.'+menuitemidname)[0])
   {
@@ -13,17 +10,12 @@ function addimages(menuitemidname){
   }
   $(imgparent).children('span').before('<img class="'+menuitemidname+'">');
   var titleimg = $("#"+menuitemidname).children('.menuitembutton').children('button').children('img.ico');
-  /*if($('.'+menuitemidname).attr('src') != undefined)
-  {
-    return;
-  }*/
+
    $('.'+menuitemidname).addClass('submenuitemico');
    $('.'+menuitemidname).attr('src', $(titleimg).attr('src'));
-}
+}*/
 
-/*$('#btnnazimbgmenuitem').click(function (){handleclick($(this));
-  addimages($(this).attr('id'));
-});*/
+
 
 
 function handleclick(e)
@@ -32,9 +24,7 @@ function handleclick(e)
    var curritemWarpper = $(e).parent('.menuitemwarpper');
    curritemWarpper.on("mouseleave", leaved);
    var currmenuitemidname = $(e).attr('id');
-   var popupheight = $(e).attr('value');
-   //parseInt($(popup).css('height').replace("px",""));
-   //maxpopupheight = Math.max(popupheight, maxpopupheight);
+   var popupheight = $(e).attr('data-value');
    if($(popup).css('visibility') == 'hidden')
    {
       hideveryonexceptcurrent(e);
@@ -56,7 +46,6 @@ function handleclick(e)
         complete:function(){
               $(popup).find('*').css('visibility', 'hidden');
               $(popup).css('visibility', 'hidden');
-
         }
      }
    );
@@ -81,18 +70,14 @@ function hideveryonexceptcurrent(e)
         }
      }
    );
-
-   //$(popup).find('*').animate({height:0}, duration);
-
    $(others).siblings('.menuitem').children('.menuitembutton').children('.line180warpper').children('.line180').css('width', '0%');
 }
 
 function leaved(){
-  var menuitemwarpper = $(popup).parent();
+    var menuitemwarpper = $(popup).parent();
     var y = $(menuitemwarpper).offset().top;
     var x = $(menuitemwarpper).offset().left;
-    /*topY = y;
-    leftX = x;*/
+
      $(popup).siblings('.menuitem').attr('data-topY', String(y));
      $(popup).siblings('.menuitem').attr('data-leftX', String(x));
 }
@@ -113,12 +98,11 @@ function leaved(){
   var width  = parseInt($(popup).css('width').replace('px', ''));
   var offX = Math.abs(leftX - e.pageX);
   var offY = Math.abs(topY - e.PageY);
-  var tooFar = 10;
+  var tooFar = 0;
 
 
 if(e.pageY - (topY + height)>=tooFar  || topY - e.pageY >= tooFar  || leftX - e.pageX >= tooFar  || e.pageX - (leftX + width) >= tooFar)
 {
-
   $(popup).siblings('.upperpointer').animate({opacity:0}, duration);
   $(popup).children('.menuitemtitlewarrper').animate({opacity:0}, duration);
   $(popup).animate(

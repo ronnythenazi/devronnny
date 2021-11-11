@@ -27,22 +27,13 @@
 
 
 </div>
-<!--<div class="hg1bottomleft">
 
-</div>
-<div class="hg1bottomright">
-
-</div>
-<div class="hg1bottomrmiddle">
-
-</div>-->
-<!--<div class="bgtxtcover"></div>-->
 <div class="maincontext">
   {%with "tableofcontent/txt/"|add:txtfilename as template%}
   {%include template%}
   {%endwith%}
 
-  <div class="center">
+  <div class="txtcenter">
   <ul id="ulnavpages">
 
   </ul>
@@ -52,7 +43,7 @@
 {%endblock%}
 
 {%block additionalscripts%}
-<!--<script type="text/javascript" src="{%static 'js/adjustment/zoomindex.js'%}"></script>-->
+<script type="text/javascript" src="{%static 'js/adjustments/zoomindex.js'%}"></script>
 <script type="text/javascript" src="{%static 'js/videos.js'%}"></script>
 <script type="text/javascript" src="{%static 'js/pagesnav.js'%}"> </script>
 <script type="text/javascript" src="{%static 'js/effects.js'%}"> </script>

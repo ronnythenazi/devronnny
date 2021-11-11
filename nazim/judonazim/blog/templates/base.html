@@ -21,74 +21,119 @@
   </head>
 
   <body>
+    <div class="item0">
+    <div id="navbar">
 
-<div class="bodyflex">
-  <div class="arrow-up"></div>
-<div class="menubarsfather">
-<div class="item0">
-<div id="navbar">
+      <div id="navcol3" class = "navbarcol">
 
-  <div id="navcol3" class = "navbarcol">
-
-  </div>
-  <div id="navcol2" class = "navbarcol">
-  <img src="{% static 'images/judonazim_clip_art.jpg'%}" id = "judonazimnavimg"  onmouseover="nazilogohover()" onmouseout="nazilogoleave()">
-  <img src="{% static 'images/fire.gif'%}" id = "fire"  onmouseover="nazilogohover()" onmouseout="nazilogoleave()">
-  </div>
-  <div id="navcol1" class = "navbarcol">
-    <div class="leftmostdiv">
-   {%block bar%}
-   {% include "menuicon.html" %}
-   {%endblock%}
- </div>
-  </div>
+      </div>
+      <div id="navcol2" class = "navbarcol">
+      <img src="{% static 'images/judonazim_clip_art.jpg'%}" id = "judonazimnavimg"  onmouseover="nazilogohover()" onmouseout="nazilogoleave()">
+      <img src="{% static 'images/fire.gif'%}" id = "fire"  onmouseover="nazilogohover()" onmouseout="nazilogoleave()">
+      </div>
+      <div id="navcol1" class = "navbarcol">
+        <div class="leftmostdiv">
+       {%block bar%}
+       {% include "menuicon.html" %}
+       {%endblock%}
+     </div>
+      </div>
 
 
-</div>
-</div>
-<div class="menu">
-     <div class="blurline"></div>
-
-     <div class="menuitemwarpper">
-          <div  id="btnronny" class="menuitem">
-               <div class="slashline purple"></div>
-               <div class="rightangle angle"></div>
-               <div class="slashline blueglowbg"></div>
-               <div class="menuitembutton">
-                  <button  name="btnronny" class="cell">
-                    <img class="ico" src="{%static 'images/ronny.jpg'%}" alt="">
-                    <span class="robotstroke">על רוני הנאצי</span>
-                  </button>
-                 <div class="line180warpper"><div class="line180"></div></div>
-              </div>
-              <div class="slashline blueglowbg"></div>
-              <div class="leftnagle angle"></div>
-              <div class="slashline purple"></div>
-         </div>
-       {%include 'tableofcontent/popup/aboutronny.html'%}
+    </div>
     </div>
 
-    <div class="menuitemwarpper">
-         <div  id="btnnazimbgmenuitem" class="menuitem">
-              <div class="slashline purple"></div>
-              <div class="rightangle angle"></div>
-              <div class="slashline blueglowbg"></div>
-              <div class="menuitembutton">
-                 <button  name="btnnazimbgmenuitem" class="cell">
-                   <img class="ico" src="{%static 'images/judonazimlogoglow.jpg'%}" alt="">
-                   <span class="robotstroke">מה זה יהודונאציזם</span>
-                 </button>
-                <div class="line180warpper"><div class="line180"></div></div>
-             </div>
-             <div class="slashline blueglowbg"></div>
-             <div class="leftnagle angle"></div>
-             <div class="slashline purple"></div>
-        </div>
-      {%include 'tableofcontent/popup/nazimbg.html'%}
-   </div>
+   <!--<div class="menu">
+         <div class="blurline"></div>
 
-</div>
-</div>
+         <div class="menuitemwarpper">
+              <div  id="btnronny" class="menuitem">
+                   <div class="slashline purple"></div>
+                   <div class="rightangle angle"></div>
+                   <div class="slashline blueglowbg"></div>
+                   <div class="menuitembutton">
+                      <button  name="btnronny" class="cell">
+                        <img class="ico" src="{%static 'images/ronny.jpg'%}" alt="">
+                        <span class="robotstroke">על רוני הנאצי</span>
+                      </button>
+                     <div class="line180warpper"><div class="line180"></div></div>
+                  </div>
+                  <div class="slashline blueglowbg"></div>
+                  <div class="leftnagle angle"></div>
+                  <div class="slashline purple"></div>
+             </div>
+           {%include 'tableofcontent/popup/aboutronny.html'%}
+        </div>
+
+        <div class="menuitemwarpper">
+             <div  id="btnnazimbgmenuitem" class="menuitem">
+                  <div class="slashline purple"></div>
+                  <div class="rightangle angle"></div>
+                  <div class="slashline blueglowbg"></div>
+                  <div class="menuitembutton">
+                     <button  name="btnnazimbgmenuitem" class="cell">
+                       <img class="ico" src="{%static 'images/judonazimlogoglow.jpg'%}" alt="">
+                       <span class="robotstroke">מה זה יהודונאציזם</span>
+                     </button>
+                    <div class="line180warpper"><div class="line180"></div></div>
+                 </div>
+                 <div class="slashline blueglowbg"></div>
+                 <div class="leftnagle angle"></div>
+                 <div class="slashline purple"></div>
+            </div>
+          {%include 'tableofcontent/popup/nazimbg.html'%}
+       </div>
+
+    </div>-->
+<div class="bodyflex">
+  <div class="menu">
+        <div class="blurline"></div>
+
+        <div class="menuitemwarpper">
+             <div  id="btnronny" class="menuitem">
+                  <div class="slashline purple"></div>
+                  <div class="rightangle angle"></div>
+                  <div class="slashline blueglowbg"></div>
+                  <div class="menuitembutton">
+                     <button  name="btnronny" class="cell">
+                       <img class="ico" src="{%static 'images/ronny.jpg'%}" alt="">
+                       <span class="robotstroke">על רוני הנאצי</span>
+                     </button>
+                    <div class="line180warpper"><div class="line180"></div></div>
+                 </div>
+                 <div class="slashline blueglowbg"></div>
+                 <div class="leftnagle angle"></div>
+                 <div class="slashline purple"></div>
+            </div>
+          {%include 'tableofcontent/popup/aboutronny.html'%}
+       </div>
+
+       <div class="menuitemwarpper">
+            <div  id="btnnazimbgmenuitem" class="menuitem">
+                 <div class="slashline purple"></div>
+                 <div class="rightangle angle"></div>
+                 <div class="slashline blueglowbg"></div>
+                 <div class="menuitembutton">
+                    <button  name="btnnazimbgmenuitem" class="cell">
+                      <img class="ico" src="{%static 'images/judonazimlogoglow.jpg'%}" alt="">
+                      <span class="robotstroke">מה זה יהודונאציזם</span>
+                    </button>
+                   <div class="line180warpper"><div class="line180"></div></div>
+                </div>
+                <div class="slashline blueglowbg"></div>
+                <div class="leftnagle angle"></div>
+                <div class="slashline purple"></div>
+           </div>
+         {%include 'tableofcontent/popup/nazimbg.html'%}
+      </div>
+
+   </div>
+   <div class="stretchToWindowWidth"></div>
+  <div class="arrow-up"></div>
+<!--<div class="menubarsfather">-->
+
+
+<!--</div>menubarsfather end tag-->
 <div class="maingrid">
   <!--<div class="leftedge"></div>-->
 
@@ -251,7 +296,7 @@
          <div class= "sub_list">
            <div>
              <img src="" alt="" class = "subject_icons subsubject_icon">
-             <button type="submit" class="btnspan" name="btnfeminismidf">כיצד הפך צה"ל לצבא של פות מכיל"</button>
+             <button type="submit" class="btnspan" name="btnfeminismidf">כיצד הפך צה"ל לצבא של פות מכיל</button>
            </div>
            <div>
            <img src="" alt="" class = "subject_icons subsubject_icon">
@@ -374,6 +419,7 @@
 </form>
 </div>
 <div class="item2">
+  <div class="stretchToWindowWidth"></div>
   {%block content%}
 
   {%endblock%}

@@ -47,7 +47,10 @@
    <li>
     <button type="submit" name="btnimomenajews">
     <ul>
-      <li><span>דעתי על מזרחים</span></li>
+      <li>
+        <img class="submenuitemico" src="{%static 'images/ronny.jpg'%}" alt="">
+        <span>דעתי על מזרחים</span>
+      </li>
     <ul>
     </button>
     </li>
@@ -55,7 +58,11 @@
    <li>
     <button type="submit" name="btnmeonlinetv">
      <ul>
-       <li><span>ראיון שלי בתקשורת בשידור חי</span></li>
+       <li>
+         <img class="submenuitemico" src="{%static 'images/ronny.jpg'%}" alt="">
+         <span>ראיון שלי בתקשורת בשידור חי</span>
+      </li>
+
      </ul>
    </button>
      </li>
@@ -63,7 +70,10 @@
    <li>
     <button type="submit" name="btn12tv">
      <ul>
-       <li><span>ערוץ 12 מזמן אותי לראיון</span></li>
+       <li>
+         <img class="submenuitemico" src="{%static 'images/ronny.jpg'%}" alt="">
+         <span>ערוץ 12 מזמן אותי לראיון</span>
+       </li>
      </ul>
    </button>
    </li>
@@ -71,123 +81,13 @@
    <li>
     <button type="submit" name="btnwebsitedev">
      <ul>
-       <li><span>כיצד הקמתי את האתר</span></li>
+       <li>
+         <img class="submenuitemico" src="{%static 'images/ronny.jpg'%}" alt="">
+         <span>כיצד הקמתי את האתר</span>
+       </li>
      </ul>
    </button>
    </li>
  </ul>
 <script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>
-
-<!--<script type="text/javascript">
-
-var popupselector = '.popupmenu';
-var popup;
-let topY = -1;
-let leftX = -1;
-var duration = 200;
-var maxpopupheight = 0;
-
-
-function addimages(menuitemidname){
-  var imgparent = $("#"+menuitemidname).siblings('.popupmenu').children('ul').children('li').children('button').children('ul').children('li');
-  if($(imgparent).children('.'+menuitemidname)[0])
-  {
-    return;
-  }
-  $(imgparent).children('span').before('<img class="'+menuitemidname+'">');
-  var titleimg = $("#"+menuitemidname).children('.menuitembutton').children('button').children('img.ico');
-
-   $('.'+menuitemidname).addClass('submenuitemico');
-   $('.'+menuitemidname).attr('src', $(titleimg).attr('src'));
-}
-
-/*$('#btnronny').click(function (){handleclick($(this));
-  addimages($(this).attr('id'));
-});*/
-
-
-
-function handleclick(e)
-{
-
-   popup = $(e).siblings(popupselector)
-   popup.on("mouseleave", leaved)
-   var currmenuitemidname = $(e).attr('id');
-   var popupheight = parseInt($(popup).css('height').replace("px",""));
-   maxpopupheight = Math.max(popupheight, maxpopupheight);
-   if($(popup).css('visibility') == 'hidden')
-   {
-      $(popup).css('height', '0');
-      $(popup).css('visibility', 'visible');
-      $(popup).find('*').css('visibility', 'visible');
-      $(popup).siblings('.upperpointer').css('opacity', '1');
-      $(popup).children('.menuitemtitlewarrper').css('opacity', '1');
-      $(popup).animate({height:maxpopupheight}, duration);
-      $(e).children('.menuitembutton').children('.line180warpper').children('.line180').css('width', '100%');
-  }
-  else {
-
-   $(popup).siblings('.upperpointer').animate({opacity:0}, duration);
-   $(popup).children('.menuitemtitlewarrper').animate({opacity:0}, duration);
-   $(popup).animate(
-     {height:0},
-     {duration:duration,
-        complete:function(){
-              $(popup).css('visibility', 'hidden');
-              $(popup).find('*').css('visibility', 'hidden');
-        }
-     }
-   );
-
-
-
-   $(e).children('.menuitembutton').children('.line180warpper').children('.line180').css('width', '0%');
-  }
-}
-
-function leaved(){
-  var menuitemwarpper = $(popup).parent();
-    var y = $(menuitemwarpper).offset().top;
-    var x = $(menuitemwarpper).offset().left;
-    topY = y;
-    leftX = x;
-}
-
-
- $(document).mousemove(function(e){
-
-
-  if(topY <=0 || leftX <=0)
-  {
-    return;
-  }
-
-  var height = parseInt($(popup).css('height').replace('px', ''));
-  var width  = parseInt($(popup).css('width').replace('px', ''));
-  var offX = Math.abs(leftX - e.pageX);
-  var offY = Math.abs(topY - e.PageY);
-  var tooFar = 150;
-
-if(e.pageY - (topY + height)>=tooFar  || topY - e.pageY >= tooFar  || leftX - e.pageX >= tooFar  || e.pageX - (leftX + width) >= tooFar)
-{
-  $(popup).siblings('.upperpointer').animate({opacity:0}, duration);
-  $(popup).children('.menuitemtitlewarrper').animate({opacity:0}, duration);
-  $(popup).animate(
-    {height:0},
-    {duration:duration,
-       complete:function(){
-             $(popup).css('visibility', 'hidden');
-             $(popup).find('*').css('visibility', 'hidden');
-
-       }
-    }
-  );
-
-  topY = -1;
-  leftX = -1;
-  $(popup).siblings('.menuitem').children('.menuitembutton').children('.line180warpper').children('.line180').css('width', '0%');
-}
-});
-
-</script>-->
 </div>

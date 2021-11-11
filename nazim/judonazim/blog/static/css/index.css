@@ -7,7 +7,6 @@
 html, body
 {
   direction: rtl;
-
 }
 
 body
@@ -18,6 +17,12 @@ body
   overflow-x:hidden;
   filter: drop-shadow(0px 0px 1000px blue);
   filter: -webkit-drop-shadow(0px 0px 1000px blue);
+  margin: 0;
+  padding: 0
+  display:flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
 
 }
 .arrow-up:hover {
@@ -83,13 +88,10 @@ body
   flex-direction: row;
   column-gap: 5px;
   align-items: stretch;
-  align-content: stretch;
+  justify-content:center;
   width: 280px;
   height: 50px;
-  /*background:-webkit-linear-gradient(90deg, #c5c5f7, #ffffff,#ffffff, #d4d4d6);
-  background:-moz-linear-gradient(90deg, #c5c5f7, #ffffff,#ffffff, #d4d4d6);
-  background:-o-linear-gradient(90deg, #c5c5f7, #ffffff,#ffffff, #d4d4d6);
-  background:linear-gradient(90deg, #c5c5f7, #ffffff,#ffffff, #d4d4d6);*/
+  overflow: hidden;
   box-shadow: 2px 2px 5px rgb(0, 1, 66);
   border-radius: 20px;
 
@@ -174,7 +176,16 @@ body
     background:linear-gradient(-180deg, #0b2edd, #050505);
  }
 
-
+#richardlynnrow
+{
+  position: relative;
+  display: flex;
+  direction: rtl;
+  flex-direction: row;
+  gap:5px;
+  align-items: center;
+  justify-content: center;
+}
 .flexrow
 {
   position: relative;
@@ -191,6 +202,8 @@ body
   color:white;
   transition: all 0.5s;
   align-self:center;
+  text-align: center;
+
 }
 .caption:hover
 {
@@ -307,9 +320,9 @@ body
 }
 .whitecanavasptitle
 {
-  background-color: white;
+  background-color: #EAEAEA;;
   text-align: center;
-  margin-left: 50px;
+  /*margin-left: 50px;*/
 }
 .ptitle.orangebg
 {
@@ -516,11 +529,11 @@ body
 
 }
 
-div.ptitle
+/*div.ptitle
 {
   position: relative;
   margin-left:50px;
-}
+}*/
 div.ptitle.bg
 {
   position: relative;
@@ -533,10 +546,16 @@ div.ptitle.bg
   max-width: 500px;
   width: 100%;
 }
-.maincontext img:not(.centerfootage)
+.maincontext img:not(.centerfootage, .imgIdf)
 {
   max-width: 500px;
   max-height: 500px;
+}
+.imgIdf
+{
+  max-width: 350px;
+  max-height: 350px;
+  width: 350px;
 }
 ul
 {
@@ -564,18 +583,14 @@ ul
   cursor: pointer;
   color: black;
   float: right;
-  /*padding: 8px 16px;*/
+
   transition: background-color .3s, outline-width 0.3s;
-  /*border: 1px solid #ddd;*/
+
   margin: 0 4px;
   outline: 0px solid blue;
   border-radius: 5px;
   border: 2px solid blue;
-  /*float: right;*/
-  /*display: flex;*/
-  /*margin-right:5px;
-  position: relative;
-  right:50%;*/
+
 }
 
 #ulnavpages>li a
@@ -608,10 +623,11 @@ ul
 
 
 
-.maincontext>ul>li :not(.stopinheriting, .stopinheriting *), .maincontext .childinherit
+/*.maincontext>ul>li :not(.stopinheriting, .stopinheriting *), .maincontext .childinherit*/
+.maincontext
 {
   font-size: 20px;
-  line-height: 30px;
+  /*line-height: 30px;*/
   text-align: center;
 }
 .txtcenter50
@@ -639,7 +655,11 @@ ul
 
 
 }
-
+.smallarticleimage, .smallarticleimage img
+{
+  max-width: 300px;
+  width: 300px;
+}
 .aricleimages
 {
   width: 400px;
@@ -734,30 +754,29 @@ ul
 
 
   box-sizing: border-box;
-  padding-right: 50px;
+  padding-right: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+
 
   z-index: 5;
   background-color: #EAEAEA;
 }
+#ulpages, #ulpages>li
+{
+  padding: 0;
+}
 .middle_section
 {
 
-/*  grid-column: onecol/span 1;*/
   position: relative;
   direction: rtl;
   justify-content:center;
-
-
-  /*display: grid;*/
   display: flex;
   flex-direction: column;
   align-items: stretch;
   overflow: visible;
-  /*grid-template-rows:repeat(6, 50px [row-start] ) [content] auto;
-  grid-template-columns: repeat(21, 1fr [subcol]);*/
-
-
-
 }
 .hg1middleimgwarpper
 {
@@ -820,17 +839,17 @@ ul
    background-image: url('../images/firestrong.gif');
   -webkit-background-clip: text;
   -webkit-text-stroke-color: white;
-  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-width: 0.5px;
   -webkit-text-fill-color: transparent;
 
   -moz-background-clip: text;
   -moz-text-stroke-color: white;
-  -moz-text-stroke-width: 2px;
+  -moz-text-stroke-width: 0.5px;
   -moz-text-fill-color: transparent;
 
   -o-background-clip: text;
   -o-text-stroke-color: white;
-  -o-text-stroke-width: 2px;
+  -o-text-stroke-width: 0.5px;
   -o-text-fill-color: transparent;
   z-index: inherit;
 
@@ -996,8 +1015,8 @@ ul
 {
 
   position: relative;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  /*margin-top: 10px;
+  margin-bottom: 10px;*/
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1074,5 +1093,4 @@ ul
 .move25tobottom
 {
   margin-top: 25px;
-
 }
