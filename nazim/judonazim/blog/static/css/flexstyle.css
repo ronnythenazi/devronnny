@@ -540,7 +540,6 @@
 }
 .item2
 {
-/*  grid-column: middlesection1/last;*/
   position: relative;
   grid-row-start: body;
   display: flex;
@@ -587,19 +586,15 @@
 {
   width: 100%;
   height: 50px;
-  /*right: calc(50% - 10px);*/
+
   text-align: center;
   position: absolute;
   bottom: -50px;
   z-index: 0;
-  opacity: 0;
-  /*bottom:-20px;*/
+  /*opacity: 0; //new */
+ visibility: hidden;
   z-index: 100;
-  /*transform: rotate(45deg);
-  transform: -webkit-rotate(45deg);
-  transform: -moz-rotate(45deg);
-  transform: -o-rotate(45deg);
-  transform: -ms-rotate(45deg);*/
+
 }
 .upperpointer::after
 {
@@ -635,16 +630,24 @@
   margin: 0px;
   padding: 0px;
 }
-
-.popupmenu>ul>li
+.popupmenu>ul>li>button
 {
   padding-top:10px;
   padding-bottom: 10px;
-  line-height: 20px;
-  /*font-size: 16px;*/
-  color:black;
   padding-right: 20px;
   padding-left: 20px;
+
+}
+.popupmenu>ul>li
+{
+  /*padding-top:10px;
+  padding-bottom: 10px;*/
+  line-height: 20px;
+
+  color:black;
+  /*padding-right: 20px;
+  padding-left: 20px;*/
+
   position: relative;
   display: flex;
   direction: column;
@@ -669,21 +672,19 @@
   position: absolute;
   content: '';
   opacity: 0;
-  background: var(--bg-blue1, --bg-blue2); /*url('../images/galaxy_dark.jfif');*/
-  /*background: url('../images/firestrong.gif');*/
+  background: var(--bg-blue1, --bg-blue2);
   width: 100%;
   height: 100%;
   top:0px;
   right:0px;
   transition: all 0.3s;
+  z-index: -1;
 }
 
 .popupmenu>ul>li:hover::after
 {
   opacity: 0.5;
 }
-
-
 .popupmenu button
 {
   /*font:inherit;*/
@@ -740,7 +741,7 @@
 .menu
 {
   direction: rtl;
-  font-size: 20px;
+  font-size: 16px;
   color:white;
   position: sticky;
   top:0;
@@ -752,14 +753,15 @@
   border-left: none;
   border-bottom: none;
   position: sticky;
-/*  height: 80%;*/
   display: flex;
   flex-direction: row;
-  gap:0; /* replace gap:20px; 14-08-2021*/
+  gap:0.2rem; /* replace gap:20px; 14-08-2021*/
   justify-content:flex-start;
   background: var(--bg-black1, --bg-black2);
   z-index: 1000;
   margin-top:50px;
+  /*padding-left: 100%;*/
+
 }
 
 

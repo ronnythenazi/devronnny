@@ -1,20 +1,22 @@
 $(document).ready(function(){
-  $('.menuitem').each(function(){
-    $(this).attr('data-value', $(this).siblings('.popupmenu').css('height'));
+  /* $('.menuitem').each(function(){
+   $(this).attr('data-value', $(this).siblings('.popupmenu').css('height'));
     $(this).attr('data-topY', '-1');
     $(this).attr('data-leftX','-1');
-});
-$('.menuitemwarpper').on('mouseover click', function (){
-  if($(this).children('.menuitem').siblings('.popupmenu').css('visibility') == 'hidden')
-  {
-    handleclick($(this).children('.menuitem'));
-    //addimages($(this).children('.menuitem').attr('id'));
-  }
+});*/ //new
+
+  $('.menuitemwarpper').on('mouseover click', function (){
+   if($(this).children('.menuitem').siblings('.popupmenu').css('visibility') == 'hidden')
+   {
+     handleclick($(this).children('.menuitem'));
+   }
+
+  });
+
 
 });
-});
 
-function setPopupsDataHeight()
+/*function setPopupsDataHeight()
 {
   var childsHeight;
   $('.menuitem').each(function(){
@@ -27,4 +29,4 @@ function setPopupsDataHeight()
       });
       $(this).attr('data-value', childsHeight + "px");
   });
-}
+}*/ // new

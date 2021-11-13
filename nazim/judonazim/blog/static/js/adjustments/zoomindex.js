@@ -28,7 +28,6 @@ $(document).ready(fsetup);
 
 function fsetup()
 {
-
   var currWindowWidth = $(window).width();
   if(currWindowWidth >= minWindowWidth)
   {
@@ -51,7 +50,6 @@ $(window).resize(adjust_to_screensize);
 
 function adjust_to_screensize()
 {
-
   var currWindowWidth = $(window).width();
   var ratio = (currWindowWidth/laptopwidth);
 
@@ -108,25 +106,27 @@ function adjust_to_screensize()
       $('.stretchToWindowWidth').width($(window).width());
       $('.item2').width($(window).width());
 
-        $('.maingrid').addClass('wholespace');
+      $('.maingrid').addClass('wholespace');
 
-        $('.middle_section').width($(window).width());
+      $('.middle_section').width($(window).width());
 
 
 
       $('.menu').height(40);
+
       $('.menu').css('font-size', '15px');
-      $('.menu').css('justify-content', 'center');
+    //  $('.menu').css('justify-content', 'center'); new
 
 
       $('.popupmenu>ul>li').css('line-height', '15px');
       $('.popupmenu button').css('font-family', 'formal');
       $('.popupmenu button').css('font-size', '8px');
+
       $('.menuitem>.menuitembutton').css('font-size', '8px');
       $('.menuitem>.menuitembutton>button>span').removeClass('robotstroke');
 
-      $('.popupmenu>ul>li').css('padding-top', '9px');
-      $('.popupmenu>ul>li').css('padding-bottom', '9px');
+      $('.popupmenu>ul>li>button').css('padding-top', '9px');
+      $('.popupmenu>ul>li>button').css('padding-bottom', '9px');
       $('.submenuitemico').css('width', '12.5px');
       $('.submenuitemico').css('height', '12.5px');
       $('.ico').width(20);
@@ -137,7 +137,7 @@ function adjust_to_screensize()
       $('.arrow-up').height(35);
       $('.arrow-up').css('font-size', '20px');
 
-       setPopupsDataHeight();
+    //   setPopupsDataHeight(); //new
 
 
       $('.menuitemtitle').css('font-size', '10px');
@@ -168,18 +168,19 @@ function adjust_to_screensize()
       $('.menu').height(80);
 
       $('.menu').css('font-size', '20px');
-      $('.menu').css('justify-content', 'right');
-      $('.menu').css('padding-left', '0');
+    //  $('.menu').css('justify-content', 'right'); //new
+    //  $('.menu').css('padding-left', '0'); new
 
 
       $('.popupmenu button').css('font-size', '16px');
+
       $('.menuitem>.menuitembutton').css('font-size', '15px');
       $('.menuitem>.menuitembutton>button>span').addClass('robotstroke');
       $('.popupmenu button').css('font-family', 'formal');
-      $('.popupmenu>ul>li').css('padding-left', '20px');
-      $('.popupmenu>ul>li').css('padding-right', '20px');
-      $('.popupmenu>ul>li').css('padding-top', '10px');
-      $('.popupmenu>ul>li').css('padding-bottom', '10px');
+      $('.popupmenu>ul>li>button').css('padding-left', '20px');
+      $('.popupmenu>ul>li>button').css('padding-right', '20px');
+      $('.popupmenu>ul>li>button').css('padding-top', '10px');
+      $('.popupmenu>ul>li>button').css('padding-bottom', '10px');
       $('.submenuitemico').css('width', '25px');
       $('.submenuitemico').css('height', '25px');
 
@@ -190,7 +191,7 @@ function adjust_to_screensize()
       $('.arrow-up').width(50);
       $('.arrow-up').height(50);
       $('.arrow-up').css('font-size', '25px');
-      setPopupsDataHeight();
+      //setPopupsDataHeight(); //new
 
       $('.menuitemtitle').css('font-size', '15px');
       $('.menuitemtitlewarrper:last-child').css('height', '50%');
@@ -219,18 +220,19 @@ function adjust_to_screensize()
       $('body').css('overflow-x', 'auto');
 
       $('.menu').height(30);
-      $('.menu').css('font-size', '20px');
-      $('.menu').css('justify-content', 'center');
+
+    //  $('.menu').css('justify-content', 'center'); new
 
       $('.popupmenu button').css('font-family', 'formal');
       $('.popupmenu button').css('font-size', '5px');
+
       $('.menuitem>.menuitembutton').css('font-size', '5px');
       $('.menuitem>.menuitembutton>button>span').removeClass('robotstroke');
 
-      $('.popupmenu>ul>li').css('padding-left', '5px');
-      $('.popupmenu>ul>li').css('padding-right', '5px');
-      $('.popupmenu>ul>li').css('padding-top', '2.5px');
-      $('.popupmenu>ul>li').css('padding-bottom', '2.5px');
+      $('.popupmenu>ul>li>button').css('padding-left', '5px');
+      $('.popupmenu>ul>li>button').css('padding-right', '5px');
+      $('.popupmenu>ul>li>button').css('padding-top', '2.5px');
+      $('.popupmenu>ul>li>button').css('padding-bottom', '2.5px');
       $('.submenuitemico').css('width', '5px');
       $('.submenuitemico').css('height', '5px');
 
@@ -241,7 +243,7 @@ function adjust_to_screensize()
       $('.arrow-up').height(17.5);
       $('.arrow-up').css('font-size', '10px');
 
-      setPopupsDataHeight();
+      //setPopupsDataHeight(); //new
 
 
       $('.menuitemtitle').css('font-size', '4px');
@@ -259,11 +261,11 @@ function adjust_to_screensize()
       $('.menu').height(60);
       $('.popupmenu>ul>li').css('line-height', '15px');
       $('.menuitem>.menuitembutton').css('font-size', '10px');
-      $('.popupmenu>ul>li').css('padding-top', '10px');
-      $('.popupmenu>ul>li').css('padding-bottom', '10px');
+      $('.popupmenu>ul>li>button').css('padding-top', '10px');
+      $('.popupmenu>ul>li>button').css('padding-bottom', '10px');
       $('.popupmenu button').css('font-family', 'formal');
       $('.popupmenu button').css('font-size', '8px');
-      setPopupsDataHeight();
+      //setPopupsDataHeight(); //new
     }
     if(currWindowWidth<=300)
     {
@@ -306,20 +308,20 @@ function revertToDefault()
 
   $('.menu').css('font-size', '20px');
   $('.menu').height(80);
-/*  $('.menu').css('gap', '20px');*/
 
-  $('.menu').css('justify-content', 'right');
-  $('.menu').css('padding-left', '0');
+  //$('.menu').css('justify-content', 'right'); //new
+  //$('.menu').css('padding-left', '0'); //new
 
-  //$('.popupmenu>ul>li').css('line-height', '20px');
+
 
   $('.popupmenu button').css('font-family', 'formal');
   $('.popupmenu button').css('font-size', '16px');
-  $('.popupmenu>ul>li').css('padding-left', '20px');
-  $('.popupmenu>ul>li').css('padding-right', '20px');
-  $('.popupmenu>ul>li').css('padding-top', '10px');
-  $('.popupmenu>ul>li').css('padding-bottom', '10px');
-  //$('.menuitemwarpper').width(300);
+
+  $('.popupmenu>ul>li>button').css('padding-left', '20px');
+  $('.popupmenu>ul>li>button').css('padding-right', '20px');
+  $('.popupmenu>ul>li>button').css('padding-top', '10px');
+  $('.popupmenu>ul>li>button').css('padding-bottom', '10px');
+
   $('.submenuitemico').css('width', '25px');
   $('.submenuitemico').css('height', '25px');
   $('.ico').width(40);
@@ -334,10 +336,8 @@ function revertToDefault()
   revertGeneral('item2');
   setFontSize('maincontext');
 
-  setPopupsDataHeight();
-  /*$('.upperpointer').height(50);
-  $('.upperpointer').css('bottom', '-50px');
-  $('.upperpointer:last-child').css('font-size', '50px')*/
+
+
   $('.menuitemtitle').css('font-size', '15px');
   $('.menuitemtitlewarrper:last-child').css('height', '50%');
 
