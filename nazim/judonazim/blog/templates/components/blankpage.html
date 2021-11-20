@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>העמוד בפיתוח</title>
+    <link rel = "icon" href ="{%static 'images/titleicons/construction.jpg'%}"  type = "image/x-icon">
+    <style>
+
+      :root {
+          --blue: #5e72e4;
+          --indigo: #5603ad;
+          --purple: #8965e0;
+          --pink: #f3a4b5;
+          --red: #f5365c;
+          --orange: #fb6340;
+          --yellow: #ffd600;
+          --green: #2dce89;
+          --teal: #11cdef;
+          --cyan: #2bffc6;
+          --gray: #8898aa;
+          --gray-dark: #32325d;
+          --gray-darker: #111214;
+          --lighter: #e9ecef;
+          --primary: #5e72e4;
+          --secondary: #f4f5f7;
+          --success: #2dce89;
+          --info: #11cdef;
+          --warning: #fb6340;
+          --danger: #f5365c;
+          --light: #adb5bd;
+          --dark: #212529;
+          --default: #172b4d;
+          --white: #fff;
+          --neutral: #fff;
+          --darker: black;
+          --breakpoint-xs: 0;
+          --breakpoint-sm: 576px;
+          --breakpoint-md: 768px;
+          --breakpoint-lg: 992px;
+          --breakpoint-xl: 1200px;
+          --font-family-sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+          --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+
+          --bg-red1:-webkit-linear-gradient(180deg, #a80606,#e21818, #b20303);
+          --bg-red2:linear-gradient(180deg, #a80606,#e21818, #b20303);
+          --bg-red3:-moz-linear-gradient(180deg, #a80606,#e21818, #b20303);
+          --bg-red4:-o-linear-gradient(180deg, #a80606,#e21818, #b20303);
+      }
+
+      .niceredclr
+      {
+        -webkit-background-clip: text;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: white;
+        -webkit-text-fill-color: transparent;
+        background-image: var(--bg-red1, var(--bg-red2, var(--bg-red3, --bg-red4)));
+      }
+      .bg-gradient-dark {
+          background: linear-gradient(87deg, #212529 0, #212229 100%) !important;
+      }
+    body,html
+    {
+      height:100%;
+
+    }
+      body
+      {
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        gap:20px;
+        font-size:50px;
+        overflow:hidden;
+
+      }
+
+      img
+      {
+        border-radius:10px;
+        box-shadow: 5px 5px 10px blue, 2px 2px 20px red;
+      }
+    </style>
+  </head>
+  <body class="bg-gradient-dark">
+    <span class="niceredclr">העמוד נמצא בבניה</span>
+  <img src="{%static 'images/sitemsgimages/crane-construction.gif'%}" alt="">
+
+  </body>
+</html>

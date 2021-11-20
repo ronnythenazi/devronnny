@@ -1,0 +1,76 @@
+
+<style>
+
+  .sharethis-sticky-share-buttons.icon-bar {
+   position: sticky !important;
+   margin-top:200px !important;
+   top:100 !important;
+   z-index:900 !important;
+  }
+
+.icon-bar {
+ position: sticky;
+ margin-top:100px;
+ top:100px;
+ z-index:900;
+}
+
+.icon-bar a {
+  display: block;
+  text-align: center;
+  padding: 16px;
+  transition: all 0.3s ease;
+  color: white;
+  font-size: 20px;
+  /*border-radius:0%;*/
+
+
+}
+
+.icon-bar a:hover {
+  background-color: #000;
+  margin-left:-60px;
+  border-radius:10px;
+
+}
+
+.facebook {
+  background: #3B5998;
+  color: white;
+}
+
+.twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.whatsapp{
+  background: #2dce89;
+  color: white;
+}
+
+.linkedin {
+  background: #007bb5;
+  color: white;
+}
+
+.telegram {
+  background: #5eb5e4;
+  color: white;
+}
+
+.content {
+  margin-left: 75px;
+  font-size: 30px;
+}
+
+</style>
+
+<div class="icon-bar">
+  <a href="https://www.facebook.com/sharer/sharer.php?u={% url 'blog:homepage' %}" class="facebook"><i class="fa fa-facebook"></i></a>
+  <a href="https://twitter.com/intent/tweet?text=קהילת+יהודונאצזים+ישראל.+יהודים+%26+בעד+גזענות&amp;url={% url 'blog:homepage' %}" class="twitter"><i class="fa fa-twitter"></i></a>
+  <a href="https://wa.me/?text=https%3A%2F%2F{% url 'blog:homepage' %}+-+יהודונאציזם+ישראל.+נאצים+יהודים+%26+האתר+הרשמי" class="whatsapp"><i class="fa fa-whatsapp"></i></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url={% url 'blog:homepage' %}&title=יהודונאציזם ישראל&summary=לא רןצים זרים במדינה ומותר לנו להיות גזענים&source=" class="linkedin"><i class="fa fa-linkedin"></i></a>
+  <a class="telegram" href="https://telegram.me/share/url?url={% url 'blog:homepage' %}/&text=גזענות מצילה חיים" target="_blank" title="שתף בטלגראם"><i class="fa fa-telegram"></i></a>
+
+</div>

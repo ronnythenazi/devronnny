@@ -25,6 +25,7 @@ app_name = 'blog'
 urlpatterns = [
 
  path('', views.fhome, name = 'homepage' ),
+ path('blank', views.fblank, name = 'blank' ),
  path('base/', views.fbase, name = 'basehtml' ),
  #path('blog/<str:slug>/', views.fwriteblog, name = 'blogfrm' ),
  path('blog/', views.fwriteblog, name = 'blogfrm' ),

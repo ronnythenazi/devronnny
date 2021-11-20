@@ -1,0 +1,380 @@
+{%load static%}
+
+<style>
+
+body.bodyblur
+{
+  z-index:3000;
+
+}
+:root
+{
+  --bg-border-pinchbanana1:linear-gradient(45deg,  blue, red, yellow, green, black, white, orange, salmon, purple);
+  --bg-border-pinchbanana2:-webkit-linear-gradient(45deg, blue, red, yellow, green, black, white, orange, salmon, purple);
+}
+.section img:not(.title-img), .lightme
+{
+  border-radius:10px;
+  box-shadow: 5px 5px 10px blue, 2px 2px 20px red;
+}
+.borderme
+{
+  border-right:none;
+  border-left:none;
+  border-bottom:none;
+  border-top: 10px solid transparent;
+  border-image: var(--bg-border-pinchbanana1, --bg-border-pinchbanana2) 30% round;
+}
+.maincontext
+{
+  background-color:unset !important;
+}
+.section
+{
+   padding-right:5px;
+   background-color:#EAEAEA;
+}
+.niceredclr
+{
+  -webkit-background-clip: text;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: white;
+  -webkit-text-fill-color: transparent;
+   background-image: var(--bg-red, var(--bg-red2, var(--bg-red3, --bg-red4)));
+}
+body.bodyblur:after
+{
+  content:'';
+  position: absolute !important;
+  display:block;
+  width:100% !important;
+  height:100% !important;
+  z-index:2999 !important;
+  opacity:0.8 !important;
+  top:0;
+  right:0;
+  background-color:black !important;
+}
+
+#imgclone
+{
+
+  max-height:500px !important;
+  max-width:500px !important;
+  position:fixed !important;
+  z-index:3000 !important;
+  transition: all 1s ease;
+}
+.bg-gradient-dark
+{
+  background: linear-gradient(87deg, #212529 0, #212229 100%) !important;
+}
+#costofdiversity>p>span
+{
+
+    color:#3B5998;
+    -webkit-text-stroke-color:purple;
+    -webkit-text-stroke-width:0.5px;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    -webkit-background-image:var(--bg-blue1, --bg-red2);
+    -moz-background-image:var(--bg-blue1, --bg-red2);
+    -o-background-image:var(--bg-blue1, --bg-red2);
+     background-image:var(--bg-blue1, --bg-red2);
+}
+#costofdiversity>video, #costofdiversity>img, #costofdiversity>iframe
+{
+  cursor:pointer;
+}
+
+.rowmedia.dense.title-img-row
+{
+  align-items:flex-end;
+}
+
+</style>
+
+  <div id="costofdiversity" class="section column">
+   <p>
+
+     <span>מעבר למחיר הכבד שאנחנו משלמים על,</span>
+     <span>רמות הפשיעה הגבוהות, האלימות הרבה, הנחשלות, המראה המכוער,</span>
+     <span>הפרמיטיביות, האינטליגנציה הנמוכה, וזיהום מאגר הד.נ.א שלנו.</span>
+     <span>יש גם את המחיר הכבד שמתורגם לעלות כספית גבוהה,</span>
+     <span>אותו כולנו משלמים מכספי המיסים שלנו,</span>
+     <span>בכדי להחזיק את אותו "עושר תרבותי" של זבל גנטי של האתיופים.</span>
+
+   </p>
+  <img src="{{MEDIA_URL}}/media/myvideos/costofdiversity/ethipoianscostmoney.JPG" alt="">
+     <p>
+       <span>ולמרות זאת, כל מיני יצורים טיפשים,</span>
+       <span>הוזים שהאתיופים הם מתנה ונכס דמוגרפי לעם ישראל,</span>
+       <span>דמוגרפיה = גורל, לא רק מבחינה כמותית.</span>
+       <span>אלא לא פחות חשוב, מבחינה איכותית,</span>
+       <span>העובדה שהם מוגדרים כיהודים גורמת לזה,</span>
+       <span>להיות מעט פחות גרוע מאריתראים וסודנים וערבים.</span>
+       <span>אבל עדין מדובר בזבל גנטי שמזהם לנו את המרחב הציבורי והד.נ.א.</span>
+       <span>If it ain't broke don't fix it</span>
+     </p>
+
+
+
+     <p>
+      <span>בערוצי השקר  של האשכנזים,</span>
+      <span>עושים שמניות באוויר ויוצאים מגדרם ומעורם,</span>
+      <span>כדי לנסות להמציא משהו חיובי על האתיופים,</span>
+      <span>זה מגוחך כמו לנסות להאיר קקה עם  פנס צבעוני,</span>
+      <span>ולנסות לאלץ אותך להאמין כמה הקקה הזה יפה,</span>
+      <span>עדין על רוב הציבור הישראלי המטומטם נראה,</span>
+      <span>ששקר בגדי המלך החדשים של התקשורת האשכנזית,</span>
+      <span>מצליח לשטות בהם ממש כמו סוג של קסם,</span>
+      <span>האתיופים הם 100% נזק, 100% תרומה שלילית, ואסון דמוגרפי מוחלט.</span>
+      <span>כמובן שאת הדברים השלילים שקשורים לעליה של האתיופים,</span>
+      <span>עליהם מעולם לא שמעתם ולעולם לא תשמעו בתקשורת.</span>
+      <span>למרות שבניגוד לצדדים "הטובים" הלחלוטין בדויים, מומצאים, ומנופחים,</span>
+      <span>הצדדים השלילים שכרוכים בהימצאותם, קיימים בשפע.</span>
+      <span>זה מצריך מאמצים עילאים והתכחשות  גמורה, כדי לפספס אותם.</span>
+      <span>אך עדין, התקשורת האשכנזית המיינסטרימית נשארת  לגבי זה בדממת אלחוט.</span>
+      <span>כאלו שום דבר מהפשיעה, האלימות, הפרמיטיביות, הכיעור, והנחשלות שלהם,</span>
+      <span>אינם ומעולם לא היו קיימים, זה רק בדמיון שלכם.</span>
+      <span>זה רק בראש החולה, המעוות, ההוזה, והגזעני שלך, כך גורמים לכם לחשוב.</span>
+      <span>לא ראינו, לא שמענו, לא ידענו.</span>
+      <span>לא רק שהם כלל לא קיימים, ההפך הוא הנכון לפי אותם אשכנזים אליטיסטים.</span>
+      <span>לפיהם האתיופים הם נכס חשוב ויקר למדינה, הם רק תרומה ועושר תרבותי.</span>
+      <span>זה רק אנחנו כחברה, כעם, אשמים, בכך שלא הצלחנו לקלוט אותם.</span>
+      <span>התת-הישגיות שלהם בכל תחום אפשרי, האלימות הגבוהה, הנחשלות, הפרמיטביות, הברבריות,</span>
+     <span>זה הכל פרי הדמיון של הראש החולה המעוות שלכם.</span>
+     <span>שום דבר שקשור לגנטיקה או הביולוגיה שלהם,</span>
+     <span>Move along sir, Nothing to see there</span>
+     <span>העוני, האיידס, הכיעור, הנחשלות, הטיפשות, והפשיעה של האתיופים,</span>
+     <span>לכולם יש הסבר נורא פשוט לפי ערוצי המדיה האשכנזיים-</span>
+     <span>גזענות.</span>
+     <span>זה רק בגלל שאנחנו גזענים,</span>
+     <span>אנחנו אשמים.</span>
+     <br>
+     <span>דוגמא לכך אפשר לראות בסרטון הבא,</span>
+     <span>אישה, שבניגוד לנתן זהבי, ואנשי תקשורת אשכנזים אחרים,</span>
+     <span>נאלצים לחיות עם הגרורה הסרטנית הזו,</span>
+     <span>אתם יודעים, אנשים שנחשפים לאמת מהמציאות.</span>
+     <span>לפי מה שהם חווים על בשרם מדי יום,</span>
+     <span>ולא לפי עולם הפנטזיה גדוש השקרים,</span>
+     <span>שמתארים לכם כל יום נתון, במסכי הטאבלט, המחשב הסמארטפונים והטלויזיה,</span>
+     <span>אותה אישה פשוטה ואמתית, נמצאת חסרת אונים ואובדת עצות,</span>
+     <span>בשל הרב גזעיות, והרב תרבותיות הנפלא שהאשכנזים כפו עלנו,</span>
+     <span>מתארת בשיחה פתוחה, גלויה וכנה, על הסבל והייסורים שהיא חווה,</span>
+     <span>מדי יום ביומו, כבר כמה שנים טובות ברציפות, והכל על מזבח הכור היתוך, והמיזוג גלויות.</span>
+     <span>ומה הדבר הכי טוב שיש לאנשים עוצמתיים אליטיסטים אשכנזים, כמו נתן זהבי ודומיו</span>
+     <span>לומר לה? ניסיון לחזק או לעודד אותה?</span>
+     <span>או אולי להודות באמת שיש דברים בגו, שדבריה נכונים?</span>
+     <span>אם לא בכולם או ברובם, אז אולי לפחות בחלקם או במקצתם?</span>
+     <span>שאולי לא משנה כמה גזעני ולא פוליטיקלי קורקט זה נשמע,</span>
+     <span>להודות שיש צדק בדבריה? </span>
+     <span>מה פתאום, חחחחח, אל תהיו נאיבים.</span>
+     <span>הדבר היחיד שיש  לאיש תקשורת כמוהו להחזיר לה,</span>
+     <span>זה רק מטר קללות עסיסיות, השפלות מילוליות, להאשים אותה בגזענות,</span>
+    <span>לכנות אותה נאצית, וטריקת טלפון בפנים.</span>
+    <span>חארגיל, לפי ההגמוניה האשכנזית, הסרטן היחיד זה הגזענות,</span>
+    <span>לא מה שגורם לגזענות, וזה הרב-תרבותיות/גזעיות.</span>
+
+     </p>
+     <video class="noauto vid txtcenter" poster="{%static 'images/thumbs/french.jpg'%}" controls>
+     <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/ethiopians/ashkmediaethiopians.mp4" type="video/mp4">
+     </video>
+
+ <p>
+     <span>עוד יהודי-ספרדי שלא מרגיש בנוח עם הפלורליזם הכפוי,</span>
+     <span>שאותו כפו על רצון העם, בירוקרטים, מיליארדרים, אשכנזים, עוצמתיים.</span>
+     <span>הוא לא מרגיש בטוח שערבים וכושים נמצאים אצלו ליד הבית.</span>
+     <span>אני לחלוטין מבין ומסכים אתו, אולם התגובה היחידה שיש,</span>
+     <span>לאיש תקשורת אשכנזי , נתן זהבי, להשיב לאיש,</span>
+     <span>זה חארגיל,מטר של שפע קללות, עלבונות, האשמות, צעקות, הבעת שנאה ורעל טהור.</span>
+     <span>רק בגלל שהוא העז לומר את האמת, שהרבה אנשים חושבים ומרגישים,</span>
+     <span>רק לא תמיד מעזים לומר, רק כדי לא חלילא להתפס כגזענים,</span>
+     <span>קצת הזוי שאנשים היום מרגישים יותר בנוח לומר שהם הומואים,</span>
+     <span>מאשר לומר שהם גזעניים.</span>
+     <span>ולמען הסר ספק, המכוער נפש הצבוע נתן זהבי, יודע שהמאזין צודק.</span>
+     <span>והוא מרגיש אותו דבר כלפי ערבים וכושים ואף יותר גזען,</span>
+     <span>אבל זה עדין לא עוצר מבעדו לנצל את כוחו כעיתונאי לרעה,</span>
+     <span>כדי לדכא ולהשתיק באכזריות, כל ביטוי של אי ציות,</span>
+     <span>לנורמות האשכנזיות הכפויות, של מה מותר ומה אסור לחשוב ולהרגיש.</span>
+     <span>גם אם אתם מאלו שחושבים שאין הצדקה לגזענות של המאזין,</span>
+     <span>או אם אתם בצד של נתן זהבי כאן, עדין מה שברור,</span>
+     <span>שאותו פלורליזם, זו הנקודת תורפה של ישראל, ולא העוצמה.</span>
+   </p>
+
+
+      <video class="noauto vid" poster="{%static 'images/thumbs/zehavi.jpg'%}" controls>
+      <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/ashkenazimedia/satanic ashkjornalistbrutallyattackmenajew.mp4" type="video/mp4">
+      </video>
+
+<p>
+      <span>עוד דוגמא שרירותית מיני אינסוף שממחישה את הזיוף, הצביעות, והשקרים,</span>
+      <span>של הטרוריסטים התקשורתיים האשכנזים באותו נושא,</span>
+      <span>זו השיחה הבאה בין הבולדוזר האליטיסי האשכנזי, איש התשקורת, עודד בן עמי,</span>
+      <span>לבין איש קשה יום יהודי-ספרדי, נהג אוטובוס,</span>
+      <span>אותו נהג אוטובוס, "נאצי", "היטלראי", "מפלצתי", בסך הכל אמר,</span>
+      <span>שילדים אתיופים מתפרעים באוטובס בזמן הנסיעה,</span>
+      <span>שזו כמובן אמת לאמיתה, עובדה ידועה וברורה כשמש,</span>
+      <span>שמוכרת לכל אחד שנסע אי פעם בתחבורה ציבורית,</span>
+      <span>אז על אחת כמה וכמה, לנהג אוטובוס, שזה תחום עיסוקו,</span>
+      <span>שהרי הוא נתקל בזה יום יום במשך שנים, ואין חכם כבעל ניסיון,</span>
+      <span>וזה למרות ששוב, לא צריך שום ניסיון.</span>
+      <span>והדבר היחיד שיש לעודד בן עמי להשיב לאותו נהג תמים?</span>
+      <span>זה להקניט ולצלוב אותו בשידור חי,</span>
+      <span>ולהאשים אותו בגזענות.</span>
+
+      <span>חארגיל, האתיופים 100% , הבעיה רק במוח ההוזה החולה הגזעני שלך.</span>
+
+      <br>
+
+    </p>
+  <iframe  style="max-width:100%;" width="560" height="315"  src="https://www.youtube.com/embed/6Ue6fulNODw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+    <p>
+      <span>הדבר הכי גרוע בראיון הזה לדעתי, זה שאותו נהג,</span>
+      <span>יחסית לרוב האנשים, ובמיוחד ביחס לאנשי תקשורת אשכנזים צבועים,</span>
+      <span>וביחס לעודד בן עמי הצבוע, הוא לא באמת גזען.</span>
+      <span>מה שאולי גורם לו להצטייר כגזען,</span>
+      <span>זו ה0 יכולת שלו להיות פוליטיקלי קורקט , מזוייף וצבוע,</span>
+      <span>אבל פרט לכך, ממה שהצלחתי להרגיש באותו ראיון,</span>
+      <span>ועל סמך הכרות שלי עם אנשים כמותו,</span>
+      <span>הוא הרבה פחות גזען מאותו איש התקשורת , מכוער הנפש, עודד בן עמי הצבוע,</span>
+      <span>שמאשים אותו בגזענות.</span>
+      <span>מבטיח לכם שעודד בן עמי , לא היה שורד יום אחד בעבודה כנהג אוטובוס שמסיע ילדים אתיופים.</span>
+      <span>יתכן שלא היה יכול לשרוד בעבודה כנהג אוטובוס ללא קשר למי הנוסעים,</span>
+      <span>אותו נהג אוטובס שמואשם בגזענות, אינו שונא אתיופים,</span>
+      <span>למעשה, הוא אוהב אתיופים, כל החיים שלו לוו באינטראקציה אתם.</span>
+      <span>היו לו חברים אתיופים במשך כל חייו, אתם הוא דיבר בגובה העיניים,</span>
+      <span>לעומת הלוחם צדק חברתי האשכנזי בשקל שישים, מר עודד בן עמי,</span>
+      <span>שאם הוא היה רואה נער אתיופי צעיר מסמן לרכבו לעצור לבקשת עזרה,</span>
+      <span>הוא היה לוחץ על דוושת הגז במקום על דוושת הבלמים.</span>
+     <br>
+      <span>מי שמכיר את השקפתי, יודע שאיני רואה בגזענות כל דבר שלילי,</span>
+      <span>ושאין סיבה להתבייש להיות גזעני, ושאני אישית גזען גאה ומוצהר,</span>
+      <span>ושלמען האמת, כולם כמעט גזענים במידה זו או אחרת.</span>
+      <span>רק שההבדל  היחיד בין גזענים ללא גזענים,</span>
+      <span>שאנשים גזענים הם לא צבועים, זה הכל.</span>
+
+    </p>
+
+    <p>
+      <span>ועל הפולשים החוצנים החייזרים משאר אפריקה שנמצאים כאן,</span>
+      <span>שהובאו לכאן ע"י האשכנזים בניגוד לרצון העם,</span>
+      <span>כמו אריתראים, פלשמורה, סודנים, גיגרים, טנזנים, ומכל מיני חורים אחרים,</span>
+      <span>על הסרטן הזה עוד לא התחלתי להזכיר.</span>
+      <span>היה חשוב לי להתחיל דווקא באתיופים, כיוון שאנשים נוטים להקל ראש,</span>
+      <span>ולחלוטין עיוורים לסכנה הדמוגרפית פה, כי לפי הלמ"ס האשכנזי,</span>
+      <span>ולפי ההלכה של הכת היהודית, הם נחשבים יהודים.</span>
+      <span>הלשכה המרכזית האשכנזית לסטטיסטיקה, לחלוטין עיוורת גזעים.</span>
+      <span>אין שום מידע סטטיסטי לגבי גזעים בישראל האשכנזית.</span>
+      <span>האשכנזים המציאו את המושג "צבר", או ישראלי.</span>
+      <span>המשמעות היא, שלא משנה אם אתה ערבי, בדואי, כושי, מלוכסן או הודי וכו,</span>
+      <span>לגזע ןלגנטיקה אין שום חשיבות, זה סתם אוויר.</span>
+      <span>ואולי אפילו הלאום כבר לא חשוב, למשל אם אתה מוסלמי או בן כת אחרת.</span>
+      <span>אם אתה דור שני בארץ, אתה נחשב ישראלי, ללא חשיבות לגזע.</span>
+      <span>וזה נורא ואיום, למשל, כשמווחים על עליה בשיעור הילודה אצל היהודים בישראל,</span>
+      <span>זה נתון שיכול להיתפס כמעודד עבור רבים,</span>
+      <span>אבל כמעט אף אחד שהכרתי לא עצר רגע לשאול את עצמו,</span>
+      <span>ממה אותה אוכלוסיה שמוגדרת "יהודית" מורכבת,</span>
+      <span>כמה מהם שייכים לגזע השמי או הלבן?</span>
+      <span>וכמה מהם שייכים לגזעים חוצנים כמו אתיופים, ניגרים, מלוכסנים, הודים?</span>
+      <span>שאין להם שום קשר גנטי, היסטורי, או תרבותי אלנו.</span>
+      <span>הם חייזרים לחלוטין, פשוט רק מוגדרים כיהודים או מקיימים את הדת/המסורת היהודית.</span>
+      <span>ואפילו זה, במקרה הטוב ביותר, כי ישראזבל טובעת בחרא גנטי של כושים, ערבים ובדואים,</span>
+      <span>וחייזרים אויבים אחרים, שהם אפילו לא בני דת משה,</span>
+      <span>אלא מוסלמים, כולל כושים מוסלמים, כושי זה זבל טהור ואשפה גנטית בפני עצמו,</span>
+      <span>אז תארו לכם לשלב כושי עם דת האיסלאם, ויש לך פצצה ביולוגית בתוך המדינה.</span>
+      <span>נטיה שקיימת אצל הרבה אנשים בישראל, זה שאם יש משהו יותר גרוע,</span>
+      <span>אז הפחות גרוע הופך להיות טוב בעיניהם,</span>
+      <span>התקשורת האשכנזית מודעת לזה, ולכן היא משתמשת בזה כנשק של לוחמה פסיכולוגית,</span>
+      <span>שמצליחה לעבוד על ישראלים רבים מדי.</span>
+      <span>למשל, בסרטון הבא, רוצח ופושע מגזע אתיופי, שוחט אדם לאור יום,</span>
+      <span>בלמעלה מ100 דקירות סכין, והסיקור של הכתבה האשכנזית,</span>
+      <span>לחלוטין לא תואם, ולא פרופורציונלי לחומרת המקרה.</span>
+      <span>כל מה שתופס את הפוקוס של כאן תאגיד השידור האשכנזי סביב האלימות</span>
+      <span>הקשה והמזעזע הזו, זה לא על הפשע החמור שהאתיופי ביצע,</span>
+     <span>אלא כמו תמיד, הגזענות, שאנחנו אשמים, בכך שהיינו גזעים.</span>
+     <span>וכל זה רק בגלל שחשבנו שהוא אריתראי והוא בעצם אתיופי.</span>
+
+     <span>כן, קשה להאמין, זה פשוט מפוצץ את המוח.</span>
+     <span>זה אפילו לא עיסוק בתפל, זה גרוע הרבה יותר מכך,</span>
+     <span>זה עיסוק בחרא, הם מנצלים את מקרה הזוועה הזה שוב לצרכי תעמולה,</span>
+     <span>בעד רב גזעיות/רב תרבותיות, זה לסובב את האצבע המאשימה כלפי הקרבן,</span>
+     <span>במקום כלפי האתיופי התוקפן.</span>
+     </p>
+     <video  class="noauto vid" controls>
+     <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/ashkenazimedia/khandeception.mp4" type="video/mp4">
+     </video>
+
+
+   <p>
+     <span>כלומר הוא יהודי, או יותר נכון, ישראלי לפחות,</span>
+     <span>והרי לגזע, לגנטיקה ולביולוגיה. אין כל חשיבות לפי הנרטיב בחברה הישראלית.</span>
+     <span>גנים אמנם משפיעים כמעט על הכל, אז גזע זה הכי חשוב.</span>
+     <span>אבל מאחר ויש לנו צרות חדשות של פולשים אריתראים, סודנים, קונגולזים וכו, שהם זבל גנטי ותתי-אדם,</span>
+     <span>כמו אתיופים ואף הרבה יותר, ובנוסף, לא רק שהם גזע אחר לגמרי, אלא הם לא שייכים ללאום,</span>
+     <span>אז האסון הדמוגרפי של האתיופים, פתאום הפך להיות דבר שולי, או יותר הזוי,דבר טוב.</span>
+     <span>וזו השיטה של הלוחמה הפסיכולוגית, יש גרוע יותר, לכן הגרוע פחות זה טוב.</span>
+  </p>
+
+   </div>
+
+   <div class="section column borderme" style="margin-top:200px;background-color:#111214;">
+
+  <div class="rowmedia dense title-img-row lightme" style="margin-top:10px;margin-bottom:10px;background-color:black;">
+
+    <div class="txtcenter niceredclr" style="font-size:80px;line-height:60px;">
+     ערבים
+    </div>
+    <img style="height:150px;width:200px;" class="title-img" src="{{MEDIA_URL}}/media/myvideos/bemoreracist/arabs/refusetobeenemiesfunnypicture.jpg" alt="">
+
+  </div>
+
+   </div>
+
+
+
+  <script>
+    var clone_img_just_now_created = false;
+    $('#costofdiversity img').click(f_img_focus);
+    $(document).click(f_remove_any_focus);
+
+
+    function f_remove_any_focus()
+    {
+        if(clone_img_just_now_created)
+        {
+          clone_img_just_now_created = false;
+          $('#imgclone').css('width', $('#imgclone').width() * 2 + 'px');  //setTimeout(,100);
+          $('#imgclone').css('height', $('#imgclone').height() * 2 + 'px');
+          return;
+        }
+       $('#imgclone').remove();
+       $('body').removeClass('bodyblur');
+       $('#costofdiversity img').removeClass('imgfocus');
+    }
+
+    function f_img_focus()
+    {
+      $('#imgclone').remove();
+      $('body').removeClass('bodyblur');
+      $('#costofdiversity img').removeClass('imgfocus');
+
+       $('#imgclone').remove();
+       $('body').removeClass('bodyblur');
+       var img_clone = '<img alt="" id="imgclone" ' + 'src="';
+       var src = $(this).attr('src');
+       img_clone += src + '">';
+       $('body').append(img_clone);
+       var x = $(this).offset().left;
+       var y = $(this).offset().top;
+       $('#imgclone').offset({top:y, left:x});
+       $('#imgclone').width($(this).width());
+       $('#imgclone').height($(this).height());
+       $('body').addClass('bodyblur');
+       clone_img_just_now_created = true;
+    }
+
+    </script>

@@ -1,0 +1,82 @@
+{%load static%}
+<style type="text/css">
+  .popupmenu>ul>li>button>ul>li
+  {
+    flex-direction:row;
+    direction:rtl;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    margin-right:0px;
+
+  }
+  .popupmenu>ul>li>button>ul>li>span
+  {
+    margin-right:0px;
+  }
+  .popupmenu>ul
+  {
+     display:flex;
+     flex-direction:column;
+     align-items:stretch;
+  }
+
+  .submenuitemico
+  {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border:solid 3px;
+    border-top-color: blue;
+    border-right-color: blue;
+    border-bottom-color: red;
+    border-left-color:red;
+    position:absolute;
+    right:10px;
+  }
+</style>
+
+<div class="upperpointer"></div>
+<div class="popupmenu">
+
+
+
+  <div class="menuitemtitlewarrper"><span class="menuitemtitle">&nbsp;</span></div>
+ <ul>
+   <li>
+    <button type="submit" name="btnimomenajews">
+    <ul>
+      <li>
+        <img class="submenuitemico" src="{%static 'images/thumbs/mursi.jfif'%}" alt="">
+        <span>כושים</span>
+      </li>
+    </ul>
+    </button>
+    </li>
+
+   <li>
+    <button type="submit" name="btnmeonlinetv">
+     <ul>
+       <li>
+         <img class="submenuitemico" src="{%static 'images/thumbs/arabs.jpg'%}" alt="">
+         <span>ערבים</span>
+      </li>
+
+     </ul>
+   </button>
+     </li>
+
+   <li>
+    <button type="submit" name="btn12tv">
+     <ul>
+       <li>
+         <img class="submenuitemico" src="{%static 'images/thumbs/isis.jfif'%}" alt="">
+         <span>תתי-אדם</span>
+       </li>
+     </ul>
+   </button>
+   </li>
+
+ </ul>
+<script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>
+</div>

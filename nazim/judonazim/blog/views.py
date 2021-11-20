@@ -44,3 +44,5 @@ def fbase(request):
 def ftxteditor(request):
     return render(request, 'texteditorbase.html')
     #return render(request, 'menuicon.html')
+def fblank(request):
+    return render(request, 'components/blankpage.html')

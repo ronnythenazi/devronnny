@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html lang="en" dir="rtl">
+
+  <head>
+    <meta charset="utf-8">
+    <title>  {%block title%} base page{%endblock%}</title>
+
+
+    <link rel = "icon" href ="{%static 'images/judonazimlogoglow.jpg'%}"  type = "image/x-icon">
+  {%block links%}
+
+   <link rel="stylesheet" href="{% static 'css/homepage.css'%}">
+   <link rel="stylesheet" href="{%static 'css/index.css'%}">
+   <link rel="stylesheet" href="{%static 'css/huerotation.css'%}">
+   <link rel="stylesheet" href="{%static 'css/flexstyle.css'%}">
+   <link rel="stylesheet" href="{%static 'css/svg.css'%}">
+
+ {%endblock%}
+{%block additionallinks%}
+
+{%endblock%}
+
+  </head>
+
+  <body>
+
+    <form  method="POST">
+      {%csrf_token%}
+    <div class="item0">
+
+    <div id="navbar">
+
+      <div id="navcol3" class = "navbarcol">
+
+      </div>
+      <div id="navcol2" class = "navbarcol">
+      <img src="{% static 'images/judonazim_clip_art.jpg'%}" id = "judonazimnavimg"  onmouseover="nazilogohover()" onmouseout="nazilogoleave()">
+      <img src="{% static 'images/fire.gif'%}" id = "fire"  onmouseover="nazilogohover()" onmouseout="nazilogoleave()">
+      </div>
+      <div id="navcol1" class = "navbarcol">
+        <div class="leftmostdiv">
+       {%block bar%}
+       {% include "menuicon.html" %}
+       {%endblock%}
+     </div>
+      </div>
+
+
+    </div>
+
+    </div>
+
+
+<div class="bodyflex">
+
+  <div class="menu">
+
+        <div class="blurline"></div>
+
+        <div class="menuitemwarpper">
+             <div  id="btnronny" class="menuitem">
+                  <div class="slashline purple"></div>
+                  <div class="rightangle angle"></div>
+                  <div class="slashline blueglowbg"></div>
+                  <div class="menuitembutton">
+                     <button type="button" class="cell">
+                       <img class="ico" src="{%static 'images/ronny.jpg'%}" alt="">
+                       <span class="robotstroke">על רוני הנאצי</span>
+                     </button>
+                    <div class="line180warpper"><div class="line180"></div></div>
+                 </div>
+                 <div class="slashline blueglowbg"></div>
+                 <div class="leftnagle angle"></div>
+                 <div class="slashline purple"></div>
+            </div>
+          {%include 'tableofcontent/popup/aboutronny.html'%}
+       </div>
+
+       <div class="menuitemwarpper">
+            <div class="menuitem">
+                 <div class="slashline purple"></div>
+                 <div class="rightangle angle"></div>
+                 <div class="slashline blueglowbg"></div>
+                 <div class="menuitembutton">
+                    <button type="button" name="btnnazimbgmenuitem" class="cell">
+                      <img class="ico" src="{%static 'images/judonazimlogoglow.jpg'%}" alt="">
+                      <span class="robotstroke">מה זה יהודונאציזם</span>
+                    </button>
+                   <div class="line180warpper"><div class="line180"></div></div>
+                </div>
+                <div class="slashline blueglowbg"></div>
+                <div class="leftnagle angle"></div>
+                <div class="slashline purple"></div>
+           </div>
+         {%include 'tableofcontent/popup/nazimbg.html'%}
+      </div>
+
+      <div class="menuitemwarpper">
+           <div class="menuitem">
+                <div class="slashline purple"></div>
+                <div class="rightangle angle"></div>
+                <div class="slashline blueglowbg"></div>
+                <div class="menuitembutton">
+                   <button type="button" name="btnfeminism" class="cell">
+                     <img class="ico" src="{%static 'images/no-feminism.jpg'%}" alt="">
+                     <span class="robotstroke">פמיניזם זה סרטן</span>
+                   </button>
+                  <div class="line180warpper"><div class="line180"></div></div>
+               </div>
+               <div class="slashline blueglowbg"></div>
+               <div class="leftnagle angle"></div>
+               <div class="slashline purple"></div>
+          </div>
+        {%include 'tableofcontent/popup/feminism.html'%}
+     </div>
+
+     <div class="menuitemwarpper">
+          <div class="menuitem">
+               <div class="slashline purple"></div>
+               <div class="rightangle angle"></div>
+               <div class="slashline blueglowbg"></div>
+               <div class="menuitembutton">
+                  <button type="button" class="cell">
+                    <img class="ico" src="{%static 'images/sneakyashkenazi.jpg'%}" alt="">
+                    <span class="robotstroke">מעלליהם של האשכנזים</span>
+                  </button>
+                 <div class="line180warpper"><div class="line180"></div></div>
+              </div>
+              <div class="slashline blueglowbg"></div>
+              <div class="leftnagle angle"></div>
+              <div class="slashline purple"></div>
+         </div>
+       {%include 'tableofcontent/popup/ashk.html'%}
+    </div>
+
+    <!--<div class="menuitemwarpper">
+         <div class="menuitem">
+              <div class="slashline purple"></div>
+              <div class="rightangle angle"></div>
+              <div class="slashline blueglowbg"></div>
+              <div class="menuitembutton">
+                 <button type="button" class="cell">
+                   <img class="ico" src="{%static 'images/thumbs/diversitycost.jpg'%}" alt="">
+                   <span class="robotstroke">מחיר הרב תרבותיות</span>
+                 </button>
+                <div class="line180warpper"><div class="line180"></div></div>
+             </div>
+             <div class="slashline blueglowbg"></div>
+             <div class="leftnagle angle"></div>
+             <div class="slashline purple"></div>
+        </div>
+      {%include 'tableofcontent/popup/diversity.html'%}
+   </div>-->
+
+  </div>
+
+   <div class="stretchToWindowWidth"></div>
+
+
+
+  <div class="arrow-up"></div>
+
+
+<div class="maingrid">
+  <!--<div class="leftedge"></div>-->
+
+{%include 'components/sharestickybar.html'%}
+
+
+
+<div class="item1">
+<!--<form class="frmnavbar" method="POST" name="frmnavbar">-->
+  {%csrf_token%}
+  <div class="nav">
+
+   <div class="subject s1">
+       <div class="subject_header_box">
+         <img src="" class = "subject_icons">
+         <h2 class="subject_title">בואו ננפץ טאבו</h2>
+       </div>
+
+      <div class="subject_body_box">
+
+         <div>
+        <div class= "sub_subject_box">
+          <img  src="{%static 'images/judonazimlogo.jpg'%}" class = "subject_icons" id="swastica-magendavid-img">
+          <h4>נאציזם זו אידיאולוגיה לגיטימית</h4>
+        </div>
+
+       <div class="shadow_line"></div>
+        <div class= "sub_list"  id="nazimbg">
+          <div>
+            <button class="btnspan" name="btnnazimtaboo" type="submit">למה נאציזם זו אידיאולוגיה אסורה בישראל</button>
+          </div>
+
+         <div>
+         <img src="" alt="" class = "subject_icons subsubject_icon">
+        <button type="submit" class="btnspan" name="btnnazimbg">נאציזם לא מה שחשבתם</button>
+         </div>
+
+         <div>
+           <img src="" alt="" class = "subject_icons subsubject_icon">
+           <button type="submit" class="btnspan" name="btndiversity">פלורליזם זה אסון</button>
+         </div>
+
+         <div>
+           <img src="" alt="" class = "subject_icons subsubject_icon">
+           <button type="submit" class="btnspan" name="btneugenics">אנחנו מאמינים באאוגניקה</button>
+         </div>
+
+        </div>
+      </div>
+
+     <div>
+       <div class= "sub_subject_box">
+        <img src="{%static 'images/judonazimlogo.jpg'%}" alt="" class = "subject_icons">
+        <h4>גזענות זו לא מילה גסה</h4>
+        </div>
+        <div class="shadow_line"></div>
+         <div class= "sub_list" id="bemoreracist">
+           <div>
+           <img src="" alt="" class = "subject_icons subsubject_icon">
+             <button type="submit" class="btnspan" name="btnbemoreracist">תהיו יותר גזענים אם אתם רוצים לשרוד</button>
+           </div>
+           <div>
+           <img src="" alt="" class = "subject_icons subsubject_icon">
+             <button type="submit" class="btnspan" name="btnethnostate">למה אני בעד מדינת גזע ולא רק מדינת ללאום</button>
+           </div>
+           <div>
+           <img src="" alt="" class = "subject_icons subsubject_icon">
+             <button type="submit" class="btnspan" name="btnashkenazimsjw">למה אשכנזים נגד גזענות</button>
+           </div>
+           <div>
+           <img src="" alt="" class = "subject_icons subsubject_icon">
+             <button type="submit" class="btnspan" name="btnrefugee">למה זה לא אמור לעניין אותנו בכלל אם הם חוקיים או פליטים</button>
+           </div>
+         </div>
+      </div>
+
+      <div>
+        <div class= "sub_subject_box">
+        <img src="{%static 'images/judonazimlogo.jpg'%}" alt="" class = "subject_icons">
+        <h4>יש הבדל בין דם לדם</h4>
+        </div>
+        <div class="shadow_line"></div>
+         <div class= "sub_list" id="raceisbiological">
+           <div>
+           <img src="" alt="" class = "subject_icons subsubject_icon">
+             <button type="submit" class="btnspan" name="btnracisabiologicalfacts">גזעים זו עובדה ביולוגית</button>
+           </div>
+           <div>
+             <img src="" alt="" class = "subject_icons subsubject_icon">
+             <button type="submit" class="btnspan" name="btnsomeracesarebetter">יש גזעים יותר טובים וטובים פחות</button>
+           </div>
+           <div>
+             <img src="" alt="" class = "subject_icons subsubject_icon">
+             <button type="submit" class="btnspan" name="btnracialdiffiniq">הבדלים בין גזעים באינטליגנציה</button>
+           </div>
+           <div>
+             <img src="" alt="" class = "subject_icons subsubject_icon">
+             <button type="submit" class="btnspan" name="btnnegroesaredumb">לכושים יש מנת משכל של פיגור שכלי</button>
+           </div>
+           <div>
+             <img src="" alt="" class = "subject_icons subsubject_icon">
+             <button type="submit" class="btnspan" name="btnevolutionandrace">המציאות האבולוציונית הביולוגית של גזעים</button>
+           </div>
+           <div>
+             <img src="" alt="" class = "subject_icons subsubject_icon">
+             <button type="submit" class="btnspan" name="btnwhywearediff">הסיבה להבדלים בין כושים ללבנים</button>
+           </div>
+           <div>
+             <img src="" alt="" class = "subject_icons subsubject_icon">
+             <button type="submit" class="btnspan" name="btnnegroesareapes">הכושים קרובים לשימפנזים יותר מכל גזע אחר</button>
+           </div>
+           <div>
+             <img src="" alt="" class = "subject_icons subsubject_icon">
+             <button type="submit" class="btnspan" name="btnooamyth">לא התפתחנו מכושים</button>
+           </div>
+         </div>
+      </div>
+
+    </div>
+   </div>
+
+   <div class="subject s2">
+    <div class="subject_header_box">
+      <img src="" class = "subject_icons">
+      <h2 class="subject_title">פמיניזם/נקביזם זה סרטן</h2>
+    </div>
+
+    <div class="subject_body_box">
+      <div>
+        <div class= "sub_subject_box">
+       <img src="{%static 'images/no-feminism.jpg'%}" alt="" class = "subject_icons">
+       <h4>פמיניזם כלי של חתרנות בידי אשכנזים</h4>
+       </div>
+       <div class="shadow_line"></div>
+        <div class= "sub_list" id="feminismgenocide">
+         <div>
+         <img src="" alt="" class = "subject_icons subsubject_icon">
+           <button type="submit" class="btnspan" name="btnfeminisgenocide">פמיניזם זה בסך הכל רצח עם של היהודים</button>
+         </div>
+         <div>
+           <img src="" alt="" class = "subject_icons subsubject_icon">
+           <button type="submit" class="btnspan" name="btnfeminismandashk">פמיניזם כלי של אשכנזים בעמדות מפתח שנועד לבצע רצח עם</button>
+         </div>
+         <div>
+           <img src="" alt="" class = "subject_icons subsubject_icon">
+           <button type="submit" class="btnspan" name="btnfeminismdestroyfamily">כך הפמיניזם האשכנזי הורס בכוונת זדון את התא המשפחתי וגורם לרצח העם שלנו</button>
+         </div>
+        </div>
+      </div>
+
+      <div>
+        <div class= "sub_subject_box">
+        <img src="{%static 'images/no-feminism.jpg'%}" alt="" class = "subject_icons">
+        <h4>פמיניזם הורס את העם</h4>
+        </div>
+        <div class="shadow_line"></div>
+         <div class= "sub_list" id="womenweaknations">
+           <div>
+             <img src="" alt="" class = "subject_icons subsubject_icon">
+             <button type="submit" class="btnspan" name="btnfeminismidf">כיצד הפך צה"ל לצבא של פות מכיל</button>
+           </div>
+           <div>
+           <img src="" alt="" class = "subject_icons subsubject_icon">
+             <button type="submit" class="btnspan" name="btnfemalesdestorynations">איך נקבות הורסות מדינות ולמה גברים מאפשרים להן</button>
+           </div>
+         </div>
+      </div>
+
+      <div>
+        <div class= "sub_subject_box">
+        <img src="{%static 'images/no-feminism.jpg'%}" alt="" class = "subject_icons">
+        <h4>קריאת תיגר על מוסכמות חברתיות</h4>
+        </div>
+        <div class="shadow_line"></div>
+         <div class= "sub_list" id="oppressionmyth">
+           <div>
+            <img src="" alt="" class = "subject_icons subsubject_icon">
+            <button type="submit" class="btnspan" name="btnrapeisnotacrime">הענישה על אונס זה אובר-קיל</button>
+           </div>
+
+           <div>
+            <img src="" alt="" class = "subject_icons subsubject_icon">
+            <button type="submit" class="btnspan" name="btnopressionmyth">מעולם לא היה דיכוי נגד נשים</button>
+           </div>
+           <div>
+            <img src="" alt="" class = "subject_icons subsubject_icon">
+            <button type="submit" class="btnspan" name="btnmarrigemortage">נישואים זה לקנות זונה במשכנתא לכל החיים</button>
+           </div>
+           <div>
+            <img src="" alt="" class = "subject_icons subsubject_icon">
+            <button type="submit" class="btnspan" name="btnmensmarter">גברים מעט יותר חכמים מנשים</button>
+           </div>
+           <div>
+            <img src="" alt="" class = "subject_icons subsubject_icon">
+            <button type="submit" class="btnspan" name="btnequalcontribution">גברים תורמים הרבה יותר מנשים</button>
+           </div>
+          </div>
+      </div>
+
+      <div>
+        <div class= "sub_subject_box">
+        <img src="{%static 'images/no-feminism.jpg'%}" alt="" class = "subject_icons">
+        <h4>עוולות הפמיניזם כלפי גברים יהודים</h4>
+        </div>
+        <div class="shadow_line"></div>
+         <div class= "sub_list" id="feminisminjustice">
+           <div>
+            <img src="" alt="" class = "subject_icons subsubject_icon">
+            <button type="submit" class="btnspan" name="btnfemvictims">ח-פות מפשע</button>
+           </div>
+           <div>
+            <img src="" alt="" class = "subject_icons subsubject_icon">
+            <button type="submit" class="btnspan" name="btnboysdiscrimnation">הדרת בנים בבתי הספר הממלכתים</button>
+           </div>
+           <div>
+            <img src="" alt="" class = "subject_icons subsubject_icon">
+            <button type="submit" class="btnspan" name="btnmenlivesischeap">לאף אחד לא אכפת מגברים</button>
+           </div>
+          </div>
+      </div>
+   </div>
+  </div>
+
+  <div class="subject s3">
+   <div class="subject_header_box">
+     <img src="" class = "subject_icons">
+     <h2 class="subject_title">מעלליהם של האשכנזים</h2>
+   </div>
+
+   <div class="subject_body_box">
+     <div>
+       <div class= "sub_subject_box">
+      <img src="{%static 'images/sneakyashkenazi.jpg'%}" alt="" class = "subject_icons">
+      <h4>למה אשכנזים חותרים נגד ישראל</h4>
+      </div>
+      <div class="shadow_line"></div>
+       <div class= "sub_list" id="ashksubvert">
+        <div>
+        <img src="" alt="" class = "subject_icons subsubject_icon">
+          <button type="submit" class="btnspan" name="btnpart1">חלק 1</button>
+        </div>
+        <div>
+          <img src="" alt="" class = "subject_icons subsubject_icon">
+          <button type="submit" class="btnspan" name="btnpart2">חלק 2</button>
+        </div>
+        <div>
+          <img src="" alt="" class = "subject_icons subsubject_icon">
+          <button type="submit" class="btnspan" name="btnpart3">חלק 3</button>
+        </div>
+       </div>
+     </div>
+
+     <div>
+       <div class= "sub_subject_box">
+       <img src="{%static 'images/sneakyashkenazi.jpg'%}" alt="" class = "subject_icons">
+       <h4>מעשיהם הנפשעים של האשכנזים</h4>
+       </div>
+       <div class="shadow_line"></div>
+        <div class= "sub_list" id="ashkcrimes">
+          <div>
+            <img src="" alt="" class = "subject_icons subsubject_icon">
+            <button type="submit" class="btnspan" name="btnwhyashkleftist">למה אשכנזים לכאורה בעד ערבים וסודנים</button>
+          </div>
+          <div>
+          <img src="" alt="" class = "subject_icons subsubject_icon">
+            <button type="submit" class="btnspan" name="btnashksacademic">האקדמיה האשכנזית נגד יהודים ספרדים</button>
+          </div>
+          <div>
+          <img src="" alt="" class = "subject_icons subsubject_icon">
+          <button type="submit" class="btnspan" name="btnashkmedia">התקשורת האשכנזית נגד היהודים הספרדים</button>
+          </div>
+        </div>
+     </div>
+
+     <div>
+       <div class= "sub_subject_box">
+       <img src="{%static 'images/sneakyashkenazi.jpg'%}" alt="" class = "subject_icons">
+       <h4>אשכנזים אליטיסטים הם אויבי העם</h4>
+       </div>
+       <div class="shadow_line"></div>
+        <div class= "sub_list" id="ashkcrimes2">
+          <div>
+            <img src="" alt="" class = "subject_icons subsubject_icon">
+            <button type="submit" class="btnspan" name="btnnif">אשכנזים והקרן לישראל החדשה</button>
+          </div>
+          <div>
+           <img src="" alt="" class = "subject_icons subsubject_icon">
+           <button type="submit" class="btnspan" name="btnsupremecourt">אשכנזים ובג"ץ</button>
+          </div>
+          <div>
+          <img src="" alt="" class = "subject_icons subsubject_icon">
+          <button type="submit" class="btnspan" name="btnethconsiparcy">פלורליזם = נשק ביולוגי בידי אשכנזים</button>
+         </div>
+       </div>
+    </div>
+  </div>
+
+  </div>
+ </div>
+</div> <!--end tag of .nav class, used to be <nav> element, now it's div-->
+<!--</form>-->
+<!--</div>-->
+<div class="item2">
+  <div class="stretchToWindowWidth"></div>
+  {%block content%}
+
+  {%endblock%}
+  </div>
+
+
+
+</div> <!--maingrid-->
+
+
+</div>
+
+</form>
+<!-- share to social network new -->
+
+{%include 'components/footer.html'%}
+{%block scripts%}
+<script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>
+<!--<script type="text/javascript" src="{% static 'plugins/bootstrap/js/bootstrap.js'%}"> </script>-->
+<script type="text/javascript" src="{% static 'js/navbar.js'%}"> </script>
+<script type="text/javascript" src="{% static 'js/index.js'%}"> </script>
+<!--<script type="text/javascript" src="{% static 'plugins/popper.js'%}">  </script>-->
+<!--<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>-->
+<script type="text/javascript" src="{%static 'js/popup/popup.js'%}"></script>
+<script type="text/javascript" src="{%static 'js/popup/callers.js'%}"></script>
+<script type="text/javascript" src="{%static 'js/popup/submenupopup.js'%}"></script>
+<script type="text/javascript" src="{%static 'js/svg.js'%}"> </script>
+{%endblock%}
+
+{%block additionalscripts%}
+{%endblock%}
+
+</body>
+
+</html>

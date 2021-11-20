@@ -1,28 +1,24 @@
 
 
-	$(document).ready(floadtexteditor);
+	//$(document).ready(floadtexteditor);
+	$(document).ready(fwiggle);
 	//fwiggle();
 
 
-function floadtexteditor()
+/*function floadtexteditor()
 {
   var editor = $('.richtext');
 	editor.editing.view.change( writer => {
 	    writer.setStyle( 'height', '600px', editor.editing.view.document.getRoot() );
 	} );
-	/*$("#txtEditor").Editor();
 
-	var stxt = 'רשום כאן';
-  $("#txtEditor").Editor('setText',stxt);
-	$("#txtEditor").Editor('align','right');
-*/
+}*/
 
-}
 $("#btnshowtxteditor").click(function () {floadtexteditor();});
 
 
 
-function fwiggle(elem_name = '.container-fluid', interval = 1000, max_magnitude_for_wig = 3)
+function fwiggle(elem_name = '.wiggle', interval = 1000, max_magnitude_for_wig = 3)
 {
 
 		setInterval(function() {

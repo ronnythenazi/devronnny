@@ -3,6 +3,7 @@ var minWindowWidth = 1312;
 var middDefMinWidth;
 var navrightDefMinWidth;
 var sloganfontsize;
+//var prev_window_width;
 var prevSizeWasBiggerOrEqualToDefaultWindowSize;
 
 $.fn.tagNameLowerCase = function()
@@ -29,6 +30,7 @@ $(document).ready(fsetup);
 function fsetup()
 {
   var currWindowWidth = $(window).width();
+  //prev_window_width = currWindowWidth;
   if(currWindowWidth >= minWindowWidth)
   {
     prevSizeWasBiggerOrEqualToDefaultWindowSize = true;
@@ -44,23 +46,54 @@ function fsetup()
     middDefMinWidth  = parseInt($('.item2').css('min-width').replace("px", ""));
     navrightDefMinWidth  = parseInt($('.item1').css('min-width').replace("px", ""));
     adjust_to_screensize();
+    setInterval(make_menu_full_width, 1000);
+
+}
+function make_menu_full_width()
+{
+   var is_any_popupe_visible = false;
+   $('.menu .popupmenu').each(function(){
+    if($(this).css('visibility') == 'visible')
+    {
+       is_any_popupe_visible = true;
+       return false;
+    }
+
+    });
+
+  if(is_any_popupe_visible)
+  {
+    return;
+  }
+
+  $('.menu').css('padding-left', $(document).width() - $(window).width());
+
 }
 
 $(window).resize(adjust_to_screensize);
 
 function adjust_to_screensize()
 {
+  //alert($(window).width()); //120 - 1266 //110 - 1393 //1519 -100
+
   var currWindowWidth = $(window).width();
   var ratio = (currWindowWidth/laptopwidth);
+/*  if($(window).width()>1266 && $(window).width()<laptopwidth)//new
+  {
 
+    $('.item1').css('min-width', '275px');
+    $('.item1').css('width', '275px');
+  }// end new*/
   if(currWindowWidth >= minWindowWidth)
   {
        if(prevSizeWasBiggerOrEqualToDefaultWindowSize)
        {
+         make_menu_full_width();
           return;
        }
        revertToDefault();
        prevSizeWasBiggerOrEqualToDefaultWindowSize = true;
+       make_menu_full_width();
        return;
   }
 
@@ -86,8 +119,12 @@ function adjust_to_screensize()
     {
       setFontSize('maincontext', 1.5);
     }
-    if(currWindowWidth<=800)
+    if(currWindowWidth<=800 && currWindowWidth>500)
     {
+
+      $('.icon-bar').hide();
+
+
       $('.judonazimlogorotate').width(50);
       $('.judonazimlogorotate').height(50);
 
@@ -115,15 +152,15 @@ function adjust_to_screensize()
       $('.menu').height(40);
 
       $('.menu').css('font-size', '15px');
-    //  $('.menu').css('justify-content', 'center'); new
+
 
 
       $('.popupmenu>ul>li').css('line-height', '15px');
-      $('.popupmenu button').css('font-family', 'formal');
+
       $('.popupmenu button').css('font-size', '8px');
 
       $('.menuitem>.menuitembutton').css('font-size', '8px');
-      $('.menuitem>.menuitembutton>button>span').removeClass('robotstroke');
+
 
       $('.popupmenu>ul>li>button').css('padding-top', '9px');
       $('.popupmenu>ul>li>button').css('padding-bottom', '9px');
@@ -154,7 +191,9 @@ function adjust_to_screensize()
 
       setFontSize('maincontext', 1.5);
     }
-    else {
+    else if(currWindowWidth>800){
+
+      $('.icon-bar').show();
 
       $('.item1').show();
       $('.bodyflex').css('align-items', 'center');
@@ -168,15 +207,14 @@ function adjust_to_screensize()
       $('.menu').height(80);
 
       $('.menu').css('font-size', '20px');
-    //  $('.menu').css('justify-content', 'right'); //new
-    //  $('.menu').css('padding-left', '0'); new
+
 
 
       $('.popupmenu button').css('font-size', '16px');
 
       $('.menuitem>.menuitembutton').css('font-size', '15px');
-      $('.menuitem>.menuitembutton>button>span').addClass('robotstroke');
-      $('.popupmenu button').css('font-family', 'formal');
+
+
       $('.popupmenu>ul>li>button').css('padding-left', '20px');
       $('.popupmenu>ul>li>button').css('padding-right', '20px');
       $('.popupmenu>ul>li>button').css('padding-top', '10px');
@@ -205,14 +243,31 @@ function adjust_to_screensize()
     }
     if(currWindowWidth<=500)
     {
+
+      $('.icon-bar').hide();
+
+
       sloganFontSize = "18px";
       $('.judonazimlogorotate').width(30);
       $('.judonazimlogorotate').height(30);
+
+      $('.hg1middleimg').height(100);
+      $('.hg1middleimg').width(100);
+
       $('.item1').hide();
 
       $('.bodyflex').css('align-items', 'stretch');
       $('.maingrid').css('justify-content', 'stretch');
       $('.middle_section').css('justify-content', 'stretch');
+
+
+      $('.item2').width($(window).width());
+
+      $('.maingrid').addClass('wholespace');
+
+
+      $('.middle_section').width($(window).width());
+
       $('.item2').addClass('wholespace');
 
       $('.stretchToWindowWidth').width($(window).width());
@@ -220,14 +275,15 @@ function adjust_to_screensize()
       $('body').css('overflow-x', 'auto');
 
       $('.menu').height(30);
+      $('.menu').css('font-size', '15px');
 
-    //  $('.menu').css('justify-content', 'center'); new
 
-      $('.popupmenu button').css('font-family', 'formal');
+
+
       $('.popupmenu button').css('font-size', '5px');
 
       $('.menuitem>.menuitembutton').css('font-size', '5px');
-      $('.menuitem>.menuitembutton>button>span').removeClass('robotstroke');
+
 
       $('.popupmenu>ul>li>button').css('padding-left', '5px');
       $('.popupmenu>ul>li>button').css('padding-right', '5px');
@@ -256,16 +312,32 @@ function adjust_to_screensize()
 
       setFontSize('maincontext', 2.5);
     }
-    if(currWindowWidth > 800 && currWindowWidth <= 1100)
+    if(currWindowWidth > 1000 && currWindowWidth <= 1300)
     {
       $('.menu').height(60);
-      $('.popupmenu>ul>li').css('line-height', '15px');
-      $('.menuitem>.menuitembutton').css('font-size', '10px');
-      $('.popupmenu>ul>li>button').css('padding-top', '10px');
-      $('.popupmenu>ul>li>button').css('padding-bottom', '10px');
-      $('.popupmenu button').css('font-family', 'formal');
-      $('.popupmenu button').css('font-size', '8px');
-      //setPopupsDataHeight(); //new
+      $('.popupmenu>ul>li').css('line-height', '10px');
+      $('.menuitem>.menuitembutton').css('font-size', '11px');
+      $('.popupmenu>ul>li>button').css('padding-top', '8px');
+      $('.popupmenu>ul>li>button').css('padding-bottom', '8px');
+
+      $('.popupmenu button').css('font-size', '13px');
+       $('.ico').width(30);
+      $('.submenuitemico').width(20);
+      $('.submenuitemico').height(20);
+    }
+    else if(currWindowWidth > 800 && currWindowWidth <= 1000)
+    {
+      $('.menu').height(50);
+      $('.popupmenu>ul>li').css('line-height', '10px');
+      $('.menuitem>.menuitembutton').css('font-size', '9px');
+      $('.popupmenu>ul>li>button').css('padding-top', '7px');
+      $('.popupmenu>ul>li>button').css('padding-bottom', '7px');
+
+      $('.popupmenu button').css('font-size', '9px');
+       $('.ico').width(30);
+      $('.submenuitemico').width(18);
+      $('.submenuitemico').height(18);
+
     }
     if(currWindowWidth<=300)
     {
@@ -285,15 +357,32 @@ function adjust_to_screensize()
 
 
   prevSizeWasBiggerOrEqualToDefaultWindowSize = false;
+  make_menu_full_width();
+
 }
 
 function revertToDefault()
 {
+
+  $('.icon-bar').show();
+
+
   $('.menuitem>.menuitembutton').css('font-size', '15px');
-  $('.menuitem>.menuitembutton>button>span').removeClass('robotstroke');
+
 
   $('.item1').css('min-width', navrightDefMinWidth + "px");
+/*  if($(window).width()>1266 && $(window).width()<laptopwidth)//new
+  {
+    $('.item1').css('min-width', '275px');
+    $('.item1').css('width', '275px');
+  }//end new
+  else
+  {
+     $('.item1').css('min-width', navrightDefMinWidth + "px");
+     $('.item1').css('width', navrightDefMinWidth + "px");
+  }*/
   $('.item2').css('min-width', middDefMinWidth + "px");
+  $('.item2').css('width', middDefMinWidth + "px");
 
   $('.solganwarper').css('font-size', '60px');
 
@@ -309,12 +398,11 @@ function revertToDefault()
   $('.menu').css('font-size', '20px');
   $('.menu').height(80);
 
-  //$('.menu').css('justify-content', 'right'); //new
-  //$('.menu').css('padding-left', '0'); //new
 
 
 
-  $('.popupmenu button').css('font-family', 'formal');
+
+
   $('.popupmenu button').css('font-size', '16px');
 
   $('.popupmenu>ul>li>button').css('padding-left', '20px');
@@ -391,7 +479,8 @@ function setFontSize(className, magnitude = 0)
         return false;
     }
     var attr = $(this).parents('#ulnavpages').first().attr('id');
-    if($(this).attr('id') == 'ulnavpages' || $(this).attr('class') == 'solganwarper'  || (attr != undefined && attr != false))
+    if($(this).attr('id') == 'ulnavpages' || $(this).attr('class') == 'solganwarper'
+     || $(this).attr('class') == 'gradarrow' || $(this).attr('class') == 'noshrink' || (attr != undefined && attr != false))
     {
       return true;
     }
