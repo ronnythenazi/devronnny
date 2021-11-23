@@ -7,28 +7,62 @@ body.bodyblur
   z-index:3000;
 
 }
+.medium-col img
+{
+
+  /*max-height:200px !important;*/
+}
+.medium-col
+{
+  font-size:20px;
+  display:flex;
+  direction:rtl;
+  flex-direction:column;
+  justify-content:space-between;
+  align-items:center;
+  text-align:center;
+  color:white;
+}
+.narrow-col img
+{
+  width:140px !important;
+  height:200px !important;
+}
+.narrow-col
+{
+  font-size:20px;
+  display:flex;
+  direction:rtl;
+  flex-direction:column;
+  justify-content:space-between;
+  align-items:center;
+  text-align:center;
+  color:white;
+}
 :root
 {
-  --bg-border-pinchbanana1:linear-gradient(45deg,  blue, red, yellow, green, black, white, orange, salmon, purple);
-  --bg-border-pinchbanana2:-webkit-linear-gradient(45deg, blue, red, yellow, green, black, white, orange, salmon, purple);
+  --bg-border-pinchbanana1:linear-gradient(45deg,   red, orange, salmon,blue,  purple);
+  --bg-border-pinchbanana2:-webkit-linear-gradient(45deg, red, orange, salmon,blue,  purple);
 }
 .section img:not(.title-img), .lightme
 {
   border-radius:10px;
   box-shadow: 5px 5px 10px blue, 2px 2px 20px red;
 }
+
 .borderme
 {
   border-right:none;
   border-left:none;
-  border-bottom:none;
-  border-top: 10px solid transparent;
-  border-image: var(--bg-border-pinchbanana1, --bg-border-pinchbanana2) 30% round;
+  border-top:none;
+  border-bottom: 10px solid transparent;
+  border-image: var(--bg-border-pinchbanana1, --bg-border-pinchbanana2) 30% stretch;
 }
 .maincontext
 {
   background-color:unset !important;
 }
+
 .section
 {
    padding-right:5px;
@@ -55,12 +89,15 @@ body.bodyblur:after
   right:0;
   background-color:black !important;
 }
-
+.clickable
+{
+  position:relative;
+}
 #imgclone
 {
 
-  max-height:500px !important;
-  max-width:500px !important;
+  max-height:800px !important;
+  max-width:800px !important;
   position:fixed !important;
   z-index:3000 !important;
   transition: all 1s ease;
@@ -68,6 +105,11 @@ body.bodyblur:after
 .bg-gradient-dark
 {
   background: linear-gradient(87deg, #212529 0, #212229 100%) !important;
+  background: -webkit-linear-gradient(87deg, #212529 0, #212229 100%) !important
+}
+.bg-gradient-red
+{
+  background:var(--bg-red, --bg-red2);
 }
 #costofdiversity>p>span
 {
@@ -83,7 +125,7 @@ body.bodyblur:after
     -o-background-image:var(--bg-blue1, --bg-red2);
      background-image:var(--bg-blue1, --bg-red2);
 }
-#costofdiversity>video, #costofdiversity>img, #costofdiversity>iframe
+video, img, iframe, svg
 {
   cursor:pointer;
 }
@@ -92,9 +134,144 @@ body.bodyblur:after
 {
   align-items:flex-end;
 }
+.styled-section
+{
+  padding:20px 0px;
+  box-shadow:inset 10px 0px 20px blue, inset 0px 10px 20px red, inset -10px 0px 20px yellow, inset 0px -10px 20px green;
+  border-radius:5px;
+}
+img.nested-img
+{
+  width:20% !important;
+  height:20% !important;
+  /*max-width: 15% !important;
+  max-height:5% !important;*/
+  margin-top:5px;
+}
+.paper
+{
+  background-color:#EAEAEA;
+  padding-bottom:20px;
+}
+.seperator
+{
+   height:200px;
+   width:100%;
+}
+.nif>div
+{
+  width:100%;
+}
+.nif video
+{
+  border-radius:10px;
+  box-shadow: 5px 5px 10px blue, 2px 2px 20px red;
+}
 
+.lighten-image
+{
+  box-shadow: 5px 5px 10px blue, 2px 2px 20px red;
+}
+.nif>p>span
+{
+
+     color:#3B5998;
+    -webkit-text-stroke-color:purple;
+    -webkit-text-stroke-width:0.5px;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    -webkit-background-image:var(--bg-blue1, --bg-red2);
+    -moz-background-image:var(--bg-blue1, --bg-red2);
+    -o-background-image:var(--bg-blue1, --bg-red2);
+     background-image:var(--bg-blue1, --bg-red2);
+}
+.p-blue>span
+{
+  -webkit-background-clip: text;
+  -webkit-text-stroke-width: 0.2px;
+  -webkit-text-fill-color: transparent;
+   background-image:-webkit-linear-gradient(-180deg, #0b2edd, #050505);
+
+   -moz-background-clip: text;
+   -moz-text-stroke-width: 0.2px;
+   -moz-text-fill-color: transparent;
+    background-image:-moz-linear-gradient(-180deg, #0b2edd, #050505);
+
+    -o-background-clip: text;
+    -o-text-stroke-width: 0.2px;
+    -o-text-fill-color: transparent;
+     background-image:-o-linear-gradient(-180deg, #0b2edd, #050505);
+
+      background-clip: text;
+      text-stroke-width: 0.2px;
+      text-fill-color: transparent;
+      background-image: linear-gradient(-180deg, #0b2edd, #050505);
+}
+.p-red>span
+{
+  -webkit-background-clip: text;
+  -webkit-text-stroke-width: 0.2px;
+  -webkit-text-fill-color: transparent;
+   background-image:-webkit-linear-gradient(180deg, #a80606,#e21818, #b20303);
+
+   -moz-background-clip: text;
+   -moz-text-stroke-width: 0.2px;
+   -moz-text-fill-color: transparent;
+    background-image:-moz-linear-gradient(180deg, #a80606,#e21818, #b20303);
+
+    -o-background-clip: text;
+    -o-text-stroke-width: 0.2px;
+    -o-text-fill-color: transparent;
+     background-image:-o-linear-gradient(180deg, #a80606,#e21818, #b20303);
+
+      background-clip: text;
+      text-stroke-width: 0.2px;
+      text-fill-color: transparent;
+      background-image: linear-gradient(180deg, #a80606,#e21818, #b20303);
+}
+--blue: #5e72e4;
+--indigo: #5603ad;
+--purple: #8965e0;
+--pink: #f3a4b5;
+--red: #f5365c;
+--orange: #fb6340;
+--yellow: #ffd600;
+--green: #2dce89;
+--teal: #11cdef;
+--cyan: #2bffc6;
+--gray: #8898aa;
+--gray-dark: #32325d;
+--gray-darker: #111214;
+--lighter: #e9ecef;
+--primary: #5e72e4;
+--secondary: #f4f5f7;
+--success: #2dce89;
+--info: #11cdef;
+--warning: #fb6340;
+--danger: #f5365c;
+--light: #adb5bd;
+--dark: #212529;
+--default: #172b4d;
+--white: #fff;
+--neutral: #fff;
+--darker: black;
+--breakpoint-xs: 0;
+--breakpoint-sm: 576px;
+--breakpoint-md: 768px;
+--breakpoint-lg: 992px;
+--breakpoint-xl: 1200px;
+--font-family-sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+--font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+
+--bg-red1:-webkit-linear-gradient(180deg, #a80606,#e21818, #b20303);
+--bg-red2:linear-gradient(180deg, #a80606,#e21818, #b20303);
+--bg-red3:-moz-linear-gradient(180deg, #a80606,#e21818, #b20303);
+--bg-red4:-o-linear-gradient(180deg, #a80606,#e21818, #b20303);
 </style>
-
+<ul id="ulpages">
+<li>
   <div id="costofdiversity" class="section column">
    <p>
 
@@ -106,7 +283,7 @@ body.bodyblur:after
      <span>בכדי להחזיק את אותו "עושר תרבותי" של זבל גנטי של האתיופים.</span>
 
    </p>
-  <img src="{{MEDIA_URL}}/media/myvideos/costofdiversity/ethipoianscostmoney.JPG" alt="">
+  <img class="img-click" src="{{MEDIA_URL}}/media/myvideos/costofdiversity/ethipoianscostmoney.JPG" alt="">
      <p>
        <span>ולמרות זאת, כל מיני יצורים טיפשים,</span>
        <span>הוזים שהאתיופים הם מתנה ונכס דמוגרפי לעם ישראל,</span>
@@ -205,7 +382,7 @@ body.bodyblur:after
 
 
       <video class="noauto vid" poster="{%static 'images/thumbs/zehavi.jpg'%}" controls>
-      <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/ashkenazimedia/satanic ashkjornalistbrutallyattackmenajew.mp4" type="video/mp4">
+      <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/ashkenazimedia/satanicashkjornalistbrutallyattackmenajew.mp4" type="video/mp4">
       </video>
 
 <p>
@@ -321,21 +498,325 @@ body.bodyblur:after
 
    </div>
 
-   <div class="section column borderme" style="margin-top:200px;background-color:#111214;">
 
-  <div class="rowmedia dense title-img-row lightme" style="margin-top:10px;margin-bottom:10px;background-color:black;">
+   <div class="seperator"></div>
 
-    <div class="txtcenter niceredclr" style="font-size:80px;line-height:60px;">
-     ערבים
+     <div class="section paper column nif">
+       <p class="txtcenter">
+
+         <span>מחיר הטיפול במסתננים שהאשכנזים השפלים, הנאלחים, המסואבים, הנלוזים, הפושעים, </span>
+         <span>המרצחים, השטניים וערלי הלב הכניסו למדינתכם ללא הסכמתכם.</span>
+         <span>מי מממן זאת? אתם. כספי המיסים שלכם מממנים טיפולים בבתי חולים, תגבור כוחות המשטרה,</span>
+         <span>תגבור כוחות כיבוי אש, מתקני חולות, שירותים חברתיים, חינוך, תפעול ובינוי תשתיות וקהילה, תרבות וספורט.</span>
+       </p>
+       <img class="img-click" src="{{MEDIA_URL}}media/myvideos/costofdiversity/costofrefugee.jpg" alt="">
+     </div>
+     <div class="seperator"></div>
+     <div class="section styled-section  column bg-gradient-dark nif">
+       <div class="txtcenter">
+       <span class="niceredclr">האמת שהאשכנזים מטייחים ומשקרים במזיד על הפשיעה של החוצנים מאפריקה</span>
+       </div>
+
+       <video class="noauto vid txtcenter"  controls>
+       <source src="{{MEDIA_URL}}media/myvideos/costofdiversity/negroescrimerate.mp4" type="video/mp4">
+       </video>
+     </div>
+
+     <div class="seperator"></div>
+     <div class="section styled-section  column bg-gradient-dark nif">
+       <div class="txtcenter">
+       <span class="niceredclr">פלורליזם/קומוניזם הורג!</span>
+       </div>
+
+       <video class="noauto vid txtcenter"  controls>
+       <source src="{{MEDIA_URL}}media/myvideos/diversity/videos/diversityisdisaster.mp4" type="video/mp4">
+       </video>
+     </div>
+
+    <div class="seperator"> </div>
+
+     <div class="section paper column nif">
+       <img class="img-click" src="{{MEDIA_URL}}media/myvideos/ashkenazim/depopulationofjews/ashksagainstjewgrowth.jpg" alt="">
+       <p class="txtcenter">
+
+         <span>בעוד שהם מכניסים תתי אדם פולשים למדינה וכך רק מגדילים את אוכלוסייתה,</span>
+         <span>שכן הכושים, הערבושים והבדואים משריצים צאצאים ללא הרף,</span>
+         <span>משדלים האשכנזים הפושעים את היהודים ללדת פחות,</span>
+         <span>-</span>
+         <span>לפתע "פיריון זה אסון".</span>
+         <span>הכל חלק מהתוכנית להשמיד את הצביון היהודי של מדינת ישראל</span>
+         <span>כדי שהאשכנזים הנאלחים והמסואבים יוכלו לשגשג במערב ללא אנטישמיות.</span>
+       </p>
+     </div>
+
+     <div class="seperator"> </div>
+     <div class="section column bg-gradient-dark styled-section nif">
+       <div class="txtcenter">
+       <span class="niceredclr">הקשר האשכנזי להפרת הסדר האלימה של האתיופים, ולשם מה היה תכליתה.</span>
+       </div>
+
+       <video class="noauto vid txtcenter"  controls>
+       <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/ethiopians/ethiopianashkenaziconsipracy.mp4" type="video/mp4">
+       </video>
+
+       <div class="section paper column nif">
+         <p class="txtcenter">
+
+           <span class="blueglowclr">למה אשכנזים דאגו להכניס את האויבים שלנו (כושים וערבים) במשטרה?</span>
+           <br>
+           <span class="blueglowclr">מטרתה של הפרת הסדר של האתיופים, לשמור על מונופול החוק של האשכנזים</span>
+           <br>
+           <span class="blueglowclr">לא מאהבת אתיופים אלא משנאת מזרחים</span>
+         </p>
+     <div class="column">
+       <div class="clickable">
+       <img class="pointer" data-src="{%static 'images/thumbs/apepolice.jpg'%}" src="{%static 'images/thumbs/diversepolice.jpg'%}" alt="">
+       <svg data-src="{%static 'images/thumbs/apepolice.jpg'%}"  style="width:20%;position:absolute;top:calc(50% - 10%);right:calc(50% - 10%);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="wrapper translate pointer">
+         <circle class="tap-none" cx="89.43" cy="64.48" r="19.46"/>
+         <path class="hand-tap" d="M139.93,102.68,98.81,95.75V65.2A9.25,9.25,0,0,0,89.56,56h0a9.25,9.25,0,0,0-9.25,9.25v57.36L71,111.77c-3.61-3.61-8.44-3.89-13.08,0,0,0-7.24,5.84-3.83,9.25l34,34h42.63a9.25,9.25,0,0,0,9.07-7.43l6.82-34.09A9.28,9.28,0,0,0,139.93,102.68Z"/>
+       </svg>
+
+       <audio class="hiddenaudio noauto" controls>
+           <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/ethiopians/ethiopiansasdivideandconquer.ogg"  type="audio/ogg">
+       </audio>
+       <audio class="hiddenaudio noauto" controls>
+           <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/ethiopians/multiracailpolice.ogg"  type="audio/ogg">
+       </audio>
+       <audio class="hiddenaudio noauto" controls>
+           <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/ethiopians/ashkenazimbroughtethiopiansnotovadia.ogg"  type="audio/ogg">
+       </audio>
+       </div>
+     </div>
+       </div>
+
+     </div>
+     <div class="column borderme bg-gradient-dark" style="margin-top:200px;padding-right:0px;border-radius:10px;">
+        <div style="height:10px;background-color:#EAEAEA;width:100%;border-radius:10px;"></div>
+        <div class="rowmedia dense title-img-row lightme" style="margin-top:10px;margin-bottom:10px;background-color:black;">
+          <div class="txtcenter niceredclr" style="font-size:80px;line-height:60px;"> ערבים</div>
+          <img style="height:150px;width:200px;" class="title-img" src="{{MEDIA_URL}}/media/myvideos/bemoreracist/arabs/refusetobeenemiesfunnypicture.jpg" alt="">
+        </div>
+     </div>
+
+   <div class="row" style="border-radius:5px;padding-right:0px;justify-content:stretch;padding-right:0px;background-color:#111214;">
+     <div class="column section" style="align-items:center;width:100%;">
+
+       <span class="niceredclr" style="font-size:40px;line-height:60px;">יהודים וערבים לא רוצים להיות אחים</span>
+       <video  class="noauto vid" controls>
+       <source src="{{MEDIA_URL}}/media/myvideos/bemoreracist/arabs/jewsandarabsarenotbrothers.mp4" type="video/mp4">
+       </video>
+
+
+       <div class="txtcenter niceredclr" style="font-size:30px;line-height:60px;"> אין כזה דבר ילדים ונשים ערבים חפים מפשע</div>
+        <div class = "clickable">
+         <img data-src="{%static 'images/thumbs/arabwoman.jpg'%}" src="{%static 'images/thumbs/typicalarabchild.gif'%}" alt="">
+         <svg data-src="{%static 'images/thumbs/arabwoman.jpg'%}"  style="width:20%;position:absolute;top:calc(50% - 10%);right:calc(50% - 10%);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="wrapper translate pointer">
+           <circle class="tap-none" cx="89.43" cy="64.48" r="19.46"/>
+           <path class="hand-tap" d="M139.93,102.68,98.81,95.75V65.2A9.25,9.25,0,0,0,89.56,56h0a9.25,9.25,0,0,0-9.25,9.25v57.36L71,111.77c-3.61-3.61-8.44-3.89-13.08,0,0,0-7.24,5.84-3.83,9.25l34,34h42.63a9.25,9.25,0,0,0,9.07-7.43l6.82-34.09A9.28,9.28,0,0,0,139.93,102.68Z"/>
+         </svg>
+         <audio class="hiddenaudio noauto" controls>
+             <source src="{{MEDIA_URL}}/media/myvideos/bemoreracist/arabs/nosuchthingasinnocentfemalesandchildrenarabs.ogg"  type="audio/ogg">
+         </audio>
+         <audio class="hiddenaudio noauto" controls>
+             <source src="{{MEDIA_URL}}/media/myvideos/bemoreracist/arabs/itdoesnmatterweareoccupiers.ogg"  type="audio/ogg">
+         </audio>
+        </div>
+        <div style="margin-top:10px;">
+          <img class="img-click" src="{{MEDIA_URL}}media/myvideos/ashkenazim/ashkenazimedia/ashkenazimediascreenshot.JPG" alt="">
+        </div>
+          <div  class="column txtcenter niceredclr nif" style="margin-top:0px;margin-bottom:10px;">
+          <p>
+            <span>ערבים, או שיט-סקין, סנד-ניגרס, חייבים להכחיד אותם מכדור הארץ יחד עם הכושונים, גזעים יותר ממיותרים</span>
+            <span>העולם יהיה רק מקום הרבה יותר טוב בלי כל החרא הגנטי הזה.</span>
+            <span>וזה כולל גם את האיראנים המוסלמים, הם לא ממש שונים מהם בהרבה.</span>
+          </p>
+        <video  class="noauto vid" controls>
+        <source src="{{MEDIA_URL}}/media/myvideos/subhumans/arabsandniggersisis.mp4" type="video/mp4">
+        </video>
+        </div>
     </div>
-    <img style="height:150px;width:200px;" class="title-img" src="{{MEDIA_URL}}/media/myvideos/bemoreracist/arabs/refusetobeenemiesfunnypicture.jpg" alt="">
 
-  </div>
+       <div class="narrow-col bg-gradient-dark">
 
+         <img src="{%static 'images/thumbs/uri.jpg'%}" alt="">
+          <div class="column">
+         <img class="nested-img" src="{%static 'images/remember.gif'%}" alt="">
+
+         <p>
+           <span>העמוד הזה מוקדש</span>
+           <br>
+           <span>ליהודיה  הלבנה</span>
+            <br>
+           <span>היפה והיקרה, אורי</span>
+           <br>
+           <span>אנסבכר, שנרצחה באכזריות</span>
+           <br>
+           <span>על ידי ערבי טרוריסט</span>
+           <br>
+           <span>חום מכוער מסריח</span>
+           <br>
+           <span>תת-אדם, חרא גנטי</span>
+           <br>
+          <span>שביתר את גופה לגזרים</span>
+          <br>
+          <span>דקר את פרצופה ועיניה</span>
+          <br>
+          <span>במספר רב של דקירות סכין</span>
+          <br>
+          <span>ולקינוח</span>
+          <br>
+          <span>ערף את ראשה עם</span>
+          <br>
+          <span>אותה סכין, שכבר</span>
+          <br>
+          <span>מגואלת מדמה</span>
+          <br>
+          <span>בעודה בחיים מבוהלת</span>
+          <br>
+          <span>לאחר שאנס אותה</span>
+          <br>
+          <span>אני דורש טרנספר</span>
+          <br>
+          <span>לכל הערבים והבדואים</span>
+          <br>
+          <span>ומוות לכל אותם אשכנזים </span>
+          <br>
+          <span>מכוערי נפש, שפלים</span>
+          <br>
+          <span>כמו אנשי תשקורת</span>
+          <br>
+          <span>שופטים, ומנהלים בקרן</span>
+          <br>
+          <span>שהעזו לגלות אמפתיה</span>
+          <br>
+          <span>למפלצת הזו</span>
+          <br>
+          <span>גם מפלצת</span>
+          <br>
+          <span>גם לא מהעם שלנו</span>
+          <br>
+          <span>גם חרא גנטי מוסלמי ערבי</span>
+          <br>
+          <span>וגם שייך לאויב</span>
+          <br>
+          <span>אך עדין האשכנזים המתרוממים</span>
+          <br>
+          <span>הדוחים המגעילים, מגוננים עליו</span>
+          <br>
+          <span>מוות באכזריות בסגנון דעאש</span>
+          <br>
+          <span>לאותו ערבי טרוריסט</span>
+          <br>
+          <span>אני בשמחה, מוכן לשלם</span>
+          <br>
+          <span>כדי להוציא אותו להורג</span>
+          <br>
+          <span>בעריפת אבר, אבר עם סכין</span>
+          <br>
+          <span>יהי זכרך ברוך</span>
+          <br>
+          <span>אורי יקרה</span>
+         </p>
+         </div>
+         <img src="{%static 'images/thumbs/arabs.jpg'%}" alt="">
+       </div>
    </div>
 
+   <div class="column borderme bg-gradient-dark" style="margin-top:200px;padding-right:0px;">
+      <div style="height:10px;background-color:#EAEAEA;width:100%;border-radius:10px;"></div>
+      <div class="rowmedia dense title-img-row lightme" style="margin-top:10px;margin-bottom:10px;background-color:black;">
+        <div class="txtcenter niceredclr" style="font-size:80px;line-height:60px;">תתי אדם</div>
+        <img style="height:150px;width:200px;" class="title-img" src="{%static 'images/thumbs/mursi.jfif'%}" alt="">
+      </div>
+   </div>
+   <div class="row" style="border-radius:5px;padding-right:0px;justify-content:stretch;padding-right:0px;background-color:#111214;">
+   <div class="column section txtcenter nif" style="align-items:center;width:100%;padding-right:0px;">
 
+     <p class="p-red">
+       <span>מי אלו תתי אדם? הגזעים של הכושים, ערבים, בדואים, דרום אמריקאים,  ופסולת גנטית</span>
+       <span>של גזעים נחותים אחרים, הם סוף קטוע במושגים אבולוציונים, אין צורך בגזעים האלו.</span>
+       <span>והעולם היה מקום הרבה יותר טוב בלעדיהם.</span>
+       <span>הקטעי וידאו הבאים חושפים מראות מחרידים, נוראים, מזוועים, ומזעזעים.</span>
+       <span>חשוב להפנים, שכל החולי, הפסיכוטיות, רוע, אכזריות, טיפשות, פסיכופתות, והטירוף במעשים האלו.</span>
+       <span>הם לגמרי חלק טבעי מהמנטליות והגנטיקה שלהם, הם לא רואים בזה שום דבר פסול.</span>
+       <span>לא משנה כמה זה קשה וקרינג', אתם חייבים לצפות עד הסוף, ולשתף עם אחרים גם אם אתם יכולים.</span>
+       <span>כולם חייבים להתעורר ולהבין איזה ביוב של זבל גנטי חולקים אתנו את אותה אדמה על מזבח הפלורליזם המקודש של האשכנזים.</span>
+       <span>לא רק שאשכנזים הציפו אותנו במפלצות אדם הפולשים החייזרים האלו, חמור מכך,</span>
+       <span>הם דורשים מאתנו להיות סובלנים כלפיהם, להכיל אותם, לאהוב אותם, להעריץ אותם, להתחתן אתם, לזהם את הדם שלנו ולהכחיד אותנו על ידי התערבבות אתם.</span>
+       <span>בגלל כל השטיפת מוח והרעל היום יומי בעד רב-גזעיות/רב-תרבותיות, יהודים ולבנים לא די בכך שאינם רואים את נוכחותם כאן בישראל כבעיה שיש לפתור בדחיפות.</span>
+       <span>אלא אף ברוב טיפשותם חושבים שיש להם חובה לעזור להם, לחוש רגשי אשמה רק על עצם היותם "פריבילגים" יהודים/לבנים,   לאמץ אותם, לקלוט עוד תתיאדם כמוהם, ולהתחתן אתם.</span>
+       <span>אם לא נפעל בהקדם, עתיד הגזע והעם שלנו בסכנת הכחדה, התעוררו!</span>
+       <span></span>
+    </p>
 
+   <div style="background-color:var(--gray);height:1px;width:100%;"></div>
+     <div class="txtcenter" style="font-size:20px;line-height:20px;">
+      <p class="p-blue">
+        <span>כושים הם תתי אדם, ואנחנו מקבלים אותם למדינה שלנו, מעריצים אותם, נותנים להם לזיין את הנשים שלנו,</span>
+       <span>מתערבבים אתם, מקדמים אותם על חשבוננו, ודורשים מאתנו להיות סובלניים כלפיהם כי הם פליטים.</span>
+       <span>הם פליטים בגלל שהם תתי אדם, ולכן המדינות שלהם זה גהנום עלי אדמות, אם מכניסים לנו אפריקאים למדינה,</span>
+       <span>אז איפה שיש גנים אפריקאים יש "תרבות" אפריקאית, ואז אנחנו בסוף נהפוך לפליטים,</span>
+       <span>אבל לסוכנים האשכנזים הרשעים הצבועים השקרנים והשפלים בבג"ץ ובתקשורת לא אכפת,</span>
+       <span>כי לגיס החמישי האלו יש דרכונים זרים, והם לא מתכוונים להשאר בישראל לנצח. הם יחלצו מהספינה רגעים ספורים לפני הטביעה.</span>
+       <span>בינתיים, אם הם יצליחו לשכנע אתכם שאין כזה דבר גזעים של בני אדם, ושאין הבדל בין דם לדם,</span>
+       <span>זה לא יטריד אתכם, ולא תשימו לב שמבצעים את רצח העם שלכם בזמן שאתם ישנים.</span>
+      <span>למי אכפת אם הם פליטים או חוקיים? גם הרצח עם נגד מתנגדי משטר שסטלין הקומוניסט ביצע היה לחלוטין חוקי.</span>
+     </p>
+   </div>
+   <div class="column">
+     <span class="niceredclr" style="margin-bottom:10px;"><u>כושים קוברים אישה בחיים</u></span>
+   <video  class="noauto vid" controls>
+   <source src="{{MEDIA_URL}}/media/myvideos/subhumans/niggersbarryfemale.mp4" type="video/mp4">
+   </video>
+   </div>
+
+   <div class="column">
+     <span class="niceredclr" style="margin-bottom:10px;margin-top:10px;"><u>כושים שורפים אדם בחיים ומכים בו תוך כדי</u></span>
+   <video  class="noauto vid" controls>
+   <source src="{{MEDIA_URL}}/media/myvideos/subhumans/negroesburnhuman.mp4" type="video/mp4">
+   </video>
+   </div>
+
+   <div class="column">
+     <span class="niceredclr" style="margin-bottom:10px;margin-top:10px;"><u>דרום אמריקאים, תתי אדם כמו כושים</u></span>
+   <video  class="noauto vid" controls>
+   <source src="{{MEDIA_URL}}/media/myvideos/subhumans/hispanicshorfficmurder.mp4" type="video/mp4">
+   </video>
+   </div>
+
+  </div>
+<div class= "medium-col bg-gradient-dark">
+  <img src="{{MEDIA_URL}}media/myvideos/evolutionandrace/weareallhumanspecielie.jpg" alt="">
+  <div>
+  <p>
+    <span>איך אתה יודע שאתה נמצא בחור תחת?</span>
+    <span>אם אתה רואה מישהו אוכל רגל של בן אדם</span>
+    <span>ואף אחד מסביב לא נבהל</span>
+  </p>
+  <img src="{{MEDIA_URL}}media/myvideos/ooamyth/negrocanibal.jpg" alt="">
+  </div>
+  <div>
+  <p>
+    <span>אישה באפריקה - (תת)תרבות אפריקאית</span>
+  </p>
+  <img src="{{MEDIA_URL}}media/myvideos/raceisbiologicalfact/mursitribe.jpg" alt="">
+  </div>
+
+  <div>
+  <p>
+    <span>מוזיקת עידוד של יהודונאציזם להעלאת המורל, מלחמה בתתי-אדם</span>
+  </p>
+  <video class="noauto vid" controls>
+    <source src="{{MEDIA_URL}}media/myvideos/subhumans/waragainstsubhumans.mp4" type="video/mp4">
+    </video>
+  </div>
+</div>
+  </div>
+
+</li>
+<ul>
+
+<!--
   <script>
     var clone_img_just_now_created = false;
     $('#costofdiversity img').click(f_img_focus);
@@ -377,4 +858,70 @@ body.bodyblur:after
        clone_img_just_now_created = true;
     }
 
-    </script>
+    </script>-->
+
+
+
+    <script>
+      var clone_img_just_now_created = false;
+      $('.img-click, .clickable').click(f_img_focus);
+      $(document).click(f_remove_any_focus);
+
+
+     $(document).ready(function(){
+        $('.clickable>svg').each(function(){
+          var perc_of_parent_H = ($(this).height() / $(this).parent().height()) * 100;
+          $(this).css('top', 'calc(50% - ' + perc_of_parent_H/2 + '%)' );
+        });
+
+      });
+      function f_remove_any_focus()
+      {
+          if(clone_img_just_now_created)
+          {
+            clone_img_just_now_created = false;
+            $('#imgclone').css('width', $('#imgclone').width() * 2 + 'px');  //setTimeout(,100);
+            $('#imgclone').css('height', $('#imgclone').height() * 2 + 'px');
+            return;
+          }
+         $('#imgclone').remove();
+         $('body').removeClass('bodyblur');
+         $('.nif img').removeClass('imgfocus');
+         $('audio').each(function(){$(this)[0].pause(); $(this).addClass('noauto')});
+      }
+
+      function f_img_focus()
+      {
+        $('#imgclone').remove();
+        $('body').removeClass('bodyblur');
+        $('.nif img').removeClass('imgfocus');
+
+         $('#imgclone').remove();
+         $('body').removeClass('bodyblur');
+         var img_clone = '<img alt="" id="imgclone" ' + 'src="';
+         var src;
+
+         if($(this).hasClass('clickable'))
+         {
+           src = $(this).children('img').attr('data-src');
+           $(this).children('audio').removeClass('noauto');
+           $(this).children('audio')[0].play();
+         }
+         else
+         {
+           src = $(this).attr('src');
+         }
+         img_clone += src + '">';
+
+         $('body').append(img_clone);
+         var x = $(this).offset().left;
+         var y = $(this).offset().top;
+         $('#imgclone').offset({top:y, left:x});
+         $('#imgclone').width($(this).width());
+         $('#imgclone').height($(this).height());
+         $('#imgclone').addClass('lighten-image');
+         $('body').addClass('bodyblur');
+         clone_img_just_now_created = true;
+      }
+
+      </script>

@@ -1,13 +1,15 @@
 {%load static%}
 {%csrf_token%}
 
-{%if page_index != 3%}
+{%if page_index != 4%}
 <div style="height:100px;">
  <div class="deepredbg" style="width:100%;">
    {% if page_index == 1 %}
    <div class="subtitle2 txtcenter" style="color:white;">ראיון טלפוני ביני לבין כתב ערוץ 12</div>
-   {% else %}
+   {% elif page_index == 2 %}
    <div class="subtitle2 txtcenter" style="color:white;">ראיון ביני לבין העיתונאית ליאור שלו</div>
+   {% elif page_index == 3 %}
+   <div class="subtitle2 txtcenter" style="color:white;">שיחה ביני לבין יו"ר התנועה הראלית, קובי דרורי"</div>
    {% endif %}
  </div>
 </div>
@@ -18,8 +20,10 @@
    <div class="loophole">
      {% if page_index == 1 %}
      <img class= "judonazimlogorotate" src="{%static 'images/ronny.jpg'%}" alt="">
-     {% else %}
+     {% elif page_index == 2 %}
      <img class= "judonazimlogorotate" src="{%static 'images/thumbs/ronnygorilla.jpg'%}" alt="">
+     {% elif page_index == 3 %}
+      <img class= "judonazimlogorotate" src="{%static 'images/ronny.jpg'%}" alt="">
      {% endif %}
    </div>
   </div>
@@ -35,8 +39,10 @@
    <div class="loophole">
      {% if page_index == 1 %}
      <img class= "judonazimlogorotate" src="{%static 'images/thumbs/ashkenazijournalistinterview.jpg'%}" alt="">
-     {% else %}
+     {% elif page_index == 2 %}
      <img class= "judonazimlogorotate" src="{%static 'images/thumbs/lior12.jpg'%}" alt="">
+     {% elif page_index == 3 %}
+     <img class= "judonazimlogorotate" src="{%static 'images/thumbs/realistic.jpg'%}" alt="">
      {% endif %}
    </div>
   </div>
@@ -51,7 +57,7 @@
 <audio  class="hiddenaudio noauto" controls>
     <source src="{{MEDIA_URL}}media/myvideos/aboutronnythenazi/meand12media/telephoneconversation.mp3" type="audio/mp3">
 </audio>
-   {% else %}
+   {% elif page_index == 2 %}
    <div class="loopholder imgbtn">
     <div class="loophole" style="background-color:#eaeaea">
       <img class="biggerimg" src="{%static 'images/thumbs/ronnyvslior12.jpg'%}" alt="">
@@ -67,6 +73,11 @@
    </div>
    <audio  class="hiddenaudio noauto" controls>
        <source src="{{MEDIA_URL}}media/myvideos/aboutronnythenazi/meand12media/interviewmako.mp3" type="audio/mp3">
+   </audio>
+   {% elif page_index == 3 %}
+   <img id="revealhidden" class="pushbutton imgbtn" src="{%static 'images/pushbutton.gif'%}" alt="">
+   <audio  class="hiddenaudio noauto" controls>
+       <source src="{{MEDIA_URL}}media/myvideos/ashkenazim/realisticceo/ashkenazipromotecommunism.mp3" type="audio/mp3">
    </audio>
   {% endif %}
 </div>

@@ -156,7 +156,8 @@ body.bodyblur:after
 }
 
 </style>
-
+<ul id="ulpages">
+<li>
 {% if ashk_media_type == 'nif' %}
  <div class="nif section column bg-gradient-dark">
    <div class="txtcenter">
@@ -261,11 +262,99 @@ body.bodyblur:after
   </div>
 </div>
   </div>
+</div>
 
+{% elif ashk_media_type == 'antisemitism' %}
+<div class="nif paper column">
+  <p class="txtcenter">
+    <span>כמו שיש סיבות מוצדקות בהחלט לגזענות/שנאה כלפי מזרחים למשל.</span>
+    <span>חייבים לקבל את זה שיש סיבות מוצדקות לגזענות/שנאה כלפי אשכנזים(אנטישמיות), רק סיבות אחרות ושונות</span>
+  </p>
+  <div class="column">
+  <div class="clickable">
+  <img src="{{MEDIA_URL}}media/myvideos/ashkenazim/antisemtism/whyashkenazimarehated.jpg" data-src="{%static 'images/ashkenazimunscam.jpg'%}"  alt="">
+  <svg data-src="{%static 'images/ashkenazimunscam.jpg'%}"  style="width:7%;position:absolute;top:calc(50% - 3.5%);right:calc(50% - 3.5%);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="wrapper translate pointer">
+    <circle class="tap-none" cx="89.43" cy="64.48" r="19.46"/>
+    <path class="hand-tap" d="M139.93,102.68,98.81,95.75V65.2A9.25,9.25,0,0,0,89.56,56h0a9.25,9.25,0,0,0-9.25,9.25v57.36L71,111.77c-3.61-3.61-8.44-3.89-13.08,0,0,0-7.24,5.84-3.83,9.25l34,34h42.63a9.25,9.25,0,0,0,9.07-7.43l6.82-34.09A9.28,9.28,0,0,0,139.93,102.68Z"/>
+  </svg>
+  <audio class="hiddenaudio noauto" controls>
+      <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/antisemtism/antisemtismisantiashkenazim.ogg"  type="audio/ogg">
+  </audio>
+  <audio class="hiddenaudio noauto" controls>
+      <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/antisemtism/racismagainstashksisjusitfied.ogg"  type="audio/ogg">
+  </audio>
+  <audio class="hiddenaudio noauto" controls>
+      <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/antisemtism/whyashkenazimarehated.ogg"  type="audio/ogg">
+  </audio>
+  </div>
+  </div>
+</div>
+
+<div class="nif paper column">
+  <p class="txtcenter">
+    <span>איך האשכנזים בעורמה הפכו את המילה אשכנזי למילה נרדפת ללבן</span>
+    <br>
+    <span> כדי להטעות כמהלך אסטרטגי פוליטי שנראה תמים למראה.</span>
+  </p>
+  <div class="column">
+  <div class="clickable">
+    <img src="{{MEDIA_URL}}media/myvideos/ashkenazim/ashkenaziisarace/ashkenazimisrace.jpg" data-src="{{MEDIA_URL}}media/myvideos/ashkenazim/ashkenaziisarace/ashkenazimisrace.jpg"  alt="">
+    <svg data-src="{{MEDIA_URL}}media/myvideos/ashkenazim/ashkenaziisarace/ashkenazimisrace.jpg"  style="width:7%;position:absolute;top:calc(50% - 3.5%);right:calc(50% - 3.5%);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="wrapper translate pointer">
+      <circle class="tap-none" cx="89.43" cy="64.48" r="19.46"/>
+      <path class="hand-tap" d="M139.93,102.68,98.81,95.75V65.2A9.25,9.25,0,0,0,89.56,56h0a9.25,9.25,0,0,0-9.25,9.25v57.36L71,111.77c-3.61-3.61-8.44-3.89-13.08,0,0,0-7.24,5.84-3.83,9.25l34,34h42.63a9.25,9.25,0,0,0,9.07-7.43l6.82-34.09A9.28,9.28,0,0,0,139.93,102.68Z"/>
+    </svg>
+    <audio class="hiddenaudio noauto" controls>
+        <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/ashkenaziisarace/ashkenazisynonaktowhites.ogg"  type="audio/ogg">
+    </audio>
+  </div>
+  </div>
+</div>
+
+<div class="seperator"></div>
+<div class="nif section column bg-gradient-dark">
+  <div class="txtcenter">
+  <span class="niceredclr">הסיפור שמעולם לא סופר על השואה</span>
+  </div>
+
+  <video class="noauto vid txtcenter"  controls>
+  <source src="{{MEDIA_URL}}media/myvideos/ashkenazim/antisemtism/holohoax.mp4" type="video/mp4">
+  </video>
+</div>
+
+<div class="seperator"></div>
+<div class="nif section column bg-gradient-dark">
+  <div class="txtcenter">
+  <span class="niceredclr">הגרמני האחרון</span>
+  </div>
+
+  <video class="noauto vid txtcenter"  controls>
+  <source src="{{MEDIA_URL}}media/myvideos/ashkenazim/ashkenazimdemonaziegermans/ashkagaistgermans.mp4" type="video/mp4">
+  </video>
+</div>
+
+<div class="seperator"></div>
+
+<div class="nif paper column">
+  <p class="txtcenter">
+    <span>למה צריך לכנות אותם אשכנזים, ולא שמאלנים</span>
+  </p>
+  <div class="column">
+  <div class="clickable">
+    <img src="{{MEDIA_URL}}media/myvideos/ashkenazim/notleftists/whyweshouldcallthemashkenazimandnotleftist.jpg"  data-src="{% static 'images/sneakyashkenazi.jpg' %}"  alt="">
+    <svg   data-src="{% static 'images/sneakyashkenazi.jpg' %}"  style="width:7%;position:absolute;top:calc(50% - 3.5%);right:calc(50% - 3.5%);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="wrapper translate pointer">
+      <circle class="tap-none" cx="89.43" cy="64.48" r="19.46"/>
+      <path class="hand-tap" d="M139.93,102.68,98.81,95.75V65.2A9.25,9.25,0,0,0,89.56,56h0a9.25,9.25,0,0,0-9.25,9.25v57.36L71,111.77c-3.61-3.61-8.44-3.89-13.08,0,0,0-7.24,5.84-3.83,9.25l34,34h42.63a9.25,9.25,0,0,0,9.07-7.43l6.82-34.09A9.28,9.28,0,0,0,139.93,102.68Z"/>
+    </svg>
+    <audio class="hiddenaudio noauto" controls>
+        <source src="{{MEDIA_URL}}media/myvideos/ashkenazim/notleftists/weshouldcallthemashkenazimnotleftist.ogg"  type="audio/ogg">
+    </audio>
+  </div>
+  </div>
 </div>
 
 {% endif %}
-
+</li>
+</ul>
 
   <script>
     var clone_img_just_now_created = false;

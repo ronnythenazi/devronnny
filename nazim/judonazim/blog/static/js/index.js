@@ -7,7 +7,10 @@ var isaudioplay;
 $(document).ready(fload);
 var arrColors = ['red', 'orange', 'blue', 'green', 'white', 'purple', 'yellow', 'pink', '#9b4a17', '#00fff6'];
 
-$('.arrow-up').click(function(){$(document).scrollTop(0);});
+$('.arrow-up').click(function(){
+  $('body, html').animate({scrollTop:0}, 200);
+  });
+
 
 $(function() {
  $(window).scroll(

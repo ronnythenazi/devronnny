@@ -73,15 +73,15 @@ def navtemplates(request):
     elif('btnmeonlinetv' in request.POST):
         return {'txtfilename':'onlinetv.html'}
     elif('btn12tv' in request.POST):
-        return {'txtfilename':'channel12.html', 'page_index':1, 'numofpages':3}
+        return {'txtfilename':'channel12.html', 'page_index':1, 'numofpages':4}
     elif('btncontinue' in request.POST):
         page_index = int(request.POST.get('btncontinue'));
         page_index += 1;
-        return {'txtfilename':'channel12.html', 'page_index':page_index, 'numofpages':3}
+        return {'txtfilename':'channel12.html', 'page_index':page_index, 'numofpages':4}
     elif('btnback' in request.POST):
         page_index = int(request.POST.get('btnback'));
         page_index -= 1;
-        return {'txtfilename':'channel12.html', 'page_index':page_index, 'numofpages':3}
+        return {'txtfilename':'channel12.html', 'page_index':page_index, 'numofpages':4}
     elif('btnwebsitedev' in request.POST):
         return {'txtfilename' : 'mywebsitedevelopment.html'}
     elif('cost_of_diversity' in request.POST):
@@ -92,6 +92,8 @@ def navtemplates(request):
         return {'txtfilename' : 'nif.html', 'ashk_media_type' : 'supreme court'}
     elif('btnethconsiparcy' in request.POST or 'submenu-btnethconsiparcy' in request.POST):
         return {'txtfilename' : 'nif.html', 'ashk_media_type' : 'diversity'}
+    elif('btnantisemtism' in request.POST or 'submenu-btnantisemtism' in request.POST):
+        return {'txtfilename' : 'nif.html', 'ashk_media_type' : 'antisemitism'}
     else:
         pass
     return {'txtfilename':'nazimbg.html'}
