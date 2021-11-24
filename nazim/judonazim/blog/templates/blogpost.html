@@ -1,0 +1,79 @@
+
+
+{%extends 'base.html'%}
+{%load static%}
+{%block additionallinks%}
+  <link rel="stylesheet" href="{%static 'css/blogpost.css'%}">
+  <link  rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css'%}">
+{%endblock%}
+
+{%block content%}
+
+<div class="frmcenterform">
+
+<form method="POST" enctype="multipart/form-data">
+{%csrf_token%}
+{{frm.media}}
+<div class="mb-5 row">
+
+  <div class="col-sm-5">
+  <label class="form-label" id="maintitle" >כותרת</label>
+  {{frm.title}}
+</div>
+</div>
+
+<div class="mb-5 row">
+  <div class="col-sm-9">
+  <label for="formGroupExampleInput2" class="form-label">כותרת משנה</label>
+  {{frm.subtitle}}
+  </div>
+</div>
+
+
+
+<div class="mb-5 row" id="btnsholder">
+  <div class="col-sm-12">
+<div class="cke_rtl">
+  {{frm.content}}
+</div>
+<div class="btn_txteditor_container">
+  <button type="submit"  id="btn_publish" class="btn btn-dark">
+    <span class="apublish" href="#">פרסם</span>
+    <ion-icon name="cloud-upload-outline" class="ico_small" src="{%static 'svg/upload.svg'%}"></ion-icon>
+  </button>
+  </div>
+  <div class="btn_txteditor_container">
+    <button  type="submit" id="btn_delete" class="btn btn-danger">
+      <span class="apublish" href="#">מחק</span>
+      <ion-icon name="cloud-upload-outline" class="ico_small" src="{%static 'svg/delete.svg'%}"></ion-icon>
+    </button>
+    </div>
+    <div class="btn_txteditor_container">
+      <button  type="submit" id="btn_save" class="btn btn-success">
+        <span class="apublish" href="#">שמור</span>
+        <ion-icon name="cloud-upload-outline" class="ico_small" src="{%static 'svg/save.svg'%}"></ion-icon>
+      </button>
+      </div>
+    <div class="btn_txteditor_container" id="btn_txteditor_container-far-right">
+    	<button  type="submit" id="btn_cancel" class="btn btn-primary">
+    		<span class="apublish" href="#">בטל</span>
+    		<ion-icon name="cloud-upload-outline" class="ico_small" src="{%static 'svg/return-down-right-arrow.svg'%}"></ion-icon>
+    	</button>
+    	</div>
+
+
+</div>
+</div>
+
+<div class="mb-5 row">
+  <div class="col-sm-9">
+  <label for="formGroupExampleInput2" class="form-label"> תמונה לתצוגה</label>
+  {{frm.thumb}}
+  </div>
+</div>
+ </form>
+
+ </div>
+
+
+{%endblock%}

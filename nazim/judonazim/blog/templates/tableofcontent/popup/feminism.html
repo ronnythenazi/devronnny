@@ -1,0 +1,96 @@
+{%load static%}
+<style type="text/css">
+  .popupmenu>ul>li>button>ul>li
+  {
+    flex-direction:row;
+    direction:rtl;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    margin-right:0px;
+
+  }
+
+  .popupmenu>ul>li>button>ul>li>span
+  {
+    margin-right:30px;
+  }
+  .popupmenu>ul
+  {
+     display:flex;
+     flex-direction:column;
+     align-items:stretch;
+
+  }
+
+  .submenuitemico
+  {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border:solid 3px;
+    border-top-color: blue;
+    border-right-color: blue;
+    border-bottom-color: red;
+    border-left-color:red;
+    position:absolute;
+    right:10px;
+  }
+</style>
+
+  <div class="upperpointer"></div>
+<div class="popupmenu">
+
+
+
+  <div class="menuitemtitlewarrper"><span class="menuitemtitle">&nbsp;</span></div>
+ <ul>
+
+   <li class="subpopup" id="submenu-feminismgenocide">
+    <button type="button">
+     <ul>
+       <li>
+         <img class="submenuitemico" src="{%static 'images/no-feminism.jpg'%}" alt="">
+         <span>פמיניזם כלי של חתרנות בידי אשכנזים</span>
+       </li>
+     </ul>
+   </button>
+  </li>
+
+   <li class="subpopup" id="submenu-womenweaknations">
+    <button type="button">
+     <ul>
+       <li>
+         <img class="submenuitemico" src="{%static 'images/no-feminism.jpg'%}" alt="">
+         <span>פמיניזם הורס את העם</span>
+       </li>
+     </ul>
+   </button>
+   </li>
+
+   <li class="subpopup" id="submenu-oppressionmyth">
+    <button type="button">
+     <ul>
+       <li>
+         <img class="submenuitemico" src="{%static 'images/no-feminism.jpg'%}" alt="">
+         <span>קריאת תיגר על מוסכמות חברתיות</span>
+       </li>
+     </ul>
+   </button>
+   </li>
+
+   <li class="subpopup" id="submenu-feminisminjustice">
+    <button type="button">
+     <ul>
+       <li>
+         <img class="submenuitemico" src="{%static 'images/no-feminism.jpg'%}" alt="">
+         <span>עוולות הפמיניזם כלפי גברים יהודים</span>
+       </li>
+     </ul>
+   </button>
+   </li>
+
+ </ul>
+<script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>
+
+</div>

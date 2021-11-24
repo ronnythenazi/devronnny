@@ -1,0 +1,419 @@
+{%load static%}
+
+<style>
+
+
+  :root
+  {
+        --blue: #5e72e4;
+        --indigo: #5603ad;
+        --purple: #8965e0;
+        --pink: #f3a4b5;
+        --red: #f5365c;
+        --orange: #fb6340;
+        --yellow: #ffd600;
+        --green: #2dce89;
+        --teal: #11cdef;
+        --cyan: #2bffc6;
+        --gray: #8898aa;
+        --gray-dark: #32325d;
+        --gray-darker: #111214;
+        --lighter: #e9ecef;
+        --primary: #5e72e4;
+        --secondary: #f4f5f7;
+        --success: #2dce89;
+        --info: #11cdef;
+        --warning: #fb6340;
+        --danger: #f5365c;
+        --light: #adb5bd;
+        --dark: #212529;
+        --default: #172b4d;
+        --white: #fff;
+        --neutral: #fff;
+        --darker: black;
+        --breakpoint-xs: 0;
+        --breakpoint-sm: 576px;
+        --breakpoint-md: 768px;
+        --breakpoint-lg: 992px;
+        --breakpoint-xl: 1200px;
+        --font-family-sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+        --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+
+        --bg-red1:-webkit-linear-gradient(180deg, #a80606,#e21818, #b20303);
+        --bg-red2:linear-gradient(180deg, #a80606,#e21818, #b20303);
+        --bg-red3:-moz-linear-gradient(180deg, #a80606,#e21818, #b20303);
+        --bg-red4:-o-linear-gradient(180deg, #a80606,#e21818, #b20303);
+}
+.paper
+{
+  background-color:#EAEAEA;
+  padding-bottom:20px;
+}
+
+.bg-gradient-dark
+{
+  background: linear-gradient(87deg, #212529 0, #212229 100%) !important;
+}
+body.bodyblur
+{
+  z-index:3000;
+
+}
+.section img, .section video ,.paper img, .paper video
+{
+  border-radius:10px;
+  box-shadow: 5px 5px 10px blue, 2px 2px 20px red;
+}
+.maincontext
+{
+  background-color:unset !important;
+}
+
+body.bodyblur:after
+{
+  content:'';
+  position: absolute !important;
+  display:block;
+  width:100% !important;
+  height:100% !important;
+  z-index:2999 !important;
+  opacity:0.8 !important;
+  top:0;
+  right:0;
+  background-color:black !important;
+}
+.pointer
+{
+  cursor:pointer;
+}
+#imgclone
+{
+
+  max-height:500px !important;
+  max-width:500px !important;
+  position:fixed !important;
+  z-index:3000 !important;
+  transition: all 1s ease;
+}
+.nif>div
+{
+  width:100%;
+}
+.nif>p>span
+{
+
+     color:#3B5998;
+    -webkit-text-stroke-color:purple;
+    -webkit-text-stroke-width:0.5px;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    -webkit-background-image:var(--bg-blue1, --bg-red2);
+    -moz-background-image:var(--bg-blue1, --bg-red2);
+    -o-background-image:var(--bg-blue1, --bg-red2);
+     background-image:var(--bg-blue1, --bg-red2);
+}
+.nif>video, .nif>img, .nif>iframe
+{
+  cursor:pointer;
+}
+
+.seperator
+{
+   height:200px;
+   width:100%;
+}
+.section>div, video
+{
+  margin-bottom:10px;
+}
+.section span
+{
+  font-size:30px;
+}
+.niceredclr
+{
+  -webkit-background-clip: text;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: white;
+  -webkit-text-fill-color: transparent;
+   background-image: var(--bg-red, var(--bg-red2, var(--bg-red3, --bg-red4)));
+}
+.lighten-image
+{
+  box-shadow: 5px 5px 10px blue, 2px 2px 20px red;
+}
+.section
+{
+   padding:20px 0px;
+   box-shadow:inset 10px 0px 20px blue, inset 0px 10px 20px red, inset -10px 0px 20px yellow, inset 0px -10px 20px green;
+   border-radius:5px;
+}
+.section.column
+{
+  justify-content:center;
+}
+
+</style>
+<ul id="ulpages">
+<li>
+{% if ashk_media_type == 'nif' %}
+ <div class="nif section column bg-gradient-dark">
+   <div class="txtcenter">
+   <span class="niceredclr">הקרן לישראל החדשה, כבר 40 שנה הורסת את המדינה</span>
+   </div>
+
+   <video class="noauto vid txtcenter" poster="{%static 'images/thumbs/nif.jpg'%}"  controls>
+   <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/nif/nif.mp4" type="video/mp4">
+   </video>
+ </div>
+
+<div class="seperator"></div>
+
+ <div class="nif section column bg-gradient-dark">
+    <div class="txtcenter">
+    <span class="niceredclr">עניי עמים אחרים קודם</span>
+    </div>
+
+    <video class="noauto vid txtcenter" controls>
+    <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/nif/otherracesfirst.mp4" type="video/mp4">
+    </video>
+ </div>
+
+ <div class="seperator"></div>
+
+ <div class="nif section column bg-gradient-dark">
+    <div class="txtcenter">
+    <span class="niceredclr txtcenter">למה אשכנזים בוגדים בנו אם אנחנו באותה סירה</span>
+    </div>
+
+    <video class="noauto vid txtcenter" controls>
+    <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/nif/whytheybetrayus.mp4" type="video/mp4">
+    </video>
+ </div>
+{% elif ashk_media_type == 'supreme court' %}
+<div class="nif section column bg-gradient-dark">
+  <div class="txtcenter">
+  <span class="niceredclr">בג"ץ, בית דין גבוה לפשע</span>
+  </div>
+
+  <video class="noauto vid txtcenter"  controls>
+  <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/supremecourt/supremecourt.mp4" type="video/mp4">
+  </video>
+</div>
+{%elif ashk_media_type == 'diversity'%}
+<div class="nif paper column">
+  <p class="txtcenter">
+
+    <span>מחיר הטיפול במסתננים שהאשכנזים השפלים, הנאלחים, המסואבים, הנלוזים, הפושעים, </span>
+    <span>המרצחים, השטניים וערלי הלב הכניסו למדינתכם ללא הסכמתכם.</span>
+    <span>מי מממן זאת? אתם. כספי המיסים שלכם מממנים טיפולים בבתי חולים, תגבור כוחות המשטרה,</span>
+    <span>תגבור כוחות כיבוי אש, מתקני חולות, שירותים חברתיים, חינוך, תפעול ובינוי תשתיות וקהילה, תרבות וספורט.</span>
+  </p>
+  <img src="{{MEDIA_URL}}media/myvideos/costofdiversity/costofrefugee.jpg" alt="">
+</div>
+<div class="seperator"></div>
+<div class="nif section column bg-gradient-dark">
+  <div class="txtcenter">
+  <span class="niceredclr">האמת שהאשכנזים מטייחים ומשקרים במזיד על הפשיעה של החוצנים מאפריקה</span>
+  </div>
+
+  <video class="noauto vid txtcenter"  controls>
+  <source src="{{MEDIA_URL}}media/myvideos/costofdiversity/negroescrimerate.mp4" type="video/mp4">
+  </video>
+</div>
+<div class="seperator"> </div>
+<div class="nif section column bg-gradient-dark">
+  <div class="txtcenter">
+  <span class="niceredclr">הקשר האשכנזי להפרת הסדר האלימה של האתיופים, ולשם מה היה תכליתה.</span>
+  </div>
+
+  <video class="noauto vid txtcenter"  controls>
+  <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/ethiopians/ethiopianashkenaziconsipracy.mp4" type="video/mp4">
+  </video>
+
+  <div class="nif paper column">
+    <p class="txtcenter">
+
+      <span clas="blueglowclr">למה אשכנזים דאגו להכניס את האויבים שלנו (כושים וערבים) במשטרה?</span>
+      <br>
+      <span clas="blueglowclr">מטרתה של הפרת הסדר של האתיופים, לשמור על מונופול החוק של האשכנזים</span>
+      <br>
+      <span>לא מאהבת אתיופים אלא משנאת מזרחים</span>
+    </p>
+<div class="column">
+  <div class="clickable">
+  <img class="pointer" data-src="{%static 'images/thumbs/apepolice.jpg'%}" src="{%static 'images/thumbs/diversepolice.jpg'%}" alt="">
+  <svg data-src="{%static 'images/thumbs/apepolice.jpg'%}"  style="width:7%;position:absolute;top:calc(50% - 3.5%);right:calc(50% - 3.5%);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="wrapper translate pointer">
+    <circle class="tap-none" cx="89.43" cy="64.48" r="19.46"/>
+    <path class="hand-tap" d="M139.93,102.68,98.81,95.75V65.2A9.25,9.25,0,0,0,89.56,56h0a9.25,9.25,0,0,0-9.25,9.25v57.36L71,111.77c-3.61-3.61-8.44-3.89-13.08,0,0,0-7.24,5.84-3.83,9.25l34,34h42.63a9.25,9.25,0,0,0,9.07-7.43l6.82-34.09A9.28,9.28,0,0,0,139.93,102.68Z"/>
+  </svg>
+
+  <audio class="hiddenaudio noauto" controls>
+      <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/ethiopians/ethiopiansasdivideandconquer.ogg"  type="audio/ogg">
+  </audio>
+  <audio class="hiddenaudio noauto" controls>
+      <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/ethiopians/multiracailpolice.ogg"  type="audio/ogg">
+  </audio>
+  <audio class="hiddenaudio noauto" controls>
+      <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/ethiopians/ashkenazimbroughtethiopiansnotovadia.ogg"  type="audio/ogg">
+  </audio>
+  </div>
+</div>
+  </div>
+</div>
+
+{% elif ashk_media_type == 'antisemitism' %}
+<div class="nif paper column">
+  <p class="txtcenter">
+    <span>כמו שיש סיבות מוצדקות בהחלט לגזענות/שנאה כלפי מזרחים למשל.</span>
+    <span>חייבים לקבל את זה שיש סיבות מוצדקות לגזענות/שנאה כלפי אשכנזים(אנטישמיות), רק סיבות אחרות ושונות</span>
+  </p>
+  <div class="column">
+  <div class="clickable">
+  <img src="{{MEDIA_URL}}media/myvideos/ashkenazim/antisemtism/whyashkenazimarehated.jpg" data-src="{%static 'images/ashkenazimunscam.jpg'%}"  alt="">
+  <svg data-src="{%static 'images/ashkenazimunscam.jpg'%}"  style="width:7%;position:absolute;top:calc(50% - 3.5%);right:calc(50% - 3.5%);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="wrapper translate pointer">
+    <circle class="tap-none" cx="89.43" cy="64.48" r="19.46"/>
+    <path class="hand-tap" d="M139.93,102.68,98.81,95.75V65.2A9.25,9.25,0,0,0,89.56,56h0a9.25,9.25,0,0,0-9.25,9.25v57.36L71,111.77c-3.61-3.61-8.44-3.89-13.08,0,0,0-7.24,5.84-3.83,9.25l34,34h42.63a9.25,9.25,0,0,0,9.07-7.43l6.82-34.09A9.28,9.28,0,0,0,139.93,102.68Z"/>
+  </svg>
+  <audio class="hiddenaudio noauto" controls>
+      <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/antisemtism/antisemtismisantiashkenazim.ogg"  type="audio/ogg">
+  </audio>
+  <audio class="hiddenaudio noauto" controls>
+      <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/antisemtism/racismagainstashksisjusitfied.ogg"  type="audio/ogg">
+  </audio>
+  <audio class="hiddenaudio noauto" controls>
+      <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/antisemtism/whyashkenazimarehated.ogg"  type="audio/ogg">
+  </audio>
+  </div>
+  </div>
+</div>
+
+<div class="nif paper column">
+  <p class="txtcenter">
+    <span>איך האשכנזים בעורמה הפכו את המילה אשכנזי למילה נרדפת ללבן</span>
+    <br>
+    <span> כדי להטעות כמהלך אסטרטגי פוליטי שנראה תמים למראה.</span>
+  </p>
+  <div class="column">
+  <div class="clickable">
+    <img src="{{MEDIA_URL}}media/myvideos/ashkenazim/ashkenaziisarace/ashkenazimisrace.jpg" data-src="{{MEDIA_URL}}media/myvideos/ashkenazim/ashkenaziisarace/ashkenazimisrace.jpg"  alt="">
+    <svg data-src="{{MEDIA_URL}}media/myvideos/ashkenazim/ashkenaziisarace/ashkenazimisrace.jpg"  style="width:7%;position:absolute;top:calc(50% - 3.5%);right:calc(50% - 3.5%);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="wrapper translate pointer">
+      <circle class="tap-none" cx="89.43" cy="64.48" r="19.46"/>
+      <path class="hand-tap" d="M139.93,102.68,98.81,95.75V65.2A9.25,9.25,0,0,0,89.56,56h0a9.25,9.25,0,0,0-9.25,9.25v57.36L71,111.77c-3.61-3.61-8.44-3.89-13.08,0,0,0-7.24,5.84-3.83,9.25l34,34h42.63a9.25,9.25,0,0,0,9.07-7.43l6.82-34.09A9.28,9.28,0,0,0,139.93,102.68Z"/>
+    </svg>
+    <audio class="hiddenaudio noauto" controls>
+        <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/ashkenaziisarace/ashkenazisynonaktowhites.ogg"  type="audio/ogg">
+    </audio>
+  </div>
+  </div>
+</div>
+
+<div class="seperator"></div>
+<div class="nif section column bg-gradient-dark">
+  <div class="txtcenter">
+  <span class="niceredclr">הסיפור שמעולם לא סופר על השואה</span>
+  </div>
+
+  <video class="noauto vid txtcenter"  controls>
+  <source src="{{MEDIA_URL}}media/myvideos/ashkenazim/antisemtism/holohoax.mp4" type="video/mp4">
+  </video>
+</div>
+
+<div class="seperator"></div>
+<div class="nif section column bg-gradient-dark">
+  <div class="txtcenter">
+  <span class="niceredclr">הגרמני האחרון</span>
+  </div>
+
+  <video class="noauto vid txtcenter"  controls>
+  <source src="{{MEDIA_URL}}media/myvideos/ashkenazim/ashkenazimdemonaziegermans/ashkagaistgermans.mp4" type="video/mp4">
+  </video>
+</div>
+
+<div class="seperator"></div>
+
+<div class="nif paper column">
+  <p class="txtcenter">
+    <span>למה צריך לכנות אותם אשכנזים, ולא שמאלנים</span>
+  </p>
+  <div class="column">
+  <div class="clickable">
+    <img src="{{MEDIA_URL}}media/myvideos/ashkenazim/notleftists/whyweshouldcallthemashkenazimandnotleftist.jpg"  data-src="{% static 'images/sneakyashkenazi.jpg' %}"  alt="">
+    <svg   data-src="{% static 'images/sneakyashkenazi.jpg' %}"  style="width:7%;position:absolute;top:calc(50% - 3.5%);right:calc(50% - 3.5%);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="wrapper translate pointer">
+      <circle class="tap-none" cx="89.43" cy="64.48" r="19.46"/>
+      <path class="hand-tap" d="M139.93,102.68,98.81,95.75V65.2A9.25,9.25,0,0,0,89.56,56h0a9.25,9.25,0,0,0-9.25,9.25v57.36L71,111.77c-3.61-3.61-8.44-3.89-13.08,0,0,0-7.24,5.84-3.83,9.25l34,34h42.63a9.25,9.25,0,0,0,9.07-7.43l6.82-34.09A9.28,9.28,0,0,0,139.93,102.68Z"/>
+    </svg>
+    <audio class="hiddenaudio noauto" controls>
+        <source src="{{MEDIA_URL}}media/myvideos/ashkenazim/notleftists/weshouldcallthemashkenazimnotleftist.ogg"  type="audio/ogg">
+    </audio>
+  </div>
+  </div>
+</div>
+
+{% endif %}
+</li>
+</ul>
+
+  <script>
+    var clone_img_just_now_created = false;
+    $('.nif img, .clickable').click(f_img_focus);
+    $(document).click(f_remove_any_focus);
+    $(document).ready(function(){
+      $('.clickable>svg').each(function(){
+        var perc_of_parent_H = ($(this).height() / $(this).parent().height()) * 100;
+        $(this).css('top', 'calc(50% - ' + perc_of_parent_H/2 + '%)' );
+      });
+
+    });
+    function f_remove_any_focus()
+    {
+        if(clone_img_just_now_created)
+        {
+          clone_img_just_now_created = false;
+          $('#imgclone').css('width', $('#imgclone').width() * 2 + 'px');  //setTimeout(,100);
+          $('#imgclone').css('height', $('#imgclone').height() * 2 + 'px');
+          return;
+        }
+       $('#imgclone').remove();
+       $('body').removeClass('bodyblur');
+       $('.nif img').removeClass('imgfocus');
+       $('audio').each(function(){$(this)[0].pause(); $(this).addClass('noauto')});
+    }
+
+    function f_img_focus()
+    {
+      $('#imgclone').remove();
+      $('body').removeClass('bodyblur');
+      $('.nif img').removeClass('imgfocus');
+
+       $('#imgclone').remove();
+       $('body').removeClass('bodyblur');
+       var img_clone = '<img alt="" id="imgclone" ' + 'src="';
+       var src;
+
+       if($(this).hasClass('clickable'))
+       {
+         src = $(this).children('img').attr('data-src');
+         $(this).children('audio').removeClass('noauto');
+         $(this).children('audio')[0].play();
+       }
+       else
+       {
+         src = $(this).attr('src');
+       }
+       img_clone += src + '">';
+
+       $('body').append(img_clone);
+       var x = $(this).offset().left;
+       var y = $(this).offset().top;
+       $('#imgclone').offset({top:y, left:x});
+       $('#imgclone').width($(this).width());
+       $('#imgclone').height($(this).height());
+       $('#imgclone').addClass('lighten-image');
+       $('body').addClass('bodyblur');
+       clone_img_just_now_created = true;
+    }
+
+    </script>

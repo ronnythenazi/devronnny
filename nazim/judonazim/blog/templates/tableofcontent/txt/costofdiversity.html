@@ -1,0 +1,927 @@
+{%load static%}
+
+<style>
+
+body.bodyblur
+{
+  z-index:3000;
+
+}
+.medium-col img
+{
+
+  /*max-height:200px !important;*/
+}
+.medium-col
+{
+  font-size:20px;
+  display:flex;
+  direction:rtl;
+  flex-direction:column;
+  justify-content:space-between;
+  align-items:center;
+  text-align:center;
+  color:white;
+}
+.narrow-col img
+{
+  width:140px !important;
+  height:200px !important;
+}
+.narrow-col
+{
+  font-size:20px;
+  display:flex;
+  direction:rtl;
+  flex-direction:column;
+  justify-content:space-between;
+  align-items:center;
+  text-align:center;
+  color:white;
+}
+:root
+{
+  --bg-border-pinchbanana1:linear-gradient(45deg,   red, orange, salmon,blue,  purple);
+  --bg-border-pinchbanana2:-webkit-linear-gradient(45deg, red, orange, salmon,blue,  purple);
+}
+.section img:not(.title-img), .lightme
+{
+  border-radius:10px;
+  box-shadow: 5px 5px 10px blue, 2px 2px 20px red;
+}
+
+.borderme
+{
+  border-right:none;
+  border-left:none;
+  border-top:none;
+  border-bottom: 10px solid transparent;
+  border-image: var(--bg-border-pinchbanana1, --bg-border-pinchbanana2) 30% stretch;
+}
+.maincontext
+{
+  background-color:unset !important;
+}
+
+.section
+{
+   padding-right:5px;
+   background-color:#EAEAEA;
+}
+.niceredclr
+{
+  -webkit-background-clip: text;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: white;
+  -webkit-text-fill-color: transparent;
+   background-image: var(--bg-red, var(--bg-red2, var(--bg-red3, --bg-red4)));
+}
+body.bodyblur:after
+{
+  content:'';
+  position: absolute !important;
+  display:block;
+  width:100% !important;
+  height:100% !important;
+  z-index:2999 !important;
+  opacity:0.8 !important;
+  top:0;
+  right:0;
+  background-color:black !important;
+}
+.clickable
+{
+  position:relative;
+}
+#imgclone
+{
+
+  max-height:800px !important;
+  max-width:800px !important;
+  position:fixed !important;
+  z-index:3000 !important;
+  transition: all 1s ease;
+}
+.bg-gradient-dark
+{
+  background: linear-gradient(87deg, #212529 0, #212229 100%) !important;
+  background: -webkit-linear-gradient(87deg, #212529 0, #212229 100%) !important
+}
+.bg-gradient-red
+{
+  background:var(--bg-red, --bg-red2);
+}
+#costofdiversity>p>span
+{
+
+    color:#3B5998;
+    -webkit-text-stroke-color:purple;
+    -webkit-text-stroke-width:0.5px;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    -webkit-background-image:var(--bg-blue1, --bg-red2);
+    -moz-background-image:var(--bg-blue1, --bg-red2);
+    -o-background-image:var(--bg-blue1, --bg-red2);
+     background-image:var(--bg-blue1, --bg-red2);
+}
+video, img, iframe, svg
+{
+  cursor:pointer;
+}
+
+.rowmedia.dense.title-img-row
+{
+  align-items:flex-end;
+}
+.styled-section
+{
+  padding:20px 0px;
+  box-shadow:inset 10px 0px 20px blue, inset 0px 10px 20px red, inset -10px 0px 20px yellow, inset 0px -10px 20px green;
+  border-radius:5px;
+}
+img.nested-img
+{
+  width:20% !important;
+  height:20% !important;
+  /*max-width: 15% !important;
+  max-height:5% !important;*/
+  margin-top:5px;
+}
+.paper
+{
+  background-color:#EAEAEA;
+  padding-bottom:20px;
+}
+.seperator
+{
+   height:200px;
+   width:100%;
+}
+.nif>div
+{
+  width:100%;
+}
+.nif video
+{
+  border-radius:10px;
+  box-shadow: 5px 5px 10px blue, 2px 2px 20px red;
+}
+
+.lighten-image
+{
+  box-shadow: 5px 5px 10px blue, 2px 2px 20px red;
+}
+.nif>p>span
+{
+
+     color:#3B5998;
+    -webkit-text-stroke-color:purple;
+    -webkit-text-stroke-width:0.5px;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    -webkit-background-image:var(--bg-blue1, --bg-red2);
+    -moz-background-image:var(--bg-blue1, --bg-red2);
+    -o-background-image:var(--bg-blue1, --bg-red2);
+     background-image:var(--bg-blue1, --bg-red2);
+}
+.p-blue>span
+{
+  -webkit-background-clip: text;
+  -webkit-text-stroke-width: 0.2px;
+  -webkit-text-fill-color: transparent;
+   background-image:-webkit-linear-gradient(-180deg, #0b2edd, #050505);
+
+   -moz-background-clip: text;
+   -moz-text-stroke-width: 0.2px;
+   -moz-text-fill-color: transparent;
+    background-image:-moz-linear-gradient(-180deg, #0b2edd, #050505);
+
+    -o-background-clip: text;
+    -o-text-stroke-width: 0.2px;
+    -o-text-fill-color: transparent;
+     background-image:-o-linear-gradient(-180deg, #0b2edd, #050505);
+
+      background-clip: text;
+      text-stroke-width: 0.2px;
+      text-fill-color: transparent;
+      background-image: linear-gradient(-180deg, #0b2edd, #050505);
+}
+.p-red>span
+{
+  -webkit-background-clip: text;
+  -webkit-text-stroke-width: 0.2px;
+  -webkit-text-fill-color: transparent;
+   background-image:-webkit-linear-gradient(180deg, #a80606,#e21818, #b20303);
+
+   -moz-background-clip: text;
+   -moz-text-stroke-width: 0.2px;
+   -moz-text-fill-color: transparent;
+    background-image:-moz-linear-gradient(180deg, #a80606,#e21818, #b20303);
+
+    -o-background-clip: text;
+    -o-text-stroke-width: 0.2px;
+    -o-text-fill-color: transparent;
+     background-image:-o-linear-gradient(180deg, #a80606,#e21818, #b20303);
+
+      background-clip: text;
+      text-stroke-width: 0.2px;
+      text-fill-color: transparent;
+      background-image: linear-gradient(180deg, #a80606,#e21818, #b20303);
+}
+--blue: #5e72e4;
+--indigo: #5603ad;
+--purple: #8965e0;
+--pink: #f3a4b5;
+--red: #f5365c;
+--orange: #fb6340;
+--yellow: #ffd600;
+--green: #2dce89;
+--teal: #11cdef;
+--cyan: #2bffc6;
+--gray: #8898aa;
+--gray-dark: #32325d;
+--gray-darker: #111214;
+--lighter: #e9ecef;
+--primary: #5e72e4;
+--secondary: #f4f5f7;
+--success: #2dce89;
+--info: #11cdef;
+--warning: #fb6340;
+--danger: #f5365c;
+--light: #adb5bd;
+--dark: #212529;
+--default: #172b4d;
+--white: #fff;
+--neutral: #fff;
+--darker: black;
+--breakpoint-xs: 0;
+--breakpoint-sm: 576px;
+--breakpoint-md: 768px;
+--breakpoint-lg: 992px;
+--breakpoint-xl: 1200px;
+--font-family-sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+--font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+
+--bg-red1:-webkit-linear-gradient(180deg, #a80606,#e21818, #b20303);
+--bg-red2:linear-gradient(180deg, #a80606,#e21818, #b20303);
+--bg-red3:-moz-linear-gradient(180deg, #a80606,#e21818, #b20303);
+--bg-red4:-o-linear-gradient(180deg, #a80606,#e21818, #b20303);
+</style>
+<ul id="ulpages">
+<li>
+  <div id="costofdiversity" class="section column">
+   <p>
+
+     <span>מעבר למחיר הכבד שאנחנו משלמים על,</span>
+     <span>רמות הפשיעה הגבוהות, האלימות הרבה, הנחשלות, המראה המכוער,</span>
+     <span>הפרמיטיביות, האינטליגנציה הנמוכה, וזיהום מאגר הד.נ.א שלנו.</span>
+     <span>יש גם את המחיר הכבד שמתורגם לעלות כספית גבוהה,</span>
+     <span>אותו כולנו משלמים מכספי המיסים שלנו,</span>
+     <span>בכדי להחזיק את אותו "עושר תרבותי" של זבל גנטי של האתיופים.</span>
+
+   </p>
+  <img class="img-click" src="{{MEDIA_URL}}/media/myvideos/costofdiversity/ethipoianscostmoney.JPG" alt="">
+     <p>
+       <span>ולמרות זאת, כל מיני יצורים טיפשים,</span>
+       <span>הוזים שהאתיופים הם מתנה ונכס דמוגרפי לעם ישראל,</span>
+       <span>דמוגרפיה = גורל, לא רק מבחינה כמותית.</span>
+       <span>אלא לא פחות חשוב, מבחינה איכותית,</span>
+       <span>העובדה שהם מוגדרים כיהודים גורמת לזה,</span>
+       <span>להיות מעט פחות גרוע מאריתראים וסודנים וערבים.</span>
+       <span>אבל עדין מדובר בזבל גנטי שמזהם לנו את המרחב הציבורי והד.נ.א.</span>
+       <span>If it ain't broke don't fix it</span>
+     </p>
+
+
+
+     <p>
+      <span>בערוצי השקר  של האשכנזים,</span>
+      <span>עושים שמניות באוויר ויוצאים מגדרם ומעורם,</span>
+      <span>כדי לנסות להמציא משהו חיובי על האתיופים,</span>
+      <span>זה מגוחך כמו לנסות להאיר קקה עם  פנס צבעוני,</span>
+      <span>ולנסות לאלץ אותך להאמין כמה הקקה הזה יפה,</span>
+      <span>עדין על רוב הציבור הישראלי המטומטם נראה,</span>
+      <span>ששקר בגדי המלך החדשים של התקשורת האשכנזית,</span>
+      <span>מצליח לשטות בהם ממש כמו סוג של קסם,</span>
+      <span>האתיופים הם 100% נזק, 100% תרומה שלילית, ואסון דמוגרפי מוחלט.</span>
+      <span>כמובן שאת הדברים השלילים שקשורים לעליה של האתיופים,</span>
+      <span>עליהם מעולם לא שמעתם ולעולם לא תשמעו בתקשורת.</span>
+      <span>למרות שבניגוד לצדדים "הטובים" הלחלוטין בדויים, מומצאים, ומנופחים,</span>
+      <span>הצדדים השלילים שכרוכים בהימצאותם, קיימים בשפע.</span>
+      <span>זה מצריך מאמצים עילאים והתכחשות  גמורה, כדי לפספס אותם.</span>
+      <span>אך עדין, התקשורת האשכנזית המיינסטרימית נשארת  לגבי זה בדממת אלחוט.</span>
+      <span>כאלו שום דבר מהפשיעה, האלימות, הפרמיטיביות, הכיעור, והנחשלות שלהם,</span>
+      <span>אינם ומעולם לא היו קיימים, זה רק בדמיון שלכם.</span>
+      <span>זה רק בראש החולה, המעוות, ההוזה, והגזעני שלך, כך גורמים לכם לחשוב.</span>
+      <span>לא ראינו, לא שמענו, לא ידענו.</span>
+      <span>לא רק שהם כלל לא קיימים, ההפך הוא הנכון לפי אותם אשכנזים אליטיסטים.</span>
+      <span>לפיהם האתיופים הם נכס חשוב ויקר למדינה, הם רק תרומה ועושר תרבותי.</span>
+      <span>זה רק אנחנו כחברה, כעם, אשמים, בכך שלא הצלחנו לקלוט אותם.</span>
+      <span>התת-הישגיות שלהם בכל תחום אפשרי, האלימות הגבוהה, הנחשלות, הפרמיטביות, הברבריות,</span>
+     <span>זה הכל פרי הדמיון של הראש החולה המעוות שלכם.</span>
+     <span>שום דבר שקשור לגנטיקה או הביולוגיה שלהם,</span>
+     <span>Move along sir, Nothing to see there</span>
+     <span>העוני, האיידס, הכיעור, הנחשלות, הטיפשות, והפשיעה של האתיופים,</span>
+     <span>לכולם יש הסבר נורא פשוט לפי ערוצי המדיה האשכנזיים-</span>
+     <span>גזענות.</span>
+     <span>זה רק בגלל שאנחנו גזענים,</span>
+     <span>אנחנו אשמים.</span>
+     <br>
+     <span>דוגמא לכך אפשר לראות בסרטון הבא,</span>
+     <span>אישה, שבניגוד לנתן זהבי, ואנשי תקשורת אשכנזים אחרים,</span>
+     <span>נאלצים לחיות עם הגרורה הסרטנית הזו,</span>
+     <span>אתם יודעים, אנשים שנחשפים לאמת מהמציאות.</span>
+     <span>לפי מה שהם חווים על בשרם מדי יום,</span>
+     <span>ולא לפי עולם הפנטזיה גדוש השקרים,</span>
+     <span>שמתארים לכם כל יום נתון, במסכי הטאבלט, המחשב הסמארטפונים והטלויזיה,</span>
+     <span>אותה אישה פשוטה ואמתית, נמצאת חסרת אונים ואובדת עצות,</span>
+     <span>בשל הרב גזעיות, והרב תרבותיות הנפלא שהאשכנזים כפו עלנו,</span>
+     <span>מתארת בשיחה פתוחה, גלויה וכנה, על הסבל והייסורים שהיא חווה,</span>
+     <span>מדי יום ביומו, כבר כמה שנים טובות ברציפות, והכל על מזבח הכור היתוך, והמיזוג גלויות.</span>
+     <span>ומה הדבר הכי טוב שיש לאנשים עוצמתיים אליטיסטים אשכנזים, כמו נתן זהבי ודומיו</span>
+     <span>לומר לה? ניסיון לחזק או לעודד אותה?</span>
+     <span>או אולי להודות באמת שיש דברים בגו, שדבריה נכונים?</span>
+     <span>אם לא בכולם או ברובם, אז אולי לפחות בחלקם או במקצתם?</span>
+     <span>שאולי לא משנה כמה גזעני ולא פוליטיקלי קורקט זה נשמע,</span>
+     <span>להודות שיש צדק בדבריה? </span>
+     <span>מה פתאום, חחחחח, אל תהיו נאיבים.</span>
+     <span>הדבר היחיד שיש  לאיש תקשורת כמוהו להחזיר לה,</span>
+     <span>זה רק מטר קללות עסיסיות, השפלות מילוליות, להאשים אותה בגזענות,</span>
+    <span>לכנות אותה נאצית, וטריקת טלפון בפנים.</span>
+    <span>חארגיל, לפי ההגמוניה האשכנזית, הסרטן היחיד זה הגזענות,</span>
+    <span>לא מה שגורם לגזענות, וזה הרב-תרבותיות/גזעיות.</span>
+
+     </p>
+     <video class="noauto vid txtcenter" poster="{%static 'images/thumbs/french.jpg'%}" controls>
+     <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/ethiopians/ashkmediaethiopians.mp4" type="video/mp4">
+     </video>
+
+ <p>
+     <span>עוד יהודי-ספרדי שלא מרגיש בנוח עם הפלורליזם הכפוי,</span>
+     <span>שאותו כפו על רצון העם, בירוקרטים, מיליארדרים, אשכנזים, עוצמתיים.</span>
+     <span>הוא לא מרגיש בטוח שערבים וכושים נמצאים אצלו ליד הבית.</span>
+     <span>אני לחלוטין מבין ומסכים אתו, אולם התגובה היחידה שיש,</span>
+     <span>לאיש תקשורת אשכנזי , נתן זהבי, להשיב לאיש,</span>
+     <span>זה חארגיל,מטר של שפע קללות, עלבונות, האשמות, צעקות, הבעת שנאה ורעל טהור.</span>
+     <span>רק בגלל שהוא העז לומר את האמת, שהרבה אנשים חושבים ומרגישים,</span>
+     <span>רק לא תמיד מעזים לומר, רק כדי לא חלילא להתפס כגזענים,</span>
+     <span>קצת הזוי שאנשים היום מרגישים יותר בנוח לומר שהם הומואים,</span>
+     <span>מאשר לומר שהם גזעניים.</span>
+     <span>ולמען הסר ספק, המכוער נפש הצבוע נתן זהבי, יודע שהמאזין צודק.</span>
+     <span>והוא מרגיש אותו דבר כלפי ערבים וכושים ואף יותר גזען,</span>
+     <span>אבל זה עדין לא עוצר מבעדו לנצל את כוחו כעיתונאי לרעה,</span>
+     <span>כדי לדכא ולהשתיק באכזריות, כל ביטוי של אי ציות,</span>
+     <span>לנורמות האשכנזיות הכפויות, של מה מותר ומה אסור לחשוב ולהרגיש.</span>
+     <span>גם אם אתם מאלו שחושבים שאין הצדקה לגזענות של המאזין,</span>
+     <span>או אם אתם בצד של נתן זהבי כאן, עדין מה שברור,</span>
+     <span>שאותו פלורליזם, זו הנקודת תורפה של ישראל, ולא העוצמה.</span>
+   </p>
+
+
+      <video class="noauto vid" poster="{%static 'images/thumbs/zehavi.jpg'%}" controls>
+      <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/ashkenazimedia/satanicashkjornalistbrutallyattackmenajew.mp4" type="video/mp4">
+      </video>
+
+<p>
+      <span>עוד דוגמא שרירותית מיני אינסוף שממחישה את הזיוף, הצביעות, והשקרים,</span>
+      <span>של הטרוריסטים התקשורתיים האשכנזים באותו נושא,</span>
+      <span>זו השיחה הבאה בין הבולדוזר האליטיסי האשכנזי, איש התשקורת, עודד בן עמי,</span>
+      <span>לבין איש קשה יום יהודי-ספרדי, נהג אוטובוס,</span>
+      <span>אותו נהג אוטובוס, "נאצי", "היטלראי", "מפלצתי", בסך הכל אמר,</span>
+      <span>שילדים אתיופים מתפרעים באוטובס בזמן הנסיעה,</span>
+      <span>שזו כמובן אמת לאמיתה, עובדה ידועה וברורה כשמש,</span>
+      <span>שמוכרת לכל אחד שנסע אי פעם בתחבורה ציבורית,</span>
+      <span>אז על אחת כמה וכמה, לנהג אוטובוס, שזה תחום עיסוקו,</span>
+      <span>שהרי הוא נתקל בזה יום יום במשך שנים, ואין חכם כבעל ניסיון,</span>
+      <span>וזה למרות ששוב, לא צריך שום ניסיון.</span>
+      <span>והדבר היחיד שיש לעודד בן עמי להשיב לאותו נהג תמים?</span>
+      <span>זה להקניט ולצלוב אותו בשידור חי,</span>
+      <span>ולהאשים אותו בגזענות.</span>
+
+      <span>חארגיל, האתיופים 100% , הבעיה רק במוח ההוזה החולה הגזעני שלך.</span>
+
+      <br>
+
+    </p>
+  <iframe  style="max-width:100%;" width="560" height="315"  src="https://www.youtube.com/embed/6Ue6fulNODw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+    <p>
+      <span>הדבר הכי גרוע בראיון הזה לדעתי, זה שאותו נהג,</span>
+      <span>יחסית לרוב האנשים, ובמיוחד ביחס לאנשי תקשורת אשכנזים צבועים,</span>
+      <span>וביחס לעודד בן עמי הצבוע, הוא לא באמת גזען.</span>
+      <span>מה שאולי גורם לו להצטייר כגזען,</span>
+      <span>זו ה0 יכולת שלו להיות פוליטיקלי קורקט , מזוייף וצבוע,</span>
+      <span>אבל פרט לכך, ממה שהצלחתי להרגיש באותו ראיון,</span>
+      <span>ועל סמך הכרות שלי עם אנשים כמותו,</span>
+      <span>הוא הרבה פחות גזען מאותו איש התקשורת , מכוער הנפש, עודד בן עמי הצבוע,</span>
+      <span>שמאשים אותו בגזענות.</span>
+      <span>מבטיח לכם שעודד בן עמי , לא היה שורד יום אחד בעבודה כנהג אוטובוס שמסיע ילדים אתיופים.</span>
+      <span>יתכן שלא היה יכול לשרוד בעבודה כנהג אוטובוס ללא קשר למי הנוסעים,</span>
+      <span>אותו נהג אוטובס שמואשם בגזענות, אינו שונא אתיופים,</span>
+      <span>למעשה, הוא אוהב אתיופים, כל החיים שלו לוו באינטראקציה אתם.</span>
+      <span>היו לו חברים אתיופים במשך כל חייו, אתם הוא דיבר בגובה העיניים,</span>
+      <span>לעומת הלוחם צדק חברתי האשכנזי בשקל שישים, מר עודד בן עמי,</span>
+      <span>שאם הוא היה רואה נער אתיופי צעיר מסמן לרכבו לעצור לבקשת עזרה,</span>
+      <span>הוא היה לוחץ על דוושת הגז במקום על דוושת הבלמים.</span>
+     <br>
+      <span>מי שמכיר את השקפתי, יודע שאיני רואה בגזענות כל דבר שלילי,</span>
+      <span>ושאין סיבה להתבייש להיות גזעני, ושאני אישית גזען גאה ומוצהר,</span>
+      <span>ושלמען האמת, כולם כמעט גזענים במידה זו או אחרת.</span>
+      <span>רק שההבדל  היחיד בין גזענים ללא גזענים,</span>
+      <span>שאנשים גזענים הם לא צבועים, זה הכל.</span>
+
+    </p>
+
+    <p>
+      <span>ועל הפולשים החוצנים החייזרים משאר אפריקה שנמצאים כאן,</span>
+      <span>שהובאו לכאן ע"י האשכנזים בניגוד לרצון העם,</span>
+      <span>כמו אריתראים, פלשמורה, סודנים, גיגרים, טנזנים, ומכל מיני חורים אחרים,</span>
+      <span>על הסרטן הזה עוד לא התחלתי להזכיר.</span>
+      <span>היה חשוב לי להתחיל דווקא באתיופים, כיוון שאנשים נוטים להקל ראש,</span>
+      <span>ולחלוטין עיוורים לסכנה הדמוגרפית פה, כי לפי הלמ"ס האשכנזי,</span>
+      <span>ולפי ההלכה של הכת היהודית, הם נחשבים יהודים.</span>
+      <span>הלשכה המרכזית האשכנזית לסטטיסטיקה, לחלוטין עיוורת גזעים.</span>
+      <span>אין שום מידע סטטיסטי לגבי גזעים בישראל האשכנזית.</span>
+      <span>האשכנזים המציאו את המושג "צבר", או ישראלי.</span>
+      <span>המשמעות היא, שלא משנה אם אתה ערבי, בדואי, כושי, מלוכסן או הודי וכו,</span>
+      <span>לגזע ןלגנטיקה אין שום חשיבות, זה סתם אוויר.</span>
+      <span>ואולי אפילו הלאום כבר לא חשוב, למשל אם אתה מוסלמי או בן כת אחרת.</span>
+      <span>אם אתה דור שני בארץ, אתה נחשב ישראלי, ללא חשיבות לגזע.</span>
+      <span>וזה נורא ואיום, למשל, כשמווחים על עליה בשיעור הילודה אצל היהודים בישראל,</span>
+      <span>זה נתון שיכול להיתפס כמעודד עבור רבים,</span>
+      <span>אבל כמעט אף אחד שהכרתי לא עצר רגע לשאול את עצמו,</span>
+      <span>ממה אותה אוכלוסיה שמוגדרת "יהודית" מורכבת,</span>
+      <span>כמה מהם שייכים לגזע השמי או הלבן?</span>
+      <span>וכמה מהם שייכים לגזעים חוצנים כמו אתיופים, ניגרים, מלוכסנים, הודים?</span>
+      <span>שאין להם שום קשר גנטי, היסטורי, או תרבותי אלנו.</span>
+      <span>הם חייזרים לחלוטין, פשוט רק מוגדרים כיהודים או מקיימים את הדת/המסורת היהודית.</span>
+      <span>ואפילו זה, במקרה הטוב ביותר, כי ישראזבל טובעת בחרא גנטי של כושים, ערבים ובדואים,</span>
+      <span>וחייזרים אויבים אחרים, שהם אפילו לא בני דת משה,</span>
+      <span>אלא מוסלמים, כולל כושים מוסלמים, כושי זה זבל טהור ואשפה גנטית בפני עצמו,</span>
+      <span>אז תארו לכם לשלב כושי עם דת האיסלאם, ויש לך פצצה ביולוגית בתוך המדינה.</span>
+      <span>נטיה שקיימת אצל הרבה אנשים בישראל, זה שאם יש משהו יותר גרוע,</span>
+      <span>אז הפחות גרוע הופך להיות טוב בעיניהם,</span>
+      <span>התקשורת האשכנזית מודעת לזה, ולכן היא משתמשת בזה כנשק של לוחמה פסיכולוגית,</span>
+      <span>שמצליחה לעבוד על ישראלים רבים מדי.</span>
+      <span>למשל, בסרטון הבא, רוצח ופושע מגזע אתיופי, שוחט אדם לאור יום,</span>
+      <span>בלמעלה מ100 דקירות סכין, והסיקור של הכתבה האשכנזית,</span>
+      <span>לחלוטין לא תואם, ולא פרופורציונלי לחומרת המקרה.</span>
+      <span>כל מה שתופס את הפוקוס של כאן תאגיד השידור האשכנזי סביב האלימות</span>
+      <span>הקשה והמזעזע הזו, זה לא על הפשע החמור שהאתיופי ביצע,</span>
+     <span>אלא כמו תמיד, הגזענות, שאנחנו אשמים, בכך שהיינו גזעים.</span>
+     <span>וכל זה רק בגלל שחשבנו שהוא אריתראי והוא בעצם אתיופי.</span>
+
+     <span>כן, קשה להאמין, זה פשוט מפוצץ את המוח.</span>
+     <span>זה אפילו לא עיסוק בתפל, זה גרוע הרבה יותר מכך,</span>
+     <span>זה עיסוק בחרא, הם מנצלים את מקרה הזוועה הזה שוב לצרכי תעמולה,</span>
+     <span>בעד רב גזעיות/רב תרבותיות, זה לסובב את האצבע המאשימה כלפי הקרבן,</span>
+     <span>במקום כלפי האתיופי התוקפן.</span>
+     </p>
+     <video  class="noauto vid" controls>
+     <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/ashkenazimedia/khandeception.mp4" type="video/mp4">
+     </video>
+
+
+   <p>
+     <span>כלומר הוא יהודי, או יותר נכון, ישראלי לפחות,</span>
+     <span>והרי לגזע, לגנטיקה ולביולוגיה. אין כל חשיבות לפי הנרטיב בחברה הישראלית.</span>
+     <span>גנים אמנם משפיעים כמעט על הכל, אז גזע זה הכי חשוב.</span>
+     <span>אבל מאחר ויש לנו צרות חדשות של פולשים אריתראים, סודנים, קונגולזים וכו, שהם זבל גנטי ותתי-אדם,</span>
+     <span>כמו אתיופים ואף הרבה יותר, ובנוסף, לא רק שהם גזע אחר לגמרי, אלא הם לא שייכים ללאום,</span>
+     <span>אז האסון הדמוגרפי של האתיופים, פתאום הפך להיות דבר שולי, או יותר הזוי,דבר טוב.</span>
+     <span>וזו השיטה של הלוחמה הפסיכולוגית, יש גרוע יותר, לכן הגרוע פחות זה טוב.</span>
+  </p>
+
+   </div>
+
+
+   <div class="seperator"></div>
+
+     <div class="section paper column nif">
+       <p class="txtcenter">
+
+         <span>מחיר הטיפול במסתננים שהאשכנזים השפלים, הנאלחים, המסואבים, הנלוזים, הפושעים, </span>
+         <span>המרצחים, השטניים וערלי הלב הכניסו למדינתכם ללא הסכמתכם.</span>
+         <span>מי מממן זאת? אתם. כספי המיסים שלכם מממנים טיפולים בבתי חולים, תגבור כוחות המשטרה,</span>
+         <span>תגבור כוחות כיבוי אש, מתקני חולות, שירותים חברתיים, חינוך, תפעול ובינוי תשתיות וקהילה, תרבות וספורט.</span>
+       </p>
+       <img class="img-click" src="{{MEDIA_URL}}media/myvideos/costofdiversity/costofrefugee.jpg" alt="">
+     </div>
+     <div class="seperator"></div>
+     <div class="section styled-section  column bg-gradient-dark nif">
+       <div class="txtcenter">
+       <span class="niceredclr">האמת שהאשכנזים מטייחים ומשקרים במזיד על הפשיעה של החוצנים מאפריקה</span>
+       </div>
+
+       <video class="noauto vid txtcenter"  controls>
+       <source src="{{MEDIA_URL}}media/myvideos/costofdiversity/negroescrimerate.mp4" type="video/mp4">
+       </video>
+     </div>
+
+     <div class="seperator"></div>
+     <div class="section styled-section  column bg-gradient-dark nif">
+       <div class="txtcenter">
+       <span class="niceredclr">פלורליזם/קומוניזם הורג!</span>
+       </div>
+
+       <video class="noauto vid txtcenter"  controls>
+       <source src="{{MEDIA_URL}}media/myvideos/diversity/videos/diversityisdisaster.mp4" type="video/mp4">
+       </video>
+     </div>
+
+    <div class="seperator"> </div>
+
+     <div class="section paper column nif">
+       <img class="img-click" src="{{MEDIA_URL}}media/myvideos/ashkenazim/depopulationofjews/ashksagainstjewgrowth.jpg" alt="">
+       <p class="txtcenter">
+
+         <span>בעוד שהם מכניסים תתי אדם פולשים למדינה וכך רק מגדילים את אוכלוסייתה,</span>
+         <span>שכן הכושים, הערבושים והבדואים משריצים צאצאים ללא הרף,</span>
+         <span>משדלים האשכנזים הפושעים את היהודים ללדת פחות,</span>
+         <span>-</span>
+         <span>לפתע "פיריון זה אסון".</span>
+         <span>הכל חלק מהתוכנית להשמיד את הצביון היהודי של מדינת ישראל</span>
+         <span>כדי שהאשכנזים הנאלחים והמסואבים יוכלו לשגשג במערב ללא אנטישמיות.</span>
+       </p>
+     </div>
+
+     <div class="seperator"> </div>
+     <div class="section column bg-gradient-dark styled-section nif">
+       <div class="txtcenter">
+       <span class="niceredclr">הקשר האשכנזי להפרת הסדר האלימה של האתיופים, ולשם מה היה תכליתה.</span>
+       </div>
+
+       <video class="noauto vid txtcenter"  controls>
+       <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/ethiopians/ethiopianashkenaziconsipracy.mp4" type="video/mp4">
+       </video>
+
+       <div class="section paper column nif">
+         <p class="txtcenter">
+
+           <span class="blueglowclr">למה אשכנזים דאגו להכניס את האויבים שלנו (כושים וערבים) במשטרה?</span>
+           <br>
+           <span class="blueglowclr">מטרתה של הפרת הסדר של האתיופים, לשמור על מונופול החוק של האשכנזים</span>
+           <br>
+           <span class="blueglowclr">לא מאהבת אתיופים אלא משנאת מזרחים</span>
+         </p>
+     <div class="column">
+       <div class="clickable">
+       <img class="pointer" data-src="{%static 'images/thumbs/apepolice.jpg'%}" src="{%static 'images/thumbs/diversepolice.jpg'%}" alt="">
+       <svg data-src="{%static 'images/thumbs/apepolice.jpg'%}"  style="width:20%;position:absolute;top:calc(50% - 10%);right:calc(50% - 10%);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="wrapper translate pointer">
+         <circle class="tap-none" cx="89.43" cy="64.48" r="19.46"/>
+         <path class="hand-tap" d="M139.93,102.68,98.81,95.75V65.2A9.25,9.25,0,0,0,89.56,56h0a9.25,9.25,0,0,0-9.25,9.25v57.36L71,111.77c-3.61-3.61-8.44-3.89-13.08,0,0,0-7.24,5.84-3.83,9.25l34,34h42.63a9.25,9.25,0,0,0,9.07-7.43l6.82-34.09A9.28,9.28,0,0,0,139.93,102.68Z"/>
+       </svg>
+
+       <audio class="hiddenaudio noauto" controls>
+           <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/ethiopians/ethiopiansasdivideandconquer.ogg"  type="audio/ogg">
+       </audio>
+       <audio class="hiddenaudio noauto" controls>
+           <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/ethiopians/multiracailpolice.ogg"  type="audio/ogg">
+       </audio>
+       <audio class="hiddenaudio noauto" controls>
+           <source src="{{MEDIA_URL}}/media/myvideos/ashkenazim/ethiopians/ashkenazimbroughtethiopiansnotovadia.ogg"  type="audio/ogg">
+       </audio>
+       </div>
+     </div>
+       </div>
+
+     </div>
+     <div class="column borderme bg-gradient-dark" style="margin-top:200px;padding-right:0px;border-radius:10px;">
+        <div style="height:10px;background-color:#EAEAEA;width:100%;border-radius:10px;"></div>
+        <div class="rowmedia dense title-img-row lightme" style="margin-top:10px;margin-bottom:10px;background-color:black;">
+          <div class="txtcenter niceredclr" style="font-size:80px;line-height:60px;"> ערבים</div>
+          <img style="height:150px;width:200px;" class="title-img" src="{{MEDIA_URL}}/media/myvideos/bemoreracist/arabs/refusetobeenemiesfunnypicture.jpg" alt="">
+        </div>
+     </div>
+
+   <div class="row" style="border-radius:5px;padding-right:0px;justify-content:stretch;padding-right:0px;background-color:#111214;">
+     <div class="column section" style="align-items:center;width:100%;">
+
+       <span class="niceredclr" style="font-size:40px;line-height:60px;">יהודים וערבים לא רוצים להיות אחים</span>
+       <video  class="noauto vid" controls>
+       <source src="{{MEDIA_URL}}/media/myvideos/bemoreracist/arabs/jewsandarabsarenotbrothers.mp4" type="video/mp4">
+       </video>
+
+
+       <div class="txtcenter niceredclr" style="font-size:30px;line-height:60px;"> אין כזה דבר ילדים ונשים ערבים חפים מפשע</div>
+        <div class = "clickable">
+         <img data-src="{%static 'images/thumbs/arabwoman.jpg'%}" src="{%static 'images/thumbs/typicalarabchild.gif'%}" alt="">
+         <svg data-src="{%static 'images/thumbs/arabwoman.jpg'%}"  style="width:20%;position:absolute;top:calc(50% - 10%);right:calc(50% - 10%);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="wrapper translate pointer">
+           <circle class="tap-none" cx="89.43" cy="64.48" r="19.46"/>
+           <path class="hand-tap" d="M139.93,102.68,98.81,95.75V65.2A9.25,9.25,0,0,0,89.56,56h0a9.25,9.25,0,0,0-9.25,9.25v57.36L71,111.77c-3.61-3.61-8.44-3.89-13.08,0,0,0-7.24,5.84-3.83,9.25l34,34h42.63a9.25,9.25,0,0,0,9.07-7.43l6.82-34.09A9.28,9.28,0,0,0,139.93,102.68Z"/>
+         </svg>
+         <audio class="hiddenaudio noauto" controls>
+             <source src="{{MEDIA_URL}}/media/myvideos/bemoreracist/arabs/nosuchthingasinnocentfemalesandchildrenarabs.ogg"  type="audio/ogg">
+         </audio>
+         <audio class="hiddenaudio noauto" controls>
+             <source src="{{MEDIA_URL}}/media/myvideos/bemoreracist/arabs/itdoesnmatterweareoccupiers.ogg"  type="audio/ogg">
+         </audio>
+        </div>
+        <div style="margin-top:10px;">
+          <img class="img-click" src="{{MEDIA_URL}}media/myvideos/ashkenazim/ashkenazimedia/ashkenazimediascreenshot.JPG" alt="">
+        </div>
+          <div  class="column txtcenter niceredclr nif" style="margin-top:0px;margin-bottom:10px;">
+          <p>
+            <span>ערבים, או שיט-סקין, סנד-ניגרס, חייבים להכחיד אותם מכדור הארץ יחד עם הכושונים, גזעים יותר ממיותרים</span>
+            <span>העולם יהיה רק מקום הרבה יותר טוב בלי כל החרא הגנטי הזה.</span>
+            <span>וזה כולל גם את האיראנים המוסלמים, הם לא ממש שונים מהם בהרבה.</span>
+          </p>
+        <video  class="noauto vid" controls>
+        <source src="{{MEDIA_URL}}/media/myvideos/subhumans/arabsandniggersisis.mp4" type="video/mp4">
+        </video>
+        </div>
+    </div>
+
+       <div class="narrow-col bg-gradient-dark">
+
+         <img src="{%static 'images/thumbs/uri.jpg'%}" alt="">
+          <div class="column">
+         <img class="nested-img" src="{%static 'images/remember.gif'%}" alt="">
+
+         <p>
+           <span>העמוד הזה מוקדש</span>
+           <br>
+           <span>ליהודיה  הלבנה</span>
+            <br>
+           <span>היפה והיקרה, אורי</span>
+           <br>
+           <span>אנסבכר, שנרצחה באכזריות</span>
+           <br>
+           <span>על ידי ערבי טרוריסט</span>
+           <br>
+           <span>חום מכוער מסריח</span>
+           <br>
+           <span>תת-אדם, חרא גנטי</span>
+           <br>
+          <span>שביתר את גופה לגזרים</span>
+          <br>
+          <span>דקר את פרצופה ועיניה</span>
+          <br>
+          <span>במספר רב של דקירות סכין</span>
+          <br>
+          <span>ולקינוח</span>
+          <br>
+          <span>ערף את ראשה עם</span>
+          <br>
+          <span>אותה סכין, שכבר</span>
+          <br>
+          <span>מגואלת מדמה</span>
+          <br>
+          <span>בעודה בחיים מבוהלת</span>
+          <br>
+          <span>לאחר שאנס אותה</span>
+          <br>
+          <span>אני דורש טרנספר</span>
+          <br>
+          <span>לכל הערבים והבדואים</span>
+          <br>
+          <span>ומוות לכל אותם אשכנזים </span>
+          <br>
+          <span>מכוערי נפש, שפלים</span>
+          <br>
+          <span>כמו אנשי תשקורת</span>
+          <br>
+          <span>שופטים, ומנהלים בקרן</span>
+          <br>
+          <span>שהעזו לגלות אמפתיה</span>
+          <br>
+          <span>למפלצת הזו</span>
+          <br>
+          <span>גם מפלצת</span>
+          <br>
+          <span>גם לא מהעם שלנו</span>
+          <br>
+          <span>גם חרא גנטי מוסלמי ערבי</span>
+          <br>
+          <span>וגם שייך לאויב</span>
+          <br>
+          <span>אך עדין האשכנזים המתרוממים</span>
+          <br>
+          <span>הדוחים המגעילים, מגוננים עליו</span>
+          <br>
+          <span>מוות באכזריות בסגנון דעאש</span>
+          <br>
+          <span>לאותו ערבי טרוריסט</span>
+          <br>
+          <span>אני בשמחה, מוכן לשלם</span>
+          <br>
+          <span>כדי להוציא אותו להורג</span>
+          <br>
+          <span>בעריפת אבר, אבר עם סכין</span>
+          <br>
+          <span>יהי זכרך ברוך</span>
+          <br>
+          <span>אורי יקרה</span>
+         </p>
+         </div>
+         <img src="{%static 'images/thumbs/arabs.jpg'%}" alt="">
+       </div>
+   </div>
+
+   <div class="column borderme bg-gradient-dark" style="margin-top:200px;padding-right:0px;">
+      <div style="height:10px;background-color:#EAEAEA;width:100%;border-radius:10px;"></div>
+      <div class="rowmedia dense title-img-row lightme" style="margin-top:10px;margin-bottom:10px;background-color:black;">
+        <div class="txtcenter niceredclr" style="font-size:80px;line-height:60px;">תתי אדם</div>
+        <img style="height:150px;width:200px;" class="title-img" src="{%static 'images/thumbs/mursi.jfif'%}" alt="">
+      </div>
+   </div>
+   <div class="row" style="border-radius:5px;padding-right:0px;justify-content:stretch;padding-right:0px;background-color:#111214;">
+   <div class="column section txtcenter nif" style="align-items:center;width:100%;padding-right:0px;">
+
+     <p class="p-red">
+       <span>מי אלו תתי אדם? הגזעים של הכושים, ערבים, בדואים, דרום אמריקאים,  ופסולת גנטית</span>
+       <span>של גזעים נחותים אחרים, הם סוף קטוע במושגים אבולוציונים, אין צורך בגזעים האלו.</span>
+       <span>והעולם היה מקום הרבה יותר טוב בלעדיהם.</span>
+       <span>הקטעי וידאו הבאים חושפים מראות מחרידים, נוראים, מזוועים, ומזעזעים.</span>
+       <span>חשוב להפנים, שכל החולי, הפסיכוטיות, רוע, אכזריות, טיפשות, פסיכופתות, והטירוף במעשים האלו.</span>
+       <span>הם לגמרי חלק טבעי מהמנטליות והגנטיקה שלהם, הם לא רואים בזה שום דבר פסול.</span>
+       <span>לא משנה כמה זה קשה וקרינג', אתם חייבים לצפות עד הסוף, ולשתף עם אחרים גם אם אתם יכולים.</span>
+       <span>כולם חייבים להתעורר ולהבין איזה ביוב של זבל גנטי חולקים אתנו את אותה אדמה על מזבח הפלורליזם המקודש של האשכנזים.</span>
+       <span>לא רק שאשכנזים הציפו אותנו במפלצות אדם הפולשים החייזרים האלו, חמור מכך,</span>
+       <span>הם דורשים מאתנו להיות סובלנים כלפיהם, להכיל אותם, לאהוב אותם, להעריץ אותם, להתחתן אתם, לזהם את הדם שלנו ולהכחיד אותנו על ידי התערבבות אתם.</span>
+       <span>בגלל כל השטיפת מוח והרעל היום יומי בעד רב-גזעיות/רב-תרבותיות, יהודים ולבנים לא די בכך שאינם רואים את נוכחותם כאן בישראל כבעיה שיש לפתור בדחיפות.</span>
+       <span>אלא אף ברוב טיפשותם חושבים שיש להם חובה לעזור להם, לחוש רגשי אשמה רק על עצם היותם "פריבילגים" יהודים/לבנים,   לאמץ אותם, לקלוט עוד תתיאדם כמוהם, ולהתחתן אתם.</span>
+       <span>אם לא נפעל בהקדם, עתיד הגזע והעם שלנו בסכנת הכחדה, התעוררו!</span>
+       <span></span>
+    </p>
+
+   <div style="background-color:var(--gray);height:1px;width:100%;"></div>
+     <div class="txtcenter" style="font-size:20px;line-height:20px;">
+      <p class="p-blue">
+        <span>כושים הם תתי אדם, ואנחנו מקבלים אותם למדינה שלנו, מעריצים אותם, נותנים להם לזיין את הנשים שלנו,</span>
+       <span>מתערבבים אתם, מקדמים אותם על חשבוננו, ודורשים מאתנו להיות סובלניים כלפיהם כי הם פליטים.</span>
+       <span>הם פליטים בגלל שהם תתי אדם, ולכן המדינות שלהם זה גהנום עלי אדמות, אם מכניסים לנו אפריקאים למדינה,</span>
+       <span>אז איפה שיש גנים אפריקאים יש "תרבות" אפריקאית, ואז אנחנו בסוף נהפוך לפליטים,</span>
+       <span>אבל לסוכנים האשכנזים הרשעים הצבועים השקרנים והשפלים בבג"ץ ובתקשורת לא אכפת,</span>
+       <span>כי לגיס החמישי האלו יש דרכונים זרים, והם לא מתכוונים להשאר בישראל לנצח. הם יחלצו מהספינה רגעים ספורים לפני הטביעה.</span>
+       <span>בינתיים, אם הם יצליחו לשכנע אתכם שאין כזה דבר גזעים של בני אדם, ושאין הבדל בין דם לדם,</span>
+       <span>זה לא יטריד אתכם, ולא תשימו לב שמבצעים את רצח העם שלכם בזמן שאתם ישנים.</span>
+      <span>למי אכפת אם הם פליטים או חוקיים? גם הרצח עם נגד מתנגדי משטר שסטלין הקומוניסט ביצע היה לחלוטין חוקי.</span>
+     </p>
+   </div>
+   <div class="column">
+     <span class="niceredclr" style="margin-bottom:10px;"><u>כושים קוברים אישה בחיים</u></span>
+   <video  class="noauto vid" controls>
+   <source src="{{MEDIA_URL}}/media/myvideos/subhumans/niggersbarryfemale.mp4" type="video/mp4">
+   </video>
+   </div>
+
+   <div class="column">
+     <span class="niceredclr" style="margin-bottom:10px;margin-top:10px;"><u>כושים שורפים אדם בחיים ומכים בו תוך כדי</u></span>
+   <video  class="noauto vid" controls>
+   <source src="{{MEDIA_URL}}/media/myvideos/subhumans/negroesburnhuman.mp4" type="video/mp4">
+   </video>
+   </div>
+
+   <div class="column">
+     <span class="niceredclr" style="margin-bottom:10px;margin-top:10px;"><u>דרום אמריקאים, תתי אדם כמו כושים</u></span>
+   <video  class="noauto vid" controls>
+   <source src="{{MEDIA_URL}}/media/myvideos/subhumans/hispanicshorfficmurder.mp4" type="video/mp4">
+   </video>
+   </div>
+
+  </div>
+<div class= "medium-col bg-gradient-dark">
+  <img src="{{MEDIA_URL}}media/myvideos/evolutionandrace/weareallhumanspecielie.jpg" alt="">
+  <div>
+  <p>
+    <span>איך אתה יודע שאתה נמצא בחור תחת?</span>
+    <span>אם אתה רואה מישהו אוכל רגל של בן אדם</span>
+    <span>ואף אחד מסביב לא נבהל</span>
+  </p>
+  <img src="{{MEDIA_URL}}media/myvideos/ooamyth/negrocanibal.jpg" alt="">
+  </div>
+  <div>
+  <p>
+    <span>אישה באפריקה - (תת)תרבות אפריקאית</span>
+  </p>
+  <img src="{{MEDIA_URL}}media/myvideos/raceisbiologicalfact/mursitribe.jpg" alt="">
+  </div>
+
+  <div>
+  <p>
+    <span>מוזיקת עידוד של יהודונאציזם להעלאת המורל, מלחמה בתתי-אדם</span>
+  </p>
+  <video class="noauto vid" controls>
+    <source src="{{MEDIA_URL}}media/myvideos/subhumans/waragainstsubhumans.mp4" type="video/mp4">
+    </video>
+  </div>
+</div>
+  </div>
+
+</li>
+<ul>
+
+<!--
+  <script>
+    var clone_img_just_now_created = false;
+    $('#costofdiversity img').click(f_img_focus);
+    $(document).click(f_remove_any_focus);
+
+
+    function f_remove_any_focus()
+    {
+        if(clone_img_just_now_created)
+        {
+          clone_img_just_now_created = false;
+          $('#imgclone').css('width', $('#imgclone').width() * 2 + 'px');  //setTimeout(,100);
+          $('#imgclone').css('height', $('#imgclone').height() * 2 + 'px');
+          return;
+        }
+       $('#imgclone').remove();
+       $('body').removeClass('bodyblur');
+       $('#costofdiversity img').removeClass('imgfocus');
+    }
+
+    function f_img_focus()
+    {
+      $('#imgclone').remove();
+      $('body').removeClass('bodyblur');
+      $('#costofdiversity img').removeClass('imgfocus');
+
+       $('#imgclone').remove();
+       $('body').removeClass('bodyblur');
+       var img_clone = '<img alt="" id="imgclone" ' + 'src="';
+       var src = $(this).attr('src');
+       img_clone += src + '">';
+       $('body').append(img_clone);
+       var x = $(this).offset().left;
+       var y = $(this).offset().top;
+       $('#imgclone').offset({top:y, left:x});
+       $('#imgclone').width($(this).width());
+       $('#imgclone').height($(this).height());
+       $('body').addClass('bodyblur');
+       clone_img_just_now_created = true;
+    }
+
+    </script>-->
+
+
+
+    <script>
+      var clone_img_just_now_created = false;
+      $('.img-click, .clickable').click(f_img_focus);
+      $(document).click(f_remove_any_focus);
+
+
+     $(document).ready(function(){
+        $('.clickable>svg').each(function(){
+          var perc_of_parent_H = ($(this).height() / $(this).parent().height()) * 100;
+          $(this).css('top', 'calc(50% - ' + perc_of_parent_H/2 + '%)' );
+        });
+
+      });
+      function f_remove_any_focus()
+      {
+          if(clone_img_just_now_created)
+          {
+            clone_img_just_now_created = false;
+            $('#imgclone').css('width', $('#imgclone').width() * 2 + 'px');  //setTimeout(,100);
+            $('#imgclone').css('height', $('#imgclone').height() * 2 + 'px');
+            return;
+          }
+         $('#imgclone').remove();
+         $('body').removeClass('bodyblur');
+         $('.nif img').removeClass('imgfocus');
+         $('audio').each(function(){$(this)[0].pause(); $(this).addClass('noauto')});
+      }
+
+      function f_img_focus()
+      {
+        $('#imgclone').remove();
+        $('body').removeClass('bodyblur');
+        $('.nif img').removeClass('imgfocus');
+
+         $('#imgclone').remove();
+         $('body').removeClass('bodyblur');
+         var img_clone = '<img alt="" id="imgclone" ' + 'src="';
+         var src;
+
+         if($(this).hasClass('clickable'))
+         {
+           src = $(this).children('img').attr('data-src');
+           $(this).children('audio').removeClass('noauto');
+           $(this).children('audio')[0].play();
+         }
+         else
+         {
+           src = $(this).attr('src');
+         }
+         img_clone += src + '">';
+
+         $('body').append(img_clone);
+         var x = $(this).offset().left;
+         var y = $(this).offset().top;
+         $('#imgclone').offset({top:y, left:x});
+         $('#imgclone').width($(this).width());
+         $('#imgclone').height($(this).height());
+         $('#imgclone').addClass('lighten-image');
+         $('body').addClass('bodyblur');
+         clone_img_just_now_created = true;
+      }
+
+      </script>

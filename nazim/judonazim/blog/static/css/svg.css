@@ -1,0 +1,105 @@
+.wrapper
+{
+  z-index: 1000;
+}
+
+/* BASE RULES */
+
+svg {
+ /*display: inline-block;*/
+ /*width: 320px;*/
+ transform:rotate(0deg);
+}
+
+/* SVG RULES */
+
+.hand-tap {
+ fill: brown;
+ stroke: #fff;
+ stroke-width: 3px;
+ stroke-linecap: round;
+ stroke-linejoin: round;
+}
+
+.tap{
+ fill: transparent;
+ stroke: #fff;
+ stroke-width: 10px;
+ stroke-linecap: round;
+ stroke-linejoin: round;
+ opacity: 1;
+}
+
+.tap-none{
+ fill: transparent;
+ stroke: #000;
+ stroke-width: 0px;
+ stroke-linecap: round;
+ stroke-linejoin: round;
+ opacity: .5;
+}
+
+/* ANIMATION KEYFRAMES */
+
+@keyframes tap {
+ 0% {
+   transform: rotateX(0deg);
+ }
+ 10% {
+   transform: rotateX(12.5deg);
+ }
+ 25% {
+   transform: rotateX(25deg);
+ }
+}
+
+@keyframes tap-circle {
+ 0% {
+   transform: scale(0);
+   opacity: 0;
+ }
+ 75% {
+   transform: scale(1.05);
+   opacity: .6;
+ }
+ 80% {
+   transform: scale(1);
+   opacity: .5;
+ }
+}
+
+@keyframes translate {
+ 0% {
+   right: -3vw;
+   top: 40%;
+ }
+ 100% {
+   right: 18vw;
+   top: 10%;
+ }
+}
+
+/* SVG ANIMATION */
+
+.wrapper * {
+ transform-origin: 50% 50%;
+ perspective: 100px;
+}
+
+.hand-tap-anime {
+ animation: tap 1.25s ease-out backwards;
+ animation-iteration-count:infinite;
+}
+
+.tap-anime {
+ animation: tap-circle 1.25s ease-out backwards;
+ animation-iteration-count:infinite;
+}
+
+/*.translate {
+ position:absolute;
+ right: 18vw;
+ top: 10%;
+ animation: translate 5s ease-out backwards;
+ animation-iteration-count:1;
+}*/
