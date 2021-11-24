@@ -74,6 +74,7 @@ WSGI_APPLICATION = 'judonazim.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
 DATABASES = {
     'default': {
@@ -81,6 +82,8 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+
 
 POSTGRES_DB = os.environ.get("POSTGRES_DB")
 POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
