@@ -1,0 +1,21 @@
+.small_white_line
+{
+  width: 50px;
+  height: 10px;
+  background-color: red;
+  margin-top: 10px;
+  display: block;
+  filter:saturate(100%);
+}
+
+.small_white_line:hover
+{
+  background-color: white;
+}
+
+#menulogo3lineswhite
+{
+  position: absolute;
+  left: 30px;
+  top:40px;
+}
