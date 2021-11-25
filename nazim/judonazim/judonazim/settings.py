@@ -87,7 +87,7 @@ DATABASES = {
 }
 DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 
-if DEVELOPMENT_MODE is True:
+if DEBUG:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
@@ -181,7 +181,7 @@ else:
 ENV_ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(',') or None
 ALLOWED_HOSTS = []
 if ENV_ALLOWED_HOSTS is not None:
-    ALLOWED_HOSTS [ ENV_ALLOWED_HOSTS ]
+    ALLOWED_HOSTS = ENV_ALLOWED_HOSTS
 
 #ALLOWED_HOSTS = []
 #if not DEBUG:

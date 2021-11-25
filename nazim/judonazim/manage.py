@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 import os
 import sys
-import dotenv
+from dotenv import load_dotenv
 import pathlib
 
 if __name__ == "__main__":
     DOT_ENV_PATH = pathlib.Path()
     if DOT_ENV_PATH.exists():
-        dotenv.read.dotenv()
+        #dotenv.read.dotenv()
+        load_dotenv()
     else:
         print('make sure .env file exist')
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "judonazim.settings")
