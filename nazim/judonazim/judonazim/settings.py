@@ -31,7 +31,7 @@ DEBUG = os.getenv("DEBUG", "False") == "True"
 
 
 #ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
-ALLOWED_HOSTS = ['judonazim-z6fn3.ondigitalocean.app']
+#ALLOWED_HOSTS = ['judonazim-z6fn3.ondigitalocean.app']
 #ALLOWED_HOSTS += ip_addresses()
 
 # Application definition
@@ -174,3 +174,7 @@ if DEVELOPMENT_MODE is True:
       )
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "judonazim-z6fn3.ondigitalocean.app").split(",")
+#ALLOWED_HOSTS = ['judonazim-z6fn3.ondigitalocean.app']
+#ALLOWED_HOSTS += ip_addresses()
