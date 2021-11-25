@@ -15,6 +15,11 @@ from django.core.management.utils import get_random_secret_key
 from pathlib import Path
 import sys
 import dj_database_url
+from dotenv import load_dotenv
+
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -179,4 +184,4 @@ else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 ALLOWED_HOSTS = []
 if not DEBUG:
-    ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS")
+    ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(',')
