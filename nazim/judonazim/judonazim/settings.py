@@ -184,4 +184,4 @@ else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 ALLOWED_HOSTS = []
 if not DEBUG:
-    ALLOWED_HOSTS = str(os.environ.get("DJANGO_ALLOWED_HOSTS")).split(',')
+    ALLOWED_HOSTS = [os.environ.get("DJANGO_ALLOWED_HOSTS")]
