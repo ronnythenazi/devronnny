@@ -2,10 +2,16 @@
 import os
 import sys
 import dotenv
+import pathlib
 
 if __name__ == "__main__":
-    dotenv.read.dotenv()
+    DOT_ENV_PATH = pathlib.Path()
+    if DOT_ENV_PATH.exists():
+        dotenv.read.dotenv()
+    else:
+        print('make sure .env file exist')
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "judonazim.settings")
+
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
