@@ -179,7 +179,7 @@ else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS")
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(',')
 
 #ALLOWED_HOSTS = []
 #ENV_ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(',')
