@@ -178,10 +178,11 @@ if DEVELOPMENT_MODE is True:
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-ENV_ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(',')
-ALLOWED_HOSTS = []
-if ENV_ALLOWED_HOSTS is not None:
-    ALLOWED_HOSTS = ENV_ALLOWED_HOSTS
+#ALLOWED_HOSTS = []
+#ENV_ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(',')
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(',')
+#if ENV_ALLOWED_HOSTS is not None:
+#    ALLOWED_HOSTS = ENV_ALLOWED_HOSTS
 
 #ALLOWED_HOSTS = []
 #if not DEBUG:
