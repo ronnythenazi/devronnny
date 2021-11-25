@@ -29,9 +29,7 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = str(os.getenv("DEBUG")) == "1"
 
-ALLOWED_HOSTS = []
-if not DEBUG:
-    ALLOWED_HOSTS += [os.environ.get('DJANGO_ALLOWED_HOSTS')]
+
 
 
 #ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
@@ -179,11 +177,15 @@ if DEVELOPMENT_MODE is True:
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+
+#ALLOWED_HOSTS = []
+#if not DEBUG:
+#    ALLOWED_HOSTS += [os.environ.get('DJANGO_ALLOWED_HOSTS')]
 #https://ronnythenazi.fra1.digitaloceanspaces.com
 
 #ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
  #os.getenv("DJANGO_ALLOWED_HOSTS")
 #ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "judonazim-z6fn3.ondigitalocean.app").split(",")
-#ALLOWED_HOSTS = ['judonazim-z6fn3.ondigitalocean.app']
+ALLOWED_HOSTS = ['judonazim-z6fn3.ondigitalocean.app']
 #ALLOWED_HOSTS += ip_addresses()
