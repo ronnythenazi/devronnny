@@ -171,7 +171,7 @@ if DEBUG:
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 else:
     MEDIA_URL = '{}/{}/'.format(str(os.environ.get('AWS_S3_ENDPOINT_URL')), 'media')
-    MEDIA_ROOT = 'media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 
