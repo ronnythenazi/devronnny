@@ -24,23 +24,13 @@ load_dotenv(dotenv_path)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-
-#SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", get_random_secret_key())
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY") or get_random_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = str(os.environ.get("DEBUG")) == "1"
 
 
-
-
-
-#ALLOWED_HOSTS = ['judonazim-z6fn3.ondigitalocean.app']
-#ALLOWED_HOSTS += ip_addresses()
 
 # Application definition
 
@@ -51,8 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #personal
     'blog',
+    #thirdparty
+    'storages',
     'ckeditor',
+
+
 ]
 
 MIDDLEWARE = [
@@ -121,8 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Database
-# https://docs.djangoproject.com/en/2.0/ref/settings/#databases
+
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
 
@@ -153,8 +147,7 @@ if POSTGRES_READY:
     }
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/2.0/topics/i18n/
+
 
 LANGUAGE_CODE = 'en-us'
 
@@ -167,8 +160,7 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.0/howto/static-files/
+
 
 STATIC_URL = '/static/'
 
@@ -182,6 +174,12 @@ if DEVELOPMENT_MODE is True:
       )
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+from .cdn.conf import * #noqa
+
+#https://ronnythenazi.fra1.digitaloceanspaces.com
+
+
 ALLOWED_HOSTS = []
 if not DEBUG:
     ALLOWED_HOSTS = [os.environ.get("DJANGO_ALLOWED_HOSTS")]
