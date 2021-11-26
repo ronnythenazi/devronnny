@@ -15,7 +15,7 @@ DEFAULT_FILE_STORAGE = "judonazim.cdn.backends.MediaRootS3Boto3Storage"
 #new
 
 AWS_DEFAULT_ACL = 'public-read'
-
+AWSS3ADDRESSING_STYLE = 'virtual'
 
 # Use AWS_S3_ENDPOINT_URL here if you haven't enabled the CDN and got a custom domain.
 #STATIC_URL = '{}/{}/'.format(AWS_S3_ENDPOINT_URL, 'static')
