@@ -8,18 +8,13 @@ AWS_S3_OBJECT_PARAMETERS = {
 }
 AWS_LOCATION = f"https://{AWS_STORAGE_BUCKET_NAME}.fra1.digitaloceanspaces.com"
 
-#DEFAULT_FILE_STORAGE = "judonazim.cdn.backends.MediaRootS3Boto3Storage"
-DEFAULT_FILE_STORAGE = "judonazim.cdn.backends.MediaRootS3Boto3Storage"
 
-#STATICFILES_STORAGE = "judonazim.cdn.backends.StaticRootS3Boto3Storage"
+#DEFAULT_FILE_STORAGE = "judonazim.cdn.backends.MediaRootS3Boto3Storage"
+
+
 
 
 
 #new
 
 AWS_DEFAULT_ACL = 'public-read'
-
-
-# Use AWS_S3_ENDPOINT_URL here if you haven't enabled the CDN and got a custom domain.
-#STATIC_URL = '{}/{}/'.format(AWS_S3_ENDPOINT_URL, 'static')
-#STATIC_ROOT = 'static/'
