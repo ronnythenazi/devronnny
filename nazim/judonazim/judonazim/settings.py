@@ -169,7 +169,7 @@ if DEBUG:
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 else:
     MEDIA_URL = '{}/{}/'.format(AWS_S3_ENDPOINT_URL, 'media')
-    MEDIA_ROOT = '/media'
+    MEDIA_ROOT = AWS_LOCATION  + '/media'
     AWSS3ADDRESSING_STYLE = 'virtual'
 
 
