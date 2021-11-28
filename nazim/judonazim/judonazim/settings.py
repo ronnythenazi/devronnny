@@ -87,6 +87,8 @@ DATABASES = {
 }
 DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 
+
+"""
 if DEBUG:
     DATABASES = {
         "default": {
@@ -95,11 +97,13 @@ if DEBUG:
         }
     }
 elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
+
     if os.getenv("DATABASE_URL", None) is None:
         raise Exception("DATABASE_URL environment variable not defined")
     DATABASES = {
         "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
     }
+"""
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -161,26 +165,17 @@ USE_TZ = True
 
 
 
+
 from .cdn.conf import * #noqa
 
-
-
-
-STATIC_URL = '/static/'
 if DEBUG:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 else:
-    MEDIA_URL = '{}/{}/'.format("https://ronnythenazi/fra1.digitaloceanspaces.com", 'media')
-    MEDIA_ROOT = 'media/'
-    AWSS3ADDRESSING_STYLE = 'virtual'
+    MEDIA_URL = 'https://ronnythenazi.fra1.digitaloceanspaces.com/'
+    MEDIA_ROOT = '/media/'  #'{}/{}/'.format("https://ronnythenazi.fra1.digitaloceanspaces.com", 'media') #'media/'
 
-
-
-
-
-
-
+STATIC_URL = '/static/'
 
 if DEVELOPMENT_MODE is True:
     STATICFILES_DIRS = (
@@ -195,5 +190,7 @@ else:
 
 
 ALLOWED_HOSTS = []
+
 if not DEBUG:
+    #ALLOWED_HOSTS = ['127.0.0.1']
     ALLOWED_HOSTS = [os.environ.get("DJANGO_ALLOWED_HOSTS")]
