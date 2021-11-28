@@ -163,13 +163,16 @@ USE_TZ = True
 
 from .cdn.conf import * #noqa
 
+
+
+
 STATIC_URL = '/static/'
 if DEBUG:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 else:
-    MEDIA_URL = '{}/{}/'.format(AWS_S3_ENDPOINT_URL, 'media')
-    MEDIA_ROOT = os.path.join(AWS_LOCATION, 'media')  #AWS_LOCATION  + '/media/'
+    MEDIA_URL = '{}/{}/'.format("https://ronnythenazi/fra1.digitaloceanspaces.com", 'media')
+    MEDIA_ROOT = 'media/'
     AWSS3ADDRESSING_STYLE = 'virtual'
 
 
