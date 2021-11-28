@@ -161,12 +161,18 @@ USE_TZ = True
 
 
 
+from .cdn.conf import * #noqa
 
 STATIC_URL = '/static/'
+if DEBUG:
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+else:
+    MEDIA_URL = '{}/{}/'.format(AWS_S3_ENDPOINT_URL, 'media')
+    MEDIA_ROOT = '/media'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, '/media-cdn')
-#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
 
 
 
@@ -179,7 +185,7 @@ if DEVELOPMENT_MODE is True:
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-from .cdn.conf import * #noqa
+
 
 #https://ronnythenazi.fra1.digitaloceanspaces.com
 
