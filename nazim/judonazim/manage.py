@@ -9,6 +9,7 @@ if __name__ == "__main__":
 
 
     load_dotenv()
+    #os.environ.setdefault("DJANGO_SETTINGS_MODULE", "judonazim.settings")
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "judonazim.settings")
 
     try:
