@@ -33,22 +33,38 @@ DEBUG = str(os.environ.get("DEBUG")) == "1"
 
 
 # Application definition
+if DEBUG:
+    INSTALLED_APPS = [
+        'django.contrib.admin',
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.messages',
+        'django.contrib.staticfiles',
+        #personal
+        'blog',
+        #thirdparty
+        'storages',
+        'ckeditor',
 
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    #personal
-    'blog',
-    #thirdparty
-    'storages',
-    'ckeditor',
+
+    ]
+else:
+    INSTALLED_APPS = [
+        #'django.contrib.admin',
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.messages',
+        'django.contrib.staticfiles',
+        #personal
+        'blog',
+        #thirdparty
+        'storages',
+        'ckeditor',
+    ]
 
 
-]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -172,8 +188,10 @@ if DEBUG:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 else:
-    MEDIA_URL = AWS_S3_ENDPOINT_URL +'/'
-    MEDIA_ROOT = 'media/'  #'{}/{}/'.format("https://ronnythenazi.fra1.digitaloceanspaces.com", 'media') #'media/'
+    MEDIA_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
+    #MEDIA_URL = AWS_S3_ENDPOINT_URL +'/'
+    MEDIA_ROOT = 'media/'
+
 
 
 STATIC_URL = '/static/'
