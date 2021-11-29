@@ -190,7 +190,7 @@ if DEBUG:
 else:
     MEDIA_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
     #MEDIA_URL = AWS_S3_ENDPOINT_URL +'/'
-    MEDIA_ROOT = 'media/'
+    #MEDIA_ROOT = 'media/'
 
 
 
