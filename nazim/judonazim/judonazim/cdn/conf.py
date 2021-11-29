@@ -10,6 +10,7 @@ AWS_S3_ENDPOINT_URL = "https://fra1.digitaloceanspaces.com"
 #gunicorn --worker-tmp-dir /dev/shm judonazim.wsgi
 #gunicorn --worker-tmp-dir /dev/shm judonazim.wsgi
 
+
 AWS_S3_OBJECT_PARAMETERS = {
   "CacheControl": "max-age=86400",
 }
@@ -22,3 +23,7 @@ DEFAULT_FILE_STORAGE = "judonazim.cdn.backends.MediaRootS3Boto3Storage"
 AWSS3ADDRESSING_STYLE = 'virtual'
 
 AWS_DEFAULT_ACL = 'public-read'
+
+#this link may solve my problem
+
+#https://coolestguidesontheplanet.com/no-video-with-supported-format-and-mime-type-found/

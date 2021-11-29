@@ -188,9 +188,12 @@ if DEBUG:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 else:
-    MEDIA_URL = 'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, 'media')
+    """
+    https://%s/%s/' % (AWS_S3_ENDPOINT_URL, 'media')
+    """
+    MEDIA_URL = '{}/{}/'.format(AWS_LOCATION, 'media')
     MEDIA_ROOT = 'media/'
-    #MEDIA_URL = AWS_S3_ENDPOINT_URL +'/'
+
 
 
 
@@ -212,4 +215,4 @@ ALLOWED_HOSTS = []
 
 if not DEBUG:
     #ALLOWED_HOSTS = ['127.0.0.1']
-    ALLOWED_HOSTS = [os.environ.get("DJANGO_ALLOWED_HOSTS")]
+    ALLOWED_HOSTS = [os.environ.get("DJANGO_ALLOWED_HOSTS"), '127.0.0.1']
