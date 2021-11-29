@@ -172,8 +172,9 @@ if DEBUG:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 else:
-    MEDIA_URL = 'https://ronnythenazi.fra1.digitaloceanspaces.com/'
-    MEDIA_ROOT = '/media/'  #'{}/{}/'.format("https://ronnythenazi.fra1.digitaloceanspaces.com", 'media') #'media/'
+    MEDIA_URL = AWS_S3_ENDPOINT_URL +'/'
+    MEDIA_ROOT = 'media/'  #'{}/{}/'.format("https://ronnythenazi.fra1.digitaloceanspaces.com", 'media') #'media/'
+
 
 STATIC_URL = '/static/'
 
