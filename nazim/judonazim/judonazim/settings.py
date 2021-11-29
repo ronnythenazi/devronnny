@@ -191,7 +191,7 @@ else:
     """
     https://%s/%s/' % (AWS_S3_ENDPOINT_URL, 'media')
     """
-    MEDIA_URL = '{}/{}/'.format(AWS_LOCATION, 'media')
+    MEDIA_URL = '{}/{}/'.format(AWS_S3_ENDPOINT_URL 'media')
     MEDIA_ROOT = 'media/'
 
 
