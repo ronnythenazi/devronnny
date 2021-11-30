@@ -177,7 +177,7 @@ AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
 AWS_S3_ENDPOINT_URL = "https://ronnythenazi.fra1.digitaloceanspaces.com/media/"
 AWS_S3_REGION_NAME = "fra1"
 AWS_DEFAULT_ACL = 'public-read'
-DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+DEFAULT_FILE_STORAGE = 'judonazim.custom_storages.MediaStorage'
 
 
 """
