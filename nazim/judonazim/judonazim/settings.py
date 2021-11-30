@@ -191,7 +191,7 @@ AWS_S3_OBJECT_PARAMETERS = {
 #AWS_LOCATION =  "https://ronnythenazi.fra1.digitaloceanspaces.com" #f"https://{AWS_STORAGE_BUCKET_NAME}.fra1.digitaloceanspaces.com"
 
 
-if not DEBUG:
+if DEBUG:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 else:
