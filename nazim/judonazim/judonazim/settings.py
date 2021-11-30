@@ -9,8 +9,11 @@ https://docs.djangoproject.com/en/2.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
+# upload large files usuefyl link https://justdjango.com/blog/how-to-upload-large-files
+
 
 import os
+import boto3
 from django.core.management.utils import get_random_secret_key
 from pathlib import Path
 import sys
@@ -25,7 +28,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 
-SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY") or get_random_secret_key()
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY") #or get_random_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = str(os.environ.get("DEBUG")) == "1"
@@ -46,6 +49,7 @@ if DEBUG:
         #thirdparty
         'storages',
         'ckeditor',
+        'boto3',
 
 
     ]
@@ -62,6 +66,7 @@ else:
         #thirdparty
         'storages',
         'ckeditor',
+        'boto3',
     ]
 
 
@@ -101,25 +106,9 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
    }
 }
-DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False") == "True"
 
 
-"""
-if DEBUG:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-        }
-    }
-elif len(sys.argv) > 0 and sys.argv[1] != 'collectstatic':
 
-    if os.getenv("DATABASE_URL", None) is None:
-        raise Exception("DATABASE_URL environment variable not defined")
-    DATABASES = {
-        "default": dj_database_url.parse(os.environ.get("DATABASE_URL")),
-    }
-"""
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -139,6 +128,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
+"""
 
 POSTGRES_DB = os.environ.get("POSTGRES_DB")
 POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
@@ -165,10 +155,10 @@ if POSTGRES_READY:
             "PORT": POSTGRES_PORT,
         }
     }
+"""
 
 
-
-
+"""
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -178,29 +168,45 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+"""
 
 
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
+AWS_S3_ENDPOINT_URL = "https://ronnythenazi.fra1.digitaloceanspaces.com/media/"
+AWS_S3_REGION_NAME = "fra1"
+AWS_DEFAULT_ACL = 'public-read'
+DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 
 
-#from .cdn.conf import *
+"""
+AWS_S3_OBJECT_PARAMETERS = {
+  "CacheControl": "max-age=86400",
+}
+"""
+#AWS_LOCATION =  "https://ronnythenazi.fra1.digitaloceanspaces.com" #f"https://{AWS_STORAGE_BUCKET_NAME}.fra1.digitaloceanspaces.com"
 
 
 if DEBUG:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 else:
+    """
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
     """
-    MEDIA_URL =   '{}/{}/'.format(AWS_S3_ENDPOINT_URL, 'media')
+    MEDIA_URL = '{}/{}/'.format(AWS_S3_ENDPOINT_URL, 'media')
     MEDIA_ROOT = 'media/'
-    """
+
+
 STATIC_URL = '/static/'
 
-if DEVELOPMENT_MODE is True:
+if DEBUG:
     STATICFILES_DIRS = (
-        os.path.join(BASE_DIR, 'static'),
+        os.path.join(BASE_DIR, 'blog', 'static'),
       )
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
@@ -209,7 +215,7 @@ else:
 #https://ronnythenazi.fra1.digitaloceanspaces.com
 
 
-ALLOWED_HOSTS = ['127.0.0.1', os.environ.get("DJANGO_ALLOWED_HOSTS")]
+ALLOWED_HOSTS = []
 
 if not DEBUG:
     #ALLOWED_HOSTS = ['127.0.0.1']
