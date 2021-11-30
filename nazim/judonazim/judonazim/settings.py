@@ -182,19 +182,19 @@ USE_TZ = True
 
 
 
-from .cdn.conf import *
+#from .cdn.conf import *
 
 
-if DEBUG:
+if not DEBUG:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 else:
-    MEDIA_URL = '{}/{}/'.format(AWS_S3_ENDPOINT_URL, 'media')
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    """
+    MEDIA_URL =   '{}/{}/'.format(AWS_S3_ENDPOINT_URL, 'media')
     MEDIA_ROOT = 'media/'
-
-
-
-
+    """
 STATIC_URL = '/static/'
 
 if DEVELOPMENT_MODE is True:
@@ -209,7 +209,7 @@ else:
 #https://ronnythenazi.fra1.digitaloceanspaces.com
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', os.environ.get("DJANGO_ALLOWED_HOSTS")]
 
 if not DEBUG:
     #ALLOWED_HOSTS = ['127.0.0.1']
