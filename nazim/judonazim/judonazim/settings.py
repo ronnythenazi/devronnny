@@ -182,16 +182,14 @@ USE_TZ = True
 
 
 
-from .cdn.conf import * #noqa
+from .cdn.conf import *
+
 
 if DEBUG:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 else:
-    """
-    https://%s/%s/' % (AWS_S3_ENDPOINT_URL, 'media')
-    """
-    MEDIA_URL = '{}/{}/'.format(AWS_LOCATION, 'media')
+    MEDIA_URL = '{}/{}/'.format(AWS_S3_ENDPOINT_URL, 'media')
     MEDIA_ROOT = 'media/'
 
 
@@ -215,4 +213,4 @@ ALLOWED_HOSTS = []
 
 if not DEBUG:
     #ALLOWED_HOSTS = ['127.0.0.1']
-    ALLOWED_HOSTS = [os.environ.get("DJANGO_ALLOWED_HOSTS"), '127.0.0.1']
+    ALLOWED_HOSTS = [os.environ.get("DJANGO_ALLOWED_HOSTS")]
