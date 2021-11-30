@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 
 import os
-import boto3
+#import boto3
 from django.core.management.utils import get_random_secret_key
 from pathlib import Path
 import sys
@@ -96,6 +96,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media'
             ],
         },
     },
@@ -177,19 +178,20 @@ AWS_ACCESS_KEY_ID = str(os.environ.get("AWS_ACCESS_KEY_ID"))
 AWS_SECRET_ACCESS_KEY = str(os.environ.get("AWS_SECRET_ACCESS_KEY"))
 AWS_STORAGE_BUCKET_NAME = str(os.environ.get("AWS_STORAGE_BUCKET_NAME"))
 AWS_S3_ENDPOINT_URL = "https://ronnythenazi.fra1.digitaloceanspaces.com"
+AWS_LOCATION = f"https://{str(AWS_STORAGE_BUCKET_NAME)}fra1.digitaloceanspaces.com"
 #AWS_DEFAULT_ACL = 'public-read'
 DEFAULT_FILE_STORAGE = 'judonazim.cdn.MediaStorage'
-AWSS3ADDRESSING_STYLE = 'virtual'
 
-"""
+
+
 AWS_S3_OBJECT_PARAMETERS = {
   "CacheControl": "max-age=86400",
 }
-"""
+
 #AWS_LOCATION =  "https://ronnythenazi.fra1.digitaloceanspaces.com" #f"https://{AWS_STORAGE_BUCKET_NAME}.fra1.digitaloceanspaces.com"
 
 
-if DEBUG:
+if not DEBUG:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 else:
@@ -197,7 +199,7 @@ else:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
     """
-    MEDIA_URL = '{}/{}/'.format(AWS_S3_ENDPOINT_URL, 'media')
+    MEDIA_URL = AWS_S3_ENDPOINT_URL +'/'
     MEDIA_ROOT = 'media/'
 
 

@@ -6,6 +6,8 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .content.homepage import navtemplates
 
+
+
 def fwriteblog(request):
     frm = BlogPostForm(request.POST or None)
     if frm.is_valid():

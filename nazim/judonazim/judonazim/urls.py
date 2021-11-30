@@ -27,10 +27,12 @@ if settings.DEBUG:
         path('', include('blog.urls')),
         path('admin/', admin.site.urls),
 
-    ] #+ static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+
+    ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
 
 
 else:
     urlpatterns = [
       path('', include('blog.urls')),
+
     ]
