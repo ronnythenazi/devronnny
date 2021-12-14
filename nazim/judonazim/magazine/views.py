@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
 from django.views.generic import ListView, DetailView #, CreateView
 from .models import BlogPost
 from django.urls import reverse
@@ -17,6 +17,7 @@ class Article(DetailView):
 
 def fgetpostsbyauthor(request):
     posts = BlogPost.objects.all()
+    #posts = get_object_or_404(BlogPost)
     data = {'posts' : posts}
     return render(request, 'magazine/editPosts.html', data)
 
