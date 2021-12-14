@@ -34,14 +34,19 @@
      </div>
 
      <div class = "submit-row submit-row-edit">
-       <button type="button" class="btn btnedit" name="btnedit">ערוך</button>
-       <button type="submit" class="btn btndelete" name="btndelete">מחק</button>
+       {%include 'magazine/components/btns/btnedit.html'%}
+       {%include 'magazine/components/btns/btndelete.html'%}
+       <!--<button type="submit" class="btn btndelete" name="btndelete">
+         <img src="{%static 'svg/delete.svg'%}" alt="">
+         <span>מחק</span>
+       </button>-->
+
      </div>
     </form>
 
 
     {% if forloop.counter !=  posts|length   %}
-     <div class="blue-line"></div>
+     <div class="bg-line"></div>
      {%endif%}
 
 

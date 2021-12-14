@@ -26,6 +26,13 @@
   --bluish3:-o-linear-gradient(90deg, #1f09b5, #002aa8);
   --bluish4:-moz-linear-gradient(90deg, #1f09b5, #002aa8);
 }
+.bg-line
+{
+  background:-webkit-linear-gradient(180deg, #032ba3, #222530);
+  opacity: 0.2;
+  width: 100%;
+  height:20px;
+}
 .blue-line
 {
   width:100%;
@@ -45,7 +52,7 @@
 .right-grey
 {
   background:-webkit-linear-gradient(180deg, #032ba3, #222530);
-    opacity: 0.2;
+  opacity: 0.2;
 
   width: 100%;
 }
@@ -63,6 +70,11 @@
   font-family:david;
   font-size: 1.2rem;
   cursor: pointer;
+  display: flex;
+  direction: rtl;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .btnsave
@@ -80,6 +92,16 @@
   color: #fbfbfb;
   font-weight: bolder;
   -webkit-box-shadow:inset 2px 2px 5px #990000;
+}
+
+.btn-ico
+{
+  width: 25px;
+  height:25px;
+}
+.btn-ico-white
+{
+
 }
 .btnedit
 {
