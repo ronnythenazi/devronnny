@@ -63,7 +63,7 @@
   font-size: 2.55rem;
   font-family: inherit;
   box-sizing: border-box;
-  text-align: center;
+  text-align:center;
 }
 .post
 {
@@ -111,7 +111,6 @@
   font-size:4.5rem;
   align-items: center;
 }
-.
 
 .small-details
 {
@@ -133,6 +132,7 @@
   font-family: david;
   line-height: 40%;
   line-height: 1.5rem;
+
 }
 
 .nicetxtbox

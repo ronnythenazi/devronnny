@@ -219,9 +219,9 @@ html,body
 }
 .trigger-upload:hover
 {
- box-shadow: inset 5px 5px 20px #52e552;
+ box-shadow: inset 10px 10px 25px #0445ea;
+ background-color: #1ec6ff;
  color:white;
- background: black;
 }
 .trigger-upload
 {
@@ -233,11 +233,12 @@ html,body
   color:white;
   cursor: pointer;
   padding: 0.5rem 1rem;
-  box-shadow: inset 10px 10px 25px #04a504;
-  -webkit-box-shadow: inset 10px 10px 25px #04a504;
+   box-shadow: inset 5px 5px 20px #0445ea;
+  -webkit-box-shadow: inset 5px 5px 20px #0445ea;
+   background: black;
   top:0;
   right:0;
-  background-color: #0b8e0b;
+
   border-radius:1.5rem;
   /*font-family: formal;*/
   font-size: 1.5rem;
@@ -282,6 +283,9 @@ html,body
   flex-direction: row;
   gap:10px;
   margin-bottom: 50px;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 10px;
 }
 
 .choices

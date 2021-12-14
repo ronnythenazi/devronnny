@@ -227,6 +227,28 @@ else:
 
 #https://ronnythenazi.fra1.digitaloceanspaces.com
 
+"""
+# your_app/settings.py
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['RemoveFormat', 'Source']
+        ],
+        'width': '100%'
+    },
+}
+"""
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'width': '100%',
+        #'height' : '100%',
+    },
+}
 
 ALLOWED_HOSTS = []
 
