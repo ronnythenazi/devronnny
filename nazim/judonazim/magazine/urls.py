@@ -11,4 +11,5 @@ urlpatterns = [
  path('base/', views.fskeleton, name = 'MagazineCtlSkeleton'),
  #path('ShareYouThoughs/', views.AddPost.as_view(), name = 'enlightThePublic'),
  path('ShareYouThoughs/', views.fwriteblog, name = 'enlightThePublic'),
+ path('myposts/', views.fgetpostsbyauthor, name = 'myposts'),
 ]

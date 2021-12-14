@@ -6,10 +6,18 @@
 
 
     {%block body%}
-<div class="posts-category">
-   <div class="articles-parent">
-     {% for post in object_list %}
 
+   <!--<div class="articles-parent">-->
+
+     <div class="posts-category">
+     <div class="articles-parent">
+    {% for post in object_list %}
+     {% if forloop.counter|divisibleby:5 %}
+   </div>
+   </div>
+   <div class="posts-category">
+   <div class="articles-parent">
+    {%endif%}
      <a class="article-block" href="{%url 'magazine:anArticle' post.pk %}">
 
       <div class="thumb-holder">
@@ -25,6 +33,7 @@
       </a>
 
      {% endfor %}
-  </div>
-</div>
+   </div>
+   </div>
+
   {%endblock body%}

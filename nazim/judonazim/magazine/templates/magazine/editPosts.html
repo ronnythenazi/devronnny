@@ -1,0 +1,53 @@
+{%extends 'magazine/base.html'%}
+{%load static%}
+
+
+    <meta charset="utf-8">
+    {%block title%}הפוסטים שלך{%endblock%}
+
+   {%block moreLinks%}{%endblock moreLinks%}
+
+     {%block body%}
+     <div class="bodyrow">
+       <div class="right-grey"></div>
+    <div>
+
+
+
+       {%for post in  posts%}
+       <form>
+      <div class="center">
+       <div class="post">
+         <span class="posttitle shiny-blue-clr"> {{ post.title }} </span>
+         <a class="author big"> <span>{{post.author | safe}}</span> &nbsp; | &nbsp;
+              <span>{{post.datepublished | date:'d/m/Y' | safe}}</span>
+         </a>
+         <div  class="subtitle">{{post.subtitle}}</div>
+         <div class="thumb-holder">
+           <img class="thumb  big" src="{{post.thumb.url}}" alt="">
+           <div class="decortion-line"></div>
+         </div>
+         <div class="post-content">
+          {{post.content | safe}}
+         </div>
+       </div>
+     </div>
+
+     <div class = "submit-row submit-row-edit">
+       <button type="button" class="btn btnedit" name="btnedit">ערוך</button>
+       <button type="submit" class="btn btndelete" name="btndelete">מחק</button>
+     </div>
+    </form>
+
+
+    {% if forloop.counter !=  posts|length   %}
+     <div class="blue-line"></div>
+     {%endif%}
+
+
+
+    {%endfor%}
+    </div>
+    <div class="left-grey"></div>
+     </div>
+     {%endblock body%}

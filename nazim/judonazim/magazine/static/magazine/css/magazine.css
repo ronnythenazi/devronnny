@@ -147,7 +147,7 @@ html,body
   box-sizing: border-box;
   max-width:16.4rem;
   overflow-y: hidden;
-  height: 4rem;
+  height: 5rem;
 }
 
 .a-title:hover
@@ -286,6 +286,12 @@ html,body
   justify-content: flex-end;
   width: 100%;
 }
+.submit-row.submit-row-edit
+{
+  margin-bottom: 0px;
+  justify-content: space-between;
+}
+
 
 .choices
 {

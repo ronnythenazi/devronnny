@@ -32,10 +32,10 @@ class BlogPost(models.Model):
         default=public,
         blank = False,
         )
-    """
+
     def get_absolute_url(self):
         return reverse('magazineNews')
-    """
+    
 
 class regUser(models.Model):
     email = models.EmailField(unique = True,  null = False, blank = False)

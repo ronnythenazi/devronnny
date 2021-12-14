@@ -14,12 +14,13 @@ class MagazineHome(ListView):
 class Article(DetailView):
     model = BlogPost
     template_name = 'magazine/article.html'
-"""
-class AddPost(CreateView):
-    model = BlogPost
-    template_name = 'magazine/writepost.html'
-    fields = '__all__'
-"""
+
+def fgetpostsbyauthor(request):
+    posts = BlogPost.objects.all()
+    data = {'posts' : posts}
+    return render(request, 'magazine/editPosts.html', data)
+
+
 def fskeleton(request):
     return render(request, 'magazine/base.html', {})
 

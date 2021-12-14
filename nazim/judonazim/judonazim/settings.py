@@ -255,3 +255,6 @@ ALLOWED_HOSTS = []
 if not DEBUG:
     #ALLOWED_HOSTS = ['127.0.0.1']
     ALLOWED_HOSTS = [os.environ.get("DJANGO_ALLOWED_HOSTS")]
+
+#https://dev.to/shantanu_jana/how-to-preview-image-before-uploading-in-javascript-1f6g
+#EFEFEF

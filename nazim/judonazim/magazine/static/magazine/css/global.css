@@ -1,0 +1,94 @@
+
+.bodyrow
+{
+  display: flex;
+  direction: rtl;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+  align-items: stretch;
+  background-color: inherit;
+}
+:root
+{
+  --deep-blue:-webkit-linear-gradient(180deg, #032ba3, #222530);
+  --deep-blue-90:-webkit-linear-gradient(90deg, #032ba3, #222530);
+
+  --ice-cream1:linear-gradient(-45deg,#9b0a9b, #ff003b, #ff1905);
+  --ice-cream2:-webkit-linear-gradient(-45deg,#9b0a9b, #ff003b, #ff1905);
+
+  --shiny-blue1:linear-gradient(-180deg,#0800ff, #03021c);
+  --shiny-blue2:-webkit-linear-gradient(-180deg,#0800ff, #03021c);
+
+  --bluish1:linear-gradient(90deg, #1f09b5, #002aa8);
+  --bluish2:-webkit-linear-gradient(90deg, #1f09b5, #002aa8);
+  --bluish3:-o-linear-gradient(90deg, #1f09b5, #002aa8);
+  --bluish4:-moz-linear-gradient(90deg, #1f09b5, #002aa8);
+}
+.blue-line
+{
+  width:100%;
+  background: var(--deep-blue-90);
+  height:20px;
+  opacity: 0.5;
+
+}
+.left-grey
+{
+  background:-webkit-linear-gradient(180deg, #032ba3, #222530);
+  opacity: 0.2;
+
+  width: 100%;
+}
+
+.right-grey
+{
+  background:-webkit-linear-gradient(180deg, #032ba3, #222530);
+    opacity: 0.2;
+
+  width: 100%;
+}
+.btn:hover
+{
+  filter: brightness(90%);
+}
+.btn
+{
+  border:unset;
+  background-color: unset;
+  width:5rem;
+  height:3.1rem;
+  border-radius: 5px;
+  font-family:david;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.btnsave
+{
+
+}
+.btndiscard
+{
+
+}
+
+.btndelete
+{
+  background-color: #f70206;
+  color: #fbfbfb;
+  font-weight: bolder;
+  -webkit-box-shadow:inset 2px 2px 5px #990000;
+}
+.btnedit
+{
+  background-color: #000b5b;
+  color: #fbfbfb;
+  font-weight: bolder;
+  -webkit-box-shadow:inset 2px 2px 5px #1b75fc;
+}
+.btnpublish
+{
+
+}

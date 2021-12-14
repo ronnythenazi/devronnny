@@ -7,6 +7,7 @@
     <link rel = "shortcut icon" href="{% static 'images/judonazimlogoglow.jpg' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'magazine/css/magazine.css' %}">
     <link rel="stylesheet" href="{% static 'magazine/css/article.css' %}">
+    <link rel="stylesheet" href="{% static 'magazine/css/global.css' %}">
     {%block moreLinks%} {%endblock moreLinks%}
   </head>
   <body>
@@ -19,10 +20,10 @@
        <div class="menuItem">
            ניהול אתר
           <div>
-          <a class="subMenuItem">
+          <a class="subMenuItem" href = "{% url 'magazine:myposts' %}">
            נהל בלוג אישי
           </a>
-          <a class="subMenuItem" href="{%url 'magazine:enlightThePublic'%}">
+          <a class="subMenuItem" href="{% url 'magazine:enlightThePublic' %}">
             פרסם מאמר
           </a>
           <a class="subMenuItem">
@@ -53,6 +54,7 @@
   <script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>
   <script type="text/javascript" src="{% static 'magazine/js/magazine.js'%}"> </script>
   <script type="text/javascript" src="{% static 'magazine/js/posts.js'%}"> </script>
+  <script type="text/javascript" src="{% static 'magazine/js/editPosts.js'%}"> </script>
   {%block moreJs%} {%endblock moreJs%}
   </body>
 
