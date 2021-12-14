@@ -50,6 +50,7 @@ if DEBUG:
         'storages',
         'boto3',
         'ckeditor',
+        'magazine',
 
 
 
@@ -68,7 +69,8 @@ else:
         'boto3',
         'storages',
         'ckeditor',
-    #
+        'magazine',
+
     ]
 
 
@@ -88,7 +90,10 @@ ROOT_URLCONF = 'judonazim.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, "templates")],
+        'DIRS': [os.path.join(BASE_DIR, "templates"),
+
+        ],
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -96,7 +101,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.media'
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -173,27 +178,32 @@ USE_L10N = True
 USE_TZ = True
 """
 
-
-AWS_ACCESS_KEY_ID = str(os.environ.get("AWS_ACCESS_KEY_ID"))
-AWS_SECRET_ACCESS_KEY = str(os.environ.get("AWS_SECRET_ACCESS_KEY"))
-AWS_STORAGE_BUCKET_NAME = str(os.environ.get("AWS_STORAGE_BUCKET_NAME"))
-AWS_S3_ENDPOINT_URL = "https://ronnythenazi.fra1.digitaloceanspaces.com"
-AWS_LOCATION = f"https://{str(AWS_STORAGE_BUCKET_NAME)}fra1.digitaloceanspaces.com"
-#AWS_DEFAULT_ACL = 'public-read'
-DEFAULT_FILE_STORAGE = 'judonazim.cdn.MediaStorage'
-
+if not DEBUG:
+    AWS_ACCESS_KEY_ID = str(os.environ.get("AWS_ACCESS_KEY_ID"))
+    AWS_SECRET_ACCESS_KEY = str(os.environ.get("AWS_SECRET_ACCESS_KEY"))
+    AWS_STORAGE_BUCKET_NAME = str(os.environ.get("AWS_STORAGE_BUCKET_NAME"))
+    AWS_S3_ENDPOINT_URL = "https://ronnythenazi.fra1.digitaloceanspaces.com"
+    AWS_LOCATION = f"https://{str(AWS_STORAGE_BUCKET_NAME)}fra1.digitaloceanspaces.com"
+    #AWS_DEFAULT_ACL = 'public-read'
 
 
-AWS_S3_OBJECT_PARAMETERS = {
-  "CacheControl": "max-age=86400",
-}
+    DEFAULT_FILE_STORAGE = 'judonazim.cdn.MediaStorage'
+    AWS_S3_OBJECT_PARAMETERS = {
+      "CacheControl": "max-age=86400",
+    }
+
+
+
+
+
+
 
 #AWS_LOCATION =  "https://ronnythenazi.fra1.digitaloceanspaces.com" #f"https://{AWS_STORAGE_BUCKET_NAME}.fra1.digitaloceanspaces.com"
 
 
 if DEBUG:
-    MEDIA_URL = '/media/'
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+    MEDIA_URL = '/'
+    MEDIA_ROOT = os.path.join(BASE_DIR, '')
 else:
     """
     MEDIA_URL = '/media/'

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{%extends 'magazine/base.html'%}
+{%load static%}
+
+{%block title%}יהודונאציזם - חדשות{%endblock%}
+
+
+    {%block body%}
+<div class="posts-category">
+   <div class="articles-parent">
+     {% for post in object_list %}
+
+     <a class="article-block" href="{%url 'magazine:anArticle' post.pk %}">
+
+      <div class="thumb-holder">
+        <img class="thumb" src="{{MEDIA_URL}}media/default.jpg" alt="">
+        <div class="decortion-line"></div>
+      </div>
+      <div class="a-title">{{post.title | safe}}</div>
+        <div class="author"> <span>{{post.author | safe}}</span> &nbsp; | &nbsp;
+             <span>{{post.datepublished | date:'d/m/Y' | safe}}</span>
+        </div>
+
+      </a>
+
+     {% endfor %}
+  </div>
+</div>
+  {%endblock body%}

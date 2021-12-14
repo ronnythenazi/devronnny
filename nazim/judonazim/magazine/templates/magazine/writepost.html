@@ -1,0 +1,50 @@
+{%extends 'magazine/base.html'%}
+
+{%block title%}פרסם דעה{%endblock%}
+
+{%block body%}
+
+<form  method = "post"  enctype="multipart/form-data">
+  {%csrf_token%}
+  {{frm.media}}
+<div class="center">
+<div class="writepost" style="width:50%;">
+
+<div class="center" style="width:100%;">
+<span>כותרת</span>
+{{frm.title}}
+</div>
+
+<div class="center" style="width:100%;">
+<span>כותרת משנה</span>
+{{frm.subtitle}}
+</div>
+
+<div class="center">
+{{frm.thumb}}
+<button type="button" class="trigger-upload">בחר תמונה</button>
+</div>
+
+<div class="thumb-holder" style="display:none;">
+    <img class="thumb  big" id="preview" src="" alt="">
+    <div class="decortion-line"></div>
+</div>
+
+<div class="center">
+<span>שתף כאן את דעותיך, ושנה את העולם</span>
+{{frm.content}}
+</div>
+
+<div class="center">
+ <div class="submit-row">
+ {{frm.publishstatus}}
+ <button class="custom-btn drakula" type="submit" name="addpost">פרסם</button>
+ </div>
+</div>
+
+
+ </div>
+ </div>
+
+</form>
+{%endblock body%}

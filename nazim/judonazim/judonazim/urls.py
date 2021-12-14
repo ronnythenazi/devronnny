@@ -16,6 +16,7 @@ Including another URLconf
 
 from django.urls import path, include
 from blog import urls
+from magazine import urls
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
 from django.conf.urls.static import static
@@ -26,13 +27,14 @@ if settings.DEBUG:
     urlpatterns = [
         path('', include('blog.urls')),
         path('admin/', admin.site.urls),
+        path('magazine/', include('magazine.urls')),
 
-
-    ] #+ static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+    ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
 
 
 else:
     urlpatterns = [
       path('', include('blog.urls')),
+      path('magazine/', include('magazine.urls')),
 
     ]

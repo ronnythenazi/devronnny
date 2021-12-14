@@ -1,21 +1,8 @@
 
-from .blogpublishing import BlogPostForm
-from .models import BlogPost
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .content.homepage import navtemplates
-
-
-
-def fwriteblog(request):
-    frm = BlogPostForm(request.POST or None)
-    if frm.is_valid():
-        frm.save()
-    context = {
-    'frm':frm
-    }
-    return render(request, 'blogpost.html', context)
 
 
 def fhome(request):
