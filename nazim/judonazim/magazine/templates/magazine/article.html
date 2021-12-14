@@ -11,13 +11,13 @@
      {%block body%}
     <div class="center">
      <div class="post">
-       <span class="posttitle"> {{ object.title }} </span>
+       <span class="posttitle shiny-blue-clr"> {{ object.title }} </span>
        <a class="author big"> <span>{{object.author | safe}}</span> &nbsp; | &nbsp;
             <span>{{object.datepublished | date:'d/m/Y' | safe}}</span>
        </a>
        <div  class="subtitle">{{object.subtitle}}</div>
        <div class="thumb-holder">
-         <img class="thumb  big" src="{{MEDIA_URL}}media/default.jpg" alt="">
+         <img class="thumb  big" src="{{object.thumb.url}}" alt="">
          <div class="decortion-line"></div>
        </div>
        <div class="post-content">

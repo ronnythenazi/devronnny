@@ -135,15 +135,19 @@ html,body
 .a-title
 {
   text-decoration: none;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   display: flex;
   direction: rtl;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   color:#272728;
   font-weight: bolder;
   font-family:david;
+  box-sizing: border-box;
+  max-width:16.4rem;
+  overflow-y: hidden;
+  height: 4rem;
 }
 
 .a-title:hover
