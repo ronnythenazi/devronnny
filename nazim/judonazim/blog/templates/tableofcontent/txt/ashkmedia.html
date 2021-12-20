@@ -1,0 +1,424 @@
+{%load static%}
+{%csrf_token%}
+<style>
+
+body.bodyblur
+{
+  z-index:3000;
+
+}
+.medium-col img
+{
+
+  /*max-height:200px !important;*/
+}
+.medium-col
+{
+  font-size:20px;
+  display:flex;
+  direction:rtl;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  color:white;
+}
+.narrow-col img
+{
+  width:140px !important;
+  height:200px !important;
+}
+.narrow-col
+{
+  font-size:20px;
+  display:flex;
+  direction:rtl;
+  flex-direction:column;
+  justify-content:space-between;
+  align-items:center;
+  text-align:center;
+  color:white;
+}
+:root
+{
+  --bg-border-pinchbanana1:linear-gradient(45deg,   red, orange, salmon,blue,  purple);
+  --bg-border-pinchbanana2:-webkit-linear-gradient(45deg, red, orange, salmon,blue,  purple);
+}
+.section img:not(.title-img), .lightme
+{
+  border-radius:10px;
+  box-shadow: 5px 5px 10px blue, 2px 2px 20px red;
+}
+
+.borderme
+{
+  border-right:none;
+  border-left:none;
+  border-top:none;
+  border-bottom: 10px solid transparent;
+  border-image: var(--bg-border-pinchbanana1, --bg-border-pinchbanana2) 30% stretch;
+}
+.maincontext
+{
+  background-color:unset !important;
+}
+#ulnavpages
+{
+  background-color:#EAEAEA;
+}
+
+.section
+{
+   padding-right:5px;
+   background-color:#EAEAEA;
+}
+.niceredclr
+{
+  -webkit-background-clip: text;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: white;
+  -webkit-text-fill-color: transparent;
+   background-image: var(--bg-red, var(--bg-red2, var(--bg-red3, --bg-red4)));
+}
+body.bodyblur:after
+{
+  content:'';
+  position: absolute !important;
+  display:block;
+  width:100% !important;
+  height:100% !important;
+  z-index:2999 !important;
+  opacity:0.8 !important;
+  top:0;
+  right:0;
+  background-color:black !important;
+}
+.clickable
+{
+  position:relative;
+}
+#imgclone
+{
+
+  max-height:800px !important;
+  max-width:800px !important;
+  position:fixed !important;
+  z-index:3000 !important;
+  transition: all 1s ease;
+}
+.bg-gradient-dark
+{
+  background: linear-gradient(87deg, #212529 0, #212229 100%) !important;
+  background: -webkit-linear-gradient(87deg, #212529 0, #212229 100%) !important
+}
+.bg-gradient-red
+{
+  background:var(--bg-red, --bg-red2);
+}
+#costofdiversity>p>span
+{
+
+    color:#3B5998;
+    -webkit-text-stroke-color:purple;
+    -webkit-text-stroke-width:0.5px;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    -webkit-background-image:var(--bg-blue1, --bg-red2);
+    -moz-background-image:var(--bg-blue1, --bg-red2);
+    -o-background-image:var(--bg-blue1, --bg-red2);
+     background-image:var(--bg-blue1, --bg-red2);
+}
+video, img, iframe, svg
+{
+  cursor:pointer;
+}
+
+.rowmedia.dense.title-img-row
+{
+  align-items:flex-end;
+}
+.styled-section
+{
+  padding:20px 0px;
+  box-shadow:inset 10px 0px 20px blue, inset 0px 10px 20px red, inset -10px 0px 20px yellow, inset 0px -10px 20px green;
+  border-radius:5px;
+}
+img.nested-img
+{
+  width:20% !important;
+  height:20% !important;
+  /*max-width: 15% !important;
+  max-height:5% !important;*/
+  margin-top:5px;
+}
+.paper
+{
+  background-color:#EAEAEA;
+  padding-bottom:20px;
+}
+.seperator
+{
+   height:200px;
+   width:100%;
+}
+.nif>div
+{
+  width:100%;
+}
+.nif video
+{
+  border-radius:10px;
+  box-shadow: 5px 5px 10px blue, 2px 2px 20px red;
+}
+
+.lighten-image
+{
+  box-shadow: 5px 5px 10px blue, 2px 2px 20px red;
+}
+.nif>p>span
+{
+
+     color:#3B5998;
+    -webkit-text-stroke-color:purple;
+    -webkit-text-stroke-width:0.5px;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+
+    -webkit-background-image:var(--bg-blue1, --bg-red2);
+    -moz-background-image:var(--bg-blue1, --bg-red2);
+    -o-background-image:var(--bg-blue1, --bg-red2);
+     background-image:var(--bg-blue1, --bg-red2);
+}
+.p-blue>span
+{
+  -webkit-background-clip: text;
+  -webkit-text-stroke-width: 0.2px;
+  -webkit-text-fill-color: transparent;
+   background-image:-webkit-linear-gradient(-180deg, #0b2edd, #050505);
+
+   -moz-background-clip: text;
+   -moz-text-stroke-width: 0.2px;
+   -moz-text-fill-color: transparent;
+    background-image:-moz-linear-gradient(-180deg, #0b2edd, #050505);
+
+    -o-background-clip: text;
+    -o-text-stroke-width: 0.2px;
+    -o-text-fill-color: transparent;
+     background-image:-o-linear-gradient(-180deg, #0b2edd, #050505);
+
+      background-clip: text;
+      text-stroke-width: 0.2px;
+      text-fill-color: transparent;
+      background-image: linear-gradient(-180deg, #0b2edd, #050505);
+}
+.p-red>span
+{
+  -webkit-background-clip: text;
+  -webkit-text-stroke-width: 0.2px;
+  -webkit-text-fill-color: transparent;
+   background-image:-webkit-linear-gradient(180deg, #a80606,#e21818, #b20303);
+
+   -moz-background-clip: text;
+   -moz-text-stroke-width: 0.2px;
+   -moz-text-fill-color: transparent;
+    background-image:-moz-linear-gradient(180deg, #a80606,#e21818, #b20303);
+
+    -o-background-clip: text;
+    -o-text-stroke-width: 0.2px;
+    -o-text-fill-color: transparent;
+     background-image:-o-linear-gradient(180deg, #a80606,#e21818, #b20303);
+
+      background-clip: text;
+      text-stroke-width: 0.2px;
+      text-fill-color: transparent;
+      background-image: linear-gradient(180deg, #a80606,#e21818, #b20303);
+}
+--blue: #5e72e4;
+--indigo: #5603ad;
+--purple: #8965e0;
+--pink: #f3a4b5;
+--red: #f5365c;
+--orange: #fb6340;
+--yellow: #ffd600;
+--green: #2dce89;
+--teal: #11cdef;
+--cyan: #2bffc6;
+--gray: #8898aa;
+--gray-dark: #32325d;
+--gray-darker: #111214;
+--lighter: #e9ecef;
+--primary: #5e72e4;
+--secondary: #f4f5f7;
+--success: #2dce89;
+--info: #11cdef;
+--warning: #fb6340;
+--danger: #f5365c;
+--light: #adb5bd;
+--dark: #212529;
+--default: #172b4d;
+--white: #fff;
+--neutral: #fff;
+--darker: black;
+--breakpoint-xs: 0;
+--breakpoint-sm: 576px;
+--breakpoint-md: 768px;
+--breakpoint-lg: 992px;
+--breakpoint-xl: 1200px;
+--font-family-sans-serif: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+--font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+
+--bg-red1:-webkit-linear-gradient(180deg, #a80606,#e21818, #b20303);
+--bg-red2:linear-gradient(180deg, #a80606,#e21818, #b20303);
+--bg-red3:-moz-linear-gradient(180deg, #a80606,#e21818, #b20303);
+--bg-red4:-o-linear-gradient(180deg, #a80606,#e21818, #b20303);
+</style>
+<ul id="ulpages" class="stopinheriting">
+  <li>
+    <div class="column section">
+    <span class="mediumfont txtcenter blueglowclr">התקשורת האשכנזית היא אויב העם</span>
+    <video class="vid txtcenter" poster = "{%static 'images/threekikesagainst1female.jpg'%}" controls>
+      <source src="{{MEDIA_URL}}media/myvideos/ashkenazim/refugee/threemales1female.mp4" type="video/mp4">
+    </video>
+    </div>
+</li>
+<li>
+
+  <div class="row" style="border-radius:5px;padding-right:0px;justify-content:stretch;padding-right:0px;">
+    <div class="column nif section" style="align-items:center;width:100%;">
+        <div class="row" style="padding-right:0px;justify-content:stretch;padding-right:0px;">
+   <p>
+<span  class="blueglowclr">זה מה שקורה שמעיזים לפגוע במונופול החוק ובצוות של אנשי כאן תאגיד השידור האשכנזי</span>
+<span  class="blueglowclr">האשכנזים העכברושים השפלים הפחדנים מקווים שזה יהיה למען יראו וייראו,</span>
+<span  class="blueglowclr">והטיפשים בעם ירתעו מלהתנגד למחבלים התקשורתים האשכנזים בגלל החיסול חשבונות של המאפיה האשכנזית.</span>
+<span  class="blueglowclr">אבל הפוך, אסור להירתע, כאשר יענו אותו, כן ירבה וכן יפרוץ, לא רק שאסור להירתע,</span>
+<span  class="blueglowclr">חייבים להחריף ולהסלים את המאבק בטרור התשקורתי  והמשפטי האשכנזי ,</span>
+<span  class="blueglowclr">לגרום לעכברושים האשכנזים השטניים האויבים הבוגדניים השפלים החלאות אדם מפלצות אדם המרצחים האלו להבין ולהפנים ולהשלים,</span>
+<span  class="blueglowclr">שאנחנו לא נוותר ולא נכנע לטרור שלהם, שאנחנו מתכוונים ללכת עד הסוף, עד שמונופול החוק שלהם יפול.</span>
+<span  class="blueglowclr">הרי כך נוהגים הפלסטינים באינתיפאדות שלהם, וזו הסיבה שאותם אשכנזים עכברושים מלקקים להם את החור של התחת.</span>
+<span  class="blueglowclr">כי השפה היחידה שהם מבינים ומכבדים זה כוח אלימות וטרור. על כן,</span>
+<span  class="blueglowclr">הם מזלזלים באיש הערס שנתן כמה מכות יבשות לצלם השטני של כאן תאגיד השידור האשכנזי השטני,</span>
+<span  class="blueglowclr">המזרחים קוקסינלים בהשקפתם, כי מה זה כמה מכות חלשות לעומת פיגועי ירי ודקירה של אהובי נפשם הפלסטינים.</span>
+<span  class="blueglowclr">הפלסטינים יודעים להתנגד, הם היחידים שיודעים לדבר בשפה היחידה שאשכנזים מבינים ומכבדים.</span>
+<span  class="blueglowclr">ומזרחים עוד לא השכילו להבין שאשכנזים מרצחים תקשורתיים כמוהם מבינים ומכבדים רק אינתיפאדות, לא מכה עלובה עם קסדה.</span>
+<span  class="blueglowclr">למרות שזה כולה מכה חלשה עם קסדה למפלצת אדם עם מצלמה, זה עדין תקדים היסטורי שבבון מזרחי ממוצע מבין סוף סוף</span>
+<span  class="blueglowclr">שהמחבל והאויב הכי מסוכן זה האיש או האישה עם המצלמה של התקשורת האשכנזית,  יותר ממחבל שדורס.</span>
+<span  class="blueglowclr">זה תקדים היסטורי שסוף סוף לא מתעלמים מהפיל שמתהלך בחדר, ושסוף סוף מסמנים את המחבלים התקשורתיים האשכנזים כמטרה.</span>
+<span  class="blueglowclr">ולכן, זו הסיבה שהם נקטו באובר קיל, בתקווה שלא יהיו נסיונות נוספים להתמרד נגד</span>
+<span  class="blueglowclr">מונופול החוק האשכנזי שלהם בתשקורת בבג"ץ ובגופי הבת של הקרן לישראל החדשה.</span>
+<span  class="blueglowclr">להפחיד אתכם כדי שתשארו עבדים טובים וממושמעים עד אשר הם יסיימו את מלאכתם של השמדת המדינה היהודית,</span>
+<span  class="blueglowclr">ואז יסתלקו לחו"ל באמצעות הדרכונים הזרים שברשותם,</span>
+<span  class="blueglowclr">לפרק 2 בציונות, הציונות באמריקה, של האשכנזי הגלותי, לאחר שהשלימו את המשימה, והיא השמדתנו פה בישראל.</span>
+<span  class="blueglowclr">זה טוב להם שנלך כמו צאן לטבח, זה רע מאוד לכם.</span>
+<span  class="blueglowclr">במילים אחרות, הם מ פ ח ד י ם.</span>
+
+   </p>
+   <div class="medium-col">
+<img class="img-click" src="{{MEDIA_URL}}media/myvideos/ashkenazim/ashkenazimedia/firsttimeattackingashkenazimjounralists.jpg" style="margin-left:10px;" alt="">
+</div>
+</div>
+<div class="column">
+  <div class="clickable">
+<img  src="{{MEDIA_URL}}media/myvideos/ashkenazim/ashkenazimedia/vomitfromashkenazimedia.jpg" data-src="{{MEDIA_URL}}media/myvideos/ashkenazim/ashkenazimedia/vomitfromashkenazimedia.jpg" alt="">
+<svg   data-src="{{MEDIA_URL}}media/myvideos/ashkenazim/ashkenazimedia/vomitfromashkenazimedia.jpg"  style="width:20%;position:absolute;top:calc(50% - 10%);right:calc(50% - 10%);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="wrapper translate pointer">
+  <circle class="tap-none" cx="89.43" cy="64.48" r="19.46"/>
+  <path class="hand-tap" d="M139.93,102.68,98.81,95.75V65.2A9.25,9.25,0,0,0,89.56,56h0a9.25,9.25,0,0,0-9.25,9.25v57.36L71,111.77c-3.61-3.61-8.44-3.89-13.08,0,0,0-7.24,5.84-3.83,9.25l34,34h42.63a9.25,9.25,0,0,0,9.07-7.43l6.82-34.09A9.28,9.28,0,0,0,139.93,102.68Z"/>
+</svg>
+
+<audio class="hiddenaudio noauto" controls>
+    <source src="{{MEDIA_URL}}media/myvideos/aboutronnythenazi/meand12media/ashkslawminor1.ogg"  type="audio/ogg">
+</audio>
+<audio class="hiddenaudio noauto" controls>
+    <source src="{{MEDIA_URL}}media/myvideos/aboutronnythenazi/meand12media/ashklawminors2.ogg"  type="audio/ogg">
+</audio>
+<audio class="hiddenaudio noauto" controls>
+    <source src="{{MEDIA_URL}}media/myvideos/aboutronnythenazi/meand12media/jourdblstand1.ogg"  type="audio/ogg">
+</audio>
+<audio class="hiddenaudio noauto" controls>
+    <source src="{{MEDIA_URL}}media/myvideos/aboutronnythenazi/meand12media/jourdblstand2.ogg"  type="audio/ogg">
+</audio>
+ </div>
+</div>
+   </div>
+
+      <div class="medium-col bg-gradient-dark">
+
+        <img src="{{MEDIA_URL}}media/myvideos/ashkenazim/ashkenazimedia/yourwatchtheirpower.jpg" alt="">
+         <div class="column">
+
+
+        </div>
+
+      </div>
+  </div>
+  <div style="width:100%;height:2px; background-color:#212329;padding-bottom:2px;"></div>
+</li>
+</ul>
+
+<script>
+  var clone_img_just_now_created = false;
+  $('.img-click, .clickable').click(f_img_focus);
+  $(document).click(f_remove_any_focus);
+
+
+ $(document).ready(function(){
+   $('#ulnavpages').parent().css('background-color', '#EAEAEA');
+   $('#ulnavpages').parent().css('padding-top', $('#ulpages').css('margin-bottom'));
+   $('#ulpages').css('margin-bottom', '0');
+    $('.clickable>svg').each(function(){
+      var perc_of_parent_H = ($(this).height() / $(this).parent().height()) * 100;
+      $(this).css('top', 'calc(50% - ' + perc_of_parent_H/2 + '%)' );
+    });
+
+  });
+  function f_remove_any_focus()
+  {
+      if(clone_img_just_now_created)
+      {
+        clone_img_just_now_created = false;
+        $('#imgclone').css('width', $('#imgclone').width() * 2 + 'px');  //setTimeout(,100);
+        $('#imgclone').css('height', $('#imgclone').height() * 2 + 'px');
+        return;
+      }
+     $('#imgclone').remove();
+     $('body').removeClass('bodyblur');
+     $('.nif img').removeClass('imgfocus');
+     $('audio').each(function(){$(this)[0].pause(); $(this).addClass('noauto')});
+  }
+
+  function f_img_focus()
+  {
+    $('#imgclone').remove();
+    $('body').removeClass('bodyblur');
+    $('.nif img').removeClass('imgfocus');
+
+     $('#imgclone').remove();
+     $('body').removeClass('bodyblur');
+     var img_clone = '<img alt="" id="imgclone" ' + 'src="';
+     var src;
+
+     if($(this).hasClass('clickable'))
+     {
+       src = $(this).children('img').attr('data-src');
+       $(this).children('audio').removeClass('noauto');
+       $(this).children('audio')[0].play();
+     }
+     else
+     {
+       src = $(this).attr('src');
+     }
+     img_clone += src + '">';
+
+     $('body').append(img_clone);
+     var x = $(this).offset().left;
+     var y = $(this).offset().top;
+     $('#imgclone').offset({top:y, left:x});
+     $('#imgclone').width($(this).width());
+     $('#imgclone').height($(this).height());
+     $('#imgclone').addClass('lighten-image');
+     $('body').addClass('bodyblur');
+     clone_img_just_now_created = true;
+  }
+
+  </script>

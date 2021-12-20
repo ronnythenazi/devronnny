@@ -1,0 +1,75 @@
+{%extends 'magazine/base.html'%}
+{%load static%}
+
+
+    <meta charset="utf-8">
+    {%block title%}הפוסטים שלך{%endblock%}
+
+   {%block moreLinks%}{%endblock moreLinks%}
+
+     {%block body%}
+     <div class="bodyrow">
+       <div class="right-grey"></div>
+    <div>
+
+
+
+       {%for post, frm in data %}
+       <form enctype="multipart/form-data" method="POST">
+         {%csrf_token%}
+         {{frm.media}}
+
+         <div class="center editfrm" style="display:none;">
+          <div class="post">
+            <span class="posttitle shiny-blue-clr"> {{ frm.title }} </span>
+            <a class="author big"> <span>{{post.author | safe}}</span> &nbsp; | &nbsp;
+                 <span>{{post.datepublished | date:'d/m/Y' | safe}}</span>
+            </a>
+            <div  class="subtitle">{{frm.subtitle}}</div>
+            <div class="thumb-holder">
+              <img class="thumb  big" src="{{post.thumb.url}}" alt="">
+              <div class="decortion-line"></div>
+            </div>
+            <div class="post-content">
+             {{frm.content | safe}}
+            </div>
+          </div>
+        </div>
+
+      <div class="center post-output">
+       <div class="post">
+         <span class="posttitle shiny-blue-clr"> {{ post.title }} </span>
+         <a class="author big"> <span>{{post.author | safe}}</span> &nbsp; | &nbsp;
+              <span>{{post.datepublished | date:'d/m/Y' | safe}}</span>
+         </a>
+         <div  class="subtitle">{{post.subtitle}}</div>
+         <div class="thumb-holder">
+           <img class="thumb  big" src="{{post.thumb.url}}" alt="">
+           <div class="decortion-line"></div>
+         </div>
+         <div class="post-content">
+          {{post.content | safe}}
+         </div>
+       </div>
+     </div>
+
+     <div class = "submit-row submit-row-edit">
+       {%include 'magazine/components/btns/btnedit.html'%}
+       {%include 'magazine/components/btns/btndelete.html'%}
+
+
+     </div>
+    </form>
+
+
+    {% if forloop.counter !=  posts|length   %}
+     <div class="bg-line"></div>
+     {%endif%}
+
+
+
+    {%endfor%}
+    </div>
+    <div class="left-grey"></div>
+     </div>
+     {%endblock body%}

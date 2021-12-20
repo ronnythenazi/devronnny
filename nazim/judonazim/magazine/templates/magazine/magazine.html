@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{%extends 'magazine/base.html'%}
+{%load static%}
+
+{%block title%}יהודונאציזם - חדשות{%endblock%}
+
+
+    {%block body%}
+
+   <!--<div class="articles-parent">-->
+
+     <div class="posts-category">
+     <div class="articles-parent">
+    {% for post in object_list %}
+     {% if forloop.counter0|divisibleby:4 and forloop.counter0 != 0 %}
+   </div>
+   </div>
+   <div class="posts-category">
+   <div class="articles-parent">
+    {%endif%}
+     <a class="article-block" href="{%url 'magazine:anArticle' post.pk %}">
+
+      <div class="thumb-holder">
+        <img class="thumb" src="{{post.thumb.url}}" alt="">
+        <div class="decortion-line"></div>
+      </div>
+
+      <div class="a-title">{{post.title | safe}}</div>
+        <div class="author"> <span>{{post.author | safe}}</span> &nbsp; | &nbsp;
+             <span>{{post.datepublished | date:'d/m/Y' | safe}}</span>
+        </div>
+
+      </a>
+
+     {% endfor %}
+   </div>
+   </div>
+
+  {%endblock body%}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{%extends 'magazine/base.html'%}
+{%load static%}
+
+
+    <meta charset="utf-8">
+    {%block title%}מאמר דעה{%endblock%}
+
+   {%block moreLinks%}{%endblock moreLinks%}
+
+     {%block body%}
+    <div class="center">
+     <div class="post">
+       <span class="posttitle shiny-blue-clr"> {{ object.title }} </span>
+       <a class="author big"> <span>{{object.author | safe}}</span> &nbsp; | &nbsp;
+            <span>{{object.datepublished | date:'d/m/Y' | safe}}</span>
+       </a>
+       <div  class="subtitle">{{object.subtitle}}</div>
+       <div class="thumb-holder">
+         <img class="thumb  big" src="{{object.thumb.url}}" alt="">
+         <div class="decortion-line"></div>
+       </div>
+       <div class="post-content">
+        {{object.content | safe}}
+       </div>
+     </div>
+   </div>
+  {%endblock body%}

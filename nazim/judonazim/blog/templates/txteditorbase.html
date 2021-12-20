@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+				{% load static %}
+
+<!--	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>-->
+	<script type="text/javascript" src="{%static 'plugins/texteditor/jquery.js'%}"></script>
+<!--	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>-->
+	<script type="text/javascript" src="{%static 'plugins/texteditor/bootstrap.min.js'%}"></script>
+		<script src="{% static 'plugins/editor.js'%}"></script>
+		<script type="text/javascript" src="{%static 'js/txtedit.js'%}"></script>
+
+
+<!--	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">-->
+	<link rel="stylesheet" href="{% static 'plugins/texteditor/bootstrap.min.css'%}">
+	<!--<link  rel="stylesheet" href="{% static 'plugins/bootstrap/css/bootstrap.css'%}">-->
+	<link rel="stylesheet" href="{% static 'plugins/texteditor/font-awesome/css/font-awesome.css'%}">
+<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">-->
+		<link href="{% static 'plugins/editor.css'%}" type="text/css" rel="stylesheet"/>
+		<link href="{% static 'css/txteditor.css'%}" type="text/css" rel="stylesheet"/>
+
+		<title>my text editor</title>
+
+	</head>
+	<body>
+		{%block txteditor%}
+
+		<div class="container-fluid" id="container-fluid-body">
+			<div class="row">
+
+				<h2 class="demo-text" id="txteditortitle">שתף אותנו במחשבותיך</h2>
+				<div class="container">
+					<div class="row" >
+						<div class="col-lg-9 nopadding">
+{%block frmtxtarea%}
+					<!--	<textarea id="txtEditor"></textarea>-->
+{%endblock frmtxtarea%}
+
+
+						<!--	<button type="submit" class="btn_publish">click here and have fun</button>-->
+</div>
+</div>
+</div>
+</div>
+	</div>
+		{%endblock txteditor%}
+						{%block btnstxteditor%}
+<div class="btn_txteditor_container">
+	<button type="submit"  id="btn_publish" class="btn btn-dark">
+		<span class="apublish" href="#">פרסם</span>
+		<ion-icon name="cloud-upload-outline" class="ico_small" src="{%static 'svg/upload.svg'%}"></ion-icon>
+	</button>
+	</div>
+
+	<div class="btn_txteditor_container">
+		<button  type="submit" id="btn_save" class="btn btn-success">
+			<span class="apublish" href="#">שמור</span>
+			<ion-icon name="cloud-upload-outline" class="ico_small" src="{%static 'svg/save.svg'%}"></ion-icon>
+		</button>
+		</div>
+
+		<div class="btn_txteditor_container">
+			<button  type="submit" id="btn_delete" class="btn btn-danger">
+				<span class="apublish" href="#">מחק</span>
+				<ion-icon name="cloud-upload-outline" class="ico_small" src="{%static 'svg/delete.svg'%}"></ion-icon>
+			</button>
+			</div>
+<!--return-down-right-arrow.svg-->
+<div class="btn_txteditor_container" id="btn_txteditor_container-far-right">
+	<button  type="submit" id="btn_cancel" class="btn btn-primary">
+		<span class="apublish" href="#">בטל</span>
+		<ion-icon name="cloud-upload-outline" class="ico_small" src="{%static 'svg/return-down-right-arrow.svg'%}"></ion-icon>
+	</button>
+	</div>
+	{%endblock btnstxteditor%}
+
+
+
+
+
+
+
+
+
+
+		<div class="container-fluid footer" id="footer">
+
+			<p class="pull-right">האתר נבנה ע"י רוני הנאצי<script>document.write(new Date().getFullYear())</script>. יהודונאציזם אנטי-אשכנזי</p>
+
+		</div>
+		<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+		<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	</body>
+</html>

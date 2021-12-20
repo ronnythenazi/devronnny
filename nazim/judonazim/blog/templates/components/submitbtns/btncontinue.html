@@ -1,0 +1,48 @@
+{%load static%}
+
+<style>
+
+
+  .btncontinue>span
+  {
+      font-size: 20px;
+  }
+  .btncontinue:hover
+  {
+    background-color: blue;
+    -webkit-box-shadow: 2px 2px 20px rgb(209, 0, 0, 1);
+  }
+  .btncontinue
+  {
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:center;
+    direction:rtl;
+
+    padding:0;
+    background:none;
+    font-family:formal;
+    background-color: black;
+    color:white;
+    cursor:pointer;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+
+    border:none;
+    box-shadow:inset 5px 5px 20px rgb(196, 14, 135, 1);
+
+    width:120px;
+    height:60px;
+    filter:-webkit-drop-shadow(0px, 0px, 500px, red);
+  }
+
+</style>
+
+<button value = "{{ page_index }}"  class="btncontinue" name="btncontinue" type="submit">
+  <span class="noshrink" style="margin-right:20%;">המשך</span>
+  <img style="height:50%;margin-left:5%;" src="{% static 'svg/continue.svg'%}" alt="">
+</button>

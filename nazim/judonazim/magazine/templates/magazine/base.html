@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en" dir="rtl">
+  <head>
+    <meta charset="utf-8">
+    <title>{%block title%}בלוג יהודונאציזם{%endblock%}</title>
+    <link rel = "shortcut icon" href="{% static 'images/judonazimlogoglow.jpg' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'magazine/css/magazine.css' %}">
+    <link rel="stylesheet" href="{% static 'magazine/css/article.css' %}">
+    <link rel="stylesheet" href="{% static 'magazine/css/global.css' %}">
+    {%block moreLinks%} {%endblock moreLinks%}
+  </head>
+  <body>
+
+     <div class="menu">
+       <a class="menuItem" href="{% url 'magazine:magazineNews' %}">
+         דף הבית
+       </a>
+
+       <div class="menuItem">
+           ניהול אתר
+          <div>
+          <a class="subMenuItem" href = "{% url 'magazine:myposts' %}">
+           נהל בלוג אישי
+          </a>
+          <a class="subMenuItem" href="{% url 'magazine:enlightThePublic' %}">
+            פרסם מאמר
+          </a>
+          <a class="subMenuItem">
+           ניהול מודרטורים והרשאות
+          </a>
+        </div>
+       </div>
+
+        <div class="menuItem">
+          חשבון
+         <div>
+         <a class= "subMenuItem">
+            עדכון פרטים אישיים
+         </a>
+         <a class="subMenuItem">
+            ניתוח סטטיסטי
+         </a>
+         <a class= "subMenuItem">
+            תיבת דואר
+         </a>
+        </div>
+       </div>
+
+     </div>
+
+{%block body%}
+{%endblock body%}
+  <script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>
+  <script type="text/javascript" src="{% static 'magazine/js/magazine.js'%}"> </script>
+  <script type="text/javascript" src="{% static 'magazine/js/posts.js'%}"> </script>
+  <script type="text/javascript" src="{% static 'magazine/js/editPosts.js'%}"> </script>
+  {%block moreJs%} {%endblock moreJs%}
+  </body>
+
+</html>
