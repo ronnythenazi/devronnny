@@ -26,7 +26,7 @@ def fUpdateRecord(request, id):
             if 'btnSave' in request.POST:
                 frm.save()
             elif 'btndelete' in request.POST:
-                obj.filter(id = id).delete()
+                obj.delete()
             return redirect('magazine:magazineNews')
     return render(request, 'magazine/editPosts.html', {'frm':frm, 'post':obj})
 
