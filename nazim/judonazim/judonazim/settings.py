@@ -136,7 +136,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 DEFAULT_AUTO_FIELD='django.db.models.AutoField'
 
-"""
+
 
 POSTGRES_DB = os.environ.get("POSTGRES_DB")
 POSTGRES_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
@@ -163,7 +163,7 @@ if POSTGRES_READY:
             "PORT": POSTGRES_PORT,
         }
     }
-"""
+
 
 
 """
