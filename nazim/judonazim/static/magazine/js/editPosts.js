@@ -1,17 +1,13 @@
-//$('.btnedit').click(editFrm)
-//$('.btnCancel, .btnSave').click(cancelEdit);
+$('.btnedit').click(editFrm)
+$('.btnCancel, .btnSave').click(cancelEdit);
 $(document).ready(ready);
 
 function ready()
 {
-
-   $('.hidden').hide();
-   $('.post-output').each(function(){
-
-    var status =  $(this).find('.publishstatus:first-child').text();
+   $('form').each(function(){
+    var status =  $(this).find('select').val();
     if(status == 'public')
     {
-
          $(this).find('.public').show();
          $(this).find('.private').hide();
     }
@@ -36,14 +32,12 @@ function editFrm()
   $(ParentFrm).parent().addClass('widden');
 
 
-
+  var PostOutput = $(ParentFrm).children('.post-output');
+  $(PostOutput).hide();
   $(ParentFrm).find('.btndelete').hide();
   $(ParentFrm).find('.btnedit').hide();
   $(ParentFrm).find('.btnCancel').show();
   $(ParentFrm).find('.btnSave').show();
-
-  var PostOutput = $(ParentFrm).children('.post-output');
-  $(PostOutput).hide();
 
 
 }
@@ -60,14 +54,12 @@ function cancelEdit()
     $(ParentFrm).parent().removeClass('widden')
 
 
-
+//  $(ParentFrm).siblings().css('visibility', 'visible');
+  var PostOutput = $(ParentFrm).children('.post-output');
+  $(PostOutput).show();
   $(ParentFrm).find('.btndelete').show();
   $(ParentFrm).find('.btnedit').show();
   $(ParentFrm).find('.btnCancel').hide();
   $(ParentFrm).find('.btnSave').hide();
-
-  //  $(ParentFrm).siblings().css('visibility', 'visible');
-    var PostOutput = $(ParentFrm).children('.post-output');
-    $(PostOutput).show();
 
 }

@@ -16,6 +16,6 @@ class BlogPostForm(forms.ModelForm):
         'title': forms.TextInput(attrs = {'class' : 'posttitle nicetxtbox', 'placeholder' : 'עד 100 תווים'}),
         'subtitle': forms.TextInput(attrs = {'class' : 'posttitle nicetxtbox',  'placeholder' : 'עד 200 תווים'}),
         'content' : forms.Textarea(attrs = { 'class' : 'nicetxtbox', 'id':'richtext'}),
-        'thumb'   : forms.ClearableFileInput(attrs = {'id' :  'thumbnail', 'class': 'upload-img'}),
+        'thumb'   : forms.ClearableFileInput(attrs = {'class': 'upload-img'}),
         'publishstatus': forms.Select(attrs = {'class' :  'choices'})
         }

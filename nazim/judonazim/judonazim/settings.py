@@ -248,7 +248,10 @@ CKEDITOR_CONFIGS = {
         'width': '100%',
         #'height' : '100%',
     },
+
 }
+
+
 
 ALLOWED_HOSTS = []
 

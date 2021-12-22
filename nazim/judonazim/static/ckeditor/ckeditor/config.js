@@ -4,18 +4,8 @@
  */
 
 CKEDITOR.editorConfig = function( config ) {
+  // Define changes to default configuration here. For example:
 
-
-
-	// Define changes to default configuration here. For example:
-
-	// config.uiColor = '#AADC6E';
-
-   // CSS unit (em).
-
- //<![CDATA[
-  config.format_p={element:"p", name: "Normal", styles:{ 'color': 'blue'}, attributes:{title:"dsad"}};
-  config.resize_enabled = false;
-  config.contentsLangDirection = "rtl";
-
+  // config.uiColor = '#AADC6E';
+  config.contentsLangDirection = 'rtl';
 };

@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from .blogpublishing import *
 from django.forms import modelformset_factory
 
+
 #post = get_object_or_404(BlogPost)
 
 class MagazineHome(ListView):
@@ -17,34 +18,37 @@ class Article(DetailView):
     model = BlogPost
     template_name = 'magazine/article.html'
 
+def fUpdateRecord(request, id):
+    obj = get_object_or_404(BlogPost, id = id)
+    frm = BlogPostForm(request.POST or None, request.FILES or None, instance = obj)
+    if(request.method == 'POST'):
+        if frm.is_valid():
+            if 'btnSave' in request.POST:
+                frm.save()
+            elif 'btndelete' in request.POST:
+                obj.filter(id = id).delete()
+            return redirect('magazine:magazineNews')
+    return render(request, 'magazine/editPosts.html', {'frm':frm, 'post':obj})
+
+
+
+
+
 def fgetpostsbyauthor(request):
     posts = BlogPost.objects.all()
+    #BlogFormset = modelformset_factory(BlogPost, fields = ['title', 'subtitle', 'content', 'publishstatus', 'thumb'])
+    #form_set = BlogFormset(queryset= BlogPost.objects.all())
 
     """
-     Changing the queryset¶
-
+    Changing the queryset¶
     By default, when you create a formset from a model, the formset will use a queryset that includes
     all objects in the model (e.g., Author.objects.all()). You can override this behavior by using the queryset argument:
-
-   >>> formset = AuthorFormSet(queryset=Author.objects.filter(name__startswith='O'))
-
+     >>> formset = AuthorFormSet(queryset=Author.objects.filter(name__startswith='O'))
 
     """
-    BlogFormset = modelformset_factory(BlogPost, fields = ['title', 'subtitle', 'content', 'publishstatus'])
-    form_set = BlogFormset(queryset= BlogPost.objects.all())
 
-    """
-    frms = frm_set(instance = posts)
-    frms = []
-    for post in posts:
-        frm = BlogPostForm(request.POST or None, instance = post)
-        frms.append(frm)
-
-
-    data = {'data' : zip(posts, frms)}
-    """
-    data = {'data' : zip(posts, form_set)}
-    return render(request, 'magazine/editPosts.html', data)
+    #data = {'data' : zip(posts, form_set)}
+    return render(request, 'magazine/displayPosts.html', {'posts':posts})
 
 
 def fskeleton(request):
