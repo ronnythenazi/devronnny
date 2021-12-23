@@ -106,8 +106,23 @@
   color: #2c02f7;
   font-weight: bolder;
   transition: all 0.5s;
-  display: none;
 }
+
+.btnDeleteTrans:hover
+{
+  background-color: #DE0205;
+ -webkit-box-shadow:inset 2px 2px 5px #f20000;
+  color: #Fbfbfb;
+}
+.btnDeleteTrans
+{
+  background-color: #Fbfbfb;
+  border: 2px solid #DE0205;
+  color: #DE0205;
+  font-weight: bolder;
+  transition: all 0.5s;
+}
+
 .btnSave:hover
 {
   background-color: #0EE146;
@@ -122,7 +137,6 @@
   color: #0EE146;
   font-weight: bolder;
   transition: all 0.5s;
-  display: none;
 }
 
 .btn-ico

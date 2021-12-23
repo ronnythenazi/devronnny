@@ -1,15 +1,19 @@
-$('#thumbnail').change(showPreview);
+
+$('input[type=file]').change(showPreview);
 
 function showPreview(event){
 if(event.target.files.length > 0){
   var src = URL.createObjectURL(event.target.files[0]);
-  $('#preview').attr('src', src);
-  $('.thumb-holder').show();
+  var preview = $(this).parents('.thumbnail').first().next('.thumb-holder').find('.preview').first();
+  $(preview).attr('src', src);
+  $(this).parents('.thumbnail').first().next('.thumb-holder').show();
+  //$('#preview').attr('src', src);
+  //$('.thumb-holder').show();
 
  }
 }
 
-$('.trigger-upload').click(function(){$(this).prev().trigger('click');})
+$('.trigger-upload').click(function(){$(this).parent().find('input[type=file]').trigger('click');});
 
 
 $('.nicetxtbox').keypress(setTxTStyle);
