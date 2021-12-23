@@ -218,6 +218,7 @@ STATIC_URL = '/static/'
 if DEBUG:
     STATICFILES_DIRS = (
         os.path.join(BASE_DIR, 'blog', 'static'),
+        os.path.join(BASE_DIR, 'magazine', 'static'),
       )
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 else:
