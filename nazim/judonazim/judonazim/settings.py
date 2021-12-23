@@ -203,7 +203,12 @@ if DEBUG:
     AWS_DEFAULT_ACL = 'public-read'
     AWS_S3_SIGNATURE_VERSION = 's3v4'
 
+<<<<<<< HEAD
     DEFAULT_FILE_STORAGE =  'judonazim.cdn.MediaStorage' #'storages.backends.s3boto3.S3Boto3Storage'
+=======
+
+    DEFAULT_FILE_STORAGE =  'judonazim.cdn.MediaStorage'
+>>>>>>> 058c8427d62ca51e53049814e011646951b0babb
     AWS_S3_OBJECT_PARAMETERS = {
          "CacheControl": "max-age=86400",
     }
@@ -220,11 +225,19 @@ if DEBUG:
     MEDIA_URL = '/'
     MEDIA_ROOT = os.path.join(BASE_DIR, '')
     """
-    MEDIA_URL = AWS_S3_ENDPOINT_URL +'/'
-    MEDIA_ROOT = 'media/'
+    #MEDIA_URL = AWS_S3_ENDPOINT_URL +'/'
+    #MEDIA_ROOT = 'media/'
+    MEDIA_URL =  'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, 'media')
 else:
+<<<<<<< HEAD
     MEDIA_URL = AWS_S3_ENDPOINT_URL +'/media/'
+=======
+    """
+    MEDIA_URL = AWS_S3_ENDPOINT_URL +'/'
+>>>>>>> 058c8427d62ca51e53049814e011646951b0babb
     MEDIA_ROOT = 'media/'
+    """
+    MEDIA_URL =  'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, 'media')
 
 
 STATIC_URL = '/static/'
