@@ -19,6 +19,8 @@ from pathlib import Path
 import sys
 import dj_database_url
 from dotenv import load_dotenv
+from . import cdn
+from .cdn import *
 
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 load_dotenv(dotenv_path)
@@ -185,7 +187,7 @@ if not DEBUG:
     AWS_S3_ENDPOINT_URL = "https://ronnythenazi.fra1.digitaloceanspaces.com"
     AWS_LOCATION = f"https://{str(AWS_STORAGE_BUCKET_NAME)}fra1.digitaloceanspaces.com"
     AWS_DEFAULT_ACL = 'public-read'
-
+    AWS_S3_SIGNATURE_VERSION = 's3v4'
 
     DEFAULT_FILE_STORAGE = 'judonazim.cdn.MediaStorage'
     AWS_S3_OBJECT_PARAMETERS = {
@@ -199,9 +201,10 @@ if DEBUG:
     AWS_S3_ENDPOINT_URL = "https://ronnythenazi.fra1.digitaloceanspaces.com"
     AWS_LOCATION = f"https://{str(AWS_STORAGE_BUCKET_NAME)}fra1.digitaloceanspaces.com"
     AWS_DEFAULT_ACL = 'public-read'
+    AWS_S3_SIGNATURE_VERSION = 's3v4'
 
 
-    DEFAULT_FILE_STORAGE =  'storages.backends.s3boto3.S3Boto3Storage' #'judonazim.cdn.MediaStorage'
+    DEFAULT_FILE_STORAGE =  'judonazim.cdn.MediaStorage' #'storages.backends.s3boto3.S3Boto3Storage'
     AWS_S3_OBJECT_PARAMETERS = {
          "CacheControl": "max-age=86400",
     }
@@ -218,7 +221,7 @@ if DEBUG:
     MEDIA_URL = '/'
     MEDIA_ROOT = os.path.join(BASE_DIR, '')
     """
-    MEDIA_URL = AWS_S3_ENDPOINT_URL +'/'
+    MEDIA_URL = AWS_S3_ENDPOINT_URL +'/media/'
     MEDIA_ROOT = 'media/'
 else:
     MEDIA_URL = AWS_S3_ENDPOINT_URL +'/'
