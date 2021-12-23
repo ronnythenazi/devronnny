@@ -220,11 +220,15 @@ if DEBUG:
     MEDIA_URL = '/'
     MEDIA_ROOT = os.path.join(BASE_DIR, '')
     """
-    MEDIA_URL = AWS_S3_ENDPOINT_URL +'/'
+    #MEDIA_URL = AWS_S3_ENDPOINT_URL +'/'
     #MEDIA_ROOT = 'media/'
+    MEDIA_URL =  'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, 'media')
 else:
+    """
     MEDIA_URL = AWS_S3_ENDPOINT_URL +'/'
     MEDIA_ROOT = 'media/'
+    """
+    MEDIA_URL =  'https://%s/%s/' % (AWS_S3_ENDPOINT_URL, 'media')
 
 
 STATIC_URL = '/static/'
