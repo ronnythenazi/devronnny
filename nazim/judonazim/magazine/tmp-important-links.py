@@ -5,3 +5,7 @@
 #mulitply ckeditors with different height property https://stackoverflow.com/questions/11124182/how-to-set-up-ckeditor-for-multiple-instances-with-different-heights
 #judonazim-z6fn3.ondigitalocean.app
 # generate random password django python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
+
+#https://stackoverflow.com/questions/9430770/django-error-importing-storages-backends
+#https://stackoverflow.com/questions/60765418/can-i-use-digital-ocean-spaces-for-user-uploaded-files-with-django
+#https://www.youtube.com/watch?v=FjWbMNw6Wk0 34 - Deploy Django to Digital Ocean App Platform - Python & Django 3.2 Tutorial Series
