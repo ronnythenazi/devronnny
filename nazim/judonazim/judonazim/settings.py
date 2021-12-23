@@ -189,9 +189,9 @@ if not DEBUG:
     AWS_DEFAULT_ACL = 'public-read'
     AWS_S3_SIGNATURE_VERSION = 's3v4'
 
-    DEFAULT_FILE_STORAGE = 'judonazim.cdn.MediaStorage'
+    DEFAULT_FILE_STORAGE =  'judonazim.cdn.MediaStorage' #'storages.backends.s3boto3.S3Boto3Storage'
     AWS_S3_OBJECT_PARAMETERS = {
-      "CacheControl": "max-age=86400",
+         "CacheControl": "max-age=86400",
     }
 
 if DEBUG:
@@ -202,7 +202,6 @@ if DEBUG:
     AWS_LOCATION = f"https://{str(AWS_STORAGE_BUCKET_NAME)}fra1.digitaloceanspaces.com"
     AWS_DEFAULT_ACL = 'public-read'
     AWS_S3_SIGNATURE_VERSION = 's3v4'
-
 
     DEFAULT_FILE_STORAGE =  'judonazim.cdn.MediaStorage' #'storages.backends.s3boto3.S3Boto3Storage'
     AWS_S3_OBJECT_PARAMETERS = {
@@ -224,7 +223,7 @@ if DEBUG:
     MEDIA_URL = AWS_S3_ENDPOINT_URL +'/media/'
     MEDIA_ROOT = 'media/'
 else:
-    MEDIA_URL = AWS_S3_ENDPOINT_URL +'/'
+    MEDIA_URL = AWS_S3_ENDPOINT_URL +'/media/'
     MEDIA_ROOT = 'media/'
 
 
