@@ -9,4 +9,5 @@ CKEDITOR.editorConfig = function( config ) {
 	// config.uiColor = '#AADC6E';
 	// Define changes to default configuration here. For example:
          config.contentsLangDirection = 'rtl';
+         config.language = 'he';
 };
