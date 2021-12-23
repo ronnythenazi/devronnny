@@ -220,7 +220,7 @@ if DEBUG:
     MEDIA_URL = '/'
     MEDIA_ROOT = os.path.join(BASE_DIR, '')
     """
-    MEDIA_URL = AWS_S3_ENDPOINT_URL +'/media/'
+    MEDIA_URL = AWS_S3_ENDPOINT_URL +'/'
     #MEDIA_ROOT = 'media/'
 else:
     MEDIA_URL = AWS_S3_ENDPOINT_URL +'/'
