@@ -13,6 +13,7 @@ from django.forms import modelformset_factory
 class MagazineHome(ListView):
     model = BlogPost
     template_name = 'magazine/magazine.html'
+    ordering = ['-datepublished']
 
 class Article(DetailView):
     model = BlogPost

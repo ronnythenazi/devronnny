@@ -4,15 +4,17 @@ from django.db import models
 from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
 from django.urls import reverse
+from datetime import datetime, date
+
 
 class BlogPost(models.Model):
 
     title = models.CharField(blank = False, max_length = 100, null = False, default = '')
     subtitle = models.CharField(blank = False, max_length = 200, null = False , default ='')
-    thumb = models.ImageField(blank = False, null = False, upload_to='posts/images/%Y/%m/%d/')
+    thumb = models.ImageField(blank = False, null = False, upload_to = 'posts/images/%Y/%m/%d/')
     #author_name =  models.TextField(max_length = 50, null = false, default = "רוני הנאצי")
-    author = models.ForeignKey(User, on_delete = models.CASCADE, default = 1, blank = True)
-    author_email = models.EmailField(null = False, blank = True, default = "ronnythenazi@gmail.com")
+    author = models.ForeignKey(User, on_delete = models.CASCADE, default = 2,  blank = True)
+    #author_email = models.EmailField(null = False, blank = True, default = "ronnythenazi@gmail.com")
     datepublished= models.DateField(auto_now_add = True, blank=True)
     datelastupdated= models.DateField(auto_now = True, blank=True)
     content =  RichTextField(blank = False, null = False) #models.TextField(null = False)

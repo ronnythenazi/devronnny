@@ -37,9 +37,8 @@ DEBUG = str(os.environ.get("DEBUG")) == "1"
 
 
 
-# Application definition
-if DEBUG:
-    INSTALLED_APPS = [
+
+INSTALLED_APPS = [
         'django.contrib.admin',
         'django.contrib.auth',
         'django.contrib.contenttypes',
@@ -53,28 +52,11 @@ if DEBUG:
         'boto3',
         'ckeditor',
         'magazine',
+        'users',
 
 
 
     ]
-else:
-    INSTALLED_APPS = [
-        'django.contrib.admin',
-        'django.contrib.auth',
-        'django.contrib.contenttypes',
-        'django.contrib.sessions',
-        'django.contrib.messages',
-        'django.contrib.staticfiles',
-        #personal
-        'blog',
-        #thirdparty
-        'boto3',
-        'storages',
-        'ckeditor',
-        'magazine',
-
-    ]
-
 
 
 MIDDLEWARE = [
@@ -209,10 +191,6 @@ if DEBUG:
 
 """
 
-
-
-
-
 from .cdn.conf import * # noqa
 
 if DEBUG:
@@ -220,8 +198,12 @@ if DEBUG:
     MEDIA_URL = '/'
     MEDIA_ROOT = os.path.join(BASE_DIR, '')
     """
+
+
     MEDIA_URL = AWS_S3_ENDPOINT_URL +'/'
-    MEDIA_ROOT = 'media/'
+    #MEDIA_ROOT = 'media/'
+
+
 else:
     #MEDIA_URL = AWS_S3_ENDPOINT_URL +'/media/'
     MEDIA_URL = AWS_S3_ENDPOINT_URL +'/'
@@ -234,6 +216,7 @@ if DEBUG:
     STATICFILES_DIRS = (
         os.path.join(BASE_DIR, 'blog', 'static'),
         os.path.join(BASE_DIR, 'magazine', 'static'),
+        os.path.join(BASE_DIR, 'users', 'static'),
       )
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 else:
