@@ -40,11 +40,12 @@
          </div>
        </div>
      </div>
-
+     {% if user.is_authenticated %}
      <div class = "submit-row submit-row-edit">
        <a href="{% url 'magazine:updateRecord'  post.id %}">{%include 'magazine/components/btns/btnedit.html'%}</a>
 
      </div>
+     {% endif %}
 
 
 

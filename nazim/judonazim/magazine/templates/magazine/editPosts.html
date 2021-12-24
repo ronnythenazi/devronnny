@@ -8,6 +8,7 @@
    {%block moreLinks%}<link rel="stylesheet" href="{% static 'magazine/css/editPosts.css' %}">{%endblock moreLinks%}
 
      {%block body%}
+      {% if user.is_authenticated %}
      <div class="bodyrow">
        <div class="right-grey sides"></div>
     <div>
@@ -64,4 +65,12 @@
   </div>
     <div class="left-grey sides"></div>
      </div>
+     {% else %}
+     <div class="center">
+     <div class="writepost" style="width:80%;font-size:1rem !important;">   
+      אינך משתמש מורשה
+      </div>
+      </div>
+
+     {% endif %}
      {%endblock body%}
