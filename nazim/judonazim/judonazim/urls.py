@@ -36,6 +36,4 @@ else:
     urlpatterns = [
       path('', include('blog.urls')),
       path('magazine/', include('magazine.urls')),
-      path('admin/', admin.site.urls),
-
     ]
