@@ -1,37 +1,27 @@
 {%extends 'magazine/base.html'%}
 {%load static%}
-
-
 {%block title%}הרשמה ליהודונאציזם{%endblock%}
 
 {%block moreLinks%}<link rel="stylesheet" href="{% static 'magazine/css/writepost.css' %}"> {%endblock%}
 {%block body%}
-
+{% if not user.is_authenticated %}
 <form  method = "post"  enctype="multipart/form-data">
   {%csrf_token%}
 
 <div class="center">
 <div class="writepost" style="width:80%;font-size:1rem !important;">
-{% if not user.is_authenticated %}
+
 {{form.as_p}}
 
-<div class="center">
-
-<button type="submit" class="subscribe">הירשם</button>
-</div>
 
 
-{% else %}
-  אתה כבר מחובר
-{% endif %}
+
  </div>
  </div>
 
 </form>
-
-
-
-
+{% endif %}
+אתה כבר מחובר
 {%endblock body%}
 
 {%block moreJs%}  <script type="text/javascript" src="{% static 'magazine/js/writepost.js'%}"> </script> {%endblock moreJs%}

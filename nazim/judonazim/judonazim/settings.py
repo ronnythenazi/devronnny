@@ -200,12 +200,16 @@ if DEBUG:
     """
 
 
+    #MEDIA_URL = '{}/{}/'.format(AWS_S3_ENDPOINT_URL, 'media')
     MEDIA_URL = AWS_S3_ENDPOINT_URL +'/'
+    MEDIA_ROOT = 'media/'
     #MEDIA_ROOT = 'media/'
 
 
+
+
 else:
-    #MEDIA_URL = AWS_S3_ENDPOINT_URL +'/media/'
+
     MEDIA_URL = AWS_S3_ENDPOINT_URL +'/'
     MEDIA_ROOT = 'media/'
 
@@ -260,5 +264,6 @@ if not DEBUG:
     #ALLOWED_HOSTS = ['127.0.0.1']
     ALLOWED_HOSTS = [os.environ.get("DJANGO_ALLOWED_HOSTS")]
 
-#https://dev.to/shantanu_jana/how-to-preview-image-before-uploading-in-javascript-1f6g
-#EFEFEF
+    
+LOGIN_REDIRECT_URL = 'magazine:magazineNews'
+LOGOUT_REDIRECT_URL = 'magazine:magazineNews'

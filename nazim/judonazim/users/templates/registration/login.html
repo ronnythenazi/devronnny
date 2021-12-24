@@ -2,7 +2,7 @@
 {%load static%}
 
 
-{%block title%}הרשמה ליהודונאציזם{%endblock%}
+{%block title%}התחבר{%endblock%}
 
 {%block moreLinks%}<link rel="stylesheet" href="{% static 'magazine/css/writepost.css' %}"> {%endblock%}
 {%block body%}
@@ -14,13 +14,9 @@
 <div class="writepost" style="width:80%;font-size:1rem !important;">
 {% if not user.is_authenticated %}
 {{form.as_p}}
-
 <div class="center">
-
-<button type="submit" class="subscribe">הירשם</button>
+<button type="submit" class="subscribe">התחבר</button>
 </div>
-
-
 {% else %}
   אתה כבר מחובר
 {% endif %}

@@ -217,13 +217,13 @@ html,body
 {
   display: none;
 }
-.trigger-upload:hover
+.trigger-upload:hover, .subscribe:hover
 {
  box-shadow: inset 10px 10px 25px #0445ea;
  background-color: #1ec6ff;
  color:white;
 }
-.trigger-upload
+.trigger-upload, .subscribe
 {
   display: flex;
   direction: rtl;
