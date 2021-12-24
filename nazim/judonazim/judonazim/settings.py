@@ -180,6 +180,7 @@ USE_L10N = True
 USE_TZ = True
 """
 
+"""
 if not DEBUG:
     AWS_ACCESS_KEY_ID = str(os.environ.get("AWS_ACCESS_KEY_ID"))
     AWS_SECRET_ACCESS_KEY = str(os.environ.get("AWS_SECRET_ACCESS_KEY"))
@@ -206,23 +207,24 @@ if DEBUG:
          "CacheControl": "max-age=86400",
     }
 
+"""
 
 
 
 
 
-
+from .cdn.conf import * # noqa
 
 if DEBUG:
     """
     MEDIA_URL = '/'
     MEDIA_ROOT = os.path.join(BASE_DIR, '')
     """
-    MEDIA_URL = AWS_S3_ENDPOINT_URL +'/media/'
-    #MEDIA_ROOT = 'media/'
+    MEDIA_URL = AWS_S3_ENDPOINT_URL +'/'
+    MEDIA_ROOT = 'media/'
 else:
     #MEDIA_URL = AWS_S3_ENDPOINT_URL +'/media/'
-    MEDIA_URL = AWS_S3_ENDPOINT_URL +'/media/'
+    MEDIA_URL = AWS_S3_ENDPOINT_URL +'/'
     MEDIA_ROOT = 'media/'
 
 
@@ -236,6 +238,8 @@ if DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+
 
 
 

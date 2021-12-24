@@ -29,12 +29,13 @@ if settings.DEBUG:
         path('admin/', admin.site.urls),
         path('magazine/', include('magazine.urls')),
 
-    ] #+ static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+    ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
 
 
 else:
     urlpatterns = [
       path('', include('blog.urls')),
       path('magazine/', include('magazine.urls')),
+      path('admin/', admin.site.urls),
 
     ]
