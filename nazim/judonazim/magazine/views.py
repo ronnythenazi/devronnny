@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, Http404
 from django.views.generic import ListView, DetailView #, CreateView
 from .models import BlogPost
 from django.urls import reverse
@@ -13,11 +13,30 @@ from django.forms import modelformset_factory
 class MagazineHome(ListView):
     model = BlogPost
     template_name = 'magazine/magazine.html'
-    ordering = ['-datepublished']
+    #ordering = ['-datepublished']
+
+    def get_context_data(self, **kwargs):
+        context = super(MagazineHome, self).get_context_data(**kwargs)
+        context['object_list'] = BlogPost.objects.all().filter(publishstatus = 'public').order_by('-datepublished')
+        return context
 
 class Article(DetailView):
     model = BlogPost
     template_name = 'magazine/article.html'
+
+    def get_queryset(self):
+        qs = super(Article, self).get_queryset()
+        return qs.filter(publishstatus = 'public')
+
+    def get(self, request, *args, **kwargs):
+        try:
+            self.object = self.get_object()
+        except Http404:
+            # redirect here
+            return redirect('magazine:magazineNews')
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
+
 
 def fUpdateRecord(request, id):
     obj = get_object_or_404(BlogPost, id = id)

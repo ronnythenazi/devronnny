@@ -23,6 +23,14 @@
        <div class="post-content">
         {{object.content | safe}}
        </div>
+       {% if user.is_authenticated %}
+           {% if object.author_id == request.user.id %}
+       <div class = "submit-row submit-row-edit">
+         <a style="text-decoration:none;" href="{% url 'magazine:updateRecord'  object.id %}">{%include 'magazine/components/btns/btnedit.html'%}</a>
+
+       </div>
+           {% endif %}
+       {% endif %}
      </div>
    </div>
   {%endblock body%}
