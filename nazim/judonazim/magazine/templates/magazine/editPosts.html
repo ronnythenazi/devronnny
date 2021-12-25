@@ -9,6 +9,7 @@
 
      {%block body%}
       {% if user.is_authenticated %}
+         {% if post.author_id == request.user.id %}
      <div class="bodyrow">
        <div class="right-grey sides"></div>
     <div>
@@ -65,12 +66,22 @@
   </div>
     <div class="left-grey sides"></div>
      </div>
-     {% else %}
-     <div class="center">
-     <div class="writepost" style="width:80%;font-size:1rem !important;">   
-      אינך משתמש מורשה
-      </div>
-      </div>
 
-     {% endif %}
+         {% else %}
+         <div class="center">
+         <div class="writepost" style="width:80%;font-size:1rem !important;">
+          <h1>אינך מורשה</h1>
+          </div>
+          </div>
+        {% endif%}
+    {% else %}
+    <div class="center">
+    <div class="writepost" style="width:80%;font-size:1rem !important;">
+     <h1>אינך מחובר</h1>
+     </div>
+     </div>
+    {% endif %}
+
+
+
      {%endblock body%}

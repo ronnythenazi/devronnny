@@ -1,0 +1,28 @@
+.signfield
+{
+  border-radius: 10px;
+  text-align: center;
+  height: 2rem;
+  font-size: 1rem;
+  color:black;
+  width: 70%;
+
+}
+.en
+{
+  text-align: left !important;
+}
+.signfieldrow
+{
+   display: flex;
+   position: relative;
+   direction: rtl;
+   align-items: center;
+   justify-content: space-between;
+   flex-direction: row;
+   width: 25rem;
+}
+.label
+{
+  font-size: 1.2rem;
+}

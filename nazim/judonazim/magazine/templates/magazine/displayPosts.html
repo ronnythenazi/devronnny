@@ -6,11 +6,14 @@
    {%block moreLinks%}<link rel="stylesheet" href="{% static 'magazine/css/editPosts.css' %}">{%endblock moreLinks%}
 
      {%block body%}
+
+
      <div class="bodyrow">
        <div class="right-grey sides"></div>
           <div>
 
        {%for post in posts %}
+
       <div class="center post-output">
       <div class="hidden publishstatus">{{post.publishstatus}}</div>
        <div class="post">
@@ -41,10 +44,12 @@
        </div>
      </div>
      {% if user.is_authenticated %}
+         {% if post.author_id == request.user.id %}
      <div class = "submit-row submit-row-edit">
        <a href="{% url 'magazine:updateRecord'  post.id %}">{%include 'magazine/components/btns/btnedit.html'%}</a>
 
      </div>
+         {% endif %}
      {% endif %}
 
 

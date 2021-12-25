@@ -10,7 +10,7 @@
   {{frm.media}}
 <div class="center">
 <div class="writepost" style="width:80%;">
-
+{{frm.author}}
 <div class="center" style="width:100%;">
 <span>כותרת</span>
 {{frm.title}}
@@ -44,7 +44,12 @@
 
  </div>
  </div>
+ <script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>
+<script>
+  var name  = "{{user.id}}";
+  $("#author").val(name);
 
+</script>
 </form>
 {% else %}
 <div class="center">
@@ -54,7 +59,7 @@
 
 
 
- אינך משתמש מורשה
+<h1>אינך מחובר</h1>
 
  </div>
  </div>
@@ -62,4 +67,11 @@
 {% endif %}
 {%endblock body%}
 
-{%block moreJs%}  <script type="text/javascript" src="{% static 'magazine/js/writepost.js'%}"> </script> {%endblock moreJs%}
+{%block moreJs%}  <script type="text/javascript" src="{% static 'magazine/js/writepost.js'%}"> </script>
+
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}">
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/custom_config1.js' %}"></script>
+
+
+
+{%endblock moreJs%}
