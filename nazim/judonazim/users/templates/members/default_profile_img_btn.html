@@ -1,0 +1,73 @@
+{%load static%}
+<div class="center">
+  <div style="display:none;" id="image-input-holder">{{form.profile_img}}</div>
+  {% if not obj.profile_img.url %}
+ <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-fill def-avatar" viewBox="0 0 16 16">
+  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+ </svg>
+{% endif %}
+</div>
+{% if not obj.profile_img.url %}
+
+<img src="" class="thumb big preview round-img img-btn" alt=""/>
+
+{% else %}
+
+<img src="{{obj.profile_img.url}}" class="preview round-img img-btn" alt=""/>
+
+
+{% endif %}
+
+<style>
+  .img-btn
+  {
+    cursor:pointer;
+  }
+
+  .round-img
+  {
+    border-radius: 50%;
+    width:300px !important;
+    height:300px !important;
+  }
+
+  .bi-person-fill
+  {
+    width:25px;
+    height: 25px;
+    color:#09b4f2;
+    padding: 0 0;
+    background: unset;
+    border-radius: 50%;
+    width:300px;
+    height:300px;
+    border:2px solid transparent;
+  }
+  .bi-person-fill:hover
+  {
+    color:white;
+  }
+</style>
+<script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>
+<script type="text/javascript">
+  $(document).ready(function(){
+
+  });
+  $('#image-input-holder input[type=file]').change(changeImg);
+
+  $('.img-btn, svg.def-avatar').click(function(){
+    $('#image-input-holder').find('input[type=file]').trigger('click');
+  });
+
+  function changeImg(event){
+  if(event.target.files.length > 0){
+    var src = URL.createObjectURL(event.target.files[0]);
+    $('.img-btn').first().attr('src', src);
+    $('svg.def-avatar').hide();
+
+    //$('#preview').attr('src', src);
+    //$('.thumb-holder').show();
+
+   }
+  }
+</script>

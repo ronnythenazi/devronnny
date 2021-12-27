@@ -26,10 +26,15 @@
             {{frm.title}}
 
             </div>
-
-            <a class="author big"> <span>{{post.author | safe}}</span> &nbsp; | &nbsp;
+            {% if post.author.profile.profile_img.url %}
+            <a class="author big tiny-row-center-align"> <img class="tiny-avatar" src="{{post.author.profile.profile_img.url}}"/> <span>{{post.author | safe}}</span> &nbsp; | &nbsp;
                  <span>{{post.datepublished | date:'d/m/Y' | safe}}</span>
             </a>
+            {% else %}
+            <a class="author big tiny-row-center-align"> {% include 'members/default_profile_img.html' %} <span>{{post.author | safe}}</span> &nbsp; | &nbsp;
+                 <span>{{post.datepublished | date:'d/m/Y' | safe}}</span>
+            </a>
+            {% endif %}
             <div class="center" style="width:1000px;">
             <span>כותרת משנה</span>
             {{frm.subtitle}}</div>

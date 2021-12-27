@@ -2,9 +2,8 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm, Password
 from django.contrib.auth.models import User
 from django import forms
 
-
 class SignUpFrm(UserCreationForm):
-    email = forms.EmailField(required=False, widget = forms.EmailInput(attrs = {'class':'signfield en'}))
+    email = forms.EmailField(required=False, widget = forms.EmailInput(attrs = {'class':'signfield'}))
     first_name = forms.CharField(required=False, max_length = 100, widget = forms.TextInput(attrs = {'class':'signfield'}))
     last_name = forms.CharField(required=False, max_length = 100, widget = forms.TextInput(attrs = {'class':'signfield'}))
 
@@ -27,7 +26,7 @@ class SignUpFrm(UserCreationForm):
 
 
 class UsrUpdateFrm(UserChangeForm):
-    email = forms.EmailField(required=False, widget = forms.EmailInput(attrs = {'class':'signfield en'}))
+    email = forms.EmailField(required=False, widget = forms.EmailInput(attrs = {'class':'signfield'}))
     first_name = forms.CharField(required=False, max_length = 100, widget = forms.TextInput(attrs = {'class':'signfield'}))
     last_name = forms.CharField(required=False, max_length = 100, widget = forms.TextInput(attrs = {'class':'signfield'}))
 
@@ -51,8 +50,8 @@ class UsrUpdateFrm(UserChangeForm):
 
 class UpdatePasswordFrm(PasswordChangeForm):
     old_password = forms.CharField(required=False, widget = forms.PasswordInput(attrs = {'class':'signfield en', 'type' : 'password'}))
-    new_password1 = forms.CharField(required=False, max_length = 100, widget = forms.PasswordInput(attrs = {'class':'signfield en', 'type' : 'password'}))
-    new_password2 = forms.CharField(required=False, max_length = 100, widget = forms.PasswordInput(attrs = {'class':'signfield en', 'type' : 'password'}))
+    new_password1 = forms.CharField(required=False, max_length = 100, widget = forms.PasswordInput(attrs = {'class':'signfield', 'type' : 'password'}))
+    new_password2 = forms.CharField(required=False, max_length = 100, widget = forms.PasswordInput(attrs = {'class':'signfield', 'type' : 'password'}))
     class Meta:
         model = User
         fields = ['old_password', 'new_password1', 'new_password2']

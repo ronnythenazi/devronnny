@@ -7,6 +7,7 @@ if(event.target.files.length > 0){
   var preview = $(this).parents('.thumbnail').first().next('.thumb-holder').find('.preview').first();
   $(preview).attr('src', src);
   $(this).parents('.thumbnail').first().next('.thumb-holder').show();
+
   //$('#preview').attr('src', src);
   //$('.thumb-holder').show();
 

@@ -9,7 +9,7 @@ from datetime import datetime, date
 
 class BlogPost(models.Model):
 
-    title = models.CharField(blank = False, max_length = 100, null = False, default = '')
+    title = models.CharField(blank = False, max_length = 60, null = False, default = '')
     subtitle = models.CharField(blank = False, max_length = 200, null = False , default ='')
     thumb = models.ImageField(blank = False, null = False, upload_to = 'posts/images/%Y/%m/%d/')
     #author_name =  models.TextField(max_length = 50, null = false, default = "רוני הנאצי")
@@ -37,6 +37,14 @@ class BlogPost(models.Model):
 
     def get_absolute_url(self):
         return reverse('magazineNews')
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, null = True,  on_delete = models.CASCADE)
+    bio = models.TextField(max_length = 1000, null = True, blank = True)
+    profile_img =  models.ImageField(blank = True, null = True, upload_to = 'members/profile/avatar')
+
+    def __str__(self):
+        return str(self.user)
 
 
 class regUser(models.Model):

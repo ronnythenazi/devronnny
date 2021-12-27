@@ -17,28 +17,17 @@
 <div class="writepost" style="width:80%;font-size:1rem !important;">
 
 {% if user.is_authenticated %}
+   {% if user.profile.id %}
+      {% if user.profile.id == obj.id %}
 <h1><u>עדכון פרופיל</u></h1>
 
-<div class="center" style="width:100%;">
-
-<div class="signfieldrow"><span class="label">שם משתמש</span>{{form.username}}</div>
-
-</div>
 
 
+{% include 'members/default_profile_img_btn.html' %}
 
 <div class="center" style="width:100%;">
-<div class="signfieldrow"><span class="label">דואר אלקטרוני</span>{{form.email}}</div>
+<div class="signfieldrow"><span class="label">על עצמי</span>{{form.bio}}</div>
 </div>
-
-<div class="center" style="width:100%;">
-<div class="signfieldrow"><span class="label">כינוי</span>{{form.last_name}}</div>
-</div>
-
-<div class="center" style="width:100%;">
-<div class="signfieldrow"><span class="label">שם</span>{{form.first_name}}</div>
-</div>
-
 
 
 
@@ -49,7 +38,12 @@
 
 </div>
 
-
+      {% else %}
+       <h1>גישתך נדחתה</h1>
+      {% endif %}
+   {% else %}
+  <h1>טרם יצרת פרופיל</h1>
+   {% endif %}
 {% else %}
 <h1> אינך מחובר </h1>
 {% endif %}

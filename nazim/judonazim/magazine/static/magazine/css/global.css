@@ -161,24 +161,24 @@
 
 }
 
-::-webkit-scrollbar {
+::-webkit-scrollbar, ::-moz-scrollbar {
   width: 5px;
 }
 
 
-::-webkit-scrollbar-track {
+::-webkit-scrollbar-track , ::-moz-scrollbar-track{
   box-shadow: inset 0 0 5px #0a0909;
   border-radius: 10px;
 }
 
 
-::-webkit-scrollbar-thumb {
+::-webkit-scrollbar-thumb , ::-moz-scrollbar-thumb{
   background: #444444;
   border-radius: 30px;
 }
 
 
-::-webkit-scrollbar-thumb:hover {
+::-webkit-scrollbar-thumb:hover, ::-moz-scrollbar-thumb:hover {
   background:#000000;
   cursor: pointer;
 }
@@ -209,4 +209,43 @@
     flex-direction: column;
     align-items: center;
     justify-content:space-evenly;
+}
+
+.tiny-row-end-align
+{
+  display: flex;
+  justify-content: flex-start;
+  direction: rtl;
+  align-items:flex-end;
+  gap:10px;
+}
+
+.tiny-row-center-align
+{
+  display: flex;
+  justify-content: flex-start;
+  direction: rtl;
+  align-items:center;
+  gap:10px;
+}
+
+.tiny-row-start-align
+{
+  display: flex;
+  justify-content: flex-start;
+  direction: rtl;
+  align-items:flex-start;
+}
+
+.tiny-avatar
+{
+  width:50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.very-tiny-avatar
+{
+  width:30px;
+  height: 30px;
+  border-radius: 50%;
 }
