@@ -1,5 +1,5 @@
 {%load static%}
-<div class="center">
+<div class="center pointer">
   <div style="display:none;" id="image-input-holder">{{form.profile_img}}</div>
   {% if not obj.profile_img.url %}
  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-fill def-avatar" viewBox="0 0 16 16">
@@ -9,7 +9,7 @@
 </div>
 {% if not obj.profile_img.url %}
 
-<img src="" class="thumb big preview round-img img-btn" alt=""/>
+<img src="" style="display:none;" class="thumb big preview round-img img-btn" alt=""/>
 
 {% else %}
 
@@ -19,7 +19,7 @@
 {% endif %}
 
 <style>
-  .img-btn
+  .img-btn, .svg, .pointer
   {
     cursor:pointer;
   }
@@ -46,6 +46,7 @@
   .bi-person-fill:hover
   {
     color:white;
+    background-color:#09b4f2;
   }
 </style>
 <script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>
@@ -63,6 +64,7 @@
   if(event.target.files.length > 0){
     var src = URL.createObjectURL(event.target.files[0]);
     $('.img-btn').first().attr('src', src);
+    $('.img-btn').show();
     $('svg.def-avatar').hide();
 
     //$('#preview').attr('src', src);
