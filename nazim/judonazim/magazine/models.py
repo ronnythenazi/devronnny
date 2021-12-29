@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from datetime import datetime, date
 
-
 class BlogPost(models.Model):
 
     title = models.CharField(blank = False, max_length = 60, null = False, default = '')
@@ -37,6 +36,21 @@ class BlogPost(models.Model):
 
     def get_absolute_url(self):
         return reverse('magazineNews')
+
+    def __str__(self):
+        return '%s - %s' % (self.title, self.author.username)
+
+class Comment(models.Model):
+    post = models.ForeignKey(BlogPost, related_name = "comments" , on_delete = models.CASCADE)
+    name = models.CharField(blank = False, max_length = 60, null = False)
+    body = models.TextField(blank = False, null = False, max_length = 10000)
+    date_added = models.DateTimeField(auto_now_add = True, blank = True)
+
+    class Meta:
+        ordering = ['-date_added']
+
+    def __str__(self):
+        return '%s - %s' % (self.post.title, self.name)
 
 class Profile(models.Model):
     user = models.OneToOneField(User, null = True,  on_delete = models.CASCADE)

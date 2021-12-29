@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, Http404
-from django.views.generic import ListView, DetailView #, CreateView
+from django.views.generic import ListView, DetailView , CreateView
 from .models import BlogPost
 from django.urls import reverse
 from django.shortcuts import render, redirect
@@ -19,11 +19,10 @@ class MagazineHome(ListView):
         context = super(MagazineHome, self).get_context_data(**kwargs)
         context['object_list'] = BlogPost.objects.all().filter(publishstatus = 'public').order_by('-datepublished')
         return context
-
+"""
 class Article(DetailView):
     model = BlogPost
     template_name = 'magazine/article.html'
-
     def get_queryset(self):
         qs = super(Article, self).get_queryset()
         return qs.filter(publishstatus = 'public')
@@ -37,6 +36,17 @@ class Article(DetailView):
         context = self.get_context_data(object=self.object)
         return self.render_to_response(context)
 
+"""
+def Article(request, pk):
+    comment_frm = CommentFrm(request.POST or None)
+    post = BlogPost.objects.get(pk = pk)
+    if request.method == 'POST':
+        if 'btn-send-comment' in request.POST:
+            if comment_frm.is_valid():
+                comment_frm.instance.post = post#request.post
+                comment_frm.save()
+                return render(request, 'magazine/article.html', {'object':post, 'comment_frm':comment_frm, 'status':'posted'})
+    return render(request, 'magazine/article.html', {'object':post, 'comment_frm':comment_frm, 'status':'not-posted'})
 
 def fUpdateRecord(request, id):
     obj = get_object_or_404(BlogPost, id = id)

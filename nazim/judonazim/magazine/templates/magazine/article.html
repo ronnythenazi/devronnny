@@ -40,5 +40,65 @@
            {% endif %}
        {% endif %}
      </div>
+
+  <form method="POST">
+  {%csrf_token%}
+   <div class="center" style="margin-top:50px;">
+      <div class="comment comment-frm">
+         <span class="leave-comment-label">כתיבת תגובה</span>
+         <div style="width:100%;">
+           <span class="comment-label">התגובה שלך</span>
+           {{comment_frm.body}}
+        </div>
+        <div style="width:100%;">
+          <span class="comment-label">שם</span>
+          {{comment_frm.name}}
+      </div>
+     <button type="submit" class="btn-post-comment" name="btn-send-comment">שלח</button>
+   <div class="tiny-row-center-align comment-reply-title" style="justify-content:center;width:100%;margin-top:20px;"><span> {{object.comments.all | length}}</span> <span>תגובות למאמר</span></div>
    </div>
+ </div>
+ </from>
+
+
+ <div class="center"  style="margin-bottom:50px;">
+   {% if object.comments.all %}
+      {% for comment in object.comments.all %}
+
+        <div class="comment" style="gap:5px;margin-bottom:50px;width:500px;"  id="comment{{comment.date_added}}">
+          <span class="comment" style="gap:5px;">
+            <div class="super-tiny-row-center-align" style="gap:5px;">
+              <strong class="order-num" style="left:10px;position:relative;color:#E00041">
+              {{forloop.counter}}
+            </strong>
+              <span class="order-num" style="left:10px;position:relative;">
+                {% if user.is_authenticated and user.profile.profile_img.url %}
+               <img class="very-tiny-avatar" src="{{user.profile.profile_img.url}}"/>
+               {% else %}
+               {% include 'members/default_profile_img.html' %}
+              {%endif%}
+            </span>
+              <b style="margin-right:-10px;" class="author author-comment">{{comment.name}} הגיב:</b>
+            </div>
+            <a href ="#comment{{comment.date_added}}" class="tiny-row-center-align"><span style="color:#2F9BDD;">{{comment.date_added | date:'d/m/Y' | safe}} בשעה: {{comment.date_added | date:'h:m' | safe}}</span></a>
+          </span>
+          {{comment.body}}
+
+        </div>
+
+      {% endfor %}
+   {% endif %}
+     </div>
+   </div>
+  <script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>
+   <script>
+    $(document).ready(function(){
+      if("{{status}}" == "posted")
+      {
+         $('.comment-field').val('');
+      }
+    });
+   </script>
+
+
   {%endblock body%}

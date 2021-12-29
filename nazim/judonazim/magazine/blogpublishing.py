@@ -1,5 +1,5 @@
 from django import forms
-from .models import BlogPost, Profile
+from .models import BlogPost, Profile, Comment
 
 class BlogPostForm(forms.ModelForm):
     class Meta:
@@ -20,6 +20,17 @@ class BlogPostForm(forms.ModelForm):
         'content' : forms.Textarea(attrs = { 'class' : 'nicetxtbox', 'id':'richtext'}),
         'thumb'   : forms.ClearableFileInput(attrs = {'class': 'upload-img'}),
         'publishstatus': forms.Select(attrs = {'class' :  'choices'})
+        }
+class CommentFrm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields =  ['name', 'body']
+
+
+        widgets ={
+        #'post': forms.TextInput(attrs = {'value':'', 'type':'hidden'}),
+        'body' : forms.Textarea(attrs = { 'class' : 'comment-text-field comment-field'}),
+        'name' : forms.TextInput(attrs = {'class' : 'comment-char-field comment-field'}),
         }
 
 

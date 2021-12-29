@@ -7,7 +7,7 @@ from .views import MagazineHome, Article #, AddPost
 app_name = 'magazine'
 urlpatterns = [
  path('', views.MagazineHome.as_view(), name = 'magazineNews' ),
- path('article/<int:pk>/', views.Article.as_view(), name = 'anArticle'),
+ path('article/<int:pk>/', views.Article, name = 'anArticle'),
  path('base/', views.fskeleton, name = 'MagazineCtlSkeleton'),
  #path('ShareYouThoughs/', views.AddPost.as_view(), name = 'enlightThePublic'),
  path('ShareYouThoughs/', views.fwriteblog, name = 'enlightThePublic'),
