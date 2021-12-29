@@ -55,7 +55,9 @@
           {{comment_frm.name}}
       </div>
      <button type="submit" class="btn-post-comment" name="btn-send-comment">שלח</button>
+     {% if object.comments.all|length > 0 %}
    <div class="tiny-row-center-align comment-reply-title" style="justify-content:center;width:100%;margin-top:20px;"><span> {{object.comments.all | length}}</span> <span>תגובות למאמר</span></div>
+     {% endif %}
    </div>
  </div>
  </from>
