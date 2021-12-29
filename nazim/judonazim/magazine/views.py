@@ -44,8 +44,10 @@ def Article(request, pk):
         if 'btn-send-comment' in request.POST:
             if comment_frm.is_valid():
                 comment_frm.instance.post = post#request.post
-                comment_frm.save()
-                return render(request, 'magazine/article.html', {'object':post, 'comment_frm':comment_frm, 'status':'posted'})
+                if(request.user.id):
+                    comment_frm.instance.comment_usr = request.user
+                com_obj = comment_frm.save()
+                return render(request, 'magazine/article.html', {'object':post, 'comment_frm':comment_frm, 'status':'posted', 'com_obj':com_obj})
     return render(request, 'magazine/article.html', {'object':post, 'comment_frm':comment_frm, 'status':'not-posted'})
 
 def fUpdateRecord(request, id):

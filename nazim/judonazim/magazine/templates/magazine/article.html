@@ -65,22 +65,22 @@
    {% if object.comments.all %}
       {% for comment in object.comments.all %}
 
-        <div class="comment" style="gap:5px;margin-bottom:50px;width:500px;"  id="comment{{comment.date_added}}">
+        <div class="comment" style="gap:5px;margin-bottom:50px;width:500px;"  id="comment{{comment.pk}}">
           <span class="comment" style="gap:5px;">
             <div class="super-tiny-row-center-align" style="gap:5px;">
               <strong class="order-num" style="left:10px;position:relative;color:#E00041">
               {{forloop.counter}}
             </strong>
               <span class="order-num" style="left:10px;position:relative;">
-                {% if user.is_authenticated and user.profile.profile_img.url %}
-               <img class="very-tiny-avatar" src="{{user.profile.profile_img.url}}"/>
+                {% if comment.comment_usr.profile.profile_img.url %}
+               <img class="very-tiny-avatar" src="{{comment.comment_usr.profile.profile_img.url}}"/>
                {% else %}
                {% include 'members/default_profile_img.html' %}
               {%endif%}
             </span>
               <b style="margin-right:-10px;" class="author author-comment">{{comment.name}} הגיב:</b>
             </div>
-            <a href ="#comment{{comment.date_added}}" class="tiny-row-center-align"><span style="color:#2F9BDD;">{{comment.date_added | date:'d/m/Y' | safe}} בשעה: {{comment.date_added | date:'h:m' | safe}}</span></a>
+            <a id="{{comment.pk}}" href ="#comment{{comment.pk}}" class="tiny-row-center-align"><span style="color:#2F9BDD;">{{comment.date_added | date:'d/m/Y' | safe}} בשעה: {{comment.date_added | date:'h:m' | safe}}</span></a>
           </span>
           {{comment.body}}
 
@@ -95,7 +95,11 @@
     $(document).ready(function(){
       if("{{status}}" == "posted")
       {
+
          $('.comment-field').val('');
+         var a_id =  "{{com_obj.pk}}";
+         var href = $("#" + String(a_id)).attr("href");
+         window.location.href = href
       }
     });
    </script>
