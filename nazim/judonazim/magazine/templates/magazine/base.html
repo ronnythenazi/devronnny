@@ -30,7 +30,8 @@
        <a class="menuItem" href="{% url 'logout' %}">
         צא
        </a>
-       <div class="menuItem">
+         {% if request.user.groups.all.0.name == 'owner' or request.user.groups.all.0.name == 'admin' %}
+         <div class="menuItem">
            ניהול אתר
           <div>
           <a class="subMenuItem" href = "{% url 'magazine:myposts' %}">
@@ -39,12 +40,15 @@
           <a class="subMenuItem" href="{% url 'magazine:enlightThePublic' %}">
             פרסם מאמר
           </a>
-          <a class="subMenuItem">
+
+          {% if request.user.groups.all.0.name == 'owner'%}
+          <a class="subMenuItem" href = "{% url 'magazine:userRoles' %}">
            ניהול מודרטורים והרשאות
           </a>
+          {% endif %}
         </div>
        </div>
-
+      {% endif %}
         <div class="menuItem">
           חשבון
          <div>

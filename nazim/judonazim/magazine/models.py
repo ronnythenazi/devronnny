@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 from ckeditor.fields import RichTextField
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group, Permission
 from django.urls import reverse
 from datetime import datetime, date
 

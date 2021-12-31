@@ -70,7 +70,8 @@ html,body
   background-image: var(--dark1, var(--dark2, var(--dark3, --dark4)));
   font-size: 1.5rem;
   gap:0.5rem;
-  position: relative;
+  position: sticky;
+  top:0;
   height: 70px;
   z-index:1;
 }
@@ -89,7 +90,7 @@ html,body
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content:center;
 
 }
 .menuItem:hover
@@ -111,13 +112,13 @@ html,body
   display: flex;
   visibility:hidden;
   position: absolute;
-  bottom: calc(-70px - 2em);
+  top: calc(70px);
   font-size: 0.7em;
   font-family:sans-serif;
   line-height: 2em;
   flex-direction: column;
   align-items: stretch;
-  justify-content:stretch;
+  justify-content:flex-end;
   background-color: white;
   color: black;
   box-shadow: -2px -2px 15px #050404, 2px 2px 15px #050404;

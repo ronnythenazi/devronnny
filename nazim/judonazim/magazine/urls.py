@@ -13,4 +13,5 @@ urlpatterns = [
  path('ShareYouThoughs/', views.fwriteblog, name = 'enlightThePublic'),
  path('myposts/', views.fgetpostsbyauthor, name = 'myposts'),
  path('update/<int:id>', views.fUpdateRecord, name = 'updateRecord'),
+ path('manageUserAndGroups/', views.manageUsersPermission, name = 'userRoles'),
 ]

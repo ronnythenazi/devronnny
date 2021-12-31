@@ -32,7 +32,7 @@
         {{object.content | safe}}
        </div>
        {% if user.is_authenticated %}
-           {% if object.author_id == request.user.id %}
+           {% if object.author_id == request.user.id and request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'owner'  %}
        <div class = "submit-row submit-row-edit">
          <a style="text-decoration:none;" href="{% url 'magazine:updateRecord'  object.id %}">{%include 'magazine/components/btns/btnedit.html'%}</a>
 

@@ -6,6 +6,10 @@ from django.urls import reverse_lazy
 from .forms import SignUpFrm, UsrUpdateFrm, UpdatePasswordFrm
 from magazine.models import Profile
 from magazine.blogpublishing import frmProfile
+from magazine.decorations import add_def_group_if_not_exist
+from django.contrib.auth.models import Group
+from django.contrib import messages
+
 
 class CreateProfile(generic.CreateView):
     model = Profile
@@ -34,11 +38,31 @@ def updateProfileV(request, id):
             return redirect('magazine:magazineNews')
     return render(request, 'registration/update_profile.html', {'form':frm , 'obj':obj})
 
+@add_def_group_if_not_exist(def_group = 'members')
+def SignUp(request):
 
+    form = SignUpFrm(request.POST or None)
+
+    template_name = 'registration/signup.html'
+    if request.method == 'POST':
+        print('everything ok so far2')
+        if form.is_valid():
+            usr = form.save()
+            username = form.cleaned_data.get('username')
+            group = Group.objects.get(name = 'members')
+            usr.groups.add(group)
+            messages.success(request, ' חשבון נוצר עבור' + username)
+            return redirect('login')
+    return render(request, template_name, {'form' :form})
+"""
 class SignUp(generic.CreateView):
     form_class = SignUpFrm
     template_name = 'registration/signup.html'
     success_url = reverse_lazy('login')
+
+    def form_valid(self):
+        group = Group.objects.get(name = 'member')
+"""
 
 class accountUpdateView(generic.UpdateView):
     form_class = UsrUpdateFrm

@@ -1,14 +1,42 @@
-from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, Http404
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, Http404, redirect
 from django.views.generic import ListView, DetailView , CreateView
-from .models import BlogPost
+from .models import BlogPost, Profile
 from django.urls import reverse
-from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .blogpublishing import *
 from django.forms import modelformset_factory
+from .decorations import unauthenticated_user, allowed_users
 
 
 #post = get_object_or_404(BlogPost)
+@unauthenticated_user
+@allowed_users(allowed_roles = ['owner'])
+def manageUsersPermission(request):
+    template = "magazine/permissions.html"
+
+    if request.method == 'POST':
+        frm = UsrToGroupForm(request.POST)
+        if frm.is_valid():
+            selected_group = frm.cleaned_data['group']
+            groups = Group.objects.all()
+            profiles = [Profile.objects.get(pk=pk) for pk in request.POST.getlist("members", "")]
+            for prof in profiles:
+                user = prof.user
+                for group in groups:
+                    if not (selected_group == group):
+                        user.groups.remove(group)
+                    elif not user.groups.filter(id = selected_group.id).count():
+                        user.groups.add(selected_group)
+                """
+                if user.groups.filter(id = selected_group.id).count():
+                    user.groups.remove(selected_group)
+                else:
+                    user.groups.add(selected_group)
+                """
+            return redirect('magazine:magazineNews')
+    frm = UsrToGroupForm()
+    return render(request, template, {'form':frm})
+
 
 class MagazineHome(ListView):
     model = BlogPost
@@ -50,6 +78,8 @@ def Article(request, pk):
                 return render(request, 'magazine/article.html', {'object':post, 'comment_frm':comment_frm, 'status':'posted', 'com_obj':com_obj})
     return render(request, 'magazine/article.html', {'object':post, 'comment_frm':comment_frm, 'status':'not-posted'})
 
+@unauthenticated_user
+@allowed_users(allowed_roles = ['owner', 'admin'])
 def fUpdateRecord(request, id):
     obj = get_object_or_404(BlogPost, id = id)
     frm = BlogPostForm(request.POST or None, request.FILES or None, instance = obj)
@@ -86,6 +116,8 @@ def fgetpostsbyauthor(request):
 def fskeleton(request):
     return render(request, 'magazine/base.html', {})
 
+@unauthenticated_user
+@allowed_users(allowed_roles = ['owner', 'admin'])
 def fwriteblog(request):
     if request.method == 'POST':
         frm = BlogPostForm(request.POST, request.FILES)

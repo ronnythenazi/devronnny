@@ -1,5 +1,15 @@
 from django import forms
 from .models import BlogPost, Profile, Comment
+from django.contrib.auth.models import User, Group
+
+
+
+class UsrToGroupForm(forms.Form):
+    users = Profile.objects.all() #User.objects.values_list('username', flat = True)
+    members = forms.ModelMultipleChoiceField(queryset = users, widget=forms.SelectMultiple(attrs={'class':'signfield'}))
+    groups = Group.objects.all() #Group.objects.all('name', flat = True)
+    group = forms.ModelChoiceField(queryset=groups, widget=forms.Select(attrs={'class':'signfield'}))
+
 
 class BlogPostForm(forms.ModelForm):
     class Meta:
@@ -21,6 +31,7 @@ class BlogPostForm(forms.ModelForm):
         'thumb'   : forms.ClearableFileInput(attrs = {'class': 'upload-img'}),
         'publishstatus': forms.Select(attrs = {'class' :  'choices'})
         }
+
 class CommentFrm(forms.ModelForm):
     class Meta:
         model = Comment
