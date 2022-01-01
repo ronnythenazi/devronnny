@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.http import HttpResponse
 from .blogpublishing import *
 from django.forms import modelformset_factory
-from .decorations import unauthenticated_user, allowed_users
+from .decorations import unauthenticated_user, allowed_users, check_if_post_accessible
 
 
 #post = get_object_or_404(BlogPost)
@@ -65,6 +65,7 @@ class Article(DetailView):
         return self.render_to_response(context)
 
 """
+@check_if_post_accessible
 def Article(request, pk):
     comment_frm = CommentFrm(request.POST or None)
     post = BlogPost.objects.get(pk = pk)

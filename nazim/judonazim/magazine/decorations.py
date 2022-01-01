@@ -1,8 +1,9 @@
 from django.http import HttpResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
-from .models import Comment, Profile
+from .models import Comment, Profile, BlogPost
+from django.utils.functional import wraps
 
 
 def unauthenticated_user(view_func):
@@ -13,8 +14,15 @@ def unauthenticated_user(view_func):
             return view_func(request, *args, **kwargs)
     return wrapper_func
 
-
-
+def check_if_post_accessible(view_func):
+        @wraps(view_func)
+        def inner(request, pk, *args, **kwargs):
+            post = get_object_or_404(BlogPost, pk = pk)
+            if(post is None or post.publishstatus == 'private'):
+                return HttpResponse('הדף שאתה מבקש אינו זמין')
+            else:
+                return view_func(request, pk, *args, **kwargs)
+        return inner
 
 def allowed_users(allowed_roles = []):
     def deocrator(view_func):
