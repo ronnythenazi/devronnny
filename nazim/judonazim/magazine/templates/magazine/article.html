@@ -41,7 +41,7 @@
        {% endif %}
      </div>
 
-  <form method="POST">
+<form method="POST">
   {%csrf_token%}
    <div class="center" style="margin-top:50px;">
       <div class="comment comment-frm">
@@ -56,18 +56,22 @@
       </div>
      <button type="submit" class="btn-post-comment" name="btn-send-comment">שלח</button>
      {% if object.comments.all|length > 0 %}
-   <div class="tiny-row-center-align comment-reply-title" style="justify-content:center;width:100%;margin-top:20px;"><span> {{object.comments.all | length}}</span> <span>תגובות למאמר</span></div>
+   <div class="tiny-row-center-align comment-reply-title" style="justify-content:center;width:100%;margin-top:20px;"><span id="lbl-count-comments"> {{object.comments.all | length}}</span> <span>תגובות למאמר</span></div>
      {% endif %}
    </div>
  </div>
- </from>
+</form>
 
 
  <div class="center"  style="margin-bottom:50px;">
+   <form method="POST">
+    {%csrf_token%}
    {% if object.comments.all %}
+
+
       {% for comment in object.comments.all %}
 
-        <div class="comment" style="gap:5px;margin-bottom:50px;width:500px;"  id="comment{{comment.pk}}">
+        <div class="comment item" style="gap:10px;margin-bottom:50px;width:500px;"  id="comment{{comment.pk}}">
           <span class="comment" style="gap:5px;">
             <div class="super-tiny-row-center-align" style="gap:5px;">
               <strong class="order-num" style="left:10px;position:relative;color:#E00041">
@@ -86,23 +90,106 @@
           </span>
           {{comment.body}}
 
+          <div class="reply-parent"><span class="reply-label" comment-id="{{comment.pk}}">הגב</span></div>
+
+
+
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill expand" viewBox="0 0 16 16" style="margin-top:5px;">
+          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
+          </svg>
+
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle-fill collpase" viewBox="0 0 16 16" style="display:none;margin-top:5px;">
+         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/>
+         </svg>
+          <div class="comment-of-comment" id="sub-comment{{comment.pk}}" style="display:none;">
+          {% for comment_of_comment in comment.comments_of_comment.all %}
+          <div class="item subitem" style="margin-top:10px;">
+          <span style="gap:5px;">
+            <div class="super-tiny-row-center-align" style="gap:5px;">
+
+              <span class="order-num" style="left:10px;position:relative;">
+                {% if comment_of_comment.comment_of_comment_usr.profile.profile_img.url %}
+               <img class="super-tiny-avatar" src="{{comment.comment_usr.profile.profile_img.url}}"/>
+               {% else %}
+               {% include 'members/default_profile_img.html' %}
+              {%endif%}
+            </span>
+              <b style="margin-right:-10px;" class="author author-sub-comment">{{comment_of_comment.name}} הגיב:</b>
+            </div>
+            <a id="a-sub-comment{{comment.pk}}" href ="#sub-comment{{comment.pk}}" class="tiny-row-center-align"><span class="tiny-font" style="color:#2F9BDD;">{{comment_of_comment.date_added | date:'d/m/Y' | safe}} בשעה: {{comment_of_comment.date_added | date:'h:m' | safe}}</span></a>
+          </span>
+          <span class="sub-comment">{{comment_of_comment.body}}</span>
+        </div>
+        {% endfor %}
+      </div>
         </div>
 
       {% endfor %}
+
+
+
+      <div class="center" id="reply-frm" style="margin-top:50px;display:none;">
+        <input type="hidden" name="comment_id" id="comment_id">
+         <div class="comment comment-frm">
+            <div style="width:100%;">
+              <span class="comment-label">התגובה שלך</span>
+              {{com_of_com_frm.body}}
+           </div>
+           <div style="width:100%;">
+             <span class="comment-label">שם</span>
+             {{com_of_com_frm.name}}
+         </div>
+        <button type="submit" class="btn-post-comment" name="btn-reply-comment-of-comment">הגב</button>
+
+      </div>
+    </div>
+
    {% endif %}
+    </form>
      </div>
    </div>
+
+
   <script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>
    <script>
     $(document).ready(function(){
+
+
+       $('.comment.item').each(function(){
+         var sub_comments_count = $(this).find('.subitem').length;
+         if(sub_comments_count == 0)
+         {
+           $(this).find('.expand').first().hide();
+
+           $(this).find('.collpase').first().hide();
+         }
+       });
+      var total_comments = $('.item').length;
+       $('#lbl-count-comments').text(total_comments);
       if("{{status}}" == "posted")
       {
-
          $('.comment-field').val('');
          var a_id =  "{{com_obj.pk}}";
          var href = $("#" + String(a_id)).attr("href");
          window.location.href = href
       }
+    });
+    $('.reply-label').click(function(){
+      $(this).after($('#reply-frm'));
+      $('#comment_id').val($(this).attr('comment-id'));
+      $('#reply-frm').show();
+    });
+
+    $('.expand').click(function(){
+      $(this).nextAll('.comment-of-comment').show();
+      $(this).hide();
+      $(this).siblings('.collpase').first().show();
+    });
+
+    $('.collpase').click(function(){
+      $(this).nextAll('.comment-of-comment').hide();
+      $(this).hide();
+      $(this).siblings('.expand').first().show();
     });
    </script>
 

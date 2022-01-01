@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, Http404, redirect
 from django.views.generic import ListView, DetailView , CreateView
-from .models import BlogPost, Profile
+from .models import BlogPost, Profile, Comment
 from django.urls import reverse
 from django.http import HttpResponse
 from .blogpublishing import *
 from django.forms import modelformset_factory
-from .decorations import unauthenticated_user, allowed_users, check_if_post_accessible
+from .decorations import unauthenticated_user, allowed_users, check_if_post_accessible, check_if_post_and_comment_accessible
 
 
 #post = get_object_or_404(BlogPost)
@@ -47,37 +47,42 @@ class MagazineHome(ListView):
         context = super(MagazineHome, self).get_context_data(**kwargs)
         context['object_list'] = BlogPost.objects.all().filter(publishstatus = 'public').order_by('-datepublished')
         return context
-"""
-class Article(DetailView):
-    model = BlogPost
-    template_name = 'magazine/article.html'
-    def get_queryset(self):
-        qs = super(Article, self).get_queryset()
-        return qs.filter(publishstatus = 'public')
 
-    def get(self, request, *args, **kwargs):
-        try:
-            self.object = self.get_object()
-        except Http404:
-            # redirect here
-            return redirect('magazine:magazineNews')
-        context = self.get_context_data(object=self.object)
-        return self.render_to_response(context)
 
-"""
 @check_if_post_accessible
 def Article(request, pk):
+
     comment_frm = CommentFrm(request.POST or None)
+    com_of_com_frm = comment_of_comment_frm(request.POST or None)
+
     post = BlogPost.objects.get(pk = pk)
+
     if request.method == 'POST':
+
         if 'btn-send-comment' in request.POST:
+
             if comment_frm.is_valid():
-                comment_frm.instance.post = post#request.post
+
+                comment_frm.instance.post = post #request.post
                 if(request.user.id):
                     comment_frm.instance.comment_usr = request.user
                 com_obj = comment_frm.save()
-                return render(request, 'magazine/article.html', {'object':post, 'comment_frm':comment_frm, 'status':'posted', 'com_obj':com_obj})
-    return render(request, 'magazine/article.html', {'object':post, 'comment_frm':comment_frm, 'status':'not-posted'})
+                return render(request, 'magazine/article.html', {'object':post, 'comment_frm':comment_frm, 'com_of_com_frm':com_of_com_frm , 'status':'posted', 'com_obj':com_obj})
+        if 'btn-reply-comment-of-comment' in request.POST:
+            if com_of_com_frm.is_valid():
+                comment_id = request.POST.get('comment_id')
+                comment = Comment.objects.get(pk = comment_id)
+                com_of_com_frm.instance.comment = comment
+                if(request.user.id):
+                    com_of_com_frm.instance.comment_of_comment_usr = request.user
+                com_of_com_frm.save()
+                return render(request, 'magazine/article.html', {'object':post, 'comment_frm':comment_frm, 'com_of_com_frm':com_of_com_frm , 'status':'posted', 'com_obj':comment})
+
+
+
+    return render(request, 'magazine/article.html', {'object':post,  'comment_frm':comment_frm, 'com_of_com_frm':com_of_com_frm , 'status':'not-posted'})
+
+
 
 @unauthenticated_user
 @allowed_users(allowed_roles = ['owner', 'admin'])

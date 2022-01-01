@@ -2,7 +2,7 @@ from django.urls import path, include
 #from magazine import urls
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from . import views
-from .views import MagazineHome, Article #, AddPost
+from .views import MagazineHome, Article, Comment #, AddPost
 #from django.contrib import admin
 app_name = 'magazine'
 urlpatterns = [

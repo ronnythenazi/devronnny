@@ -258,6 +258,12 @@
   height: 30px;
   border-radius: 50%;
 }
+.super-tiny-avatar
+{
+  width:25px;
+  height: 25px;
+  border-radius: 50%;
+}
 .comment a
 {
   text-decoration: none;
@@ -272,6 +278,18 @@
   align-items: flex-start;
   font-family: david;
   max-width: 500px;
+}
+.comment-of-comment
+{
+  font-size: 1em;
+  color:black;
+  display: flex;
+  direction: rtl;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: inherit;
+  max-width: 500px;
+  margin-right: 20px;
 }
 
 .comment-reply-title {
@@ -291,7 +309,22 @@
 {
   font-size: 1.2rem;
 }
+.author.author-sub-comment
+{
+  font-size: 0.8rem;
+  font-family: fantasy;
 
+}
+.tiny-font
+{
+  font-size: 0.7rem;
+  font-family: inherit;
+  font-weight: bolder;
+}
+.sub-comment
+{
+  font-size: 0.9em;
+}
 .comment-reply-title
 {
   font-size: 2.5rem;
@@ -365,4 +398,14 @@
 .comment-frm
 {
   gap:20px;
+}
+.expand:hover, .collpase:hover
+{
+  color:blue;
+}
+.expand, .collpase
+{
+  cursor: pointer;
+  transition: 0.2s all;
+  color:#0060dd;
 }
