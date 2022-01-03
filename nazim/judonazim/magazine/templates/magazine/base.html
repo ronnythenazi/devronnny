@@ -76,9 +76,12 @@
        </div>
 
       <div class="menu-insights">
-
-         <span class="author" style="font-size:1rem;margin-left:50px;">{{user.username| safe}}</span>
-
+         <div class="super-tiny-row-center-align" style="margin-left:50px;gap:5px !important;">
+         <span class="author" style="font-size:1rem;color:white;font-family:robot !important;">{{user.username | safe}}</span>
+         {% if user.profile.profile_img.url %}
+         <span class="author"><img src="{{user.profile.profile_img.url | safe}}" alt="" class="very-tiny-avatar"></span>
+         {% endif %}
+       </div>
       </div>
 
     {% endif %}

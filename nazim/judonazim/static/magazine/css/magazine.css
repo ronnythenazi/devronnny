@@ -88,7 +88,7 @@ html,body
   position: sticky;
   top:0;
   height: 70px;
-  z-index:1;
+  z-index:1000000000;
 }
 .menuItem>*
 {
@@ -108,10 +108,10 @@ html,body
   justify-content:center;
 
 }
+
 .menuItem:hover
 {
-  color:var(--success);
-  background: black;
+  background:var(--ice-cream1,--ice-cream2);
   outline: white 1px solid;
   outline-top: none;
   outline-bottom: none;
@@ -141,7 +141,8 @@ html,body
 .subMenuItem:hover
 {
   color:white;
-  background: var(--selected-silver1, --selected-silver2);
+  /*background: var(--selected-silver1, --selected-silver2);*/
+  background: var(--bluish1, --bluish2);
 }
 
 
@@ -167,7 +168,27 @@ html,body
   line-height: 2rem;
   opacity: 0.9;
   overflow-y: hidden;
-
+}
+.a-subtitle:visited
+{
+  color:unset;
+}
+.a-subtitle
+{
+  text-decoration: none;
+  font-size: 1.2rem;
+  display: flex;
+  direction: rtl;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  color:black;
+  font-family:formal3-bold;
+  box-sizing: border-box;
+  max-width:16.4rem;
+  line-height: 1rem;
+  opacity: 0.8;
+  overflow-y: hidden;
 }
 
 .a-title:hover
@@ -520,4 +541,21 @@ html,body
 a
 {
   cursor: pointer;
+}
+.more-posts-link
+{
+   color:orange;
+   font-family:sans-serif;
+   position: absolute;
+   left:0px;font-size:1rem;
+   cursor:pointer;
+   justify-content:
+   flex-end;
+   align-self:
+   flex-end;
+}
+.more-posts-link:hover
+{
+  color: yellow;
+  fill:yellow;
 }

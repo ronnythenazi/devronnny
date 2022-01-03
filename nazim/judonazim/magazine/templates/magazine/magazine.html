@@ -43,8 +43,14 @@
 
    <!-- most relevant  -->
    <div class="posts-category">
-     <div class="category-bar-line">
-     <div class="super-tiny-row-center-align" style="width:100%;justify-content:center;font-size:1.5rem;">כתבות חדשות</div>
+     <div class="category-bar-line section-sticky" style="justify-content:center;align-items:center;">
+     <div  class="super-tiny-row-center-align" style="font-size:1.5rem;cursor:pointer;justify-content:flex-end;">כתבות חדשות</div>
+     <a class="super-tiny-row-center-align more-posts-link">כל הכתבות
+       <svg style="align-self:flex-end;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="orange" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+      <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+     </svg>
+   </a>
     </div>
     <div class="ice-cream-seperator-thick" style="margin-bottom:10px;"></div>
      <div class="articles-parent">
@@ -61,8 +67,9 @@
       </div>
 
      <div class="a-title" style="justify-content:flex-start;">{{post.title | safe | slice:":100"}}</div>
+     <div class="a-subtitle" style="justify-content:flex-start;">{{post.subtitle | safe | slice:":100"}}</div>
      {% if post.author.profile.profile_img.url %}
-       <div class="author super-tiny-row-center-align">
+       <div class="author super-tiny-row-center-align" style="font-size:0.6rem;">
            <img class="very-tiny-avatar" src="{{post.author.profile.profile_img.url}}"/>
            <span>{{post.author | safe}}</span> &nbsp; | &nbsp;
            <span>{{post.datepublished | date:'d/m/Y' | safe}}</span>
@@ -85,15 +92,19 @@
        <div class="posts-category">
 
 
-           <div class="category-bar-line">
+           <div class="category-bar-line section-sticky">
            <div class="super-tiny-row-center-align" style="width:100%;justify-content:center;font-size:1.5rem;">כתבות נוספות</div>
           </div>
+
           <div class="ice-cream-seperator-thick" style="margin-bottom:10px;"></div>
+
           <div class="articles-parent">
            {% for post in object_list %}
            {% if forloop.counter0|divisibleby:4 and forloop.counter0 != 0 %}
         </div>
       </div>
+
+
 
       <div class="posts-category">
         <div class="articles-parent">
@@ -107,9 +118,9 @@
 
          <div class="a-title" style="justify-content:flex-start;">{{post.title | safe | slice:":100"}}</div>
          {% if post.author.profile.profile_img.url %}
-           <div class="author super-tiny-row-center-align">
+           <div class="author super-tiny-row-center-align" style="width:200px;font-size:0.6rem;">
                <img class="very-tiny-avatar" src="{{post.author.profile.profile_img.url}}"/>
-               <span>{{post.author | safe}}</span> &nbsp; | &nbsp;
+               <span>{{post.author | safe}}</span> &nbsp; <span> | </span> &nbsp;
                <span>{{post.datepublished | date:'d/m/Y' | safe}}</span>
            </div>
          {% else %}
@@ -124,13 +135,12 @@
       {% endfor %}
        </div>
      </div>
-
    <!-- posts by authors -->
- <div>{{authors_posts|length}}</div>
+
  {% for author_posts in authors_posts %}
 
     <div class="posts-category" style="margin-bottom:20px;">
-         <div class="category-bar-line">
+         <div class="category-bar-line section-sticky">
            {% if author_posts.0.author.profile.profile_img.url %}
              <div class="author super-tiny-row-center-align">
                   <img class="very-tiny-avatar" src="{{author_posts.0.author.profile.profile_img.url}}"/>
@@ -142,16 +152,28 @@
                 <span>{{author_posts.0.author | safe}}</span>
           </div>
          {% endif %}
-         <a class="super-tiny-row-center-align"> <span> עוד כתבות מ</span><span>{{author_posts.0.author.first_name | safe}}</span>{% include 'magazine/components/svg/left-arrow.html'%}</a>
+
+         <a class="super-tiny-row-center-align more-posts-link" style="position:relative;font-size:0.8rem;">
+           <span> עוד כתבות מ</span>
+           <span>{{author_posts.0.author.username | safe}}</span>
+           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="orange" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+       <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+       <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+     </svg>
+       </a>
+
+
+
       </div>
+
       <div class="ice-cream-seperator-thick"></div>
       <div class="articles-parent" style="margin-top:50px;">
 
-        <a class="category-main-post" href="{%url 'magazine:anArticle' author_posts.0.pk %}">
-            <div class="category-main-post-img">
+        <a class="category-main-post" href="{%url 'magazine:anArticle' author_posts.0.pk %}"  style="align-items:center;">
+            <div class="category-main-post-img" style="align-items:center;">
               <img src="{{author_posts.0.thumb.url}}" alt="">
               <div class="category-main-post-caption">
-                 <div class="a-title" style="justify-content:center;align-items:flex-end;color:white;width:unset !important; max-width:unset;">{{author_posts.0.title | safe | slice:":100"}}</div>
+                 <div class="a-title" style="text-align: center;justify-content:center;align-items:flex-end;color:white;width:unset !important; max-width:unset;">{{author_posts.0.title | safe | slice:":100"}}</div>
                  {% if author_posts.0.author.profile.profile_img.url %}
                  <div class="author super-tiny-row-center-align" style="justify-content:center;color:white;">
                       <img class="very-tiny-avatar" src="{{author_posts.0.author.profile.profile_img.url}}"/>
@@ -246,7 +268,8 @@
   {% endfor %}
 
    <!-- end posty by author -->
-
-
    </div>
+
+   <div style="height:100px;"></div>
+
   {%endblock body%}
