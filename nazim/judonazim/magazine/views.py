@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from .blogpublishing import *
 from django.forms import modelformset_factory
 from .decorations import unauthenticated_user, allowed_users, check_if_post_accessible, check_if_post_and_comment_accessible
+from django.db.models import Count, Q
 
 
 #post = get_object_or_404(BlogPost)
@@ -41,11 +42,32 @@ def manageUsersPermission(request):
 class MagazineHome(ListView):
     model = BlogPost
     template_name = 'magazine/magazine.html'
-    #ordering = ['-datepublished']
+
 
     def get_context_data(self, **kwargs):
         context = super(MagazineHome, self).get_context_data(**kwargs)
-        context['object_list'] = BlogPost.objects.all().filter(publishstatus = 'public').order_by('-datepublished')
+        #context['object_list'] = BlogPost.objects.all().filter(publishstatus = 'public').order_by('-datepublished')
+        context['main_post']   = BlogPost.objects.filter(publishstatus = 'public').order_by('-datepublished')[0]
+        context['most_relveant'] = BlogPost.objects.filter(publishstatus = 'public').order_by('-datepublished')[1:4]
+        context['object_list'] = BlogPost.objects.filter(publishstatus = 'public').order_by('-datepublished')[4:8]
+        num_of_main_posts = 8
+        min_num_of_posts = 6
+        authors =  BlogPost.objects.filter(publishstatus = 'public').order_by('-datepublished').filter(Q(author__groups__name = 'admin') | Q(author__groups__name = 'owner')).values_list('author__id').annotate(total=Count('author__id')).distinct().order_by()
+        authors_id = []
+        #print(len(authors))
+        #print(authors)
+        for author in authors:
+            auhtor_count = author[1]
+            if (auhtor_count >= min_num_of_posts + num_of_main_posts):
+                authors_id.append(author[0])
+        #print(authors_id)
+
+        context['authors_posts'] = []
+        for author_id in authors_id:
+            context['authors_posts'].append(BlogPost.objects.filter(publishstatus = 'public').order_by('-datepublished').filter(author__id = author_id)[9:][:min_num_of_posts])
+        #content['author_pubs'] = BlogPost.objects.filter(publishstatus = 'public').order_by('-datepublished')[9:].order_by('author').annotate(authr_posts_num=Count('author', distinct=True)).filter(author__level__gte = 6)
+
+        #print(context['authors_posts'][0][0]['pk'])
         return context
 
 

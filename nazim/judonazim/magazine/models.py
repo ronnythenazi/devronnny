@@ -14,8 +14,8 @@ class BlogPost(models.Model):
     #author_name =  models.TextField(max_length = 50, null = false, default = "רוני הנאצי")
     author = models.ForeignKey(User, on_delete = models.CASCADE,  default = 1,  blank = True)
     #author_email = models.EmailField(null = False, blank = True, default = "ronnythenazi@gmail.com")
-    datepublished= models.DateField(auto_now_add = True, blank=True)
-    datelastupdated= models.DateField(auto_now = True, blank=True)
+    datepublished= models.DateTimeField(auto_now_add = True, blank=True)
+    datelastupdated= models.DateTimeField(auto_now = True, blank=True)
     content =  RichTextField(blank = False, null = False) #models.TextField(null = False)
     public = "public"
     private = "private"

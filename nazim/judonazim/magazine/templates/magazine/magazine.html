@@ -7,43 +7,246 @@
 
     {%block body%}
 
-   <!--<div class="articles-parent">-->
+      <div class="magazine-container">
+        <!-- main post -->
+        <div class="posts-category">
 
-     <div class="posts-category">
-       <div class="articles-parent">
-         {% for post in object_list %}
-         {% if forloop.counter0|divisibleby:4 and forloop.counter0 != 0 %}
-      </div>
+           <div class="articles-parent" style="margin-top:50px;">
+             <a class="article-block a-title-2"  href="{%url 'magazine:anArticle' main_post.pk %}">
+               <div class="main-post">
+                 <div class="main-post-description">
+                    <span class="main-post-title">{{main_post.title}}</span>
+
+                    {% if main_post.author.profile.profile_img.url %}
+                      <div class="author super-tiny-row-center-align" style="align-self:flex-start;">
+                          <img class="very-tiny-avatar" src="{{main_post.author.profile.profile_img.url}}"/>
+                          <span>{{main_post.author | safe}}</span> &nbsp; | &nbsp;
+                          <span>{{main_post.datepublished | date:'d/m/Y' | safe}}</span>
+                      </div>
+                    {% else %}
+                    <div class="author super-tiny-row-center-align" style="align-self:flex-start;">
+                        {% include 'members/default_profile_img.html' %}
+                        <span>{{main_post.author | safe}}</span> &nbsp; | &nbsp;
+                        <span>{{main_post.datepublished | date:'d/m/Y' | safe}}</span>
+                    </div>
+                    {% endif %}
+
+                    <div class="main-post-subtitle">{{main_post.subtitle}}</div>
+                 </div>
+                 <img src="{{main_post.thumb.url}}" class="main-post-img" alt="">
+              </div>
+            </a>
+          </div>
+       </div>
+
+
+
+   <!-- most relevant  -->
+   <div class="posts-category">
+     <div class="category-bar-line">
+     <div class="super-tiny-row-center-align" style="width:100%;justify-content:center;font-size:1.5rem;">כתבות חדשות</div>
     </div>
+    <div class="ice-cream-seperator-thick" style="margin-bottom:10px;"></div>
+     <div class="articles-parent">
 
-    <div class="posts-category">
-      <div class="articles-parent">
-    {%endif%}
 
-    <a class="article-block" href="{%url 'magazine:anArticle' post.pk %}">
-        <div class="thumb-holder">
-           <img class="thumb" src="{{post.thumb.url}}" alt="">
-           <div class="decortion-line"></div>
-        </div>
+       {% for post in most_relveant %}
 
-       <div class="a-title">{{post.title | safe | slice:":100"}}</div>
-       {% if post.author.profile.profile_img.url %}
-         <div class="author tiny-row-center-align">
-             <img class="very-tiny-avatar" src="{{post.author.profile.profile_img.url}}"/>
-             <span>{{post.author | safe}}</span> &nbsp; | &nbsp;
-             <span>{{post.datepublished | date:'d/m/Y' | safe}}</span>
-         </div>
-       {% else %}
-       <div class="author tiny-row-center-align">
-           {% include 'members/default_profile_img.html' %}
+
+
+  <a class="article-block" href="{%url 'magazine:anArticle' post.pk %}">
+      <div class="thumb-holder">
+         <img class="thumb" src="{{post.thumb.url}}" alt="">
+         <div class="decortion-line"></div>
+      </div>
+
+     <div class="a-title" style="justify-content:flex-start;">{{post.title | safe | slice:":100"}}</div>
+     {% if post.author.profile.profile_img.url %}
+       <div class="author super-tiny-row-center-align">
+           <img class="very-tiny-avatar" src="{{post.author.profile.profile_img.url}}"/>
            <span>{{post.author | safe}}</span> &nbsp; | &nbsp;
            <span>{{post.datepublished | date:'d/m/Y' | safe}}</span>
        </div>
-       {% endif %}
-   </a>
-
-    {% endfor %}
+     {% else %}
+     <div class="author super-tiny-row-center-align">
+         {% include 'members/default_profile_img.html' %}
+         <span>{{post.author | safe}}</span> &nbsp; | &nbsp;
+         <span>{{post.datepublished | date:'d/m/Y' | safe}}</span>
      </div>
-   </div>
+     {% endif %}
+ </a>
 
+  {% endfor %}
+   </div>
+ </div>
+  <!-- end most relevant-->
+
+
+       <div class="posts-category">
+
+
+           <div class="category-bar-line">
+           <div class="super-tiny-row-center-align" style="width:100%;justify-content:center;font-size:1.5rem;">כתבות נוספות</div>
+          </div>
+          <div class="ice-cream-seperator-thick" style="margin-bottom:10px;"></div>
+          <div class="articles-parent">
+           {% for post in object_list %}
+           {% if forloop.counter0|divisibleby:4 and forloop.counter0 != 0 %}
+        </div>
+      </div>
+
+      <div class="posts-category">
+        <div class="articles-parent">
+      {%endif%}
+
+      <a class="article-block" href="{%url 'magazine:anArticle' post.pk %}">
+          <div class="thumb-holder">
+             <img class="thumb" src="{{post.thumb.url}}" alt="">
+             <div class="decortion-line"></div>
+          </div>
+
+         <div class="a-title" style="justify-content:flex-start;">{{post.title | safe | slice:":100"}}</div>
+         {% if post.author.profile.profile_img.url %}
+           <div class="author super-tiny-row-center-align">
+               <img class="very-tiny-avatar" src="{{post.author.profile.profile_img.url}}"/>
+               <span>{{post.author | safe}}</span> &nbsp; | &nbsp;
+               <span>{{post.datepublished | date:'d/m/Y' | safe}}</span>
+           </div>
+         {% else %}
+         <div class="author super-tiny-row-center-align">
+             {% include 'members/default_profile_img.html' %}
+             <span>{{post.author | safe}}</span> &nbsp; | &nbsp;
+             <span>{{post.datepublished | date:'d/m/Y' | safe}}</span>
+         </div>
+         {% endif %}
+     </a>
+
+      {% endfor %}
+       </div>
+     </div>
+
+   <!-- posts by authors -->
+ <div>{{authors_posts|length}}</div>
+ {% for author_posts in authors_posts %}
+
+    <div class="posts-category" style="margin-bottom:20px;">
+         <div class="category-bar-line">
+           {% if author_posts.0.author.profile.profile_img.url %}
+             <div class="author super-tiny-row-center-align">
+                  <img class="very-tiny-avatar" src="{{author_posts.0.author.profile.profile_img.url}}"/>
+                  <span style="color:white;">{{author_posts.0.author | safe}}</span>
+            </div>
+           {% else %}
+           <div class="author super-tiny-row-center-align">
+                {% include 'members/default_profile_img.html' %}
+                <span>{{author_posts.0.author | safe}}</span>
+          </div>
+         {% endif %}
+         <a class="super-tiny-row-center-align"> <span> עוד כתבות מ</span><span>{{author_posts.0.author.first_name | safe}}</span>{% include 'magazine/components/svg/left-arrow.html'%}</a>
+      </div>
+      <div class="ice-cream-seperator-thick"></div>
+      <div class="articles-parent" style="margin-top:50px;">
+
+        <a class="category-main-post" href="{%url 'magazine:anArticle' author_posts.0.pk %}">
+            <div class="category-main-post-img">
+              <img src="{{author_posts.0.thumb.url}}" alt="">
+              <div class="category-main-post-caption">
+                 <div class="a-title" style="justify-content:center;align-items:flex-end;color:white;width:unset !important; max-width:unset;">{{author_posts.0.title | safe | slice:":100"}}</div>
+                 {% if author_posts.0.author.profile.profile_img.url %}
+                 <div class="author super-tiny-row-center-align" style="justify-content:center;color:white;">
+                      <img class="very-tiny-avatar" src="{{author_posts.0.author.profile.profile_img.url}}"/>
+                      <span>{{author_posts.0.author | safe}}</span> &nbsp; | &nbsp;
+                      <span>{{author_posts.0.datepublished | date:'d/m/Y' | safe}}</span>
+                </div>
+                {% else %}
+                <div class="author super-tiny-row-center-align" style="justify-content:center;color:white;">
+                    {% include 'members/default_profile_img.html' %}
+                    <span>{{author_posts.0.author | safe}}</span> &nbsp; | &nbsp;
+                    <span>{{author_posts.0.datepublished | date:'d/m/Y' | safe}}</span>
+                </div>
+                {% endif %}
+              </div>
+           </div>
+        </a>
+
+      <div class="articles-parent" style="width:100%;">
+          <div class="articles-block">
+            <a class="article-block" href="{%url 'magazine:anArticle' author_posts.1.pk %}">
+
+              <div class="thumb-holder">
+                 <img class="thumb thumb-small" src="{{author_posts.1.thumb.url}}" alt="">
+              </div>
+
+             <div class="a-title" style="justify-content:flex-start;">{{author_posts.1.title | safe | slice:":100"}}</div>
+
+
+           </a>
+
+           <div class="ice-cream-seperator"></div>
+
+           <a class="article-block" href="{%url 'magazine:anArticle' author_posts.2.pk %}">
+
+
+             <div class="thumb-holder">
+                <img class="thumb thumb-small" src="{{author_posts.2.thumb.url}}" alt="">
+             </div>
+
+            <div class="a-title" style="justify-content:flex-start;">{{author_posts.2.title | safe | slice:":100"}}</div>
+
+
+          </a>
+ <div class="ice-cream-seperator"></div>
+          <a class="article-block" href="{%url 'magazine:anArticle' author_posts.3.pk %}">
+
+
+            <div class="thumb-holder">
+               <img class="thumb thumb-small" src="{{author_posts.3.thumb.url}}" alt="">
+            </div>
+
+           <div class="a-title" style="justify-content:flex-start;">{{author_posts.3.title | safe | slice:":100"}}</div>
+
+
+         </a>
+ <div class="ice-cream-seperator"></div>
+        </div>
+
+        <div class="articles-block">
+          <a class="article-block" href="{%url 'magazine:anArticle' author_posts.4.pk %}">
+
+            <div class="thumb-holder">
+               <img class="thumb thumb-small" src="{{author_posts.4.thumb.url}}" alt="">
+            </div>
+
+           <div class="a-title" style="justify-content:flex-start;">{{author_posts.4.title | safe | slice:":100"}}</div>
+
+
+         </a>
+ <div class="ice-cream-seperator"></div>
+         <a class="article-block" href="{%url 'magazine:anArticle' author_posts.5.pk %}">
+
+
+           <div class="thumb-holder">
+              <img class="thumb thumb-small" src="{{author_posts.5.thumb.url}}" alt="">
+           </div>
+
+          <div class="a-title" style="justify-content:flex-start;">{{author_posts.5.title | safe | slice:":100"}}</div>
+
+
+        </a>
+
+         <div class="ice-cream-seperator"></div>
+
+        </div>
+
+    </div>
+
+     </div>
+  </div>
+
+  {% endfor %}
+
+   <!-- end posty by author -->
+
+
+   </div>
   {%endblock body%}
