@@ -261,9 +261,9 @@ CKEDITOR_CONFIGS = {
 ALLOWED_HOSTS = []
 
 if not DEBUG:
-    #ALLOWED_HOSTS = ['127.0.0.1']
-    ALLOWED_HOSTS = [os.environ.get("DJANGO_ALLOWED_HOSTS")]
+    #ALLOWED_HOSTS = [os.environ.get("DJANGO_ALLOWED_HOSTS")]
+    ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '').split()
 
-    
+
 LOGIN_REDIRECT_URL = 'magazine:magazineNews'
 LOGOUT_REDIRECT_URL = 'magazine:magazineNews'
