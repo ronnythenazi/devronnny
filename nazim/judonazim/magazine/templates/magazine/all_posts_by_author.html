@@ -1,6 +1,6 @@
 {% extends 'magazine/base.html' %}
 {% load static %}
-{%block title%} כל הכתבות {%endblock%}
+{%block title%} {{author_username}} כתבות של{%endblock%}
 
 {%block body%}
 <style>
@@ -136,7 +136,7 @@
     </a>
   {% if forloop.counter == posts|length %}
     {% if post.datepublished < last_date %}
-    <a class="red-hover super-tiny-row-center-align pos-btm-left" href="{% url 'magazine:more_posts_next' post.datepublished|date:'c' %}">עוד כתבות
+    <a class="red-hover super-tiny-row-center-align pos-btm-left" href="{% url 'magazine:more_posts_by_author_next' s_date=post.datepublished|date:'c' author_username=author_username %}">עוד כתבות
       <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="blue" class="red-hover bi bi-chevron-double-left" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
         <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
@@ -147,7 +147,7 @@
 
  {% if forloop.counter0 == 0 %}
    {% if post.datepublished > first_date %}
-  <a class="red-hover super-tiny-row-center-align pos-btm-right" href="{% url 'magazine:more_posts_prev' post.datepublished|date:'c' %}">כתבות ישנות יותר
+  <a class="red-hover super-tiny-row-center-align pos-btm-right" href="{% url 'magazine:more_posts_by_author_prev' s_date=post.datepublished|date:'c' author_username=author_username %}">כתבות ישנות יותר
      <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="blue" class="red-hover bi bi-chevron-double-left" viewBox="0 0 16 16">
        <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
        <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>

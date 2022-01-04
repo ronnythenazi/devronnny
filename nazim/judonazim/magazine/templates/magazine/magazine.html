@@ -42,10 +42,11 @@
 
 
    <!-- most relevant  -->
+
    <div class="posts-category">
      <div class="category-bar-line section-sticky" style="justify-content:center;align-items:center;">
      <div  class="super-tiny-row-center-align" style="font-size:1.5rem;cursor:pointer;justify-content:flex-end;">כתבות חדשות</div>
-     <a class="super-tiny-row-center-align more-posts-link">כל הכתבות
+     <a class="super-tiny-row-center-align more-posts-link" href="{% url 'magazine:more_posts_next' first_date|date:'c' %}">כל הכתבות
        <svg style="align-self:flex-end;" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="orange" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
       <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
       <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
@@ -58,7 +59,7 @@
 
        {% for post in most_relveant %}
 
-
+<!--{{ post.datepublished | date:'c' }}-->
 
   <a class="article-block" href="{%url 'magazine:anArticle' post.pk %}">
       <div class="thumb-holder">
@@ -153,7 +154,7 @@
           </div>
          {% endif %}
 
-         <a class="super-tiny-row-center-align more-posts-link" style="position:relative;font-size:0.8rem;">
+         <a class="super-tiny-row-center-align more-posts-link" href = "{% url 'magazine:more_posts_by_author_next' s_date=first_date|date:'c' author_username=author_posts.0.author.username %}" style="position:relative;font-size:0.8rem;">
            <span> עוד כתבות מ</span>
            <span>{{author_posts.0.author.username | safe}}</span>
            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="orange" class="bi bi-chevron-double-left" viewBox="0 0 16 16">

@@ -6,6 +6,12 @@ $('.more-posts-link').mouseover(function(){
 $('.more-posts-link').mouseleave(function(){
   $(this).find('.bi-chevron-double-left').css('fill', 'orange');
 });
+$('.red-hover').mouseover(function(){
+  $(this).find('.red-hover').css('fill', 'red');
+});
+$('.red-hover').mouseleave(function(){
+  $(this).find('.red-hover').css('fill', 'blue');
+});
 
 $(document).ready(function(){
   setTimeout(function(){$('a').attr('target' , '_blank');}, 100);
