@@ -22,10 +22,33 @@
 {%block additionallinks%}
 
 {%endblock%}
+<script>
+
+  document.onkeydown = function (e) {
+      if (event.keyCode == 123) {
+          return false;
+      }
+      if (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'i'.charCodeAt(0))) {
+          return false;
+      }
+      if (e.ctrlKey && e.shiftKey && (e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'c'.charCodeAt(0))) {
+          return false;
+      }
+      if (e.ctrlKey && e.shiftKey && (e.keyCode == 'J'.charCodeAt(0) || e.keyCode == 'j'.charCodeAt(0))) {
+          return false;
+      }
+      if (e.ctrlKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'u'.charCodeAt(0))) {
+          return false;
+      }
+      if (e.ctrlKey && (e.keyCode == 'S'.charCodeAt(0) || e.keyCode == 's'.charCodeAt(0))) {
+          return false;
+      }
+  }
+</script>
 
   </head>
 
-  <body>
+  <body oncontextmenu="return false;">
 
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0" nonce="GTakoGeS"></script>
@@ -505,6 +528,21 @@
 <script type="text/javascript" src="{%static 'js/popup/callers.js'%}"></script>
 <script type="text/javascript" src="{%static 'js/popup/submenupopup.js'%}"></script>
 <script type="text/javascript" src="{%static 'js/svg.js'%}"> </script>
+<script>
+$(document).bind("contextmenu", function(e) {
+   e.preventDefault();
+});
+
+$(document).keydown(function(e) {
+   if (e.which === 123) {
+      return false;
+   }
+});
+
+</script>
+
+
+
 {%endblock%}
 
 {%block additionalscripts%}

@@ -6,3 +6,8 @@ $('.more-posts-link').mouseover(function(){
 $('.more-posts-link').mouseleave(function(){
   $(this).find('.bi-chevron-double-left').css('fill', 'orange');
 });
+
+$(document).ready(function(){
+  setTimeout(function(){$('a').attr('target' , '_blank');}, 100);
+
+});
