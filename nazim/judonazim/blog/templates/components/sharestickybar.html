@@ -15,7 +15,7 @@
  z-index:900;
 }
 
-.icon-bar a {
+.icon-bar a:not(#to-the-magazine) {
   display: block;
   text-align: center;
   padding: 16px;
@@ -27,7 +27,7 @@
 
 }
 
-.icon-bar a:hover {
+.icon-bar a:not(#to-the-magazine):hover {
   background-color: #000;
   margin-left:-60px;
   border-radius:10px;
@@ -63,10 +63,26 @@
   margin-left: 75px;
   font-size: 30px;
 }
-
+.bi-hand-index-fill, #to-the-magazine>span
+{
+  transition: all 0.3s;
+}
+#to-the-magazine
+{
+  text-decoration:none;
+}
+#to-the-magazine:visited
+{
+  color:unset;
+}
 </style>
-
 <div class="icon-bar">
+  <a id="to-the-magazine" href="{% url 'magazine:magazineNews' %}" style="target:_self;display:flex;flex-direction:column;align-items:center;position:sticky;cursor:pointer;">
+  <span style="color:white;font-family:robot;">למגזין</span>
+  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" class="bi bi-hand-index-fill" viewBox="0 0 16 16">
+  <path d="M8.5 4.466V1.75a1.75 1.75 0 1 0-3.5 0v5.34l-1.2.24a1.5 1.5 0 0 0-1.196 1.636l.345 3.106a2.5 2.5 0 0 0 .405 1.11l1.433 2.15A1.5 1.5 0 0 0 6.035 16h6.385a1.5 1.5 0 0 0 1.302-.756l1.395-2.441a3.5 3.5 0 0 0 .444-1.389l.271-2.715a2 2 0 0 0-1.99-2.199h-.581a5.114 5.114 0 0 0-.195-.248c-.191-.229-.51-.568-.88-.716-.364-.146-.846-.132-1.158-.108l-.132.012a1.26 1.26 0 0 0-.56-.642 2.632 2.632 0 0 0-.738-.288c-.31-.062-.739-.058-1.05-.046l-.048.002z"/>
+  </svg>
+  </a>
   <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore facebook"><i class="fa fa-facebook"></i></a>
   <a target="_blank" href="https://twitter.com/intent/tweet?text=קהילת+יהודונאצזים+ישראל.+יהודים+%26+בעד+גזענות&amp;url={% url 'blog:homepage' %}" class="twitter"><i class="fa fa-twitter"></i></a>
   <a target="_blank" href="https://wa.me/?text=https%3A%2F%2F{% url 'blog:homepage' %}+-+יהודונאציזם+ישראל.+נאצים+יהודים+%26+האתר+הרשמי" class="whatsapp"><i class="fa fa-whatsapp"></i></a>
@@ -74,3 +90,13 @@
   <a target="_blank" class="telegram" href="https://telegram.me/share/url?url={% url 'blog:homepage' %}/&text=גזענות מצילה חיים" target="_blank" title="שתף בטלגראם"><i class="fa fa-telegram"></i></a>
 
 </div>
+<script type="text/javascript">
+$('#to-the-magazine').mouseover(function(){
+  $('.bi-hand-index-fill').css('fill', 'blue');
+  $(this).children('span').css('color', 'red');
+});
+$('#to-the-magazine').mouseleave(function(){
+  $('.bi-hand-index-fill').css('fill', 'white');
+  $(this).children('span').css('color', 'white');
+});
+</script>
