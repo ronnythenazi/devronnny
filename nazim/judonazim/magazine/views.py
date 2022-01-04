@@ -48,14 +48,14 @@ def manageUsersPermission(request):
 def f_allPosts_next(request, s_date):
 
     date = parse_datetime(s_date)
-    posts = BlogPost.objects.filter(datepublished__gt = date).order_by('datepublished')[:10]
+    posts = BlogPost.objects.filter(publishstatus = 'public').filter(datepublished__gt = date).order_by('datepublished')[:10]
     #date =  BlogPost.objects.filter(datepublished__gte = date).order_by('datepublished').values_list('datepublished', flat = True)[9]
     dict = {}
     dict['posts'] = posts
     #dict['s_date'] = date
 
-    last_date = BlogPost.objects.all().order_by('-datepublished').values_list('datepublished', flat = True)[0]
-    first_date = BlogPost.objects.all().order_by('datepublished').values_list('datepublished', flat = True)[0]
+    last_date = BlogPost.objects.filter(publishstatus = 'public').order_by('-datepublished').values_list('datepublished', flat = True)[0]
+    first_date = BlogPost.objects.filter(publishstatus = 'public').order_by('datepublished').values_list('datepublished', flat = True)[0]
     dict['first_date'] = first_date
     dict['last_date'] = last_date
 
@@ -65,17 +65,17 @@ def f_allPosts_next(request, s_date):
 def f_allPosts_prev(request, s_date):
 
     date = parse_datetime(s_date)
-    num_of_prev_posts = len(BlogPost.objects.filter(datepublished__lt = date).order_by('-datepublished'))
+    num_of_prev_posts = len(BlogPost.objects.filter(publishstatus = 'public').filter(datepublished__lt = date).order_by('-datepublished'))
     num_of_posts_to_show = min(num_of_prev_posts, 10)
     start_from = num_of_prev_posts - num_of_posts_to_show
-    posts = BlogPost.objects.filter(datepublished__lt = date).order_by('datepublished')[start_from:num_of_prev_posts]
+    posts = BlogPost.objects.filter(publishstatus = 'public').filter(datepublished__lt = date).order_by('datepublished')[start_from:num_of_prev_posts]
     #date =  BlogPost.objects.filter(datepublished__gte = date).order_by('datepublished').values_list('datepublished', flat = True)[9]
     dict = {}
     dict['posts'] = posts
     #dict['s_date'] = date
 
-    last_date = BlogPost.objects.all().order_by('-datepublished').values_list('datepublished', flat = True)[0]
-    first_date = BlogPost.objects.all().order_by('datepublished').values_list('datepublished', flat = True)[0]
+    last_date = BlogPost.objects.filter(publishstatus = 'public').order_by('-datepublished').values_list('datepublished', flat = True)[0]
+    first_date = BlogPost.objects.filter(publishstatus = 'public').order_by('datepublished').values_list('datepublished', flat = True)[0]
     dict['first_date'] = first_date
     dict['last_date'] = last_date
 
@@ -88,14 +88,14 @@ def f_allPosts_prev(request, s_date):
 def f_allPosts_by_author_next(request, s_date, author_username):
 
     date = parse_datetime(s_date)
-    posts = BlogPost.objects.filter(datepublished__gt = date).filter(author__username = author_username).order_by('datepublished')[:10]
+    posts = BlogPost.objects.filter(publishstatus = 'public').filter(datepublished__gt = date).filter(author__username = author_username).order_by('datepublished')[:10]
     #date =  BlogPost.objects.filter(datepublished__gte = date).order_by('datepublished').values_list('datepublished', flat = True)[9]
     dict = {}
     dict['posts'] = posts
     #dict['s_date'] = date
 
-    last_date = BlogPost.objects.filter(author__username = author_username).order_by('-datepublished').values_list('datepublished', flat = True)[0]
-    first_date = BlogPost.objects.filter(author__username = author_username).order_by('datepublished').values_list('datepublished', flat = True)[0]
+    last_date = BlogPost.objects.filter(publishstatus = 'public').filter(author__username = author_username).order_by('-datepublished').values_list('datepublished', flat = True)[0]
+    first_date = BlogPost.objects.filter(publishstatus = 'public').filter(author__username = author_username).order_by('datepublished').values_list('datepublished', flat = True)[0]
     dict['first_date'] = first_date
     dict['last_date'] = last_date
     dict['author_username'] = author_username
@@ -106,17 +106,17 @@ def f_allPosts_by_author_next(request, s_date, author_username):
 def f_allPosts_by_author_prev(request, s_date, author_username):
 
     date = parse_datetime(s_date)
-    num_of_prev_posts = len(BlogPost.objects.filter(datepublished__lt = date).filter(author__username = author_username).order_by('-datepublished'))
+    num_of_prev_posts = len(BlogPost.objects.filter(publishstatus = 'public').filter(datepublished__lt = date).filter(author__username = author_username).order_by('-datepublished'))
     num_of_posts_to_show = min(num_of_prev_posts, 10)
     start_from = num_of_prev_posts - num_of_posts_to_show
-    posts = BlogPost.objects.filter(datepublished__lt = date).filter(author__username = author_username).order_by('datepublished')[start_from:num_of_prev_posts]
+    posts = BlogPost.objects.filter(publishstatus = 'public').filter(datepublished__lt = date).filter(author__username = author_username).order_by('datepublished')[start_from:num_of_prev_posts]
     #date =  BlogPost.objects.filter(datepublished__gte = date).order_by('datepublished').values_list('datepublished', flat = True)[9]
     dict = {}
     dict['posts'] = posts
     #dict['s_date'] = date
 
-    last_date = BlogPost.objects.filter(author__username = author_username).order_by('-datepublished').values_list('datepublished', flat = True)[0]
-    first_date = BlogPost.objects.filter(author__username = author_username).order_by('datepublished').values_list('datepublished', flat = True)[0]
+    last_date = BlogPost.objects.filter(publishstatus = 'public').filter(author__username = author_username).order_by('-datepublished').values_list('datepublished', flat = True)[0]
+    first_date = BlogPost.objects.filter(publishstatus = 'public').filter(author__username = author_username).order_by('datepublished').values_list('datepublished', flat = True)[0]
     dict['first_date'] = first_date
     dict['last_date'] = last_date
     dict['author_username'] = author_username
