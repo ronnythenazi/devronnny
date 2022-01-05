@@ -125,7 +125,7 @@
                <span>{{post.datepublished | date:'d/m/Y' | safe}}</span>
            </div>
          {% else %}
-         <div class="author super-tiny-row-center-align">
+         <div class="author super-tiny-row-center-align" style="font-size:0.6rem;">
              {% include 'members/default_profile_img.html' %}
              <span>{{post.author | safe}}</span> &nbsp; | &nbsp;
              <span>{{post.datepublished | date:'d/m/Y' | safe}}</span>
@@ -135,7 +135,7 @@
       </div>
     </a>
   {% if forloop.counter == posts|length %}
-    {% if post.datepublished < last_date %}
+    {% if post.datepublished > first_date %}
     <a class="red-hover super-tiny-row-center-align pos-btm-left" href="{% url 'magazine:more_posts_next' post.datepublished|date:'c' %}">עוד כתבות
       <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="blue" class="red-hover bi bi-chevron-double-left" viewBox="0 0 16 16">
         <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
@@ -146,8 +146,8 @@
   {% endif %}
 
  {% if forloop.counter0 == 0 %}
-   {% if post.datepublished > first_date %}
-  <a class="red-hover super-tiny-row-center-align pos-btm-right" href="{% url 'magazine:more_posts_prev' post.datepublished|date:'c' %}">כתבות ישנות יותר
+   {% if post.datepublished < last_date %}
+  <a class="red-hover super-tiny-row-center-align pos-btm-right" href="{% url 'magazine:more_posts_prev' post.datepublished|date:'c' %}">כתבות חדשות יותר
      <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="blue" class="red-hover bi bi-chevron-double-left" viewBox="0 0 16 16">
        <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
        <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
@@ -158,24 +158,7 @@
 
 {% endfor %}
   </div>
-  <!--
-  {% if post.datepublished < last_date %}
-  <a class="red-hover super-tiny-row-center-align pos-btm-left" href="{% url 'magazine:more_posts' s_date|date:'c' 1 %}">עוד כתבות
-    <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="blue" class="red-hover bi bi-chevron-double-left" viewBox="0 0 16 16">
-      <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-      <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-    </svg>
-  </a>
-{% endif %}
 
-{% if post.datepublished > first_date %}
-  <a class="red-hover super-tiny-row-center-align pos-btm-right" href="{% url 'magazine:more_posts' first_date_in_this_lst|date:'c' -1 %}">כתבות ישנות יותר
-    <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="blue" class="red-hover bi bi-chevron-double-left" viewBox="0 0 16 16">
-      <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-      <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
-    </svg>
-  </a>
-{% endif %}-->
 
 </div>
 

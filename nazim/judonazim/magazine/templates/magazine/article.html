@@ -109,7 +109,7 @@
 
               <span class="order-num" style="left:10px;position:relative;">
                 {% if comment_of_comment.comment_of_comment_usr.profile.profile_img.url %}
-               <img class="super-tiny-avatar" src="{{comment.comment_usr.profile.profile_img.url}}"/>
+               <img class="super-tiny-avatar" src="{{comment_of_comment.comment_of_comment_usr.profile.profile_img.url}}"/>
                {% else %}
                {% include 'members/default_profile_img.html' %}
               {%endif%}

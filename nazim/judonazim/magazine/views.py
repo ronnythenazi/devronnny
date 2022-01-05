@@ -48,11 +48,11 @@ def manageUsersPermission(request):
 def f_allPosts_next(request, s_date):
 
     date = parse_datetime(s_date)
-    posts = BlogPost.objects.filter(publishstatus = 'public').filter(datepublished__gt = date).order_by('datepublished')[:10]
-    #date =  BlogPost.objects.filter(datepublished__gte = date).order_by('datepublished').values_list('datepublished', flat = True)[9]
+
+    posts = BlogPost.objects.filter(publishstatus = 'public').filter(datepublished__lt = date).order_by('-datepublished')[:10]
     dict = {}
     dict['posts'] = posts
-    #dict['s_date'] = date
+
 
     last_date = BlogPost.objects.filter(publishstatus = 'public').order_by('-datepublished').values_list('datepublished', flat = True)[0]
     first_date = BlogPost.objects.filter(publishstatus = 'public').order_by('datepublished').values_list('datepublished', flat = True)[0]
@@ -60,60 +60,55 @@ def f_allPosts_next(request, s_date):
     dict['last_date'] = last_date
 
     return render(request, 'magazine/all_posts.html', dict)
-
 
 def f_allPosts_prev(request, s_date):
-
     date = parse_datetime(s_date)
-    num_of_prev_posts = len(BlogPost.objects.filter(publishstatus = 'public').filter(datepublished__lt = date).order_by('-datepublished'))
+
+    num_of_prev_posts = len(BlogPost.objects.filter(publishstatus = 'public').filter(datepublished__gt = date))
     num_of_posts_to_show = min(num_of_prev_posts, 10)
     start_from = num_of_prev_posts - num_of_posts_to_show
-    posts = BlogPost.objects.filter(publishstatus = 'public').filter(datepublished__lt = date).order_by('datepublished')[start_from:num_of_prev_posts]
-    #date =  BlogPost.objects.filter(datepublished__gte = date).order_by('datepublished').values_list('datepublished', flat = True)[9]
+    posts = BlogPost.objects.filter(publishstatus = 'public').filter(datepublished__gt = date).order_by('-datepublished')[start_from:num_of_prev_posts]
+
+
     dict = {}
     dict['posts'] = posts
-    #dict['s_date'] = date
+
 
     last_date = BlogPost.objects.filter(publishstatus = 'public').order_by('-datepublished').values_list('datepublished', flat = True)[0]
     first_date = BlogPost.objects.filter(publishstatus = 'public').order_by('datepublished').values_list('datepublished', flat = True)[0]
     dict['first_date'] = first_date
     dict['last_date'] = last_date
 
-
     return render(request, 'magazine/all_posts.html', dict)
 
-
-
-
 def f_allPosts_by_author_next(request, s_date, author_username):
-
     date = parse_datetime(s_date)
-    posts = BlogPost.objects.filter(publishstatus = 'public').filter(datepublished__gt = date).filter(author__username = author_username).order_by('datepublished')[:10]
-    #date =  BlogPost.objects.filter(datepublished__gte = date).order_by('datepublished').values_list('datepublished', flat = True)[9]
+
+    posts = BlogPost.objects.filter(publishstatus = 'public').filter(author__username = author_username).filter(datepublished__lt = date).order_by('-datepublished')[:10]
     dict = {}
     dict['posts'] = posts
-    #dict['s_date'] = date
+
 
     last_date = BlogPost.objects.filter(publishstatus = 'public').filter(author__username = author_username).order_by('-datepublished').values_list('datepublished', flat = True)[0]
     first_date = BlogPost.objects.filter(publishstatus = 'public').filter(author__username = author_username).order_by('datepublished').values_list('datepublished', flat = True)[0]
     dict['first_date'] = first_date
     dict['last_date'] = last_date
     dict['author_username'] = author_username
-
     return render(request, 'magazine/all_posts_by_author.html', dict)
-
 
 def f_allPosts_by_author_prev(request, s_date, author_username):
 
     date = parse_datetime(s_date)
-    num_of_prev_posts = len(BlogPost.objects.filter(publishstatus = 'public').filter(datepublished__lt = date).filter(author__username = author_username).order_by('-datepublished'))
+
+    num_of_prev_posts = len(BlogPost.objects.filter(publishstatus = 'public').filter(author__username = author_username).filter(datepublished__gt = date))
     num_of_posts_to_show = min(num_of_prev_posts, 10)
     start_from = num_of_prev_posts - num_of_posts_to_show
-    posts = BlogPost.objects.filter(publishstatus = 'public').filter(datepublished__lt = date).filter(author__username = author_username).order_by('datepublished')[start_from:num_of_prev_posts]
-    #date =  BlogPost.objects.filter(datepublished__gte = date).order_by('datepublished').values_list('datepublished', flat = True)[9]
+    posts = BlogPost.objects.filter(publishstatus = 'public').filter(author__username = author_username).filter(datepublished__gt = date).order_by('-datepublished')[start_from:num_of_prev_posts]
+
+
     dict = {}
     dict['posts'] = posts
-    #dict['s_date'] = date
+
 
     last_date = BlogPost.objects.filter(publishstatus = 'public').filter(author__username = author_username).order_by('-datepublished').values_list('datepublished', flat = True)[0]
     first_date = BlogPost.objects.filter(publishstatus = 'public').filter(author__username = author_username).order_by('datepublished').values_list('datepublished', flat = True)[0]
@@ -121,8 +116,8 @@ def f_allPosts_by_author_prev(request, s_date, author_username):
     dict['last_date'] = last_date
     dict['author_username'] = author_username
 
-
     return render(request, 'magazine/all_posts_by_author.html', dict)
+
 
 class MagazineHome(ListView):
     model = BlogPost
@@ -132,11 +127,11 @@ class MagazineHome(ListView):
     def get_context_data(self, **kwargs):
         context = super(MagazineHome, self).get_context_data(**kwargs)
 
-        first_date = BlogPost.objects.filter(publishstatus = 'public').order_by('datepublished').values_list('datepublished', flat= True)[0]
-        days_to_subtract = 1
-        first_date = first_date - timedelta(days=days_to_subtract)
 
-        context['first_date'] = first_date
+        last_date = BlogPost.objects.filter(publishstatus = 'public').order_by('-datepublished').values_list('datepublished', flat= True)[0]
+        days_to_add = 1
+        last_date = last_date + timedelta(days=days_to_add)
+        context['last_date'] = last_date
 
         context['main_post']   = BlogPost.objects.filter(publishstatus = 'public').order_by('-datepublished')[0]
         context['most_relveant'] = BlogPost.objects.filter(publishstatus = 'public').order_by('-datepublished')[1:4]
