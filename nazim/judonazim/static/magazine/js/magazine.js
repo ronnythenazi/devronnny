@@ -17,3 +17,7 @@ $(document).ready(function(){
   setTimeout(function(){$('a').attr('target' , '_blank');}, 100);
 
 });
+
+$('.equal-cols-height-row').mouseenter(function(){
+  $('#mouseclick')[0].play();
+});
