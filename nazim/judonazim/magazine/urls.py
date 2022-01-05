@@ -19,4 +19,7 @@ urlpatterns = [
 
  path('allposts-by-author-next/<str:s_date>/<str:author_username>', views.f_allPosts_by_author_next, name = 'more_posts_by_author_next'),
  path('allposts-by-author-prev/<str:s_date>/<str:author_username>', views.f_allPosts_by_author_prev, name = 'more_posts_by_author_prev'),
+
+ path('rate-post/<int:pk>', views.rate_post, name = 'rate_post'),
+
 ]

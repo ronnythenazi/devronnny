@@ -418,3 +418,33 @@
   position: sticky !important;
   top:0 !important;
 }
+
+.unstyled-btn
+{
+  background: none;
+  border:none;
+  color:unset;
+  padding: 0;
+  margin: 0;
+  outline: none;
+}
+.rate-count
+{
+  font-size: 1.5rem;
+}
+.rate-red
+{
+  color:red;
+}
+.rate-green
+{
+  color:green;
+}
+.msg
+{
+  color:blue;
+  font-size:1.2rem;
+  font-family: round;
+  font-weight: bold;
+  opacity: 0;
+}

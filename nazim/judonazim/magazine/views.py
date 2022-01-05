@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, Ht
 from django.views.generic import ListView, DetailView , CreateView
 from .models import BlogPost, Profile, Comment
 from django.urls import reverse
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from .blogpublishing import *
 from django.forms import modelformset_factory
 from .decorations import unauthenticated_user, allowed_users, check_if_post_accessible, check_if_post_and_comment_accessible
@@ -156,26 +156,51 @@ class MagazineHome(ListView):
         #print(context['authors_posts'][0][0]['pk'])
         return context
 
+def rate_post(request, pk):
+    post = get_object_or_404(BlogPost, id = pk)
+    if 'like-btn' in request.POST:
+        is_already_liked = post.likes.filter(id = request.user.id).exists()
+        if is_already_liked:
+            post.likes.remove(request.user)
+        else:
+            post.likes.add(request.user)
+            post.dislikes.remove(request.user)
+
+    elif 'dislike-btn' in request.POST:
+        is_already_disliked = post.dislikes.filter(id = request.user.id).exists()
+        if is_already_disliked:
+            post.dislikes.remove(request.user)
+        else:
+            post.dislikes.add(request.user)
+            post.likes.remove(request.user)
+    return HttpResponseRedirect(reverse('magazine:anArticle', args = [str(pk)]))
+
 
 @check_if_post_accessible
 def Article(request, pk):
 
     comment_frm = CommentFrm(request.POST or None)
     com_of_com_frm = comment_of_comment_frm(request.POST or None)
-
     post = BlogPost.objects.get(pk = pk)
 
+    total_likes = post.total_likes()
+    total_dislikes = post.total_dislikes()
+    liked = False
+    disliked = False
+    if request.user.is_authenticated:
+        liked = post.likes.filter(id = request.user.id).exists()
+        disliked = post.dislikes.filter(id = request.user.id).exists()
+
     if request.method == 'POST':
-
         if 'btn-send-comment' in request.POST:
-
             if comment_frm.is_valid():
 
                 comment_frm.instance.post = post #request.post
                 if(request.user.id):
                     comment_frm.instance.comment_usr = request.user
                 com_obj = comment_frm.save()
-                return render(request, 'magazine/article.html', {'object':post, 'comment_frm':comment_frm, 'com_of_com_frm':com_of_com_frm , 'status':'posted', 'com_obj':com_obj})
+                dict = {'object':post, 'comment_frm':comment_frm, 'com_of_com_frm':com_of_com_frm , 'status':'posted', 'com_obj':com_obj, 'total_likes':total_likes, 'total_dislikes':total_dislikes, 'liked':liked, 'disliked' :disliked}
+                return render(request, 'magazine/article.html', dict )
         if 'btn-reply-comment-of-comment' in request.POST:
             if com_of_com_frm.is_valid():
                 comment_id = request.POST.get('comment_id')
@@ -184,11 +209,10 @@ def Article(request, pk):
                 if(request.user.id):
                     com_of_com_frm.instance.comment_of_comment_usr = request.user
                 com_of_com_frm.save()
-                return render(request, 'magazine/article.html', {'object':post, 'comment_frm':comment_frm, 'com_of_com_frm':com_of_com_frm , 'status':'posted', 'com_obj':comment})
-
-
-
-    return render(request, 'magazine/article.html', {'object':post,  'comment_frm':comment_frm, 'com_of_com_frm':com_of_com_frm , 'status':'not-posted'})
+                dict = {'object':post, 'comment_frm':comment_frm, 'com_of_com_frm':com_of_com_frm , 'status':'posted', 'com_obj':comment, 'total_likes':total_likes, 'total_dislikes':total_dislikes, 'liked':liked, 'disliked' :disliked}
+                return render(request, 'magazine/article.html', dict)
+    dict = {'object':post,  'comment_frm':comment_frm, 'com_of_com_frm':com_of_com_frm , 'status':'not-posted', 'total_likes':total_likes, 'total_dislikes':total_dislikes, 'liked':liked, 'disliked' :disliked}
+    return render(request, 'magazine/article.html', dict)
 
 
 

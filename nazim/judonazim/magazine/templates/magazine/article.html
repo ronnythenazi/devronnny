@@ -12,8 +12,8 @@
     <div class="center">
      <div class="post">
 
-       <span class="posttitle shiny-blue-clr">{{ object.title }}  </span>
-
+       <span class="posttitle shiny-blue-clr" style="font-family:formal3-bold;color:black !important;opacity:0.9;font-size:3.5rem;">{{ object.title }}  </span>
+     <div class="tiny-row-center-align">
        {% if object.author.profile.profile_img.url %}
            <a class="author big tiny-row-center-align"> <img class="tiny-avatar" src="{{object.author.profile.profile_img.url}}"/>  <span> {{object.author | safe}}</span> &nbsp; | &nbsp;
                 <span>{{object.datepublished | date:'d/m/Y' | safe}}</span>
@@ -23,7 +23,46 @@
             <span>{{object.datepublished | date:'d/m/Y' | safe}}</span>
        </a>
        {% endif %}
-       <div  class="subtitle">{{object.subtitle}}</div>
+
+       {% if user.is_authenticated %}
+       <form method="POST" class="tiny-row-center-align" action="{% url 'magazine:rate_post' object.pk %}">
+        {% csrf_token %}
+        <button class="unstyled-btn" name="like-btn" type="submit">
+        {% if liked %}
+        {% include 'magazine/components/svg/like_fill.html'%}
+        {% else %}
+        {% include 'magazine/components/svg/like.html'%}
+        {% endif %}
+        </button>
+        <span class="rate-count rate-green">{{total_likes}}</span>
+        <button class="unstyled-btn" name="dislike-btn" type="submit">
+        {% if disliked %}
+        {% include 'magazine/components/svg/dislike_fill.html'%}
+        {% else %}
+        {% include 'magazine/components/svg/dislike.html'%}
+        {% endif %}
+        </button>
+        <span class="rate-count rate-red">{{total_dislikes}}</span>
+      </form>
+       {% else %}
+       <button class="unstyled-btn" class="btn-rate" type="button">
+           {% include 'magazine/components/svg/like.html'%}
+       </button>
+       <span class="rate-count rate-green">{{total_likes}}</span>
+       <button class="unstyled-btn" class="btn-rate" type="button">
+           {% include 'magazine/components/svg/dislike.html'%}
+       </button>
+        <span class="rate-count rate-red">{{total_dislikes}}</span>
+        <span class="msg ice-cream-clr">הירשם ותוכל להשפיע</span>
+       {% endif %}
+
+     </div>
+
+         <div class="subtitle">{{object.subtitle}}</div>
+
+
+
+
        <div class="thumb-holder">
          <img class="thumb  big" src="{{object.thumb.url}}" alt="">
          <div class="decortion-line"></div>

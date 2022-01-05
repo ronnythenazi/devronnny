@@ -21,3 +21,30 @@ $(document).ready(function(){
 $('.equal-cols-height-row').mouseenter(function(){
   $('#mouseclick')[0].play();
 });
+var flicker_round = 1;
+$('.svg-rate').click(function(){
+    var btn_rate = $('.svg-rate').parent();
+    if(btn_rate)
+    {
+      var msg = $(btn_rate).nextAll('.msg');
+      flicker(msg);
+    }
+
+  });
+  function flicker(msg)
+  {
+    $(msg).animate({opacity:1}, 500).animate({opacity:1}, 1000).animate(
+      {opacity:0},
+      {duration:500,
+       complete: function(){
+        flicker_round = (flicker_round + 1) % 3;
+        if(flicker_round == 0)
+        {
+           $(msg).css('opacity', 0);
+           flicker_round = 1;
+           return;
+        }
+        flicker(msg);
+      }
+      });
+  }

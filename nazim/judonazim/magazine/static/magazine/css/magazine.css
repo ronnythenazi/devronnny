@@ -34,12 +34,12 @@
   src:url('fonts/formal3-regular.ttf');
   font-family:formal3-regular;
 }
-.shiny-blue-clr
+/*.shiny-blue-clr
 {
   -webkit-text-fill-color:transparent;
   -webkit-background-clip:text;
    background-image:var(--bluish1, var(--bluish2, var(--bluish3, --bluish4)));
-}
+}*/
 .tapuzina-clr
 {
   -webkit-text-fill-color:transparent;

@@ -17,10 +17,20 @@ class BlogPost(models.Model):
     datepublished= models.DateTimeField(auto_now_add = True, blank=True)
     datelastupdated= models.DateTimeField(auto_now = True, blank=True)
     content =  RichTextField(blank = False, null = False) #models.TextField(null = False)
+    likes = models.ManyToManyField(User, related_name = "post_likes")
+    dislikes = models.ManyToManyField(User, related_name = "post_dislikes")
+
+    def total_likes(self):
+        return self.likes.count()
+
+    def total_dislikes(self):
+        return self.dislikes.count()
+
     public = "public"
     private = "private"
-    #topic = models.TextField()
-    #field publishstatus
+
+
+
     visibility = [
 
     (public , 'ציבורי'),
