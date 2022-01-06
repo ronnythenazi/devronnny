@@ -21,6 +21,7 @@ $(document).ready(function(){
 $('.equal-cols-height-row').mouseenter(function(){
   $('#mouseclick')[0].play();
 });
+
 var flicker_round = 1;
 $('.svg-rate').click(function(){
     var btn_rate = $(this).parent();

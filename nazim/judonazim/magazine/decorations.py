@@ -15,25 +15,27 @@ def unauthenticated_user(view_func):
     return wrapper_func
 
 def check_if_post_and_comment_accessible(view_func):
-        @wraps(view_func)
-        def inner(request, idpost, idcomment, *args, **kwargs):
-            post = get_object_or_404(BlogPost, pk = idpost)
-            comment = get_object_or_404(Comment, pk = idcomment)
-            if(post is None or comment is None or post.publishstatus == 'private'):
-                return HttpResponse('הדף שאתה מבקש אינו זמין')
-            else:
-                return view_func(request, idpost, idcomment, *args, **kwargs)
-        return inner
+    @wraps(view_func)
+    def inner(request, idpost, idcomment, *args, **kwargs):
+        post = get_object_or_404(BlogPost, pk = idpost)
+        comment = get_object_or_404(Comment, pk = idcomment)
+        if(post is None or comment is None or post.publishstatus == 'private'):
+            return HttpResponse('הדף שאתה מבקש אינו זמין')
+        else:
+            return view_func(request, idpost, idcomment, *args, **kwargs)
+    return inner
+
 
 def check_if_post_accessible(view_func):
-        @wraps(view_func)
-        def inner(request, pk, *args, **kwargs):
-            post = get_object_or_404(BlogPost, pk = pk)
-            if(post is None or post.publishstatus == 'private'):
-                return HttpResponse('הדף שאתה מבקש אינו זמין')
-            else:
-                return view_func(request, pk, *args, **kwargs)
-        return inner
+    @wraps(view_func)
+    def inner(request, pk, *args, **kwargs):
+        post = get_object_or_404(BlogPost, pk = pk)
+        if(post is None or post.publishstatus == 'private'):
+            return HttpResponse('הדף שאתה מבקש אינו זמין')
+        else:
+            return view_func(request, pk, *args, **kwargs)
+    return inner
+
 
 def allowed_users(allowed_roles = []):
     def deocrator(view_func):

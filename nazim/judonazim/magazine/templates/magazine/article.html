@@ -49,13 +49,13 @@
         {% endif %}
       </form>
        {% else %}
-       <button class="unstyled-btn" class="btn-rate" type="button">
+       <button class="unstyled-btn" type="button">
            {% include 'magazine/components/svg/like.html'%}
        </button>
        {% if total_likes != 0 %}
        <span class="rate-count rate-green">{{total_likes}}</span>
        {% endif %}
-       <button class="unstyled-btn" class="btn-rate" type="button">
+       <button class="unstyled-btn" type="button">
            {% include 'magazine/components/svg/dislike.html'%}
        </button>
        {% if total_dislikes != 0 %}
@@ -138,9 +138,10 @@
 
               <b style="margin-right:-10px;" class="author author-comment">{{comment.name}} הגיב:</b>
 
-                <form class="super-tiny-row-center-align" id="frm-like-comments" method="POST" action="{% url 'magazine:rate_com' comment.pk %}">
-                  {%csrf_token%}
+
                  {% if user.is_authenticated %}
+                 <form class="super-tiny-row-center-align" id="frm-like-comments" method="POST" action="{% url 'magazine:rate_com' comment.pk %}">
+                   {%csrf_token%}
                  <button class="unstyled-btn" name="like-com" type="submit">
                  {% if comment.liked %}
                  {% include 'magazine/components/svg/like_fill.html'%}
@@ -163,13 +164,13 @@
                 {% endif %}
                </form>
                 {% else %}
-                <button class="unstyled-btn" class="btn-rate" type="button">
+                <button class="unstyled-btn" type="button">
                     {% include 'magazine/components/svg/like.html'%}
                 </button>
                 {% if comment.total_likes != 0 %}
                 <span class="rate-count rate-green">{{comment.total_likes}}</span>
                 {% endif %}
-                <button class="unstyled-btn" class="btn-rate" type="button">
+                <button class="unstyled-btn"  type="button">
                     {% include 'magazine/components/svg/dislike.html'%}
                 </button>
                 {% if comment.total_dislikes != 0 %}
@@ -223,7 +224,7 @@
    <div id="reply-frm" style="display:none;">
    <form method="post">
   {%csrf_token%}
-   <div  >
+   <div>
          <div class="center">
                <input type="hidden" name="comment_id" id="comment_id">
                 <div class="comment comment-frm">
@@ -254,11 +255,11 @@
 
   <script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>
    <script>
-   $('#btn-reply-comment-of-comment').click(function(){
+   /*$('#btn-reply-comment-of-comment').click(function(){
 
      $('#reply-frm').submit();
 
-   });
+   });*/
     $(document).ready(function(){
 
 
