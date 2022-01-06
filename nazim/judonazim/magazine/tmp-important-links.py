@@ -12,3 +12,4 @@
 
 #https://sayari3.com/articles/19-django-digitalocean-spaces-tutorial/1
 #https://stackoverflow.com/questions/41329858/how-to-delete-an-imagefield-image-in-a-django-model remove image from db
+#https://stackoverflow.com/questions/14351048/django-optional-url-parameters

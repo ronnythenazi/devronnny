@@ -175,12 +175,31 @@ def rate_post(request, pk):
             post.likes.remove(request.user)
     return HttpResponseRedirect(reverse('magazine:anArticle', args = [str(pk)]))
 
+def rate_com(request, pk):
+    com = get_object_or_404(Comment, id = pk)
+    if 'like-com' in request.POST:
+        is_already_liked = com.likes.filter(id = request.user.id).exists()
+        if is_already_liked:
+            com.likes.remove(request.user)
+        else:
+            com.likes.add(request.user)
+            com.dislikes.remove(request.user)
+
+    elif 'dislike-com' in request.POST:
+        is_already_disliked = com.dislikes.filter(id = request.user.id).exists()
+        if is_already_disliked:
+            com.dislikes.remove(request.user)
+        else:
+            com.dislikes.add(request.user)
+            com.likes.remove(request.user)
+    return HttpResponseRedirect(reverse('magazine:anArticle', args = [str(com.post.id), '-replace-me-comment'+ str(com.id)]))
+
 
 @check_if_post_accessible
-def Article(request, pk):
-
+def Article(request, pk, pos_id = '#start'):
     comment_frm = CommentFrm(request.POST or None)
     com_of_com_frm = comment_of_comment_frm(request.POST or None)
+
     post = BlogPost.objects.get(pk = pk)
 
     total_likes = post.total_likes()
@@ -199,8 +218,9 @@ def Article(request, pk):
                 if(request.user.id):
                     comment_frm.instance.comment_usr = request.user
                 com_obj = comment_frm.save()
-                dict = {'object':post, 'comment_frm':comment_frm, 'com_of_com_frm':com_of_com_frm , 'status':'posted', 'com_obj':com_obj, 'total_likes':total_likes, 'total_dislikes':total_dislikes, 'liked':liked, 'disliked' :disliked}
+                dict = {'pos_id':pos_id, 'object':post, 'comment_frm':comment_frm, 'com_of_com_frm':com_of_com_frm , 'status':'posted', 'com_obj':com_obj, 'total_likes':total_likes, 'total_dislikes':total_dislikes, 'liked':liked, 'disliked' :disliked}
                 return render(request, 'magazine/article.html', dict )
+
         if 'btn-reply-comment-of-comment' in request.POST:
             if com_of_com_frm.is_valid():
                 comment_id = request.POST.get('comment_id')
@@ -209,9 +229,10 @@ def Article(request, pk):
                 if(request.user.id):
                     com_of_com_frm.instance.comment_of_comment_usr = request.user
                 com_of_com_frm.save()
-                dict = {'object':post, 'comment_frm':comment_frm, 'com_of_com_frm':com_of_com_frm , 'status':'posted', 'com_obj':comment, 'total_likes':total_likes, 'total_dislikes':total_dislikes, 'liked':liked, 'disliked' :disliked}
+                dict = {'pos_id':pos_id, 'object':post, 'comment_frm':comment_frm, 'com_of_com_frm':com_of_com_frm , 'status':'posted', 'com_obj':comment, 'total_likes':total_likes, 'total_dislikes':total_dislikes, 'liked':liked, 'disliked' :disliked}
                 return render(request, 'magazine/article.html', dict)
-    dict = {'object':post,  'comment_frm':comment_frm, 'com_of_com_frm':com_of_com_frm , 'status':'not-posted', 'total_likes':total_likes, 'total_dislikes':total_dislikes, 'liked':liked, 'disliked' :disliked}
+
+    dict = {'pos_id':pos_id, 'object':post,  'comment_frm':comment_frm, 'com_of_com_frm':com_of_com_frm , 'status':'not-posted', 'total_likes':total_likes, 'total_dislikes':total_dislikes, 'liked':liked, 'disliked' :disliked}
     return render(request, 'magazine/article.html', dict)
 
 

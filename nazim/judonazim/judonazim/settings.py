@@ -67,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'magazine.request_exposer.RequestExposerMiddleware',
 ]
 
 ROOT_URLCONF = 'judonazim.urls'

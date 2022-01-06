@@ -23,7 +23,7 @@ $('.equal-cols-height-row').mouseenter(function(){
 });
 var flicker_round = 1;
 $('.svg-rate').click(function(){
-    var btn_rate = $('.svg-rate').parent();
+    var btn_rate = $(this).parent();
     if(btn_rate)
     {
       var msg = $(btn_rate).nextAll('.msg');

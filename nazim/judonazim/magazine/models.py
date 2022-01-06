@@ -5,6 +5,7 @@ from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User, Group, Permission
 from django.urls import reverse
 from datetime import datetime, date
+exposed_request = None
 
 class BlogPost(models.Model):
 
@@ -56,6 +57,25 @@ class Comment(models.Model):
     body = models.TextField(blank = False, null = False, max_length = 10000)
     comment_usr = models.ForeignKey(User, on_delete = models.CASCADE, blank = True, null = True)
     date_added = models.DateTimeField(auto_now_add = True, blank = True)
+    likes = models.ManyToManyField(User, related_name ="likes_com")
+    dislikes = models.ManyToManyField(User, related_name ="dislikes_com")
+
+    def total_likes(self):
+        return self.likes.count()
+
+    def total_dislikes(self):
+        return self.dislikes.count()
+
+    def liked(self):
+        if(self.likes.filter(id = exposed_request.user.id).exists()):
+            return True
+        return False
+
+    def disliked(self):
+        if(self.dislikes.filter(id = exposed_request.user.id).exists()):
+            return True
+        return False
+
 
     class Meta:
         ordering = ['-date_added']
