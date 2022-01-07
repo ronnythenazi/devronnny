@@ -585,10 +585,7 @@ a
   color: yellow;
   fill:yellow;
 }
-.scroll.menu
-{
-   height:70px;
-}
+
 .judonazim-logo-svg.shrink-logo
 {
   height: 50px !important;
@@ -662,4 +659,8 @@ a
   border-right-color: blue;
   border-bottom-color: red;
   border-left-color:red;
+}
+.scroll.menu
+{
+   height:70px;
 }

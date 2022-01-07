@@ -15,7 +15,7 @@ $('.red-hover').mouseleave(function(){
 
 $(document).ready(function(){
   setTimeout(function(){$('a').attr('target' , '_blank');}, 100);
- set_in_the_middle($('#judo-logo-wrap'));
+  set_in_the_middle($('#judo-logo-wrap'));
 
 });
 
@@ -62,9 +62,9 @@ $('.svg-rate').click(function(){
    if ($(this).scrollTop() > 200){
        $('.menu').addClass("scroll");
        $('#judo-logo-wrap, #judo-logo-wrap svg').addClass('shrink-logo');
-       set_in_the_middle($('#judo-logo-wrap'));
+        set_in_the_middle($('#judo-logo-wrap'));
    }
-   else{
+   else if($(this).scrollTop() < 100){
        $('.menu').removeClass("scroll");
        $('#judo-logo-wrap, #judo-logo-wrap svg').removeClass('shrink-logo');
        set_in_the_middle($('#judo-logo-wrap'));
