@@ -74,6 +74,11 @@ html,body
   justify-content: flex-end;
   align-items: flex-start;
 }
+.menuItem span
+{
+  font-size: 1rem;
+  font-family: sans-serif;
+}
 .menu
 {
   direction:rtl;
@@ -90,10 +95,22 @@ html,body
   height: 70px;
   z-index:1000000000;
 }
+.menuItem:hover>svg
+{
+  fill:blue;
+}
 .menuItem>*
 {
-  min-width: 100px;
+  min-width: 50px;
   text-align: center;
+}
+.menuItem:nth-last-child(2n):first-child
+{
+  align-self: flex-end !important;
+}
+.menuItem:nth-last-child(2n + 1):first-child
+{
+  align-self: flex-end !important;
 }
 .menuItem
 {
@@ -106,6 +123,7 @@ html,body
   flex-direction: column;
   align-items: center;
   justify-content:center;
+
 
 }
 
