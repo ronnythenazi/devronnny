@@ -15,8 +15,14 @@ $('.red-hover').mouseleave(function(){
 
 $(document).ready(function(){
   setTimeout(function(){$('a').attr('target' , '_blank');}, 100);
+ set_in_the_middle($('#judo-logo-wrap'));
 
 });
+
+function set_in_the_middle(obj)
+{
+  $(obj).css('right', 'calc(50% - ' +  ( $(obj).width() / 2) + 'px)');
+}
 
 $('.equal-cols-height-row').mouseenter(function(){
   $('#mouseclick')[0].play();
@@ -49,3 +55,18 @@ $('.svg-rate').click(function(){
       }
       });
   }
+
+
+
+  $(window).scroll(function(){
+   if ($(this).scrollTop() > 200){
+       $('.menu').addClass("scroll");
+       $('#judo-logo-wrap, #judo-logo-wrap svg').addClass('shrink-logo');
+       set_in_the_middle($('#judo-logo-wrap'));
+   }
+   else{
+       $('.menu').removeClass("scroll");
+       $('#judo-logo-wrap, #judo-logo-wrap svg').removeClass('shrink-logo');
+       set_in_the_middle($('#judo-logo-wrap'));
+   }
+   });

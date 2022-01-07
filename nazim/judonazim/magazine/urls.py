@@ -23,5 +23,6 @@ urlpatterns = [
 
  path('rate-post/<int:pk>', views.rate_post, name = 'rate_post'),
  path('rate-com/<int:pk>', views.rate_com, name = 'rate_com'),
+ path('about-ronny-the-nazi/', views.about_ronny_the_nazi , name="about_ronny_the_nazi")
 
 ]

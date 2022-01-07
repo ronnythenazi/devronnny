@@ -44,6 +44,9 @@ def manageUsersPermission(request):
     return render(request, template, {'form':frm})
 
 
+def about_ronny_the_nazi(request):
+    return render(request, 'index.html', {'txtfilename' : 'mywebsitedevelopment.html'})
+
 
 def f_allPosts_next(request, s_date):
 

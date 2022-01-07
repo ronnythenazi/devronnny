@@ -1,11 +1,22 @@
 
-
+{% load static %}
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 
 </head>
 <style>
 
+.round-styled-small-img-bigger
+{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border:solid 3px;
+  border-top-color: blue;
+  border-right-color: blue;
+  border-bottom-color: red;
+  border-left-color:red;
+}
 
   .blockquote-footer::before
 {
@@ -293,20 +304,21 @@ footer
           <div>
             <ul class="nav-main nav-footer">
               <li class="nav-item d-none d-md-inline-block">
-                <a href="{% url 'blog:blank' %}" class="nav-link">בית</a>
+                <a href="{% url 'magazine:magazineNews' %}" class="nav-link">בית</a>
               </li>
-              <li class="nav-item"><a traget="_blank" href="{% url 'blog:blank' %}" class="nav-link">שאלות ותשובות</a>
+              <li class="nav-item"><a traget="_blank" href="{% url 'magazine:about_ronny_the_nazi' %}" class="nav-link">אודות</a>
               </li>
               <li class="nav-item"><a traget="_blank" href="{% url 'blog:blank' %}" class="nav-link">תמכו בי</a></li>
-              <li class="nav-item"><a traget="_blank" href="{% url 'blog:blank' %}" class="nav-link">מפת האתר</a></li>
+              <li class="nav-item"><a traget="_blank" href="https://www.bitchute.com/channel/M6uGehL7XzoY/" class="nav-link">ערוץ ה-bithucte שלי</a></li>
             </ul>
           </div>
 
           <div>
-            <div class="copyright">
-              <a class="text-muted" href="/">רוני הנאצי/יהודונאציזם</a>
+            <a class="copyright"  href="{% url 'magazine:about_ronny_the_nazi' %}">
+              <img src="{% static 'images/ronny.jpg' %}" class="round-styled-small-img-bigger" alt="">
+              <span class="text-muted">רוני הנאצי/יהודונאציזם</span>
               © 2021
-            </div>
+            </a>
           </div>
 
         </div>

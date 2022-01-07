@@ -43,8 +43,41 @@ $(window).scroll(function(){
  }
  });
 
+$('button').click(function(){
+    var curr_url = window.location.href;
+    var url_sub_str = 'magazine/about-ronny-the-nazi/';
+    if(curr_url.includes(url_sub_str))
+    {
+       var new_url = curr_url.replace(url_sub_str , '');
+       window.location.href = new_url;
+       /*$(this).attr('type', 'submit');
+       %(this).parents('form').first('submit');*/
+
+    }
+
+
+});
+$('.menu').mouseover(function(){
+  var curr_url = window.location.href;
+  var url_sub_str = 'magazine/about-ronny-the-nazi/';
+  if(curr_url.includes(url_sub_str))
+  {
+     var new_url = curr_url.replace(url_sub_str , '');
+     window.location.href = new_url;
+     /*$(this).attr('type', 'submit');
+     %(this).parents('form').first('submit');*/
+   }
+});
+
 function fload()
 {
+  var curr_url = window.location.href;
+  var url_sub_str = 'magazine/about-ronny-the-nazi/';
+  if(curr_url.includes(url_sub_str))
+  {
+     $('button').attr('type', 'button');
+
+  }
 
 setInterval(function() {
 //console.log("timer!");
