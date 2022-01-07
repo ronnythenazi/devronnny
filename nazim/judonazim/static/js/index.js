@@ -57,7 +57,8 @@ $('button').click(function(){
 
 
 });
-$('.menu').mouseover(function(){
+$('.menuitemwarpper').mouseover(function(){
+
   var curr_url = window.location.href;
   var url_sub_str = 'magazine/about-ronny-the-nazi/';
   if(curr_url.includes(url_sub_str))
