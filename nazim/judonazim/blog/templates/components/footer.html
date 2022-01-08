@@ -284,20 +284,22 @@ footer
       <div class="container">
         <p class="text-center mt-5">
               <span class="icon icon-lg mx-sm-3 d-none d-sm-inline"><i class="fa fa-heart"></i></span>
-              <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">
+              <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="facebook-footer fb-xfbml-parse-ignore">
                   <span class="icon icon-lg mx-1 mx-sm-3"><i class="fa fa-facebook"></i></span>
               </a>
-              <a href="https://twitter.com/intent/tweet?text=קהילת+יהודונאצזים+ישראל.+יהודים+%26+בעד+גזענות&amp;url={% url 'blog:homepage' %}" target="_blank" title="Twitter">
+              <a class="twitter-footer" href="https://twitter.com/intent/tweet?text=קהילת+יהודונאצזים+ישראל.+יהודים+%26+בעד+גזענות&amp;url={% url 'blog:homepage' %}" target="_blank" title="Twitter">
                   <span class="icon icon-lg mx-1 mx-sm-3"><i class="fa fa-twitter"></i></span>
               </a>
-              <a href="https://vk.com/share.php?url={% url 'blog:homepage' %}" target="_blank" title="VKontakte">
+              <a class="vk-footer"  href="https://vk.com/share.php?url={% url 'blog:homepage' %}" target="_blank" title="VKontakte">
                   <span class="icon icon-lg mx-1 mx-sm-3"><i class="fa fa-vk"></i></span>
               </a>
-              <a href="https://wa.me/?text=https%3A%2F%2F{% url 'blog:homepage' %}+-+יהודונאציזם+ישראל.+נאצים+יהודים+%26+האתר+הרשמי" target="_blank" title="Whatsapp">
+              <a class="whatsapp-footer" href="https://wa.me/?text=https%3A%2F%2F{% url 'blog:homepage' %}+-+יהודונאציזם+ישראל.+נאצים+יהודים+%26+האתר+הרשמי" target="_blank" title="Whatsapp">
                   <span class="icon icon-lg mx-1 mx-sm-3"><i class="fa fa-whatsapp"></i></span>
               </a>
-              <a href="https://www.tumblr.com/share/link?url=https://{% url 'blog:homepage' %}&amp;name=יהודונאציזם+ישראל.+נאצים+יהודים+%26+האתר+הרשמי&amp;description=יהודונאציזם+האתר+והקהילה+הראשונה+של+נאצים+יהודים+לבנים+גאים+נלחמים+נגד+תת+תרבות+של+הפוליטיקלי+קורקט+ודיכוי+חופש+הביטוי+לא+רוצים+מדינת+כל+גזעיה+אזרחיה+וחוצוניה" target="_blank" title="Tumblr">
-                  <span class="icon icon-lg mx-1 mx-sm-3"><i class="fa fa-tumblr"></i></span>
+              <a target="_blank" class="telegram-footer social-a" href="https://telegram.me/share/url?url={% url 'blog:homepage' %}&text=גזענות מצילה חיים" target="_blank" title="שתף בטלגראם">
+               <span class="icon icon-lg mx-1 mx-sm-3">
+                <i class="fa fa-telegram"></i>
+                </span>
               </a>
               <span class="icon icon-lg mx-sm-3 d-none d-sm-inline"><i class="fa fa-heart"></i></span>
           </p><br><div class="text-center"></div>
@@ -338,6 +340,34 @@ footer
         //  $('.fa').css('font', '14px/1 FontAwesome');
           $('.fa-heart').show();
         }
+
+        $(document).ready(function(){
+          var slug = '';
+          var linkdin_slug = '';
+
+          if($('.post-title-slug')[0])
+          {
+            slug = $('.post-title-slug').text();
+            linkdin_slug = "&title=" + slug + "&summary=" + $('.post-subtitle-slug').text();
+            linkdin_slug += "&source=" ;
+          }
+
+          else
+          {
+
+            slug = "קהילת+יהודונאציזם-+ישראל+יהודים+גזענים+גאים+שונאי+אשכנזים+האתר+הרשמי";
+            slug += "%26";
+            slug = slug + "גזענות+מצילה+חיים";
+            linkdin_slug = "&title=יהודונאציזם ישראל&summary=לא רוצים זרים במדינה ומותר לנו להיות גזענים&source=";
+          }
+          $('.facebook-footer').attr('href', "https://www.facebook.com/sharer/sharer.php?u=" + window.location.href);
+
+          $('.twitter-footer').attr('href', "https://twitter.com/intent/tweet?text=" + slug + "&amp;url=" + window.location.href);
+          $('.whatsapp-footer').attr('href', "https://wa.me/?text="  + window.location.href + "+-+" + slug);
+          $('.telegram-footer').attr('href', "https://telegram.me/share/url?url=" + window.location.href + "&text=" + slug);
+          $('.vk-footer').attr('href', "https://vk.com/share.php?url=" +  window.location.href + linkdin_slug);
+
+        });
 
       </script>
     </footer>

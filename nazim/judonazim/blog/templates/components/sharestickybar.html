@@ -128,11 +128,11 @@
   <path d="M8.5 4.466V1.75a1.75 1.75 0 1 0-3.5 0v5.34l-1.2.24a1.5 1.5 0 0 0-1.196 1.636l.345 3.106a2.5 2.5 0 0 0 .405 1.11l1.433 2.15A1.5 1.5 0 0 0 6.035 16h6.385a1.5 1.5 0 0 0 1.302-.756l1.395-2.441a3.5 3.5 0 0 0 .444-1.389l.271-2.715a2 2 0 0 0-1.99-2.199h-.581a5.114 5.114 0 0 0-.195-.248c-.191-.229-.51-.568-.88-.716-.364-.146-.846-.132-1.158-.108l-.132.012a1.26 1.26 0 0 0-.56-.642 2.632 2.632 0 0 0-.738-.288c-.31-.062-.739-.058-1.05-.046l-.048.002z"/>
   </svg>
   </a>
-  <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore facebook social-a"><i class="fa fa-facebook"></i></a>
+  <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=" class="fb-xfbml-parse-ignore facebook social-a"><i class="fa fa-facebook"></i></a>
   <a target="_blank" href="https://twitter.com/intent/tweet?text=קהילת+יהודונאצזים+ישראל.+יהודים+%26+בעד+גזענות&amp;url={% url 'blog:homepage' %}" class="twitter social-a"><i class="fa fa-twitter"></i></a>
   <a target="_blank" href="https://wa.me/?text=https%3A%2F%2F{% url 'blog:homepage' %}+-+יהודונאציזם+ישראל.+נאצים+יהודים+%26+האתר+הרשמי" class="whatsapp social-a"><i class="fa fa-whatsapp"></i></a>
   <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url={% url 'blog:homepage' %}&title=יהודונאציזם ישראל&summary=לא רןצים זרים במדינה ומותר לנו להיות גזענים&source=" class="linkedin social-a"><i class="fa fa-linkedin"></i></a>
-  <a target="_blank" class="telegram social-a" href="https://telegram.me/share/url?url={% url 'blog:homepage' %}/&text=גזענות מצילה חיים" target="_blank" title="שתף בטלגראם"><i class="fa fa-telegram"></i></a>
+  <a target="_blank" class="telegram social-a" href="https://telegram.me/share/url?url={% url 'blog:homepage' %}&text=גזענות מצילה חיים" target="_blank" title="שתף בטלגראם"><i class="fa fa-telegram"></i></a>
 </div>
 
 <script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>
@@ -176,11 +176,12 @@ $(document).ready(function(){
     slug = slug + "גזענות+מצילה+חיים";
     linkdin_slug = "&title=יהודונאציזם ישראל&summary=לא רוצים זרים במדינה ומותר לנו להיות גזענים&source=";
   }
+  $('.facebook').attr('href', "https://www.facebook.com/sharer/sharer.php?u=" + window.location.href);
 
-  $('.fa-twitter').attr('href', "https://twitter.com/intent/tweet?text=" + slug + "&amp;url=" + window.location.href);
-  $('.fa-whatsapp').attr('href', "https://wa.me/?text=https%3A%2F%2F" + window.location.href + "+-+" + slug);
-  $('.fa-telegram').attr('href', "https://telegram.me/share/url?url=" + window.location.href + "/&text=" + slug);
-  $('.fa-linkedin').attr('href', "https://www.linkedin.com/shareArticle?mini=true&url=" + window.location.href + linkdin_slug);
+  $('.twitter').attr('href', "https://twitter.com/intent/tweet?text=" + slug + "&amp;url=" + window.location.href);
+  $('.whatsapp').attr('href', "https://wa.me/?text="  + window.location.href + "+-+" + slug);
+  $('.telegram').attr('href', "https://telegram.me/share/url?url=" + window.location.href + "&text=" + slug);
+  $('.linkedin').attr('href', "https://www.linkedin.com/shareArticle?mini=true&url=" +  window.location.href + linkdin_slug);
 
   if($('.icon-bar').parents('body').first().attr('id') != 'body-blog')
   {
