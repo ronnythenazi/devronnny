@@ -4,6 +4,12 @@
 
 {%block moreLinks%}<link rel="stylesheet" href="{% static 'magazine/css/writepost.css' %}"> {%endblock%}
 {%block body%}
+<style>
+  .icon-bar
+  {
+    display:none !important;
+  }
+</style>
  {% if user.is_authenticated %}
 <form  method = "post"  enctype="multipart/form-data">
   {%csrf_token%}

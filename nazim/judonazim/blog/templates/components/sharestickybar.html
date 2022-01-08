@@ -15,6 +15,10 @@
  z-index:900;
 }
 
+.icon-bar.solid-fa
+{
+  margin-top:0;
+}
 .icon-bar a:not(#to-the-magazine) {
   display: block;
   text-align: center;
@@ -183,9 +187,13 @@ $(document).ready(function(){
   $('.telegram').attr('href', "https://telegram.me/share/url?url=" + window.location.href + "&text=" + slug);
   $('.linkedin').attr('href', "https://www.linkedin.com/shareArticle?mini=true&url=" +  window.location.href + linkdin_slug);
 
+
   if($('.icon-bar').parents('body').first().attr('id') != 'body-blog')
   {
-
+    if($('.icon-bar').hasClass('solid-fa') == false)
+    {
+      $('.icon-bar').addClass('solid-fa');
+    }
 
    $('#to-the-magazine').hide();
    $('#to-the-blog').css('display', 'flex');
@@ -194,7 +202,6 @@ $(document).ready(function(){
 
      if($(this).hasClass('solid-fa') == false)
     {
-
        $(this).addClass('solid-fa');
     }
 

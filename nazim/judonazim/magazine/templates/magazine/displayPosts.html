@@ -7,9 +7,18 @@
 
      {%block body%}
 
-
-     <div class="bodyrow">
-       <div class="right-grey sides"></div>
+    <style>
+      .icon-bar
+      {
+        display:none !important;
+      }
+      footer
+      {
+        margin-top:0 !important;
+      }
+    </style>
+     <div class="bodyrow display-posts-body">
+    <div class="right-grey sides"></div>
           <div>
 
        {%for post in posts %}
@@ -61,13 +70,13 @@
 
 
     {% if forloop.counter !=  posts|length   %}
-     <div class="bg-line"></div>
+     <div class="bg-line" style="height:100px;"></div>
      {%endif%}
 
 
 
     {%endfor%}
   </div>
-    <div class="left-grey sides"></div>
+   <div class="left-grey sides"></div>
      </div>
      {%endblock body%}
