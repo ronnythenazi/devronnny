@@ -14,7 +14,7 @@ $('.red-hover').mouseleave(function(){
 });
 
 $(document).ready(function(){
-  setTimeout(function(){$('a').attr('target' , '_blank');}, 100);
+  //setTimeout(function(){$('a').attr('target' , '_blank');}, 100);
   set_in_the_middle($('#judo-logo-wrap'));
 
 });

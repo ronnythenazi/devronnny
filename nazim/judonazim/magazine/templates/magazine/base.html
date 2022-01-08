@@ -116,16 +116,16 @@
          <span class="author"><img src="{{user.profile.profile_img.url | safe}}" alt="" class="very-tiny-avatar"></span>
          {% endif %}
        </div>
-      </div>
+     </div>
 
     {% endif %}
-   <div id="judo-logo-wrap" class="ice-cream-clr" style="align-self:center;">
+   <a id="judo-logo-wrap" href="{% url 'magazine:magazineNews' %}" class="ice-cream-clr" style="align-self:center;">
      <div class="super-tiny-row-center-align stroke-white">
      <span>יהודו</span>
      {% include 'magazine/components/svg/judonazim.svg' %}
      <span>נאציזם</span>
    </div>
-   </div>
+ </a>
 
    <div id="more-info"  style="align-self:center;">
      <div class="super-tiny-row-center-align stroke-white">
