@@ -11,7 +11,7 @@
   }
 </style>
  {% if user.is_authenticated %}
-<form  method = "post"  enctype="multipart/form-data">
+<form  method = "post"  enctype="multipart/form-data" style="width:100%;">
   {%csrf_token%}
   {{frm.media}}
 <div class="center">

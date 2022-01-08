@@ -13,6 +13,10 @@
        {
          display:none !important;
        }
+       footer
+       {
+         margin-top:0 !important;
+       }
      </style>
       {% if user.is_authenticated %}
          {% if post.author_id == request.user.id and request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'owner'  %}
