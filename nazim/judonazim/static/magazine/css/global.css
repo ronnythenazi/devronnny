@@ -450,3 +450,7 @@
   font-weight: bold;
   opacity: 0;
 }
+.icon-bar {
+ right:0 !important;
+ width:50px !important;
+}
