@@ -14,6 +14,7 @@ import math
 
 
 
+
 #post = get_object_or_404(BlogPost)
 @unauthenticated_user
 @allowed_users(allowed_roles = ['owner'])

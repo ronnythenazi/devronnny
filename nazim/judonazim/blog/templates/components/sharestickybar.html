@@ -133,7 +133,7 @@
   </svg>
   </a>
   <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=" class="fb-xfbml-parse-ignore facebook social-a"><i class="fa fa-facebook"></i></a>
-  <a target="_blank" href="https://twitter.com/intent/tweet?text=קהילת+יהודונאצזים+ישראל.+יהודים+%26+בעד+גזענות&amp;url={% url 'blog:homepage' %}" class="twitter social-a"><i class="fa fa-twitter"></i></a>
+  <a target="_blank" href="https://twitter.com/intent/tweet?" class="twitter social-a"><i class="fa fa-twitter"></i></a>
   <a target="_blank" href="https://wa.me/?text=https%3A%2F%2F{% url 'blog:homepage' %}+-+יהודונאציזם+ישראל.+נאצים+יהודים+%26+האתר+הרשמי" class="whatsapp social-a"><i class="fa fa-whatsapp"></i></a>
   <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url={% url 'blog:homepage' %}&title=יהודונאציזם ישראל&summary=לא רןצים זרים במדינה ומותר לנו להיות גזענים&source=" class="linkedin social-a"><i class="fa fa-linkedin"></i></a>
   <a target="_blank" class="telegram social-a" href="https://telegram.me/share/url?url={% url 'blog:homepage' %}&text=גזענות מצילה חיים" target="_blank" title="שתף בטלגראם"><i class="fa fa-telegram"></i></a>
@@ -182,7 +182,7 @@ $(document).ready(function(){
   }
   $('.facebook').attr('href', "https://www.facebook.com/sharer/sharer.php?u=" + window.location.href);
 
-  $('.twitter').attr('href', "https://twitter.com/intent/tweet?text=" + slug + "&amp;url=" + window.location.href);
+  $('.twitter').attr('href', "https://twitter.com/share?url=" + window.location.href + "&text=" + slug);
   $('.whatsapp').attr('href', "https://wa.me/?text="  + window.location.href + "+-+" + slug);
   $('.telegram').attr('href', "https://telegram.me/share/url?url=" + window.location.href + "&text=" + slug);
   $('.linkedin').attr('href', "https://www.linkedin.com/shareArticle?mini=true&url=" +  window.location.href + linkdin_slug);

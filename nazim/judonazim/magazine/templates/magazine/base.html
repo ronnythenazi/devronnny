@@ -1,8 +1,28 @@
 <!DOCTYPE html>
 {%load static%}
-<html lang="en" dir="rtl">
+<html lang="he-IL" dir="rtl">
   <head>
     <meta charset="utf-8">
+    <meta property="og:locale" content="he_IL">
+    <meta property="og:type" content="website">
+
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta property="og:title" content="{{object.title}}">
+    <meta property="og:description" content="{{object.subtitle}}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:image" content="{{object.thumb.url}}">
+    <meta property="og:image:height" content="324">
+    <meta property="og:image:width" content="583">
+    <meta property="og:site_name" content="יהודונאציזם הבלוג של רוני הנאצי">-
+
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@judonazimwebsite">
+    <meta name="twitter:image" content="{{object.thumb.url}}">
+    <meta name="twitter:title" content="{{object.title}}">
+    <meta name="twitter:description" content="{{object.subtitle}}">
+
     <title>{%block title%}בלוג יהודונאציזם{%endblock%}</title>
     <link rel = "shortcut icon" href="{% static 'images/judonazimlogoglow.jpg' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'magazine/css/magazine.css' %}">
@@ -10,7 +30,7 @@
     <link rel="stylesheet" href="{% static 'magazine/css/global.css' %}">
     {%block moreLinks%} {%endblock moreLinks%}
 
-    <script>
+  <script>
 
       document.onkeydown = function (e) {
           if (event.keyCode == 123) {
@@ -34,7 +54,7 @@
       }
     </script>
   </head>
-  <body oncontextmenu="return false;">
+<body oncontextmenu="return false;">
 
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0" nonce="GTakoGeS"></script>
@@ -150,6 +170,7 @@
  <div style="display:flex;flex-direction:row; justify-content:flex-start;align-items:flex-start;">
 {%include 'components/sharestickybar.html'%}
 {%block body%}
+
 {%endblock body%}
 </div>
 {%include 'components/footer.html'%}
@@ -158,12 +179,13 @@
   <script type="text/javascript" src="{% static 'magazine/js/posts.js'%}"> </script>
   <script type="text/javascript" src="{% static 'magazine/js/editPosts.js'%}"> </script>
   <script type="text/javascript" src="{% static 'magazine/js/global.js'%}"> </script>
+
   <script>
   $(document).bind("contextmenu", function(e) {
      e.preventDefault();
   });
 
-  </script>
+</script>
 
 
 
