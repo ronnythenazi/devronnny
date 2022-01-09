@@ -4,13 +4,30 @@
 
 
 
-    {%block title%}יהודונאציזם - מאמר דעה{%endblock%}
+{%block meta%}
+<meta property="og:locale" content="he_IL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="{{object.title}}">
+<meta property="og:description" content="{{object.subtitle}}">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:image" content="{{object.thumb.url}}">
+<meta property="og:image:height" content="324">
+<meta property="og:image:width" content="583">
+<meta property="og:site_name" content="יהודונאציזם">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@judonazimwebsite">
+<meta name="twitter:image" content="{{object.thumb.url}}">
+<meta name="twitter:title" content="{{object.title}}">
+<meta name="twitter:description" content="{{object.subtitle}}">
+{%endblock meta%}
+
+
+  {%block title%}יהודונאציזם - מאמר דעה{%endblock%}
 
    {%block moreLinks%}
-
-
-
-  {%endblock moreLinks%}
+   {%endblock moreLinks%}
 
      {%block body%}
     <div class="center" style="width:100%;">
