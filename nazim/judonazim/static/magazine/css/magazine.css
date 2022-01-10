@@ -633,8 +633,8 @@ a
 .judonazim-logo-svg
 {
   transition: 0.2s all;
-  fill:pink;
-  filter:drop-shadow(0 0 10px #ab24d8) drop-shadow(0 0 10px red)  drop-shadow(0 0 10px blue);
+  fill:white;
+  filter:drop-shadow(0 0 10px #ab24d8) drop-shadow(10px 0 10px red)  drop-shadow(0 0 10px blue);
 }
 
 .round-styled-small-img
