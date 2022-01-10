@@ -89,7 +89,8 @@
  </div>
   <!-- end most relevant-->
 
-
+<!-- more news -->
+{% if object_list.all|length > 0 %}
        <div class="posts-category">
 
 
@@ -136,6 +137,10 @@
       {% endfor %}
        </div>
      </div>
+     {% endif %}
+     <!-- end more-news -->
+
+
    <!-- posts by authors -->
 
  {% for author_posts in authors_posts %}
