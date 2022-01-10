@@ -634,7 +634,7 @@ a
 {
   transition: 0.2s all;
   fill:white;
-  filter:drop-shadow(0 0 10px #ab24d8) drop-shadow(10px 0 10px red)  drop-shadow(0 0 10px blue);
+  filter:drop-shadow(-10px 0 10px red)  drop-shadow(10px 0 5px red) drop-shadow(10px 0 10px blue);
 }
 
 .round-styled-small-img
