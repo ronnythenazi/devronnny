@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {%load static%}
+{% load custom_tag_notification %}
 <html lang="he-IL" dir="rtl">
 
 
@@ -38,6 +39,17 @@
           }
       }
     </script>
+
+    <style>
+    #bell-menu-item
+    {
+      box-sizing:border-box;
+      align-self:flex-start;
+      justify-content:flex-start;
+      margin-top: 50px;
+
+    }
+    </style>
   </head>
 
 <body oncontextmenu="return false;">
@@ -45,6 +57,25 @@
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0" nonce="GTakoGeS"></script>
 
      <div class="menu">
+
+
+
+      <!-- start notification tag -->
+      <!--{% if user.is_authenticated  %}-->
+
+      <div class="menuItem not-bg-hover" id= "bell-menu-item">
+
+
+       {% show_notifications %}
+
+    </div>
+
+
+      <!--{% endif %}-->
+
+
+
+       <!-- end notification tag -->
        {% if user.is_authenticated  %}
 
        <div class="menuItem not-bg-hover rotate-arrow-up" style="margin-right:30px;">

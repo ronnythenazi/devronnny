@@ -54,6 +54,7 @@ INSTALLED_APPS = [
         #'magazine',
         'magazine.apps.MagazineConfig',
         'users',
+        'social',
 
 
 
@@ -223,6 +224,7 @@ if DEBUG:
         os.path.join(BASE_DIR, 'blog', 'static'),
         os.path.join(BASE_DIR, 'magazine', 'static'),
         os.path.join(BASE_DIR, 'users', 'static'),
+        os.path.join(BASE_DIR, 'social', 'static'),
       )
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 else:
