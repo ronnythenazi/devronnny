@@ -1,5 +1,8 @@
 $('.menuItem').click(function(){$(this).children('div').css('visibility', 'visible');});
-$('.menuItem>div').mouseleave(function(){$(this).css('visibility', 'hidden');});
+//$('.menuItem>div').mouseleave(function(){$(this).css('visibility', 'hidden');});
+$('.menuItem').mouseleave(function(){$(this).children('div').css('visibility', 'hidden');});
+
+
 $('.more-posts-link').mouseover(function(){
   $(this).find('.bi-chevron-double-left').css('fill', 'yellow');
 });
