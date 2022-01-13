@@ -178,11 +178,13 @@ html,body
 }
 .subMenuItem.notification svg :hover
 {
-  fill:black;
+  fill:red;
+  opacity: 1;
 }
 .subMenuItem.notification svg
 {
   transition: 0.2s fill ease;
+  opacity: 0.5;
 }
 .subMenuItem.notification
 {

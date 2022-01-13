@@ -17,6 +17,7 @@ Including another URLconf
 from django.urls import path, include
 from blog import urls
 from magazine import urls
+from social import urls
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
 from django.conf.urls.static import static
@@ -28,6 +29,7 @@ if settings.DEBUG:
         path('', include('blog.urls')),
         path('admin/', admin.site.urls),
         path('magazine/', include('magazine.urls')),
+        path('social/', include('social.urls')),
         path('users/', include('django.contrib.auth.urls')),
         path('users/', include('users.urls')),
 
@@ -38,6 +40,7 @@ else:
     urlpatterns = [
       path('', include('blog.urls')),
       path('magazine/', include('magazine.urls')),
+      path('social/', include('social.urls')),
       path('users/', include('django.contrib.auth.urls')),
       path('users/', include('users.urls')),
     ]

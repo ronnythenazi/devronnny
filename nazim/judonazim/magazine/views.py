@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, Http404, redirect
 from django.views.generic import ListView, DetailView , CreateView
-from .models import BlogPost, Profile, Comment
+from .models import BlogPost, Profile, Comment, Notification
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from .blogpublishing import *
@@ -169,6 +169,7 @@ def rate_post(request, pk):
         else:
             post.likes.add(request.user)
             post.dislikes.remove(request.user)
+            notification = Notification.objects.create(notification_type = 1, from_user = request.user, post = post, to_user = post.author)
 
     elif 'dislike-btn' in request.POST:
         is_already_disliked = post.dislikes.filter(id = request.user.id).exists()
@@ -177,6 +178,7 @@ def rate_post(request, pk):
         else:
             post.dislikes.add(request.user)
             post.likes.remove(request.user)
+            notification = Notification.objects.create(notification_type = 4, from_user = request.user, post = post, to_user = post.author)
     return HttpResponseRedirect(reverse('magazine:anArticle', args = [str(pk)]))
 
 def rate_com(request, pk):
@@ -188,6 +190,7 @@ def rate_com(request, pk):
         else:
             com.likes.add(request.user)
             com.dislikes.remove(request.user)
+            notification = Notification.objects.create(notification_type = 1, from_user = request.user, comment = com, to_user = com.comment_usr)
 
     elif 'dislike-com' in request.POST:
         is_already_disliked = com.dislikes.filter(id = request.user.id).exists()
@@ -196,6 +199,7 @@ def rate_com(request, pk):
         else:
             com.dislikes.add(request.user)
             com.likes.remove(request.user)
+            notification = Notification.objects.create(notification_type = 4, from_user = request.user, comment = com, to_user = com.comment_usr)
     return HttpResponseRedirect(reverse('magazine:anArticle', args = [str(com.post.id), '-replace-me-comment'+ str(com.id)]))
 
 
@@ -217,11 +221,11 @@ def Article(request, pk, pos_id = '#start'):
     if request.method == 'POST':
         if 'btn-send-comment' in request.POST:
             if comment_frm.is_valid():
-
                 comment_frm.instance.post = post #request.post
                 if(request.user.id):
                     comment_frm.instance.comment_usr = request.user
                 com_obj = comment_frm.save()
+                notification = Notification.objects.create(notification_type = 2, from_user = request.user, comment = com_obj, to_user = post.author)
                 dict = {'pos_id':pos_id, 'object':post, 'comment_frm':comment_frm, 'com_of_com_frm':com_of_com_frm , 'status':'posted', 'com_obj':com_obj, 'total_likes':total_likes, 'total_dislikes':total_dislikes, 'liked':liked, 'disliked' :disliked}
                 return render(request, 'magazine/article.html', dict )
 
@@ -232,7 +236,8 @@ def Article(request, pk, pos_id = '#start'):
                 com_of_com_frm.instance.comment = comment
                 if(request.user.id):
                     com_of_com_frm.instance.comment_of_comment_usr = request.user
-                com_of_com_frm.save()
+                com_of_com  = com_of_com_frm.save()
+                notification = Notification.objects.create(notification_type = 2, from_user = request.user, com_of_com = com_of_com, to_user = comment.comment_usr)
                 dict = {'pos_id':pos_id, 'object':post, 'comment_frm':comment_frm, 'com_of_com_frm':com_of_com_frm , 'status':'posted', 'com_obj':comment, 'total_likes':total_likes, 'total_dislikes':total_dislikes, 'liked':liked, 'disliked' :disliked}
                 return render(request, 'magazine/article.html', dict)
 

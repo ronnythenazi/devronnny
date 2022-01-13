@@ -12,10 +12,11 @@
     position:relative;
     direction:rtl;
     top:10px;
+    fill:white;
   }
-  .red-bell
+  .bell.red-bell
   {
-    color:red;
+    fill:red;
   }
   .bell .notification-counter
   {
@@ -47,7 +48,6 @@
 {% else %}
 <span class="super-tiny-row-center-align bell">
   {% include 'magazine/components/svg/bell.svg' %}
-  <span class="notification-counter">  {{ notifications.count }}</span>
 </span>
 {% endif %}
 <div class="notification-content" style="top:20px;right:0px;">
@@ -57,12 +57,12 @@
       {% if notification.notification_type == 1 %}
       <div class="subMenuItem notification">
         {% include 'social/components/svg/close.svg' %}
-        <a href="#">@{{notification.from_user}} נתן לך לייק לפוסט </a>
+        <a href="{% url 'social:post-notification' notification.pk notification.post.pk %}">@{{notification.from_user}} נתן לך לייק לפוסט </a>
       </div>
-      {% elif notification.notification_type == 2 %}
+      {% elif notification.notification_type == 4 %}
       <div class="subMenuItem notification">
         {% include 'social/components/svg/close.svg' %}
-        <a href="#">@{{notification.from_user}} הגיב לך על המאמר </a>
+        <a href="{% url 'social:post-notification' notification.pk notification.post.pk %}">@{{notification.from_user}} נתן לך דיסלייק לפוסט</a>
       </div>
       {% endif %}
 
@@ -70,18 +70,30 @@
       {% if notification.notification_type == 1 %}
        <div class="subMenuItem notification">
          {% include 'social/components/svg/close.svg' %}
-         <a href="#">@{{notification.from_user}} נתן לך לייק לתגובה </a>
+         <a href="{% url 'social:comment-notification' notification.pk notification.comment.post.pk  notification.comment.pk %}">@{{notification.from_user}} נתן לך לייק לתגובה </a>
        </div>
       {% elif notification.notification_type == 2 %}
+      <div class="subMenuItem notification">
+        {% include 'social/components/svg/close.svg' %}
+        <a href="{% url 'social:comment-notification' notification.pk notification.comment.post.pk  notification.comment.pk %}">@{{notification.from_user}} הגיב לך על המאמר </a>
+      </div>
+      {% elif notification.notification_type == 4 %}
        <div class="subMenuItem notification">
          {% include 'social/components/svg/close.svg' %}
-         <a href="#">@{{notification.from_user}} הגיב לך </a>
+         <a href="{% url 'social:comment-notification' notification.pk notification.comment.post.pk  notification.comment.pk %}">@{{notification.from_user}}נתן לך דיסלייק לתגובה</a>
        </div>
+      {% endif %}
+  {% elif notification.com_of_com %}
+      {% if notification.notification_type == 2 %}
+      <div class="subMenuItem notification">
+        {% include 'social/components/svg/close.svg' %}
+        <a href="{% url 'social:com-of-com-notification' notification.pk notification.com_of_com.comment.post.pk  notification.com_of_com.comment.pk notification.com_of_com.pk %}">@{{notification.from_user}} הגיב לך </a>
+      </div>
       {% endif %}
   {% else %}
   <div class="subMenuItem notification">
     {% include 'social/components/svg/close.svg' %}
-    <a href="#">@{{notification.from_user}} החל לעקוב אחריך </a>
+    <a href="{% url 'social:follow-notification' notification.pk notification.from_user.profile.pk %}">@{{notification.from_user}} החל לעקוב אחריך </a>
   </div>
 
   {% endif %}
