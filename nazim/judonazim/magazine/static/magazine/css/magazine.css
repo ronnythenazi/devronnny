@@ -126,8 +126,6 @@ html,body
   flex-direction: column;
   align-items: center;
   justify-content:center;
-
-
 }
 
 .stroke-white
@@ -135,7 +133,7 @@ html,body
   -webkit-text-stroke-width:1px;
   -webkit-tex-stroke-color:white;
 }
-.menuItem:hover
+.menuItem:not(.not-bg-hover):hover
 {
   background:var(--ice-cream1,--ice-cream2);
   outline: white 1px solid;
@@ -673,4 +671,12 @@ a
 .scroll.menu
 {
    height:70px;
+}
+.scale-hover
+{
+  transition: 0.2s all;
+}
+.scale-hover:hover
+{
+  transform: scale(1.2);
 }

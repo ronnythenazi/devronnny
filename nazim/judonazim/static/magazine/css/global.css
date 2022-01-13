@@ -454,3 +454,46 @@
  right:0 !important;
  width:50px !important;
 }
+.rotate-up
+{
+  transform: scale(1, -1);
+}
+.bi-chevron-down
+{
+  transition: 0.2s all;
+}
+.btn-loader
+{
+  overflow: hidden;
+  box-sizing: border-box;
+  height: 50px;
+}
+.loader{
+  width: 20px;
+  height: 20px;
+  border: 10px solid rgb(40, 39, 39, 0.5);
+  border-radius: 50%;
+  border-top-color: rgb(239, 4, 4, 0.5);
+  animation-name: spin;
+  animation-duration: 1000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  display: none;
+  position: absolute;
+  top:5px;
+  right:calc(50% - 20px);
+
+  /* transform: rotate(3deg); */
+   /* transform: rotate(0.3rad);/ */
+   /* transform: rotate(3grad); */
+   /* transform: rotate(.03turn);  */
+}
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}

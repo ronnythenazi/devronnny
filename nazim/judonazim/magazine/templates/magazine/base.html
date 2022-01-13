@@ -46,10 +46,54 @@
 
      <div class="menu">
        {% if user.is_authenticated  %}
-       <a class="menuItem" href="{% url 'logout' %}">
-        <!--<span>צא</span>-->
-        {% include 'magazine/components/svg/reverse.html' %}
-       </a>
+
+       <div class="menuItem not-bg-hover rotate-arrow-up" style="margin-right:30px;">
+       <span class="scale-hover" style="font-size:1rem;color:white;">
+         {{user.username | safe}}
+       </span>
+       {% if user.profile.profile_img.url %}
+       <span class="scale-hover">
+         <img src="{{user.profile.profile_img.url | safe}}" alt="" class="very-tiny-avatar">
+         {% include 'magazine/components/svg/dropdownarrow.svg' %}
+       </span>
+       {% else %}
+       <span class="scale-hover">{% include 'members/default_profile_img.html' %}
+       {% include 'magazine/components/svg/dropdownarrow.svg' %}
+       </span>
+       {% endif %}
+
+       <div>
+         {% if user.profile.id %}
+         <a class= "subMenuItem" href = "{% url 'users:UpdateProfile' user.profile.id %}">
+           {% include 'magazine/components/svg/person_plus.svg' %}
+         עדכן פרופיל
+         </a>
+         {% else %}
+         <a class= "subMenuItem" href = "{% url 'users:CreateProfile' %}">
+           {% include 'magazine/components/svg/person_plus.svg' %}
+          צור פרופיל
+         </a>
+         {% endif %}
+         <a class= "subMenuItem" href = "{% url 'users:profile_ctl' %}">
+           {% include 'magazine/components/svg/setting.svg' %}
+            עדכן חשבון
+         </a>
+         <a class="subMenuItem" href = "{% url 'users:change-password' %}">
+           {% include 'magazine/components/svg/key.svg' %}
+            שינוי סיסמא
+         </a>
+         <a class= "subMenuItem">
+           {% include 'magazine/components/svg/mail.svg' %}
+            תיבת דואר
+         </a>
+         <a class="subMenuItem" href="{% url 'logout' %}">
+
+          <span>{% include 'magazine/components/svg/reverse.html' %} צא</span>
+         </a>
+       </div>
+     </div>
+
+
        {% endif %}
        <a class="menuItem" href="{% url 'magazine:magazineNews' %}">
          <!--<span>דף הבית</span>-->
@@ -89,8 +133,8 @@
         </div>
        </div>
       {% endif %}
-        <div class="menuItem">
-          <!-- <span>חשבון</span>-->
+      <!--  <div class="menuItem">
+
           {% include 'magazine/components/svg/account.html' %}
 
          <div>
@@ -98,7 +142,7 @@
             עדכן חשבון
          </a>
 
-         {% if user.profile.id %}
+        {% if user.profile.id %}
 
          <a class= "subMenuItem" href = "{% url 'users:UpdateProfile' user.profile.id %}">
          עדכן פרופיל
@@ -115,16 +159,8 @@
             תיבת דואר
          </a>
         </div>
-       </div>
+      </div>-->
 
-      <div class="menu-insights">
-         <div class="super-tiny-row-center-align" style="margin-left:50px;gap:5px !important;">
-         <span class="author" style="font-size:1rem;color:white;">{{user.username | safe}}</span>
-         {% if user.profile.profile_img.url %}
-         <span class="author"><img src="{{user.profile.profile_img.url | safe}}" alt="" class="very-tiny-avatar"></span>
-         {% endif %}
-       </div>
-     </div>
 
     {% endif %}
    <a id="judo-logo-wrap" href="{% url 'magazine:magazineNews' %}" class="ice-cream-clr" style="align-self:center;">
@@ -144,7 +180,7 @@
      </a>
    </div>
    </div>
-     </div>
+ </div>
 
 
 

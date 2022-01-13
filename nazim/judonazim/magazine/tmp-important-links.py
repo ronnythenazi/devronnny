@@ -16,3 +16,6 @@
 
 #login using either email or username
 #https://stackoverflow.com/questions/25316765/log-in-user-using-either-email-address-or-username-in-django/57138652
+
+#notification tutorial
+#https://youtu.be/_JKWYkz597c

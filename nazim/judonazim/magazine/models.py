@@ -5,6 +5,7 @@ from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User, Group, Permission
 from django.urls import reverse
 from datetime import datetime, date
+from django.utils import timezone
 exposed_request = None
 
 class BlogPost(models.Model):
@@ -98,9 +99,9 @@ class comment_of_comment(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, null = True,  on_delete = models.CASCADE)
+    user = models.OneToOneField(User, null = True, blank = True, on_delete = models.CASCADE)
     bio = models.TextField(max_length = 1000, null = True, blank = True)
-    profile_img =  models.ImageField(blank = False, null = False, upload_to = 'members/profile/avatar')
+    profile_img =  models.ImageField(default="default.jpg", blank = True, null = True, upload_to = 'members/profile/avatar')
 
     def __str__(self):
         return str(self.user)
@@ -145,3 +146,13 @@ class regUser(models.Model):
 
 class Moderators(models.Model):
     email = models.EmailField(unique = True,  null = False, blank = False)
+
+class Notification(models.Model):
+    # 1=like, 2=comment, 3=follow
+    notification_type = models.IntegerField()
+    to_user = models.ForeignKey(User, related_name = 'notification_to', on_delete = models.CASCADE, null = True)
+    from_user = models.ForeignKey(User, related_name = 'notification_form' , on_delete = models.CASCADE, null = True)
+    post = models.ForeignKey(BlogPost, on_delete = models.CASCADE, related_name = '+', blank = True, null = True)
+    comment = models.ForeignKey(Comment, on_delete = models.CASCADE, related_name = '+', blank = True, null = True)
+    date = models.DateTimeField(default = timezone.now)
+    user_has_seen = models.BooleanField(default = False)

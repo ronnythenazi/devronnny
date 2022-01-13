@@ -51,7 +51,8 @@ INSTALLED_APPS = [
         'storages',
         'boto3',
         'ckeditor',
-        'magazine',
+        #'magazine',
+        'magazine.apps.MagazineConfig',
         'users',
 
 
