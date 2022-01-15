@@ -30,6 +30,27 @@ $('form').submit(function(){
   var btn_loader = $(this).find('.btn-loader');
   $(btn_loader).css('font-size', '0');
   $(btn_loader).children('.loader').show();
+  var bluish_btn = $(this).find('.btn-loader.subscribe').first();
+  if(bluish_btn)
+  {
+
+    $(bluish_btn).css('background', '#2F9BDD');
+    $(bluish_btn).css('box-shadow', 'unset');
+    $(bluish_btn).on('mouseover', function(){
+      $(this).css('box-shadow', 'unset');
+      $(this).css('background-color', '#2F9BDD');
+    });
+  }
+
+  if($(btn_loader).hasClass('btnSave'))
+  {
+      $(btn_loader).addClass('thinking');
+  }
+
+  if($(btn_loader).hasClass('btnDeleteTrans'))
+  {
+      $(btn_loader).addClass('thinking');
+  }
 });
 
 function bell_ring()

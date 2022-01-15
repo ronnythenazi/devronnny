@@ -22,9 +22,13 @@
   box-shadow: 0px 0px 10px blue;
   transition: 0.2s all;
 }
-.ronny-style-field:hover
+/*.ronny-style-field:hover
 {
   box-shadow: 0px 0px 20px rgb(255, 0, 0, 1);
+}*/
+.box-activate
+{
+    box-shadow: 0px 0px 20px rgb(255, 0, 0, 1);
 }
 .box-field
 {
@@ -44,6 +48,14 @@
   width:30px;
   height: 30px;
   fill:white;
+}
+.box-field.box-field-green>svg
+{
+  fill:#02e51c !important;
+}
+.box-field.box-field-orange>svg
+{
+  fill:#ff4300 !important;
 }
 .en
 {

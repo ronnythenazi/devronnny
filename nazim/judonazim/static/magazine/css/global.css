@@ -129,7 +129,18 @@
  -webkit-box-shadow:inset 2px 2px 5px #009607;
   color: #Fbfbfb;
 }
-
+.btnSave.thinking
+{
+  background-color: #0EE146 !important;
+  -webkit-box-shadow:inset 2px 2px 5px #009607 !important;
+  color:#Fbfbfb;
+}
+.btnDeleteTrans.thinking
+{
+  background-color: #DE0205;
+  -webkit-box-shadow:inset 2px 2px 5px #f20000;
+  color:#Fbfbfb;
+}
 .btnSave
 {
   background-color: #Fbfbfb;
@@ -475,6 +486,36 @@
   overflow: hidden;
   box-sizing: border-box;
   height: 50px;
+}
+.btn-loader.btn-loader-small.subscribe
+{
+  height: 50px;
+  width: 100px;
+  position: relative;
+}
+.custom-btn.drakula.btn-loader.btn-loader-small
+{
+  position: relative;
+}
+
+
+.btn[type="submit"].btn-loader.btn-loader-small.thinking .loader
+{
+  border-color:rgb(40, 39, 39) !important;
+  border-top-color:rgb(239, 4, 4) !important;
+}
+.custom-btn.drakula.btn-loader.btn-loader-small .loader
+{
+  border-color:rgb(40, 39, 39) !important;
+  border-top-color:rgb(239, 4, 4) !important;
+}
+.btn-loader-small .loader
+{
+  height: 20px !important;
+  width: 20px !important;
+  top:5px !important;
+  border-width: 10px !important;
+  right:calc(50% - 20px) !important;
 }
 .loader{
   width: 20px;

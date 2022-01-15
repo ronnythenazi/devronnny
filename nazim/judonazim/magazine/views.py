@@ -286,7 +286,7 @@ def fUpdateRecord(request, id):
 
 
 def fgetpostsbyauthor(request):
-    posts = BlogPost.objects.all().filter(author_id = request.user.id)
+    posts = BlogPost.objects.all().filter(author_id = request.user.id).order_by('-datepublished')
     #BlogFormset = modelformset_factory(BlogPost, fields = ['title', 'subtitle', 'content', 'publishstatus', 'thumb'])
     #form_set = BlogFormset(queryset= BlogPost.objects.all())
 

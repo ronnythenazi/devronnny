@@ -15,7 +15,7 @@
 {% if not user.is_authenticated %}
 {{form.as_p}}
 <div class="center">
-<button type="submit" class="subscribe">התחבר</button>
+<button type="submit" class="subscribe btn-loader btn-loader-small">התחבר</button>
 </div>
 {% else %}
 <h1>  אתה כבר מחובר </h1>
@@ -30,4 +30,6 @@
 
 {%endblock body%}
 
-{%block moreJs%}  <script type="text/javascript" src="{% static 'magazine/js/writepost.js'%}"> </script> {%endblock moreJs%}
+{%block moreJs%}  <script type="text/javascript" src="{% static 'magazine/js/writepost.js'%}"> </script>
+<script type="text/javascript" src="{% static 'memebers/js/general.js'%}"> </script>
+{%endblock moreJs%}

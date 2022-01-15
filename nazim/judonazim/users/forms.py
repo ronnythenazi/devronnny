@@ -94,7 +94,7 @@ class UsrUpdateFrm(UserChangeForm):
 
     def __init__(self, *args, **kwargs):
         super(UsrUpdateFrm, self).__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs['class'] = 'signfield en'
+        self.fields['username'].widget.attrs['class'] = 'signfield'
         #self.fields['password1'].widget.attrs['class'] = 'signfield en'
         #self.fields['password2'].widget.attrs['class'] = 'signfield en'
 

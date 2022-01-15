@@ -315,6 +315,7 @@ html,body
  background-color: #1ec6ff;
  color:white;
 }
+
 .trigger-upload, .subscribe
 {
   display: flex;
@@ -412,7 +413,8 @@ html,body
 .main-post-img
 {
    width:65%;
-   height: 100%;
+  /* height: 100%;*/
+  height: 400px;
 }
 .main-post-description
 {
@@ -423,7 +425,8 @@ html,body
   align-items:center;
   width:35%;
   gap:15px;
-  height: 100%;
+  /*height: 100%;*/
+  height: 400px;
   box-sizing: border-box;
   padding-left: 20px;
 
