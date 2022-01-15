@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, Http404, redirect
 from django.views.generic import ListView, DetailView , CreateView
-from .models import BlogPost, Profile, Comment, Notification
+from .models import BlogPost, Profile, Comment, Notification, comment_of_comment
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from .blogpublishing import *
@@ -201,6 +201,27 @@ def rate_com(request, pk):
             com.likes.remove(request.user)
             notification = Notification.objects.create(notification_type = 4, from_user = request.user, comment = com, to_user = com.comment_usr)
     return HttpResponseRedirect(reverse('magazine:anArticle', args = [str(com.post.id), '-replace-me-comment'+ str(com.id)]))
+
+def rate_com_of_com(request, pk):
+    com_of_com = get_object_or_404(comment_of_comment, id = pk)
+    if 'like-com-of-com' in request.POST:
+        is_already_liked = com_of_com.likes.filter(id = request.user.id).exists()
+        if is_already_liked:
+            com_of_com.likes.remove(request.user)
+        else:
+            com_of_com.likes.add(request.user)
+            com_of_com.dislikes.remove(request.user)
+            notification = Notification.objects.create(notification_type = 1, from_user = request.user, com_of_com = com_of_com, to_user = com_of_com.comment_of_comment_usr)
+
+    elif 'dislike-com-of-com' in request.POST:
+        is_already_disliked = com_of_com.dislikes.filter(id = request.user.id).exists()
+        if is_already_disliked:
+            com_of_com.dislikes.remove(request.user)
+        else:
+            com_of_com.dislikes.add(request.user)
+            com_of_com.likes.remove(request.user)
+            notification = Notification.objects.create(notification_type = 4, from_user = request.user, com_of_com = com_of_com, to_user = com_of_com.comment_of_comment_usr)
+    return HttpResponseRedirect(reverse('magazine:anArticle', args = [str(com_of_com.comment.post.id), '-replace-me-sub-comment'+ str(com_of_com.id)]))
 
 
 @check_if_post_accessible

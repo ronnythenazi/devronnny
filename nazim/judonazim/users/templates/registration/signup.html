@@ -12,6 +12,7 @@
 
 <form  method = "post"  style="width:100%;" enctype="multipart/form-data">
 {%csrf_token%}
+{{ form.non_field_errors }}
 
 <div class="center">
 
@@ -19,25 +20,35 @@
 {% if not user.is_authenticated %}
 <h1><u>הרשמה</u></h1>
 
-<div class="center" style="width:100%;">
+<div class="signfieldcolumn" style="width:100%;">
+  {{ form.username.errors }}
+  <div class="signfieldrow"><span class="label">שם משתמש</span>{{ form.username }}</div>
+</div>
 
-<div class="signfieldrow"><span class="label">שם משתמש</span>{{form.username}}</div>
+<div class="signfieldcolumn" style="width:100%;">
+  {{ form.email.errors }}
+  <div class="signfieldrow"><span class="label">כתובת מייל</span>{{form.email}}</div>
+</div>
 
+<div class="signfieldcolumn" style="width:100%;">
+  {{ form.email2.errors }}
+  <div class="signfieldrow"><span class="label">חזור על כתובת מייל</span>{{form.email2}}</div>
+</div>
+
+<div class="signfieldcolumn" style="width:100%;">
+  {{ form.password.errors }}
+  <div class="signfieldrow"><span class="label">סיסמה</span>{{form.password}}</div>
+</div>
+
+<div class="signfieldcolumn" style="width:100%;">
+  {{ form.password2.errors }}
+  <div class="signfieldrow"><span class="label">חזור על סיסמה</span>{{form.password2}}</div>
 </div>
 
 
-<div class="center" style="width:100%;">
-<div class="signfieldrow"><span class="label">סיסמה</span>{{form.password1}}</div>
-</div>
+<div class="signfieldcolumn" style="width:100%;align-items:flex-end;">
 
-<div class="center" style="width:100%;">
-<div class="signfieldrow"><span class="label">חזור על סיסמה</span>{{form.password2}}</div>
-</div>
-
-
-<div class="center" style="width:100%;">
-
-<div class="signfieldrow" style="justify-content:flex-start;margin-bottom:30px;"><button type="submit" class="subscribe" style="margin-right:calc(65% - (104.667px / 2 ));">הירשם</button></div>
+<div class="signfieldrow" style="justify-content:flex-end;margin-bottom:30px;"><button type="submit" style="top:unset;right:unset;" class="subscribe">הירשם</button></div>
 
 </div>
 

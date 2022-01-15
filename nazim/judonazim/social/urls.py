@@ -11,5 +11,5 @@ path('notification/<int:notification_pk>/post/<int:post_pk>', PostNotification.a
 path('notification/<int:notification_pk>/profile/<int:profile_pk>', FollowNotification.as_view(), name="follow-notification"),
 path('notification/<int:notification_pk>/comment/<int:post_pk>/<int:comment_pk>', CommentNotification.as_view(), name="comment-notification"),
 path('notification/<int:notification_pk>/comment_of_comment/<int:post_pk>/<int:comment_pk>/<int:com_of_com_pk>', ComOfComNotification.as_view(), name="com-of-com-notification"),
-
+path('notification/<int:notification_pk>/remove_notification', remove_notification, name = 'remove-notification'),
 ]

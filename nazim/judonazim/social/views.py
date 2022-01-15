@@ -10,6 +10,15 @@ from django.views import View
 import math
 # Create your views here.
 
+def remove_notification(request, notification_pk):
+    notification = Notification.objects.get(pk = notification_pk)
+    notification.delete()
+    prev_page = request.GET.get('prev_page', '')
+    print('prev_page=' + str(prev_page))
+    #return redirect(prev_page)
+    #return HttpResponseRedirect(prev_page)
+    return HttpResponseRedirect(prev_page)
+
 class PostNotification(View):
     def get(self, request, notification_pk, post_pk, *args, **kwargs):
         notification = Notification.objects.get(pk = notification_pk)
@@ -30,7 +39,7 @@ class ComOfComNotification(View):
         notification.user_has_seen = True
         notification.save()
 
-        return redirect('magazine:anArticle', pk = post_pk, pos_id = "-replace-me-comment" + str(com_of_com_pk))
+        return redirect('magazine:anArticle', pk = post_pk, pos_id = "-replace-me-sub-comment" + str(com_of_com_pk))
 
 class CommentNotification(View):
     def get(self, request, notification_pk, post_pk, comment_pk, *args, **kwargs):

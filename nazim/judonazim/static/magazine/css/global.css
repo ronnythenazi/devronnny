@@ -239,7 +239,15 @@
   align-items:center;
   gap:0px;
 }
-
+.super-tiny-column-end-align
+{
+  display: flex;
+  justify-content: column;
+  direction: rtl;
+  align-items:flex-end;
+  justify-content: flex-start;
+  gap:0px;
+}
 .tiny-row-start-align
 {
   display: flex;

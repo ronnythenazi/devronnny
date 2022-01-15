@@ -206,20 +206,20 @@
           </span>
           {{comment.body}}
           <div class="reply-parent">
-          <!--  <span class="reply-label" comment-id="{{comment.pk}}">הגב</span> -->
+
           <span class="reply-label" comment-id="{{comment.pk}}">{% include 'magazine/components/svg/reply.svg' %}</span>
          </div>
 
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill expand" viewBox="0 0 16 16" style="margin-top:5px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill expand" viewBox="0 0 16 16" style="display:none;margin-top:5px;">
           <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
           </svg>
 
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle-fill collpase" viewBox="0 0 16 16" style="display:none;margin-top:5px;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle-fill collpase" viewBox="0 0 16 16" style="margin-top:5px;">
          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/>
          </svg>
-          <div class="comment-of-comment" id="sub-comment{{comment.pk}}" style="display:none;">
+          <div class="comment-of-comment">
           {% for comment_of_comment in comment.comments_of_comment.all %}
-          <div class="item subitem" style="margin-top:10px;">
+          <div class="item subitem" id="sub-comment{{comment_of_comment.pk}}" style="margin-top:10px;">
           <span style="gap:5px;">
             <div class="super-tiny-row-center-align" style="gap:5px;">
 
@@ -231,8 +231,52 @@
               {%endif%}
             </span>
               <b style="margin-right:-10px;" class="author author-sub-comment">{{comment_of_comment.name}} הגיב:</b>
+
+
+              {% if user.is_authenticated %}
+              <form class="super-tiny-row-center-align" id="frm-like-com-of-com" method="POST" action="{% url 'magazine:rate_com_of_com' comment_of_comment.pk %}">
+                {%csrf_token%}
+              <button class="unstyled-btn" name="like-com-of-com" type="submit">
+              {% if comment_of_comment.liked %}
+              <span class="com-of-com-svg">{% include 'magazine/components/svg/like_fill.html' %}</span>
+              {% else %}
+              <span class="com-of-com-svg">{% include 'magazine/components/svg/like.html' %}</span>
+              {% endif %}
+             </button>
+              {% if comment_of_comment.total_likes != 0 %}
+              <span class="rate-green com-of-com-svg">{{comment_of_comment.total_likes}}</span>
+              {% endif %}
+              <button class="unstyled-btn" name="dislike-com-of-com">
+              {% if comment_of_comment.disliked %}
+              <span class="com-of-com-svg">{% include 'magazine/components/svg/dislike_fill.html' %}</span>
+              {% else %}
+              <span class="com-of-com-svg">{% include 'magazine/components/svg/dislike.html' %}</span>
+              {% endif %}
+            </button>
+             {% if comment_of_comment.total_dislikes != 0 %}
+              <span class="com-of-com-svg rate-red">{{comment_of_comment.total_dislikes}}</span>
+             {% endif %}
+            </form>
+             {% else %}
+             <button class="unstyled-btn com-of-com-svg" type="button">
+                 {% include 'magazine/components/svg/like.html' %}
+             </button>
+             {% if comment_of_comment.total_likes != 0 %}
+             <span class="com-of-com-svg rate-green">{{comment_of_comment.total_likes}}</span>
+             {% endif %}
+             <button class="unstyled-btn com-of-com-svg"  type="button">
+                {% include 'magazine/components/svg/dislike.html' %}
+             </button>
+             {% if comment_of_comment.total_dislikes != 0 %}
+              <span class="com-of-com-svg rate-red">{{comment_of_comment.total_dislikes}}</span>
+              {% endif %}
+              <span class="msg ice-cream-clr" style="font-size:1rem;">הירשם ותוכל להשפיע</span>
+             {% endif %}
+
+
             </div>
-            <a id="a-sub-comment{{comment.pk}}" href ="#sub-comment{{comment.pk}}" class="tiny-row-center-align"><span class="tiny-font" style="color:#2F9BDD;">{{comment_of_comment.date_added | date:'d/m/Y' | safe}} בשעה: {{comment_of_comment.date_added | date:'h:m' | safe}}</span></a>
+
+            <a id="a-sub-comment{{comment_of_comment.pk}}" href ="#sub-comment{{comment_of_comment.pk}}" class="tiny-row-center-align"><span class="tiny-font" style="color:#2F9BDD;">{{comment_of_comment.date_added | date:'d/m/Y' | safe}} בשעה: {{comment_of_comment.date_added | date:'h:m' | safe}}</span></a>
           </span>
           <span class="sub-comment">{{comment_of_comment.body}}</span>
         </div>
@@ -285,7 +329,6 @@
    });*/
     $(document).ready(function(){
 
-
        $('.comment.item').each(function(){
          var sub_comments_count = $(this).find('.subitem').length;
          if(sub_comments_count == 0)
@@ -306,6 +349,7 @@
       }
       var replace_str = '-replace-me-'
       var curr_url = window.location.href
+
       if(curr_url.includes(replace_str))
       {
         jump_to = curr_url.replace('-replace-me-', '#')

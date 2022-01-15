@@ -118,6 +118,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+    {
+        'NAME': 'users.validators.CustomPasswordValidator',
+    },
 ]
 
 
@@ -270,5 +273,5 @@ if not DEBUG:
     ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '').split()
 
 
-LOGIN_REDIRECT_URL = 'magazine:magazineNews'
+#LOGIN_REDIRECT_URL = 'magazine:magazineNews'
 LOGOUT_REDIRECT_URL = 'magazine:magazineNews'

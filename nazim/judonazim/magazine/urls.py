@@ -3,6 +3,7 @@ from django.urls import path, include
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from . import views
 from .views import MagazineHome, Article, Comment, f_allPosts_next, f_allPosts_prev, f_allPosts_by_author_next, f_allPosts_by_author_prev
+from users.views import login_view
 #from django.contrib import admin
 app_name = 'magazine'
 urlpatterns = [
@@ -23,6 +24,8 @@ urlpatterns = [
 
  path('rate-post/<int:pk>', views.rate_post, name = 'rate_post'),
  path('rate-com/<int:pk>', views.rate_com, name = 'rate_com'),
- path('about-ronny-the-nazi/', views.about_ronny_the_nazi , name="about_ronny_the_nazi")
+ path('rate-com-of-com/<int:pk>', views.rate_com_of_com, name = 'rate_com_of_com'),
+ path('about-ronny-the-nazi/', views.about_ronny_the_nazi , name="about_ronny_the_nazi"),
+ path('login/', login_view, name = 'login'),
 
 ]

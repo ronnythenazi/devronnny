@@ -1,0 +1,75 @@
+{%extends 'magazine/base.html'%}
+{%load static%}
+
+
+{%block title%}התחבר{%endblock%}
+
+{%block moreLinks%}
+<link rel="stylesheet" href="{% static 'magazine/css/writepost.css' %}">
+<link rel="stylesheet" href="{% static 'memebers/css/sign.css' %}">
+{%endblock%}
+{%block body%}
+
+<form  method = "post" style="width:100%;"  enctype="multipart/form-data">
+  {% csrf_token %}
+
+
+<div class="center">
+  <div class="writepost" style="width:80%;font-size:1rem !important;">
+    {% if not user.is_authenticated %}
+    <h1 style="font-family:robot;margin-bottom:60px;" class="bluish-clr"><u>התחברות</u></h1>
+
+    <div class="signfieldcolumn" style="gap:50px;">
+
+      <div class="signfieldcolumn" style="width:100%;">
+
+        <span style="color:red;">{{ form.non_field_errors }}</span>
+        <div class="signfieldrow">
+          <span class="super-tiny-column-end-align" style="width:110px;">
+            <span style="width:unset;" class="label ice-cream-clr">שם משתמש</span>
+          </span>
+          <span class="super-tiny-row-center-align ronny-style-field">
+            <span class="box-field">
+              {% include 'members/svg/personcheck.svg' %}
+            </span>
+          {{ form.username }}
+         </span>
+        </div>
+      </div>
+
+      <div class="signfieldcolumn" style="width:100%;">
+        <div class="signfieldrow">
+          <span class="super-tiny-column-end-align" style="width:110px;">
+            <span style="width:unset;" class="label ice-cream-clr">סיסמה</span>
+          </span>
+          <span class="super-tiny-row-center-align ronny-style-field">
+            <span class="box-field">
+              {% include 'members/svg/key.svg' %}
+            </span>
+          {{ form.password }}
+          </span>
+        </div>
+      </div>
+      <div class="signfieldcolumn" style="width:100%;align-items:flex-end;">
+        <button type="submit" class="subscribe">התחבר</button>
+      </div>
+    </div>
+
+
+  {% else %}
+  <h1>  אתה כבר מחובר </h1>
+  {% endif %}
+   </div>
+ </div>
+
+</form>
+
+
+
+
+{%endblock body%}
+
+{%block moreJs%}
+ <script type="text/javascript" src="{% static 'magazine/js/writepost.js'%}"> </script>
+<script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>
+ {%endblock moreJs%}

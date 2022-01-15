@@ -91,6 +91,25 @@ class comment_of_comment(models.Model):
     comment_of_comment_usr = models.ForeignKey(User, on_delete = models.CASCADE, blank = True, null = True)
     date_added = models.DateTimeField(auto_now_add = True, blank = True)
 
+    likes = models.ManyToManyField(User, related_name ="likes_com_of_com")
+    dislikes = models.ManyToManyField(User, related_name ="dislikes_com_of_com")
+
+    def total_likes(self):
+        return self.likes.count()
+
+    def total_dislikes(self):
+        return self.dislikes.count()
+
+    def liked(self):
+        if(self.likes.filter(id = exposed_request.user.id).exists()):
+            return True
+        return False
+
+    def disliked(self):
+        if(self.dislikes.filter(id = exposed_request.user.id).exists()):
+            return True
+        return False
+
     class Meta:
         ordering = ['-date_added']
 
@@ -103,49 +122,47 @@ class Profile(models.Model):
     bio = models.TextField(max_length = 1000, null = True, blank = True)
     profile_img =  models.ImageField(default="default.jpg", blank = True, null = True, upload_to = 'members/profile/avatar')
 
+    first_name = models.CharField(max_length = 100, null = True, blank = True)
+    last_name = models.CharField(max_length = 100, null = True, blank = True)
+    race = models.CharField(max_length = 200, null = True, blank = True)
+    y_dna = models.CharField(max_length = 200, null = True, blank = True)
+    mtdna = models.CharField(max_length = 200, null = True, blank = True)
+    birthDate = models.DateField(null = True, blank = True)
+    joinDate = models.DateField(auto_now_add = True, blank = True)
+
+    male = 'male'
+    female = 'female'
+    sex_choices = [(male, 'גבר' ), (female, 'נקבה')]
+    sex = models.CharField(null = True, blank = True, choices = sex_choices, max_length = 30)
+
+    politic_views = models.CharField(null = True, blank = True, max_length = 200)
+    religion = models.CharField(null = True, blank = True, max_length = 100)
+    education = models.TextField(null = True, blank = True, max_length = 200)
+    slogan = models.TextField(null = True, blank = True, max_length = 1000)
+
+    single = 'single'
+    married = 'married'
+    divorced = 'divorced'
+    married_again = 'married_again'
+
+    status_list = [(single , 'רווק'), (married , 'נשוי'), (divorced , 'גרוש'), (married_again , 'נשוי פעם נוספת')]
+
+    familial_status = models.CharField(null = True, blank = True, choices = status_list, max_length = 100)
+
+    followers = models.ManyToManyField(User, related_name ="followers")
+    following = models.ManyToManyField(User, related_name = "following")
+
+    def total_followers(self):
+        return self.followers.count()
+
+    def total_following(self):
+        return self.following.count()
+
     def __str__(self):
         return str(self.user)
 
 
-class regUser(models.Model):
-    email = models.EmailField(unique = True,  null = False, blank = False)
-    nickname = models.CharField(max_length = 50, null = False)
-#field userstatus
-    active = "active"
-    banned = "banned"
-    deleted = "deleted"
-    deactivated = "deactivate"
-    status = [
-    (active, "פעיל"),
-    (banned, "הושבת"),
-    (deleted, "נמחק"),
-    (deactivated, "לא פעיל"),
-    ]
-    userstatus = models.CharField(
-    max_length = 10,
-    choices = status,
-    default = active,
-    )
-# field usrrole
 
-    typregular = "regular"
-    typmoderator = "moderator"
-    typeadmin = "admin"
-    typeowner = "owner"
-
-    roles = [
-    (typregular, ""),
-    (typmoderator, "מודרטור"),
-    (typeadmin, "מנהל"),
-    (typeowner, "מאסטר"),
-    ]
-
-    usrrole = models.CharField(max_length = 10, choices = roles, default = typregular)
-
-
-
-class Moderators(models.Model):
-    email = models.EmailField(unique = True,  null = False, blank = False)
 
 class Notification(models.Model):
     # 1=like, 2=comment, 3=follow, 4=dislike
