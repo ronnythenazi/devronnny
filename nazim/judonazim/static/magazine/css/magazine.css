@@ -50,6 +50,10 @@
 {
   background-image: var(--bluish1, var(--bluish2, var(--bluish3, --bluish4)));
 }
+.bg-deep-blue
+{
+  background-image: var(--dark1, var(--dark2, var(--dark3, --dark4)));
+}
 @font-face
 {
   src:url('fonts/formal.ttf');

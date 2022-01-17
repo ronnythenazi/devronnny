@@ -65,3 +65,64 @@ function bell_ring()
     $('.red-bell').removeClass('red-bell-ring-scale');
   }, 1000);
 }
+$('.more-button').click(clone_elem);
+$('.delete-button').click(delete_elem);
+function clone_elem()
+{
+  var item_to_clone = $(this).parents('.formset-item').first();
+  var service = String($(item_to_clone).attr('service'));
+  cloneMore(item_to_clone, service);
+}
+function trigger_upload()
+{
+  $(this).parent().find('input[type=file]').trigger('click');
+}
+function display_img(event)
+{
+  if(event.target.files.length > 0){
+    var src = URL.createObjectURL(event.target.files[0]);
+    var preview = $(this).parents('.thumbnail').first().next('.thumb-holder').find('.preview').first();
+    $(preview).attr('src', src);
+    $(this).parents('.thumbnail').first().next('.thumb-holder').show();
+   }
+}
+function delete_elem()
+{
+  var currItem = $(this).parents('.formset-item');
+  $(currItem).find('input[type=checknox]').prop('checked', true);
+  $(currItem).hide();
+}
+function cloneMore(selector, type) {
+    var newElement = $(selector).clone(true);
+    var total = $('#id_' + type + '-TOTAL_FORMS').val();
+
+    newElement.find(':input').each(function() {
+      try
+      {
+        var name = $(this).attr('name').replace('-' + (total-1) + '-','-' + total + '-');
+        var id = 'id_' + name;
+        $(this).attr({'name': name, 'id': id}).removeAttr('checked');
+      }
+      catch(ex)
+      {
+        console.log(ex)
+        return true
+      }
+    });
+    newElement.find('label').each(function() {
+        var newFor = $(this).attr('for').replace('-' + (total-1) + '-','-' + total + '-');
+        $(this).attr('for', newFor);
+    });
+
+    total++;
+    $(newElement).find('.more-button').unbind('click');
+    $(newElement).find('.more-button').on('click', clone_elem);
+    $(newElement).find('.delete-button').unbind('click');
+    $(newElement).find('.delete-button').on('click', delete_elem);
+    $(newElement).find('.trigger-upload').unbind('click');
+    $(newElement).find('.trigger-upload').on('click', trigger_upload);
+    $(newElement).find('input[type=file]').unbind('change');
+    $(newElement).find('input[type=file]').on('change', display_img);
+    $('#id_' + type + '-TOTAL_FORMS').val(total);
+    $(selector).after(newElement);
+}

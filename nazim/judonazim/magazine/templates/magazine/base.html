@@ -18,7 +18,7 @@
 
  <script>
 
-      document.onkeydown = function (e) {
+      /*document.onkeydown = function (e) {
           if (event.keyCode == 123) {
               return false;
           }
@@ -37,7 +37,7 @@
           if (e.ctrlKey && (e.keyCode == 'S'.charCodeAt(0) || e.keyCode == 's'.charCodeAt(0))) {
               return false;
           }
-      }
+      }*/
     </script>
 
     <style>
@@ -51,8 +51,8 @@
     }
     </style>
   </head>
-
-<body oncontextmenu="return false;">
+<body>
+<!--<body oncontextmenu="return false;">-->
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0" nonce="GTakoGeS"></script>
 
@@ -233,9 +233,9 @@
   <script type="text/javascript" src="{% static 'magazine/js/global.js'%}"> </script>
 
  <script>
-  $(document).bind("contextmenu", function(e) {
+  /*$(document).bind("contextmenu", function(e) {
      e.preventDefault();
-  });
+  });*/
 
 </script>
 

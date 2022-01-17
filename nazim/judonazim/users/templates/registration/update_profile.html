@@ -9,28 +9,125 @@
 <link rel="stylesheet" href="{% static 'memebers/css/sign.css' %}">
 {%endblock%}
 {%block body%}
+<style>
+  .icon-bar
+  {
+    display:none !important;
+  }
+  .ice-cream-border
+  {
+    border: 2px solid transparent;
+    border-image:var(--ice-cream1) 30% stretch;
+  }
 
+  .bio
+  {
+    width:100%;
+    min-height:150px;
+    padding:0;
+    margin:0;
+  }
+  input[type="text"]
+  {
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border-right:none;
+    border-color:blue;
+    text-align: right;
+    height: 50px;
+    font-size: 1.3rem;
+    font-family: Lucida Sans Typewriter;
+    line-height: 1.3rem;
+    font-stretch: expanded;
+    color:blue;
+    font-weight: bold;
+    width:100%;
+    padding: 0;
+    border-width: 5px;
+  }
+  .thumb-holder
+  {
+    border-radius:10px;
+    box-shadow: 5px 5px 10px blue, 2px 2px 20px red;
+  }
+  .more-button, .delete-button
+  {
+    transition: 0.1s all ease;
+  }
+  .more-button:hover
+  {
+    border-radius:10px;
+    filter:drop-shadow( 0px 0px 3px blue);
+  }
+  .delete-button:hover
+  {
+    border-radius:10px;
+    filter:drop-shadow(0px 0px 3px red)
+  }
+</style>
 <form  method = "post"  enctype="multipart/form-data" style="width:100%;">
   {%csrf_token%}
 
-<div class="center">
+<div class="center" style="gap:0px;margin:20px;">
 <div class="writepost" style="width:80%;font-size:1rem !important;">
 
 {% if user.is_authenticated %}
    {% if user.profile.id %}
-      {% if user.profile.id == obj.id %}
+      {% if user.profile.id == profile_obj.id %}
 
 
-<div class="center" style="gap:50px;">
-<h1 style="font-family:robot;" class="bluish-clr"><u>עדכון פרופיל</u></h1>
-{% include 'members/default_profile_img_btn.html' %}
+<div class="center" style="gap:0px;margin:0px;width:70%;">
+<h1 style="font-family:robot;margin:0;gap:0;"  class="bluish-clr"><u>עדכון פרופיל</u></h1>
+{% include 'members/default_profile_img_btn_square.html' %}
 
-<div class="center" style="width:100%;">
-<div class="signfieldrow"><span class="label">על עצמי</span>{{form.bio}}</div>
+<div class="center ice-cream-border" style="width:100%;margin-top:20px;background-color:black;">
+  <span class="ice-cream-clr" style="align-self:flex-start;text-align:right;margin:0;font-size:2rem;">על עצמי</span>
+  {{form.bio}}
 </div>
 
 
+<div class="center ice-cream-border" style="width:100%;margin-top:20px;background-color:black;">
+ {{ album_formset.management_form }}
 
+ <span class="ice-cream-clr" style="align-self:flex-start;text-align:right;margin:0;font-size:2rem;">אלבום תמונות</span>
+ <div class="center drakula" style="width:100%;margin-top:0px;min-height:150px;">
+  {% for album_item in album_formset %}
+        <div style="width:100%;" service="profile_album" class="super-tiny-row-center-align signfield-parent formset-item">
+             {{ album_item.id }}
+             <span style="display:none;">{{ album_item.ORDER }}</span>
+             {% if album_formset.can_delete %}
+              <span style="display:none;">{{ album_item.DELETE }}</span>
+              {% endif %}
+              <div class="more-button" style="margin-left:10px;">
+                {% include 'magazine/components/svg/plus.svg' %}
+              </div>
+            <span class="ronny-style-field super-tiny-row-center-align" style="width:100%;">
+              <span class="box-field">
+                {% include 'members/svg/default_profile_img.svg' %}
+              </span>
+              {{ album_item.description }}
+            </span>
+            <div class="super-tiny-row-center-align">
+              <div class="thumbnail signfieldcolumn">
+              <div class="hidden">{{ album_item.myfile }}</div>
+              <button type="button" class="trigger-upload">{% include 'magazine/components/svg/upload.svg' %}</button>
+              </div>
+              <div class="thumb-holder" style="width:50px;height:50px;">
+                {% if album_item.instance.myfile %}
+                <img class="thumb preview"  style="height:50px !important;width:50px;" src="{{album_item.instance.myfile.url}}">
+                {% else %}
+                  <img class="thumb preview"  style="height:50px !important;width:50px;" src="" alt="">
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="delete-button" style="margin-right:50px;">
+              {% include 'magazine/components/svg/minus.svg' %}
+            </div>
+        </div>
+    {% endfor %}
+ </div>
+</div>
 
 <div class="signfieldcolumn" style="width:100%;align-items:flex-end;">
   <div class="signfieldrow" style="justify-content:flex-end;margin-bottom:30px;">

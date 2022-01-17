@@ -6,7 +6,12 @@
 
 {%block moreLinks%}<link rel="stylesheet" href="{% static 'magazine/css/writepost.css' %}"> {%endblock%}
 {%block body%}
-
+<style>
+  .icon-bar
+  {
+    display:none !important;
+  }
+</style>
 <form  method = "post" style="width:100%;"  enctype="multipart/form-data">
   {% csrf_token %}
 

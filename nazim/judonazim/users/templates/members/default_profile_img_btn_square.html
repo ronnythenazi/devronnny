@@ -1,5 +1,5 @@
 {%load static%}
-<div class="center pointer">
+<div class="center pointer" style="margin:0;">
   <div style="display:none;" id="image-input-holder">{{form.profile_img}}</div>
   {% if not profile_obj.profile_img.url %}
  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-fill def-avatar" viewBox="0 0 16 16">
@@ -9,11 +9,11 @@
 </div>
 {% if not profile_obj.profile_img.url %}
 
-<img src="" style="display:none;" class="thumb big preview round-img img-btn" alt=""/>
+<img id="profile-img" src="" style="display:none;align-self:flex-start;" class="thumb big preview img-btn" alt=""/>
 
 {% else %}
 
-<img src="{{profile_obj.profile_img.url}}" class="preview round-img img-btn" alt=""/>
+<img id="profile-img" src="{{profile_obj.profile_img.url}}" style="margin:0;gap:0;align-self:flex-start;" class="preview img-btn" alt=""/>
 
 
 {% endif %}
@@ -24,11 +24,10 @@
     cursor:pointer;
   }
 
-  .round-img
+  #profile-img
   {
-    border-radius: 50%;
-    width:300px !important;
-    height:300px !important;
+    width:200px !important;
+    height:200px !important;
   }
 
   .bi-person-fill

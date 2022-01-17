@@ -226,6 +226,8 @@ def rate_com_of_com(request, pk):
 
 @check_if_post_accessible
 def Article(request, pk, pos_id = '#start'):
+
+
     comment_frm = CommentFrm(request.POST or None)
     com_of_com_frm = comment_of_comment_frm(request.POST or None)
 

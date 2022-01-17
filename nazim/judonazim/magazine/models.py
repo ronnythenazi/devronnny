@@ -162,6 +162,15 @@ class Profile(models.Model):
         return str(self.user)
 
 
+class Album(models.Model):
+
+    profile = models.ForeignKey(Profile, related_name = 'profile_album', on_delete = models.CASCADE)
+    description = models.CharField(max_length = 500, null = True, blank = True)
+    myfile = models.ImageField(null = False, blank = False,  upload_to = 'album/%Y/%m/%d')
+    upload_date = models.DateTimeField(default = timezone.now)
+
+    def __str__(self):
+        return str(self.profile.user.username) + '-' + str(self.description)
 
 
 class Notification(models.Model):

@@ -9,7 +9,12 @@
 <link rel="stylesheet" href="{% static 'memebers/css/sign.css' %}">
 {%endblock%}
 {%block body%}
-
+<style>
+  .icon-bar
+  {
+    display:none !important;
+  }
+</style>
 <form  method = "post"  style="width:100%;" enctype="multipart/form-data">
 {%csrf_token%}
 {{ form.non_field_errors }}
