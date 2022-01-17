@@ -101,7 +101,7 @@ function cloneMore(selector, type) {
       {
         var name = $(this).attr('name').replace('-' + (total-1) + '-','-' + total + '-');
         var id = 'id_' + name;
-        $(this).attr({'name': name, 'id': id}).removeAttr('checked');
+        $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
       }
       catch(ex)
       {
@@ -117,11 +117,11 @@ function cloneMore(selector, type) {
     total++;
     $(newElement).find('.more-button').unbind('click');
     $(newElement).find('.more-button').on('click', clone_elem);
-    $(newElement).find('.delete-button').unbind('click');
+    //$(newElement).find('.delete-button').unbind('click');
     $(newElement).find('.delete-button').on('click', delete_elem);
-    $(newElement).find('.trigger-upload').unbind('click');
+  //  $(newElement).find('.trigger-upload').unbind('click');
     $(newElement).find('.trigger-upload').on('click', trigger_upload);
-    $(newElement).find('input[type=file]').unbind('change');
+  //  $(newElement).find('input[type=file]').unbind('change');
     $(newElement).find('input[type=file]').on('change', display_img);
     $('#id_' + type + '-TOTAL_FORMS').val(total);
     $(selector).after(newElement);
