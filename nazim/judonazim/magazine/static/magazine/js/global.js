@@ -89,7 +89,7 @@ function display_img(event)
 function delete_elem()
 {
   var currItem = $(this).parents('.formset-item');
-  $(currItem).find('input[type=checknox]').prop('checked', true);
+  $(currItem).find('input[type=checkbox]').prop('checked', true);
   $(currItem).hide();
 }
 function cloneMore(selector, type) {
@@ -101,7 +101,8 @@ function cloneMore(selector, type) {
       {
         var name = $(this).attr('name').replace('-' + (total-1) + '-','-' + total + '-');
         var id = 'id_' + name;
-        $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+        //$(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+        $(this).attr({'name': name, 'id': id}).removeAttr('checked');
       }
       catch(ex)
       {

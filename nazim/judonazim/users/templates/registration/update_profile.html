@@ -95,9 +95,9 @@
         <div style="width:100%;" service="profile_album" class="super-tiny-row-center-align signfield-parent formset-item">
              {{ album_item.id }}
              <span style="display:none;">{{ album_item.ORDER }}</span>
-             {% if album_formset.can_delete %}
+          <!--   {% if album_formset.can_delete %}-->
               <span style="display:none;">{{ album_item.DELETE }}</span>
-              {% endif %}
+              <!--{% endif %}-->
               <div class="more-button" style="margin-left:10px;">
                 {% include 'magazine/components/svg/plus.svg' %}
               </div>
