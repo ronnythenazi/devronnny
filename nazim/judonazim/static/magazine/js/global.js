@@ -67,12 +67,7 @@ function bell_ring()
 }
 $('.more-button').click(clone_elem);
 $('.delete-button').click(delete_elem);
-function clone_elem()
-{
-  var item_to_clone = $(this).parents('.formset-item').first();
-  var service = String($(item_to_clone).attr('service'));
-  cloneMore(item_to_clone, service);
-}
+
 function trigger_upload()
 {
   $(this).parent().find('input[type=file]').trigger('click');
@@ -89,8 +84,25 @@ function display_img(event)
 function delete_elem()
 {
   var currItem = $(this).parents('.formset-item');
+  /*var count_not_hidden = $('.formset-item:not(.hidden-formset-item)').length;
+  if(count_not_hidden == 1)
+  {
+    return;
+  }*/
   $(currItem).find('input[type=checkbox]').prop('checked', true);
+  $(currItem).addClass('hidden-formset-item');
   $(currItem).hide();
+  var count_not_hidden = $('.formset-item:not(.hidden-formset-item)').length;
+  if(count_not_hidden == 0)
+  {
+    $(currItem).find('.more-button').trigger('click');
+  }
+}
+function clone_elem()
+{
+  var item_to_clone = $(this).parents('.formset-item').first();
+  var service = String($(item_to_clone).attr('service'));
+  cloneMore($(item_to_clone).parents('.formset-papa').find('.formset-item').last(), service);
 }
 function cloneMore(selector, type) {
     var newElement = $(selector).clone(true);
@@ -101,8 +113,8 @@ function cloneMore(selector, type) {
       {
         var name = $(this).attr('name').replace('-' + (total-1) + '-','-' + total + '-');
         var id = 'id_' + name;
-        //$(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
-        $(this).attr({'name': name, 'id': id}).removeAttr('checked');
+        $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+        //$(this).attr({'name': name, 'id': id}).removeAttr('checked');
       }
       catch(ex)
       {
@@ -116,6 +128,9 @@ function cloneMore(selector, type) {
     });
 
     total++;
+    $(newElement).removeClass('hidden-formset-item');
+    $(newElement).show();
+    $(newElement).find('img').attr('src', '');
     $(newElement).find('.more-button').unbind('click');
     $(newElement).find('.more-button').on('click', clone_elem);
     $(newElement).find('.delete-button').unbind('click');
@@ -125,5 +140,5 @@ function cloneMore(selector, type) {
     $(newElement).find('input[type=file]').unbind('change');
     $(newElement).find('input[type=file]').on('change', display_img);
     $('#id_' + type + '-TOTAL_FORMS').val(total);
-    $(selector).after(newElement);
+     $(selector).after(newElement);
 }

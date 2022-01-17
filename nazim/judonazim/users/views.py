@@ -52,7 +52,7 @@ def updateProfileV(request, id):
 def updateProfileV(request, id):
     fields = ['description', 'myfile']
     profile_obj = get_object_or_404(Profile, id = id) #profile obj
-    album_formset_factory = inlineformset_factory(Profile, Album,can_order = True,  extra=1, fields = ['description', 'myfile'])
+    album_formset_factory = inlineformset_factory(Profile, Album,can_order = True,  extra=0, min_num=1, fields = ['description', 'myfile'])
     album_formset  = album_formset_factory(request.POST or None, request.FILES or None, instance=profile_obj)
     frm = frmProfile(request.POST or None, request.FILES or None, instance = profile_obj)
     if request.method == 'POST':

@@ -90,7 +90,7 @@
  {{ album_formset.management_form }}
 
  <span class="ice-cream-clr" style="align-self:flex-start;text-align:right;margin:0;font-size:2rem;">אלבום תמונות</span>
- <div class="center drakula" style="width:100%;margin-top:0px;min-height:150px;">
+ <div class="center drakula formset-papa" style="width:100%;margin-top:0px;min-height:150px;">
   {% for album_item in album_formset %}
         <div style="width:100%;" service="profile_album" class="super-tiny-row-center-align signfield-parent formset-item">
              {{ album_item.id }}
@@ -114,7 +114,7 @@
               </div>
               <div class="thumb-holder" style="width:50px;height:50px;">
                 {% if album_item.instance.myfile %}
-                <img class="thumb preview"  style="height:50px !important;width:50px;" src="{{album_item.instance.myfile.url}}">
+                <img class="thumb preview"  style="height:50px !important;width:50px;" src="{{album_item.instance.myfile.url}}" alt="">
                 {% else %}
                   <img class="thumb preview"  style="height:50px !important;width:50px;" src="" alt="">
                 {% endif %}
