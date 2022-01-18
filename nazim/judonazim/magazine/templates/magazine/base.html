@@ -18,7 +18,7 @@
 
  <script>
 
-     document.onkeydown = function (e) {
+    /* document.onkeydown = function (e) {
           if (event.keyCode == 123) {
               return false;
           }
@@ -37,7 +37,7 @@
           if (e.ctrlKey && (e.keyCode == 'S'.charCodeAt(0) || e.keyCode == 's'.charCodeAt(0))) {
               return false;
           }
-      }
+      }*/
     </script>
 
     <style>
@@ -51,8 +51,8 @@
     }
     </style>
   </head>
-
-<body oncontextmenu="return false;">
+<body>
+<!--<body oncontextmenu="return false;">-->
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0" nonce="GTakoGeS"></script>
 
@@ -66,7 +66,12 @@
       <div class="menuItem not-bg-hover" id= "bell-menu-item">
 
 
+        <!--<form id="ajax-notifications-form">-->
+
        {% show_notifications %}
+
+
+
 
       </div>
 
@@ -205,14 +210,179 @@
   <script type="text/javascript" src="{% static 'magazine/js/posts.js'%}"> </script>
   <script type="text/javascript" src="{% static 'magazine/js/editPosts.js'%}"> </script>
   <script type="text/javascript" src="{% static 'magazine/js/global.js'%}"> </script>
+  <!--<script type="text/javascript" src="{% static 'magazine/js/ajax.js'%}"> </script>-->
+
 
  <script>
-  $(document).bind("contextmenu", function(e) {
+  /*$(document).bind("contextmenu", function(e) {
      e.preventDefault();
-  });
+  });*/
 
 </script>
 
+{% csrf_token %}
+<script>
+$(document).ready(function(){
+
+ setInterval(check_notficiations, 1000);
+});
+
+  function check_notficiations()
+  {
+
+       var last_notification_date = $('#last_notification_date').val();
+
+
+       var csrftoken = $('[name="csrfmiddlewaretoken"]').val()
+          $.ajax({
+              type: 'GET',
+              url: "{% url 'social:ajax-notifications' %}",
+              data: {'last_notification_date':last_notification_date,
+                    'csrfmiddlewaretoken': csrftoken,
+              },
+              dataType: 'json',
+              success: function (response) {
+              var result = JSON.parse(response["next_notifications"]);
+              if(result.length == 0)
+              {
+                return;
+              }
+              alert(result.length);
+              var next_notification = result[0]['fields'];
+
+
+
+              //var next_notifications = response['next_notifications'];
+              render_new_notifications(next_notification);
+
+              },
+              error: function (response) {
+                  console.log(response);
+              }
+          })
+    }
+
+
+
+  function render_new_notifications(next_notification)
+  {
+
+
+    $('#ring-the-bell').show();
+    $('#dont-ring-the-bell').hide();
+
+    var parent = $('.notification-content');
+
+    var curr_date = next_notification["date"];
+    $('#last_notification_date').val("{{" + String(curr_date) + "|date:'c' }}");
+
+
+
+      if(next_notification["post"])
+      {
+
+        if(String(next_notification["notification_type"]) == "1")
+        {
+          msg= "נתן לך לייק לפוסט";
+          alert(next_notification['post']['pk']);
+          var elem = build_notification_objec(msg, next_notification["notification_type"], next_notification["from_user"], 'post-notification', next_notification["pk"], next_notification['post']['pk']);
+          $(parent).prepend(elem);
+        }
+        else if(String(next_notification["notification_type"]) == "4")
+        {
+          msg= "נתן לך דיסלייק לפוסט";
+          var elem = build_notification_objec(msg, next_notification["notification_type"], next_notification["from_user"], 'post-notification', next_notification["pk"], next_notification['post']['pk']);
+          $(parent).prepend(elem);
+        }
+      }
+      else if(next_notification["comment"])
+      {
+
+        //notification.comment.post.pk  notification.comment.pk
+        if(String(next_notification["notification_type"]) == "1")
+        {
+          msg= "נתן לך לייק לתגובה";
+          var elem = build_notification_object(msg, next_notification["notification_type"], next_notification["from_user"], 'comment-notification', next_notification["pk"], next_notification['comment']['post']['pk'], next_notification['comment']['pk']);
+          $(parent).prepend(elem);
+        }
+        else if(String(next_notification["notification_type"]) == "2")
+        {
+          msg= "הגיב לך על המאמר";
+          var elem = build_notification_object(msg, next_notification["notification_type"], next_notification["from_user"], 'comment-notification', next_notification["pk"], next_notification['comment']['post']['pk'], next_notification['comment']['pk']);
+          $(parent).prepend(elem);
+        }
+        else //(String(next_notification["notification_type"]) == "4")
+        {
+          msg= "נתן לך דיסלייק לתגובה";
+          var elem = build_notification_object(msg, next_notification["notification_type"], next_notification["from_user"], 'comment-notification', next_notification["pk"], next_notification['comment']['post']['pk'], next_notification['comment']['pk']);
+          $(parent).prepend(elem);
+        }
+      }
+      else if(next_notification["com_of_com"])
+      {
+
+        if(String(next_notification["notification_type"]) == "1")
+        {
+          msg= "נתן לך לייק";
+          var elem = build_notification_object(msg, next_notification["notification_type"], next_notification["from_user"], 'com-of-com-notification', next_notification["pk"], next_notification['com-of-com-notification']['comment']['post']['pk'], next_notification['com-of-com-notification']['comment']['pk'], next_notification['com-of-com-notification']['pk']);
+          $(parent).prepend(elem);
+        }
+        else if(String(next_notification["notification_type"]) == "2")
+        {
+          msg= "הגיב לך";
+          var elem = build_notification_object(msg, next_notification["notification_type"], next_notification["from_user"], 'com-of-com-notification', next_notification["pk"], next_notification['com-of-com-notification']['comment']['post']['pk'], next_notification['com-of-com-notification']['comment']['pk'], next_notification['com-of-com-notification']['pk']);
+          $(parent).prepend(elem);
+
+        }
+        else //(String(next_notification["notification_type"]) == "4")
+        {
+          msg= "נתן לך דיסלייק";
+          var elem = build_notification_object(msg, next_notification["notification_type"], next_notification["from_user"], 'com-of-com-notification', next_notification["pk"], next_notification['com-of-com-notification']['comment']['post']['pk'], next_notification['com-of-com-notification']['comment']['pk'], next_notification['com-of-com-notification']['pk']);
+          $(parent).prepend(elem);
+
+        }
+      }
+      else
+      {
+
+        msg= "החל לעקוב אחריך";
+        var elem = build_notification_object(msg, next_notification["notification_type"], next_notification["from_user"], 'follow-notification', next_notification["pk"], next_notification['from_user']['profile']['pk']);
+        $(parent).prepend(elem);
+      }
+
+
+
+  }
+
+  function build_notification_object(msg, notification_type, from_user,  view_name, notification_pk, ...args)
+  {
+   var obj = '<div class="subMenuItem notification">';
+
+   var a1 = '<a href="' + "{% url +  'social:remove-notification' " + notification_pk;
+    a1 += "%}?prev_page={{  path | urlencode }}" + '">';
+
+    a1 += '<svg xmlns="http://www.w3.org/2000/svg width="20" height="20" fill="black" class="bi bi-x"';
+    a1+= ' viewBox="0 0 16 16">';
+    a1 += '<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"';
+    a1 += '/></svg></a>';
+
+
+   var a2 = '<a href="' + "{% url +  'social:" + view_name + "' ";
+
+   a2 = a2 + notification_pk + " ";
+   for(var param in args)
+   {
+     a2 = a2 + param + " ";
+   }
+   a2 += '%}">';
+   a2 += "@{{" + from_user + "}}" + msg +  "</a>";
+   obj = obj + a1 + a2 + "</div>";
+   return obj;
+
+
+  }
+
+</script>
 
 
   {%block moreJs%} {%endblock moreJs%}

@@ -41,19 +41,12 @@
   }
 </style>
 {% if notifications.count > 0 %}
-<span class="super-tiny-row-center-align bell red-bell" id="ring-the-bell">
+<span class="super-tiny-row-center-align bell red-bell">
   {% include 'magazine/components/svg/bell.svg' %}
   <span class="notification-counter">  {{ notifications.count }}</span>
-</span>
-<span class="super-tiny-row-center-align bell" id="dont-ring-the-bell" style="display:none;">
-  {% include 'magazine/components/svg/bell.svg' %}
 </span>
 {% else %}
-<span class="super-tiny-row-center-align bell red-bell" id="ring-the-bell" style="display:none;">
-  {% include 'magazine/components/svg/bell.svg' %}
-  <span class="notification-counter">  {{ notifications.count }}</span>
-</span>
-<span class="super-tiny-row-center-align bell" id="dont-ring-the-bell">
+<span class="super-tiny-row-center-align bell">
   {% include 'magazine/components/svg/bell.svg' %}
 </span>
 {% endif %}
@@ -94,7 +87,7 @@
       {% if notification.notification_type == 1 %}
       <div class="subMenuItem notification">
         <a href="{% url 'social:remove-notification' notification.pk %}?prev_page={{  path | urlencode }}">{% include 'social/components/svg/close.svg' %}</a>
-        <a href="{% url 'social:com-of-com-notification' notification.pk notification.com_of_com.comment.post.pk  notification.com_of_com.comment.pk notification.com_of_com.pk %}">@{{notification.from_user}}נתן לך לייק</a>
+        <a href="{% url 'social:com-of-com-notification' notification.pk notification.com_of_com.comment.post.pk  notification.com_of_com.comment.pk notification.com_of_com.pk %}">@{{notification.from_user}} עשה לך לייק </a>
       </div>
       {% elif notification.notification_type == 2 %}
       <div class="subMenuItem notification">
@@ -104,7 +97,7 @@
       {% elif notification.notification_type == 4 %}
       <div class="subMenuItem notification">
         <a href="{% url 'social:remove-notification' notification.pk %}?prev_page={{  path | urlencode }}">{% include 'social/components/svg/close.svg' %}</a>
-        <a href="{% url 'social:com-of-com-notification' notification.pk notification.com_of_com.comment.post.pk  notification.com_of_com.comment.pk notification.com_of_com.pk %}">@{{notification.from_user}}נתן לך דיסלייק</a>
+        <a href="{% url 'social:com-of-com-notification' notification.pk notification.com_of_com.comment.post.pk  notification.com_of_com.comment.pk notification.com_of_com.pk %}">@{{notification.from_user}} עשה לך דיסלייק </a>
       </div>
       {% endif %}
   {% else %}
@@ -114,18 +107,5 @@
   </div>
 
   {% endif %}
-  {% if forloop.counter == 1 %}
-
-     <input type="hidden" id="last_notification_date" value="{{ notification.date|date:'c' }}"/>
-     <span>{{ notification.date|date:'c' }}</span>
-  {% endif %}
 {% endfor %}
-
-{% if notifications.count == 0 %}
-
-   <input type="hidden" id="last_notification_date" value="0"/>
-{% endif %}
-
-
-
 </div>

@@ -8,7 +8,37 @@ from django.utils.dateparse import parse_datetime
 from datetime import datetime, timedelta
 from django.views import View
 import math
+from django.http import JsonResponse
+from django.core import serializers
+from django.utils.dateparse import parse_datetime
+
+
 # Create your views here.
+
+
+def ajax_notifications(request):
+    # request should be ajax and method should be POST.
+
+    if request.is_ajax and request.method == "GET":
+        #notifications = Notification.objects.filter(to_user = request_user).exclude(user_has_seen = True).order_by('-date')
+        request_user = request.user
+
+        s_last_notification_date = str(request.GET.get("last_notification_date", None))
+        print("s_last_notification_date  = " + s_last_notification_date  )
+        if(s_last_notification_date == '0'):
+
+            next_notifications = Notification.objects.filter(to_user = request_user).exclude(user_has_seen = True).order_by('-date')
+            ser_instance = serializers.serialize('json', list(next_notifications))
+            #return JsonResponse({"next_notifications":next_notifications})
+            return JsonResponse({"next_notifications": ser_instance})
+
+        last_notification_date = parse_datetime(s_last_notification_date)
+
+        next_notifications = Notification.objects.filter(to_user = request_user).filter(date__gt = last_notification_date).exclude(user_has_seen = True).order_by('-date')
+        ser_instance = serializers.serialize('json', list(next_notifications))
+        #return JsonResponse({"next_notifications":next_notifications})
+        return JsonResponse({"next_notifications": ser_instance})
+
 
 def remove_notification(request, notification_pk):
     notification = Notification.objects.get(pk = notification_pk)
