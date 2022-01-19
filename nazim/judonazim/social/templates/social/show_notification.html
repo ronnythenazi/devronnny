@@ -117,7 +117,7 @@
   {% if forloop.counter == 1 %}
 
      <input type="hidden" id="last_notification_date" value="{{ notification.date|date:'c' }}"/>
-     <span>{{ notification.date|date:'c' }}</span>
+
   {% endif %}
 {% endfor %}
 
@@ -126,6 +126,11 @@
    <input type="hidden" id="last_notification_date" value="0"/>
 {% endif %}
 
+<input type="hidden"  id="post-notification"  value="{% url 'social:post-notification' 1 2 %}"/>
+<input type="hidden"  id="comment-notification"  value="{% url 'social:comment-notification' 1 2 3 %}"/>
+<input type="hidden"  id="com-of-com-notification"  value="{% url 'social:com-of-com-notification' 1 2 3 4 %}"/>
+<input type="hidden"  id="follow-notification"  value="{% url 'social:follow-notification' 1 2 %}"/>
+<input type="hidden"  id="remove_notification"  value="{% url 'social:remove-notification' 1 %}?prev_page={{  path | urlencode }}"/>
 
 
 </div>

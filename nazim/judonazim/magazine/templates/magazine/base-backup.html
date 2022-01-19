@@ -18,7 +18,7 @@
 
  <script>
 
-     document.onkeydown = function (e) {
+    /* document.onkeydown = function (e) {
           if (event.keyCode == 123) {
               return false;
           }
@@ -37,7 +37,7 @@
           if (e.ctrlKey && (e.keyCode == 'S'.charCodeAt(0) || e.keyCode == 's'.charCodeAt(0))) {
               return false;
           }
-      }
+      }*/
     </script>
 
     <style>
@@ -51,8 +51,8 @@
     }
     </style>
   </head>
-
-<body oncontextmenu="return false;">
+<body>
+<!--<body oncontextmenu="return false;">-->
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0" nonce="GTakoGeS"></script>
 
@@ -203,9 +203,6 @@
 {%block body%}
 
 {%endblock body%}
-<audio style="display:none;" id="notification-sound" controls>
-    <source src="{% static 'magazine/audio/notification.mp3' %}" type="audio/mp3">
-</audio>
 </div>
 {%include 'components/footer.html'%}
   <script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>
@@ -217,9 +214,9 @@
 
 
  <script>
-  $(document).bind("contextmenu", function(e) {
+  /*$(document).bind("contextmenu", function(e) {
      e.preventDefault();
-  });
+  });*/
 
 </script>
 
@@ -253,23 +250,12 @@ $(document).ready(function(){
               }
               var next_notification = result[0]['fields'];
               var notification_pk = result[0]['pk']
-              if(result == null)
-              {
-                return;
-              }
-              if(result[1] == null || result[1]['fields'] == null)
-              {
-                return;
-              }
+
               var from_user = result[1]['fields']['username']; //new
-              if(from_user == null || from_user == undefined || String(from_user) == 'undefined')
-              {
-                return;
-              }
+              alert(from_user);
 
 
-              render_new_notifications(next_notification, notification_pk, from_user);
-
+              render_new_notifications(next_notification, notification_pk );
 
               },
               error: function (response) {
@@ -280,7 +266,7 @@ $(document).ready(function(){
 
 
 
-  function render_new_notifications(next_notification, notification_pk, from_user)
+  function render_new_notifications(next_notification, notification_pk)
   {
 
     var cnt = parseInt($('.notification-counter').text());
@@ -290,15 +276,13 @@ $(document).ready(function(){
     $('#ring-the-bell').show();
     $('#dont-ring-the-bell').hide();
 
-    $('#notification-sound')[0].play();
-
     var parent = $('.notification-content');
 
     var curr_date = next_notification["date"];
 
        $('#last_notification_date').val(String(curr_date));
 
-      var from_user_id = next_notification['from_user'];
+
 
 
 
@@ -308,13 +292,13 @@ $(document).ready(function(){
         if(String(next_notification["notification_type"]) == "1")
         {
           msg= "נתן לך לייק לפוסט";
-          var elem = build_notification_object(from_user_id, msg, next_notification["notification_type"], from_user, 'post-notification', notification_pk, next_notification['post']);
+          var elem = build_notification_object(msg, next_notification["notification_type"], next_notification["from_user"], 'post-notification', notification_pk, next_notification['post']);
           $(parent).prepend(elem);
         }
         else if(String(next_notification["notification_type"]) == "4")
         {
           msg= "נתן לך דיסלייק לפוסט";
-          var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'post-notification', notification_pk, next_notification['post']);
+          var elem = build_notification_object(msg, next_notification["notification_type"], next_notification["from_user"], 'post-notification', notification_pk, next_notification['post']);
           $(parent).prepend(elem);
         }
       }
@@ -340,19 +324,21 @@ $(document).ready(function(){
                if(String(next_notification["notification_type"]) == "1")
                {
                  msg= "נתן לך לייק לתגובה";
-                 var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'comment-notification', notification_pk, comment['post'], next_notification['comment']);
+                alert(next_notification["from_user"])
+
+                 var elem = build_notification_object(msg, next_notification["notification_type"], next_notification["from_user"], 'comment-notification', notification_pk, comment['post'], next_notification['comment']);
                  $(parent).prepend(elem);
                }
                else if(String(next_notification["notification_type"]) == "2")
                {
                  msg= "הגיב לך על המאמר";
-                 var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'comment-notification', notification_pk, comment['post'], next_notification['comment']);
+                 var elem = build_notification_object(msg, next_notification["notification_type"], next_notification["from_user"], 'comment-notification', notification_pk, comment['post'], next_notification['comment']);
                  $(parent).prepend(elem);
                }
                else
                {
                  msg= "נתן לך דיסלייק לתגובה";
-                 var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'comment-notification', notification_pk, comment['post'], next_notification['comment']);
+                 var elem = build_notification_object(msg, next_notification["notification_type"], next_notification["from_user"], 'comment-notification', notification_pk, comment['post'], next_notification['comment']);
                  $(parent).prepend(elem);
                }
              },
@@ -398,20 +384,20 @@ $(document).ready(function(){
 
 
                      msg= "נתן לך לייק";
-                     var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'com-of-com-notification', notification_pk, post, com_of_com['comment'], com_of_com_pk);
+                     var elem = build_notification_object(msg, next_notification["notification_type"], next_notification["from_user"], 'com-of-com-notification', notification_pk, post, com_of_com['comment'], com_of_com_pk);
                      $(parent).prepend(elem);
                    }
                    else if(String(next_notification["notification_type"]) == "2")
                    {
                      msg= "הגיב לך";
-                     var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'com-of-com-notification', notification_pk, post, com_of_com['comment'], com_of_com_pk);
+                     var elem = build_notification_object(msg, next_notification["notification_type"], next_notification["from_user"], 'com-of-com-notification', notification_pk, post, com_of_com['comment'], com_of_com_pk);
                      $(parent).prepend(elem);
 
                    }
                    else
                    {
                      msg= "נתן לך דיסלייק";
-                     var elem = build_notification_object(from_user_id, msg, next_notification["notification_type"], from_user, 'com-of-com-notification', notification_pk, post, com_of_com['comment'], com_of_com_pk);
+                     var elem = build_notification_object(msg, next_notification["notification_type"], next_notification["from_user"], 'com-of-com-notification', notification_pk, post, com_of_com['comment'], com_of_com_pk);
                      $(parent).prepend(elem);
 
                    }
@@ -436,7 +422,7 @@ $(document).ready(function(){
       {
 
         msg= "החל לעקוב אחריך";
-        var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'follow-notification', notification_pk, from_user);
+        var elem = build_notification_object(msg, next_notification["notification_type"], next_notification["from_user"], 'follow-notification', notification_pk, next_notification['from_user']);
         $(parent).prepend(elem);
       }
 
@@ -444,39 +430,28 @@ $(document).ready(function(){
 
   }
 
-  function build_notification_object(from_user_id, msg, notification_type, from_user,  view_name, notification_pk, ...args)
+  function build_notification_object(msg, notification_type, from_user,  view_name, notification_pk, ...args)
   {
    var obj = '<div class="subMenuItem notification">';
 
-     var a1 = '<a href="';
-     var href1 = $('#remove_notification').val();
-     href1 = href1.replace('/1?', '/' + notification_pk + '?');
-     a1 = a1 + href1 + '" >';
+   var a1 = '<a href="' + "{% url +  'social:remove-notification' " + notification_pk;
+    a1 += "%}?prev_page={{  path | urlencode }}" + '">';
 
     a1 += '<svg xmlns="http://www.w3.org/2000/svg width="20" height="20" fill="black" class="bi bi-x"';
-    a1 += ' viewBox="0 0 16 16">';
+    a1+= ' viewBox="0 0 16 16">';
     a1 += '<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"';
     a1 += '/></svg></a>';
 
-   //var a2 = '<a href="' +  $('#' + view_name).val() + '/' + notification_pk;
-    var href2 = $('#' + view_name).val();
-    href2 = href2.replace(1, '-1-');
-    href2 = href2.replace(2, '-2-');
-    href2 = href2.replace(3, '-3-');
-    href2 = href2.replace(4, '-4-');
 
-    href2 = href2.replace('-1-',  notification_pk);
+   var a2 = '<a href="' + "{% url +  'social:" + view_name + "' ";
 
-   for(var i=0;i<args.length;i++)
+   a2 = a2 + notification_pk + " ";
+   for(var param in args)
    {
-     var next = i + 2;
-     href2 = href2.replace('-' + next + '-', args[i]);
+     a2 = a2 + param + " ";
    }
-
-   var a2 = '<a href="';
-   a2 = a2 + href2 +'">';
-
-   a2 += "@" + from_user + ' ' +  msg  + "</a>";
+   a2 += '%}">';
+   a2 += "@{{" + from_user + "}}" + msg +  "</a>";
    obj = obj + a1 + a2 + "</div>";
    return obj;
 

@@ -183,3 +183,6 @@ class Notification(models.Model):
     com_of_com = models.ForeignKey(comment_of_comment, on_delete = models.CASCADE, related_name = '+', blank = True, null = True)
     date = models.DateTimeField(default = timezone.now)
     user_has_seen = models.BooleanField(default = False)
+
+    def __str__(self):
+        return str(self.to_user.username) + '-type -' + str(self.notification_type)

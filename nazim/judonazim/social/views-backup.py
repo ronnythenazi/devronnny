@@ -14,79 +14,45 @@ from django.utils.dateparse import parse_datetime
 from django.utils import timezone
 import dateutil.parser
 from datetime import datetime
-from django.contrib.auth.models import User
+
 
 
 # Create your views here.
 
 
 def ajax_notifications(request):
-    if request.is_ajax and request.method == "GET":
-        if(not request.user.is_authenticated):
-            return JsonResponse({"error": "not logged in"}, status=400)
+    # request should be ajax and method should be POST.
 
+    if request.is_ajax and request.method == "GET":
+        #notifications = Notification.objects.filter(to_user = request_user).exclude(user_has_seen = True).order_by('-date')
         request_user = request.user
         s_last_notification_date = str(request.GET.get("last_notification_date", None))
+
         if(s_last_notification_date == '0'):
             next_notifications = Notification.objects.filter(to_user = request_user).exclude(user_has_seen = True).order_by('-date')
-            #ser_instance = serializers.serialize('json', list(next_notifications))#new
-
-            from_users = Notification.objects.filter(to_user = request_user).exclude(user_has_seen = True).order_by('-date').values_list('from_user', flat=True)
-            lst_next_notifications = list(next_notifications) #new
-            if from_users:
-                from_user = User.objects.get(id = from_users[0]) #new
-                lst_next_notifications.append(from_user) #new
-
-            ser_instance = serializers.serialize('json', lst_next_notifications) #new
+            ser_instance = serializers.serialize('json', list(next_notifications))
 
             return JsonResponse({"next_notifications": ser_instance})
 
         last_notification_date = datetime.fromisoformat(s_last_notification_date)
         is_old_notification = Notification.objects.filter(to_user = request_user).filter(date = last_notification_date).exclude(user_has_seen = True).exists()
-        #if(is_old_notification == False):
-        try:
-            print('try adding 999 at the end of datetime')
-            last_notification_date = datetime.fromisoformat(s_last_notification_date + '999')
-            print('new date is now' + str(last_notification_date))
-        except:
-            print('failed adding 999')
-            last_notification_date = datetime.fromisoformat(s_last_notification_date)
-            print('new date is now ' +  str(last_notification_date))
+        if(is_old_notification == False):
+            s_last_notification_date += '999'
+        last_notification_date = datetime.fromisoformat(s_last_notification_date)
         print('local date pass as:' + s_last_notification_date)
-        next_notifications = Notification.objects.filter(to_user = request_user).filter(date__gt = last_notification_date).exclude(user_has_seen = True).order_by('-date')#from user
+        next_notifications = Notification.objects.filter(to_user = request_user).filter(date__gt = last_notification_date).exclude(user_has_seen = True).order_by('-date')
 
-        #new
-        from_users = Notification.objects.filter(to_user = request_user).filter(date__gt = last_notification_date).exclude(user_has_seen = True).order_by('-date').values_list('from_user', flat=True)
+        #server_date = Notification.objects.filter(to_user = request_user).filter(date__gt = last_notification_date).exclude(user_has_seen = True).order_by('-date').values_list('date', flat = True)[0]
 
-        lst_next_notifications = list(next_notifications) #new
-        if from_users:
-            from_user = User.objects.get(id = from_users[0]) #new
-            lst_next_notifications.append(from_user) #new
 
-        ser_instance = serializers.serialize('json', lst_next_notifications) #new
+        #print('server_date:' + str(server_date))
+        #print('local date:' + str(last_notification_date))
 
-        #ser_instance = serializers.serialize('json', list(next_notifications))new
+
+        ser_instance = serializers.serialize('json', list(next_notifications))
+
         return JsonResponse({"next_notifications": ser_instance})
 
-def ajax_notification_comment(request):
-    if request.is_ajax and request.method == "GET":
-        if(not request.user.is_authenticated):
-            return JsonResponse({"error": "not logged in"}, status=400)
-        request_user = request.user
-        comment_id = str(request.GET.get("comment_id", None))
-        comment = Comment.objects.filter(id = comment_id)
-        ser_instance = serializers.serialize('json', list(comment))
-        return JsonResponse({"comment": ser_instance})
-
-def ajax_notification_com_of_com(request):
-    if request.is_ajax and request.method == "GET":
-        if(not request.user.is_authenticated):
-            return JsonResponse({"error": "not logged in"}, status=400)
-        request_user = request.user
-        com_of_com_id = str(request.GET.get("com_of_com_id", None))
-        com_of_com = comment_of_comment.objects.filter(id = com_of_com_id)
-        ser_instance = serializers.serialize('json', list(com_of_com))
-        return JsonResponse({"com_of_com": ser_instance})
 
 def remove_notification(request, notification_pk):
     notification = Notification.objects.get(pk = notification_pk)
