@@ -181,7 +181,7 @@ class Notification(models.Model):
     post = models.ForeignKey(BlogPost, on_delete = models.CASCADE, related_name = '+', blank = True, null = True)
     comment = models.ForeignKey(Comment, on_delete = models.CASCADE, related_name = '+', blank = True, null = True)
     com_of_com = models.ForeignKey(comment_of_comment, on_delete = models.CASCADE, related_name = '+', blank = True, null = True)
-    date = models.DateTimeField(default = timezone.now)
+    date = models.DateTimeField(default=timezone.now)
     user_has_seen = models.BooleanField(default = False)
 
     def __str__(self):

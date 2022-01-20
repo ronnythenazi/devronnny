@@ -15,5 +15,6 @@ path('notification/remove_notification/<int:notification_pk>', remove_notificati
 path('notification/ajax', ajax_notifications, name = 'ajax-notifications'),
 path('notification/ajax/comment', ajax_notification_comment, name = 'ajax_notification_comment'),
 path('notification/ajax/comment-of-comment', ajax_notification_com_of_com, name = 'ajax_notification_com_of_com'),
+path('notification/ajax/from-user', ajax_get_user_name, name = 'ajax_get_user_name'),
 
 ]

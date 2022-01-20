@@ -257,18 +257,32 @@ $(document).ready(function(){
               {
                 return;
               }
-              if(result[1] == null || result[1]['fields'] == null)
-              {
-                return;
-              }
-              var from_user = result[1]['fields']['username']; //new
-              if(from_user == null || from_user == undefined || String(from_user) == 'undefined')
-              {
-                return;
-              }
 
 
-              render_new_notifications(next_notification, notification_pk, from_user);
+             $.ajax({
+
+               type: 'GET',
+               url: "{% url 'social:ajax_get_user_name' %}",
+               data: {'notification_pk':notification_pk,
+                     'csrfmiddlewaretoken': csrftoken,
+               },
+               dataType: 'json',
+
+               success: function (response2) {
+                 result2 = JSON.parse(response2['username']);
+                 from_user = result2[0]['fields']['username'];                 
+                 render_new_notifications(next_notification, notification_pk, from_user);
+
+               },
+
+               error: function (response2) {
+                   console.log(response2);
+               }
+             })
+
+
+
+
 
 
               },
@@ -294,9 +308,7 @@ $(document).ready(function(){
 
     var parent = $('.notification-content');
 
-    var curr_date = next_notification["date"];
 
-       $('#last_notification_date').val(String(curr_date));
 
       var from_user_id = next_notification['from_user'];
 
@@ -440,7 +452,9 @@ $(document).ready(function(){
         $(parent).prepend(elem);
       }
 
+      var curr_date = next_notification["date"];
 
+         $('#last_notification_date').val(String(curr_date));
 
   }
 
