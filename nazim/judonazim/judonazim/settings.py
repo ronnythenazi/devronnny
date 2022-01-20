@@ -154,9 +154,11 @@ if POSTGRES_READY:
         }
     }
 
+REST_FRAMEWORK = {
+    'DATETIME_FORMAT': '%s000',
+}
 
-
-
+"""
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -166,7 +168,7 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
+"""
 
 """
 if not DEBUG:

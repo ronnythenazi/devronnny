@@ -185,4 +185,4 @@ class Notification(models.Model):
     user_has_seen = models.BooleanField(default = False)
 
     def __str__(self):
-        return str(self.to_user.username) + '-type -' + str(self.notification_type)
+        return str(self.to_user.username) + '-type -' + str(self.notification_type) + 'date -' + str(self.date)

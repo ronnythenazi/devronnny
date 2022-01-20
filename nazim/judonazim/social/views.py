@@ -40,10 +40,11 @@ def ajax_notifications(request):
             ser_instance = serializers.serialize('json', lst_next_notifications) #new
 
             return JsonResponse({"next_notifications": ser_instance})
-
-        last_notification_date = datetime.fromisoformat(s_last_notification_date)
-        is_old_notification = Notification.objects.filter(to_user = request_user).filter(date = last_notification_date).exclude(user_has_seen = True).exists()
+        #last_notification_date = parse_datetime(s_last_notification_date)
+        #last_notification_date = datetime.fromisoformat(s_last_notification_date)
+        #is_old_notification = Notification.objects.filter(to_user = request_user).filter(date = last_notification_date).exclude(user_has_seen = True).exists()
         #if(is_old_notification == False):
+
         try:
             print('try adding 999 at the end of datetime')
             last_notification_date = datetime.fromisoformat(s_last_notification_date + '999')
@@ -53,6 +54,16 @@ def ajax_notifications(request):
             last_notification_date = datetime.fromisoformat(s_last_notification_date)
             print('new date is now ' +  str(last_notification_date))
         print('local date pass as:' + s_last_notification_date)
+
+        try:
+            server_date_qs = Notification.objects.filter(to_user = request_user).exclude(user_has_seen = True).order_by('-date').values_list('date', flat = True)[0]
+            server_date = str(server_date_qs)
+            print('server date:', server_date)
+        except:
+            pass
+
+
+
         next_notifications = Notification.objects.filter(to_user = request_user).filter(date__gt = last_notification_date).exclude(user_has_seen = True).order_by('-date')#from user
 
         #new
@@ -63,7 +74,7 @@ def ajax_notifications(request):
             from_user = User.objects.get(id = from_users[0]) #new
             lst_next_notifications.append(from_user) #new
 
-        ser_instance = serializers.serialize('json', lst_next_notifications) #new
+        ser_instance = serializers.serialize('json', list(lst_next_notifications)) #new
 
         #ser_instance = serializers.serialize('json', list(next_notifications))new
         return JsonResponse({"next_notifications": ser_instance})
