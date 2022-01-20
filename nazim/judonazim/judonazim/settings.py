@@ -153,23 +153,20 @@ if POSTGRES_READY:
             "PORT": POSTGRES_PORT,
         }
     }
-"""
-REST_FRAMEWORK = {
-    'DATETIME_FORMAT': '%s000',
-}
-"""
 
-"""
+
+
+
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
-
+#TIME_ZONE = 'UTC'
+TIME_ZONE = 'Israel'
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
-"""
+
 
 """
 if not DEBUG:
