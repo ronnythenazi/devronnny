@@ -153,10 +153,11 @@ if POSTGRES_READY:
             "PORT": POSTGRES_PORT,
         }
     }
-
+"""
 REST_FRAMEWORK = {
     'DATETIME_FORMAT': '%s000',
 }
+"""
 
 """
 LANGUAGE_CODE = 'en-us'
