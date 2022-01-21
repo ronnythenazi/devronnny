@@ -158,6 +158,7 @@ class MagazineHome(ListView):
         #print(context['authors_posts'][0][0]['pk'])
         return context
 
+
 def rate_post(request, pk):
     post = get_object_or_404(BlogPost, id = pk)
     if 'like-btn' in request.POST:

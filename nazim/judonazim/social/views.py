@@ -17,33 +17,53 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from .calcs import get_total_seconds
 
+def rate_post_refresh_ajax(request):
+    if request.method == 'GET' and request.is_ajax:
+        post_pk = request.GET.get('post_pk')
+        print('post_pk=' + str(post_pk))
+        post = BlogPost.objects.get(pk = post_pk)
+        rate_users = []
+        for like in post.likes.all():
+            rate_users.append({'user':str(like), 'rate-type': 'like'})
+            print('like-user:' + str(like))
+        for dislike in post.dislikes.all():
+            rate_users.append({'user':str(dislike), 'rate-type': 'dislike'})
+        return JsonResponse(rate_users, safe = False)
 
-"""
-def ajax_notifications(request):
-    if request.is_ajax and request.method == "GET":
-        if(not request.user.is_authenticated):
-            return JsonResponse({"error": "not logged in"}, status=400)
-        request_user = request.user
-        notifications_cnt = str(request.GET.get("notifications_cnt", None))
 
 
 
-        lst_next_notifications = [] #new
-        if from_users:
-            from_user = User.objects.get(id = from_users[0]) #new
-            lst_next_notifications.append(from_user) #new
 
-        next_notifications = Notification.objects.filter(to_user = request_user).exclude(user_has_seen = True).order_by('-date')#from user
-        server_notifications_cnt = Notification.objects.filter(to_user = request_user).exclude(user_has_seen = True).order_by('-date').count()
-        from_users = Notification.objects.filter(to_user = request_user).exclude(user_has_seen = True).order_by('-date').values_list('from_user', flat=True)
+def rate_post_save_ajax(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({})
+    if request.method == 'POST' and request.is_ajax:
+        post_pk = request.POST.get('post_pk')
+        print('save_ajax:post_pk=' + str(post_pk))
+        post = get_object_or_404(BlogPost, id = post_pk)
+        rate_type = request.POST.get('rate_type')
+        print('rate-type:' + rate_type)
+        if rate_type == 'like-btn':
+            print('liked')
+            is_already_liked = post.likes.filter(id = request.user.id).exists()
+            if is_already_liked:
+                print('remove like')
+                post.likes.remove(request.user)
+            else:
+                print('added like')
+                post.likes.add(request.user)
+                post.dislikes.remove(request.user)
+                notification = Notification.objects.create(notification_type = 1, from_user = request.user, post = post, to_user = post.author)
 
-        print('from_user=' + str(from_user))
-        print('server_notifications_cnt=' + str(server_notifications_cnt))
-        print('local_notifications_cnt=' + str(notifications_cnt))
-        ser_instance = serializers.serialize('json', lst_next_notifications) #new
-
-        return JsonResponse({"next_notifications": ser_instance})
-"""
+        elif rate_type == 'dislike-btn':
+            is_already_disliked = post.dislikes.filter(id = request.user.id).exists()
+            if is_already_disliked:
+                post.dislikes.remove(request.user)
+            else:
+                post.dislikes.add(request.user)
+                post.likes.remove(request.user)
+                notification = Notification.objects.create(notification_type = 4, from_user = request.user, post = post, to_user = post.author)
+    return JsonResponse({})
 
 
 def ajax_notifications(request):

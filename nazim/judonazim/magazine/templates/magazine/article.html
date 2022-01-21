@@ -33,58 +33,66 @@
     <div class="center" style="width:100%;">
      <div class="post">
        <span class="posttitle shiny-blue-clr post-title-slug" style="font-family:formal3-bold;color:black !important;opacity:0.9;font-size:3.5rem;">{{ object.title }}  </span>
-     <div class="tiny-row-center-align">
+     <div id="rate-post-form" class="tiny-row-center-align">
        {% if object.author.profile.profile_img.url %}
            <a class="author big tiny-row-center-align"> <img class="tiny-avatar" src="{{object.author.profile.profile_img.url}}"/>  <span> {{object.author | safe}}</span> &nbsp; | &nbsp;
                 <span>{{object.datepublished | date:'d/m/Y' | safe}}</span>
            </a>
-
        {% else %}
        <a class="author big tiny-row-end-align"> {% include 'members/default_profile_img.html' %}  <span>  {{object.author | safe}}</span> &nbsp; | &nbsp;
             <span>{{object.datepublished | date:'d/m/Y' | safe}}</span>
        </a>
        {% endif %}
-
        {% if user.is_authenticated %}
-       <form method="POST" id="start" class="tiny-row-center-align" action="{% url 'magazine:rate_post' object.pk %}">
-        {% csrf_token %}
-        <button class="unstyled-btn" name="like-btn" type="submit">
+       <div class="tiny-row-center-align">
+        <button class="unstyled-btn ajax-rate-btn" name="like-btn" type="button">
         {% if liked %}
-        {% include 'magazine/components/svg/like_fill.html'%}
+        <span class="user_liked">{% include 'magazine/components/svg/like_fill.html'%}</span>
+        <span class="user_unliked" style="display:none;">{% include 'magazine/components/svg/like.html'%}</span>
         {% else %}
-        {% include 'magazine/components/svg/like.html'%}
+        <span class="user_liked" style="display:none;">{% include 'magazine/components/svg/like_fill.html'%}</span>
+        <span class="user_unliked">{% include 'magazine/components/svg/like.html'%}</span>
         {% endif %}
         </button>
         {% if total_likes != 0 %}
-        <span class="rate-count rate-green">{{total_likes}}</span>
-        {% endif %}
-        <button class="unstyled-btn" name="dislike-btn" type="submit">
-        {% if disliked %}
-        {% include 'magazine/components/svg/dislike_fill.html'%}
+        <span  class="rate-count rate-green">{{total_likes}}</span>
         {% else %}
-        {% include 'magazine/components/svg/dislike.html'%}
+        <span style="display:none;" class="rate-count rate-green"></span>
+        {% endif %}
+        <button class="unstyled-btn ajax-rate-btn" name="dislike-btn" type="button">
+        {% if disliked %}
+        <span class="user_disliked">{% include 'magazine/components/svg/dislike_fill.html'%}</span>
+        <span class="user_undisliked" style="display:none;">{% include 'magazine/components/svg/dislike.html'%}</span>
+        {% else %}
+        <span class="user_disliked" style="display:none;">{% include 'magazine/components/svg/dislike_fill.html'%}</span>
+        <span class="user_undisliked"> {% include 'magazine/components/svg/dislike.html'%}</span>
         {% endif %}
         </button>
         {% if total_dislikes != 0 %}
         <span class="rate-count rate-red">{{total_dislikes}}</span>
+        {% else %}
+        <span style="display:none;" class="rate-count rate-red"></span>
         {% endif %}
-      </form>
+      </div>
        {% else %}
        <button class="unstyled-btn" type="button">
            {% include 'magazine/components/svg/like.html'%}
        </button>
        {% if total_likes != 0 %}
        <span class="rate-count rate-green">{{total_likes}}</span>
+       {% else %}
+       <span style="display:none;" class="rate-count rate-green">{{total_likes}}</span>
        {% endif %}
        <button class="unstyled-btn" type="button">
            {% include 'magazine/components/svg/dislike.html'%}
        </button>
        {% if total_dislikes != 0 %}
         <span class="rate-count rate-red">{{total_dislikes}}</span>
+        {% else %}
+        <span style="display:none;" class="rate-count rate-red">{{total_dislikes}}</span>
         {% endif %}
         <span class="msg ice-cream-clr">הירשם ותוכל להשפיע</span>
        {% endif %}
-
      </div>
 
          <div class="subtitle post-subtitle-slug">{{object.subtitle}}</div>
@@ -310,7 +318,10 @@
  </form>
 </div>
 </div>
-
+{% if user.is_authenticated %}
+<input type="hidden" id="curr-user" value="{{user.username}}">
+{% endif %}
+<input type="hidden" id="post_pk" value="{{object.pk}}" name="post_pk"/>
 </div>
 
 
@@ -355,6 +366,7 @@
         jump_to = curr_url.replace('-replace-me-', '#')
         window.location.href = jump_to
       }
+      setInterval(check_post_rating, 10000)
     });
 
     $('.reply-label').click(function(){
@@ -395,3 +407,133 @@
 
 
   {%endblock body%}
+
+{%block moreJs%}
+
+<script>
+
+function check_post_rating()
+{
+
+     var csrftoken = $('[name="csrfmiddlewaretoken"]').val()
+        $.ajax({
+            type: 'GET',
+            url: "{% url 'social:rate_post_refresh_ajax' %}",
+            data: {'post_pk':$('#post_pk').val(),
+                  'csrfmiddlewaretoken': csrftoken,
+            },
+            dataType: 'json',
+            success: function (response) {
+            //var result = JSON.parse(response);
+            //alert('result=' + response[0]['user'])
+              var cnt_likes = 0 ;
+              var cnt_dislikes = 0;
+              var is_user_liked = false;
+              var is_user_disliked = false;
+              var curr_user = '';
+
+              if($('#curr-user').length)
+              {
+                 curr_user = $('#curr-user').val();
+              }
+              for(var i=0;i<response.length;i++)
+              {
+                  var rate_type = response[i]['rate-type']
+
+                  if(rate_type == 'like')
+                  {
+                      cnt_likes += 1;
+                      if(response[i]['user'] == curr_user)
+                      {
+                        is_user_liked = true;
+                      }
+                  }
+                  if(rate_type == 'dislike')
+                  {
+                    cnt_dislikes += 1;
+                    if(response[i]['user'] == curr_user)
+                    {
+                      is_user_disliked = true;
+                    }
+
+                  }
+                 if(cnt_likes > 0)
+                 {
+
+                  $('#rate-post-form .rate-count.rate-green').text(cnt_likes);
+                  $('#rate-post-form .rate-count.rate-green').show();
+
+                 }
+                 if(cnt_dislikes > 0)
+                 {
+
+                   $('#rate-post-form .rate-count.rate-red').text(cnt_dislikes);
+                   $('#rate-post-form .rate-count.rate-red').show();
+
+                 }
+
+              }
+              if(cnt_likes == 0)
+              {
+                $('#rate-post-form .rate-count.rate-green').hide();
+              }
+              if(cnt_dislikes == 0)
+              {
+                $('#rate-post-form .rate-count.rate-red').hide();
+              }
+              if(is_user_liked)
+              {
+                $('.user_liked').show();
+                $('.user_unliked').hide();
+                $('.user_disliked').hide();
+                $('.user_undisliked').show();
+
+              }
+              else if(is_user_disliked)
+              {
+                $('.user_liked').hide();
+                $('.user_unliked').show();
+                $('.user_disliked').show();
+                $('.user_undisliked').hide();
+              }
+              else
+              {
+                $('.user_liked').hide();
+                $('.user_unliked').show();
+                $('.user_disliked').hide();
+                $('.user_undisliked').show();
+              }
+
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        })
+  }
+</script>
+
+  <script>
+    var csrftoken = $('[name="csrfmiddlewaretoken"]').val()
+    $("#rate-post-form .ajax-rate-btn").click(function () {
+        var rate_type = $(this).attr('name');
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'social:rate_post_save_ajax' %}",
+            data: {'rate_type':rate_type,
+                  'post_pk':$('#post_pk').val(),
+                  'csrfmiddlewaretoken': csrftoken,
+                  },
+            success: function (response) {
+                check_post_rating()
+
+            },
+            error: function (response) {
+
+            }
+        })
+    })
+</script>
+
+
+
+{%endblock moreJs%}

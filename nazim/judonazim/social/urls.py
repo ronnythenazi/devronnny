@@ -16,5 +16,7 @@ path('notification/ajax', ajax_notifications, name = 'ajax-notifications'),
 path('notification/ajax/comment', ajax_notification_comment, name = 'ajax_notification_comment'),
 path('notification/ajax/comment-of-comment', ajax_notification_com_of_com, name = 'ajax_notification_com_of_com'),
 path('notification/ajax/from-user', ajax_get_user_name, name = 'ajax_get_user_name'),
+path('post-rating-save-update/rate_post_save_ajax', rate_post_save_ajax, name = "rate_post_save_ajax"),
+path('post-rating-refresh/rate_post_refresh_ajax', rate_post_refresh_ajax, name = "rate_post_refresh_ajax"),
 
 ]

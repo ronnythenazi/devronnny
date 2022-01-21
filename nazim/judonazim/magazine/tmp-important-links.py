@@ -115,3 +115,6 @@ https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file
 
 #date formats django
 #https://docs.djangoproject.com/en/dev/ref/settings/#date-format
+
+#how-to-return-a-json-response-in-django-gen
+#https://dev.to/brian101co/how-to-return-a-json-response-in-django-gen
