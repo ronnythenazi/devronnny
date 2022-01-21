@@ -207,7 +207,7 @@
     <source src="{% static 'magazine/audio/notification.mp3' %}" type="audio/mp3">
 </audio>
 </div>
-{%include 'components/footer.html'%}
+
   <script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>
   <script type="text/javascript" src="{% static 'magazine/js/magazine.js'%}"> </script>
   <script type="text/javascript" src="{% static 'magazine/js/posts.js'%}"> </script>
@@ -270,7 +270,7 @@ $(document).ready(function(){
 
                success: function (response2) {
                  result2 = JSON.parse(response2['username']);
-                 from_user = result2[0]['fields']['username'];                 
+                 from_user = result2[0]['fields']['username'];
                  render_new_notifications(next_notification, notification_pk, from_user);
 
                },
@@ -504,6 +504,8 @@ $(document).ready(function(){
 
 
   {%block moreJs%} {%endblock moreJs%}
+
+  {%include 'components/footer.html'%}
 
   </body>
 
