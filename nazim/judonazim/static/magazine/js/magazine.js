@@ -1,6 +1,10 @@
-$('.menuItem').click(function(){$(this).children('div').css('visibility', 'visible');});
+$('.menuItem').click(function(){$(this).children('div').css('visibility', 'visible');
+$(this).children('div').show();
+});
 //$('.menuItem>div').mouseleave(function(){$(this).css('visibility', 'hidden');});
-$('.menuItem').mouseleave(function(){$(this).children('div').css('visibility', 'hidden');});
+$('.menuItem').mouseleave(function(){$(this).children('div').css('visibility', 'hidden');
+$('.notification-content').hide();
+});
 
 
 $('.more-posts-link').mouseover(function(){

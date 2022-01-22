@@ -207,7 +207,7 @@
     <source src="{% static 'magazine/audio/notification.mp3' %}" type="audio/mp3">
 </audio>
 </div>
-
+ {%include 'components/footer.html'%}
   <script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>
   <script type="text/javascript" src="{% static 'magazine/js/magazine.js'%}"> </script>
   <script type="text/javascript" src="{% static 'magazine/js/posts.js'%}"> </script>
@@ -505,7 +505,7 @@ $(document).ready(function(){
 
   {%block moreJs%} {%endblock moreJs%}
 
-  {%include 'components/footer.html'%}
+
 
   </body>
 
