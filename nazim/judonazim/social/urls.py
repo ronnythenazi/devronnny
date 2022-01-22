@@ -18,5 +18,9 @@ path('notification/ajax/comment-of-comment', ajax_notification_com_of_com, name 
 path('notification/ajax/from-user', ajax_get_user_name, name = 'ajax_get_user_name'),
 path('post-rating-save-update/rate_post_save_ajax', rate_post_save_ajax, name = "rate_post_save_ajax"),
 path('post-rating-refresh/rate_post_refresh_ajax', rate_post_refresh_ajax, name = "rate_post_refresh_ajax"),
+path('rate_com_save_ajax/', rate_com_save_ajax, name='rate_com_save_ajax'),
+path('rate_com_refresh_ajax/', rate_com_refresh_ajax, name='rate_com_refresh_ajax'),
+path('rate_sub_com_save_ajax/', rate_sub_com_save_ajax, name='rate_sub_com_save_ajax'),
+path('rate_sub_com_refresh_ajax/', rate_sub_com_refresh_ajax, name='rate_sub_com_refresh_ajax'),
 
 ]

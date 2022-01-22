@@ -81,7 +81,7 @@
        {% if total_likes != 0 %}
        <span class="rate-count rate-green">{{total_likes}}</span>
        {% else %}
-       <span style="display:none;" class="rate-count rate-green">{{total_likes}}</span>
+       <span style="display:none;" class="rate-count rate-green"></span>
        {% endif %}
        <button class="unstyled-btn" type="button">
            {% include 'magazine/components/svg/dislike.html'%}
@@ -89,7 +89,7 @@
        {% if total_dislikes != 0 %}
         <span class="rate-count rate-red">{{total_dislikes}}</span>
         {% else %}
-        <span style="display:none;" class="rate-count rate-red">{{total_dislikes}}</span>
+        <span style="display:none;" class="rate-count rate-red"></span>
         {% endif %}
         <span class="msg ice-cream-clr">הירשם ותוכל להשפיע</span>
        {% endif %}
@@ -150,10 +150,10 @@
 
 
       {% for comment in object.comments.all %}
-
         <div class="comment item" id="comment{{comment.pk}}" style="gap:10px;margin-bottom:50px;width:500px;">
           <span class="comment" style="gap:5px;">
-            <div class="super-tiny-row-center-align" style="gap:5px;">
+            <div  class="super-tiny-row-center-align rate-com-form" style="gap:5px;">
+              <input type="hidden" class="com_pk" value="{{comment.pk}}"/>
               <strong class="order-num" style="left:10px;position:relative;color:#E00041">
               {{forloop.counter}}
             </strong>
@@ -164,52 +164,61 @@
                {% include 'members/default_profile_img.html' %}
               {%endif%}
             </span>
-
               <b style="margin-right:-10px;" class="author author-comment">{{comment.name}} הגיב:</b>
 
-
                  {% if user.is_authenticated %}
-                 <form class="super-tiny-row-center-align" id="frm-like-comments" method="POST" action="{% url 'magazine:rate_com' comment.pk %}">
-                   {%csrf_token%}
-                 <button class="unstyled-btn" name="like-com" type="submit">
+                 <div class="super-tiny-row-center-align" id="frm-like-comments">
+                 <button class="unstyled-btn ajax-rate-btn" name="like-com" type="button">
                  {% if comment.liked %}
-                 {% include 'magazine/components/svg/like_fill.html'%}
+                 <span class="user_liked">{% include 'magazine/components/svg/like_fill.html'%}</span>
+                 <span class="user_unliked" style="display:none;">{% include 'magazine/components/svg/like.html'%}</span>
                  {% else %}
-                 {% include 'magazine/components/svg/like.html'%}
+                 <span class="user_liked" style="display:none;">{% include 'magazine/components/svg/like_fill.html'%}</span>
+                 <span class="user_unliked">{% include 'magazine/components/svg/like.html'%}</span>
                  {% endif %}
                 </button>
                  {% if comment.total_likes != 0 %}
                  <span class="rate-count rate-green">{{comment.total_likes}}</span>
-                 {% endif %}
-                 <button class="unstyled-btn" name="dislike-com">
-                 {% if comment.disliked %}
-                 {% include 'magazine/components/svg/dislike_fill.html'%}
                  {% else %}
-                 {% include 'magazine/components/svg/dislike.html'%}
+                 <span style="display:none;" class="rate-count rate-green"></span>
                  {% endif %}
+                 <button class="unstyled-btn ajax-rate-btn" name="dislike-com" type="button">
+                {% if comment.disliked %}
+                <span class="user_disliked">{% include 'magazine/components/svg/dislike_fill.html'%}</span>
+                <span class="user_undisliked" style="display:none;">{% include 'magazine/components/svg/dislike.html'%}</span>
+                {% else %}
+                <span class="user_disliked" style="display:none;">{% include 'magazine/components/svg/dislike_fill.html'%}</span>
+                <span class="user_undisliked"> {% include 'magazine/components/svg/dislike.html'%}</span>
+                {% endif %}
                </button>
                 {% if comment.total_dislikes != 0 %}
                  <span class="rate-count rate-red">{{comment.total_dislikes}}</span>
+                 {% else %}
+                 <span style="display:none;" class="rate-count rate-red"></span>
                 {% endif %}
-               </form>
+              </div>
                 {% else %}
                 <button class="unstyled-btn" type="button">
                     {% include 'magazine/components/svg/like.html'%}
                 </button>
                 {% if comment.total_likes != 0 %}
                 <span class="rate-count rate-green">{{comment.total_likes}}</span>
+                {% else %}
+                <span style="display:none;" class="rate-count rate-green"></span>
                 {% endif %}
                 <button class="unstyled-btn"  type="button">
                     {% include 'magazine/components/svg/dislike.html'%}
                 </button>
                 {% if comment.total_dislikes != 0 %}
                  <span class="rate-count rate-red">{{comment.total_dislikes}}</span>
+                 {% else %}
+                 <span class="rate-count rate-red" style="display:none;"></span>
                  {% endif %}
                  <span class="msg ice-cream-clr">הירשם ותוכל להשפיע</span>
                 {% endif %}
-
-
             </div>
+
+
             <a id="{{comment.pk}}" href ="#comment{{comment.pk}}" class="tiny-row-center-align"><span style="color:#2F9BDD;">{{comment.date_added | date:'d/m/Y' | safe}} בשעה: {{comment.date_added | date:'h:m' | safe}}</span></a>
           </span>
           {{comment.body}}
@@ -225,9 +234,10 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle-fill collpase" viewBox="0 0 16 16" style="margin-top:5px;">
          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/>
          </svg>
-          <div class="comment-of-comment">
+          <div class="comment-of-comment" id="frm-like-com-of-com">
           {% for comment_of_comment in comment.comments_of_comment.all %}
-          <div class="item subitem" id="sub-comment{{comment_of_comment.pk}}" style="margin-top:10px;">
+          <div class="item subitem rate-com-of-com-form" id="sub-comment{{comment_of_comment.pk}}" style="margin-top:10px;">
+            <input type="hidden" class="com_of_com_pk" value="{{comment_of_comment.pk}}"/>
           <span style="gap:5px;">
             <div class="super-tiny-row-center-align" style="gap:5px;">
 
@@ -242,45 +252,56 @@
 
 
               {% if user.is_authenticated %}
-              <form class="super-tiny-row-center-align" id="frm-like-com-of-com" method="POST" action="{% url 'magazine:rate_com_of_com' comment_of_comment.pk %}">
-                {%csrf_token%}
-              <button class="unstyled-btn" name="like-com-of-com" type="submit">
+            <!--  <div class="super-tiny-row-center-align" id="frm-like-com-of-com">-->
+            <div class="super-tiny-row-center-align">
+              <button class="unstyled-btn ajax-rate-sub-com-btn" name="like-com-of-com" type="button">
               {% if comment_of_comment.liked %}
-              <span class="com-of-com-svg">{% include 'magazine/components/svg/like_fill.html' %}</span>
+              <span class="com-of-com-svg sub_com_user_liked">{% include 'magazine/components/svg/like_fill.html' %}</span>
+              <span style="display:none;" class="com-of-com-svg sub_com_user_unliked">{% include 'magazine/components/svg/like.html' %}</span>
               {% else %}
-              <span class="com-of-com-svg">{% include 'magazine/components/svg/like.html' %}</span>
+              <span  style="display:none;" class="com-of-com-svg sub_com_user_liked">{% include 'magazine/components/svg/like_fill.html' %}</span>
+              <span class="com-of-com-svg sub_com_user_unliked">{% include 'magazine/components/svg/like.html' %}</span>
               {% endif %}
              </button>
               {% if comment_of_comment.total_likes != 0 %}
               <span class="rate-green com-of-com-svg">{{comment_of_comment.total_likes}}</span>
-              {% endif %}
-              <button class="unstyled-btn" name="dislike-com-of-com">
-              {% if comment_of_comment.disliked %}
-              <span class="com-of-com-svg">{% include 'magazine/components/svg/dislike_fill.html' %}</span>
               {% else %}
-              <span class="com-of-com-svg">{% include 'magazine/components/svg/dislike.html' %}</span>
+              <span style="display:none;" class="rate-green com-of-com-svg"></span>
+              {% endif %}
+              <button class="unstyled-btn ajax-rate-sub-com-btn" name="dislike-com-of-com">
+              {% if comment_of_comment.disliked %}
+              <span class="com-of-com-svg sub_com_user_disliked">{% include 'magazine/components/svg/dislike_fill.html' %}</span>
+              <span style="display:none;" class="com-of-com-svg sub_com_user_undisliked">{% include 'magazine/components/svg/dislike.html' %}</span>
+              {% else %}
+              <span style="display:none;" class="com-of-com-svg sub_com_user_disliked">{% include 'magazine/components/svg/dislike_fill.html' %}</span>
+              <span class="com-of-com-svg sub_com_user_undisliked">{% include 'magazine/components/svg/dislike.html' %}</span>
               {% endif %}
             </button>
              {% if comment_of_comment.total_dislikes != 0 %}
               <span class="com-of-com-svg rate-red">{{comment_of_comment.total_dislikes}}</span>
+             {% else %}
+             <span style="display:none;" class="com-of-com-svg rate-red"></span>
              {% endif %}
-            </form>
+           </div>
              {% else %}
              <button class="unstyled-btn com-of-com-svg" type="button">
                  {% include 'magazine/components/svg/like.html' %}
              </button>
              {% if comment_of_comment.total_likes != 0 %}
              <span class="com-of-com-svg rate-green">{{comment_of_comment.total_likes}}</span>
+             {% else %}
+             <span style="display:none;" class="com-of-com-svg rate-green"></span>
              {% endif %}
              <button class="unstyled-btn com-of-com-svg"  type="button">
                 {% include 'magazine/components/svg/dislike.html' %}
              </button>
              {% if comment_of_comment.total_dislikes != 0 %}
               <span class="com-of-com-svg rate-red">{{comment_of_comment.total_dislikes}}</span>
+              {% else %}
+              <span class="com-of-com-svg rate-red"></span>
               {% endif %}
               <span class="msg ice-cream-clr" style="font-size:1rem;">הירשם ותוכל להשפיע</span>
              {% endif %}
-
 
             </div>
 
@@ -366,7 +387,9 @@
         jump_to = curr_url.replace('-replace-me-', '#')
         window.location.href = jump_to
       }
-      setInterval(check_post_rating, 10000)
+      setInterval(check_post_rating, 10000);
+      setInterval(check_com_rating, 30000);
+      setInterval(check_sub_com_rating, 60000);
     });
 
     $('.reply-label').click(function(){
@@ -409,12 +432,607 @@
   {%endblock body%}
 
 {%block moreJs%}
+<script>
+
+function check_sub_com_rating()
+{
+     var csrftoken = $('[name="csrfmiddlewaretoken"]').val()
+        $.ajax({
+            type: 'GET',
+            url: "{% url 'social:rate_sub_com_refresh_ajax' %}",
+            data: {'post_pk':$('#post_pk').val(),
+                  'csrfmiddlewaretoken': csrftoken,
+            },
+            dataType: 'json',
+            success: function (response) {
+              var curr_user = '';
+              if($('#curr-user').length)
+              {
+                 curr_user = $('#curr-user').val();
+              }
+             for(var sub_com_index=0;sub_com_index<response.length;sub_com_index++)
+             {
+
+               var sub_com_pk = response[sub_com_index]['sub_com_pk']
+               var sub_com_obj = response[sub_com_index]['items'];
+
+               var cnt_likes = 0 ;
+               var cnt_dislikes = 0;
+               var is_user_liked = false;
+               var is_user_disliked = false;
+
+               for(var i=0;i<sub_com_obj.length;i++)
+               {
+                  var rate_type = sub_com_obj[i]['rate-type']
+
+                   if(rate_type == 'like')
+                   {
+                       cnt_likes += 1;
+                       if(sub_com_obj[i]['user'] == curr_user)
+                       {
+                         is_user_liked = true;
+                       }
+                   }
+                   if(rate_type == 'dislike')
+                   {
+                     cnt_dislikes += 1;
+                     if(sub_com_obj[i]['user'] == curr_user)
+                     {
+                       is_user_disliked = true;
+                     }
+
+                   }
+               }
+               var sub_com_parent_selector = '#sub-comment' + sub_com_pk;
+               if(cnt_likes > 0)
+               {
+
+                $(sub_com_parent_selector + ' .rate-green').text(cnt_likes);
+                $(sub_com_parent_selector + ' .rate-green').show();
+
+               }
+               if(cnt_dislikes > 0)
+               {
+
+                 $(sub_com_parent_selector + ' .rate-red').text(cnt_dislikes);
+                 $(sub_com_parent_selector + ' .rate-red').show();
+
+               }
+               if(cnt_likes == 0)
+               {
+                 $(sub_com_parent_selector + ' .rate-green').hide();
+               }
+               if(cnt_dislikes == 0)
+               {
+                 $(sub_com_parent_selector + ' .rate-red').hide();
+               }
+               if(is_user_liked)
+               {
+                 $(sub_com_parent_selector + ' .sub_com_user_liked').show();
+                 $(sub_com_parent_selector + ' .sub_com_user_unliked').hide();
+                 $(sub_com_parent_selector + ' .sub_com_user_disliked').hide();
+                 $(sub_com_parent_selector + ' .sub_com_user_undisliked').show();
+
+               }
+               else if(is_user_disliked)
+               {
+                 $(sub_com_parent_selector + ' .sub_com_user_liked').hide();
+                 $(sub_com_parent_selector + ' .sub_com_user_unliked').show();
+                 $(sub_com_parent_selector + ' .sub_com_user_disliked').show();
+                 $(sub_com_parent_selector + ' .sub_com_user_undisliked').hide();
+               }
+               else
+               {
+                 $(sub_com_parent_selector + ' .sub_com_user_liked').hide();
+                 $(sub_com_parent_selector + ' .sub_com_user_unliked').show();
+                 $(sub_com_parent_selector + ' .sub_com_user_disliked').hide();
+                 $(sub_com_parent_selector + ' .sub_com_user_undisliked').show();
+               }
+
+             }
+
+
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        })
+  }
+</script>
+
+<script>
+  var csrftoken = $('[name="csrfmiddlewaretoken"]').val()
+  $(".rate-com-of-com-form .ajax-rate-sub-com-btn").click(function () {
+      var rate_type = $(this).attr('name');
+      var parent = $(this).parents('.rate-com-of-com-form').first();
+      var com_of_com_pk = $(parent).find('.com_of_com_pk').val();
+
+      $.ajax({
+          type: 'POST',
+          url: "{% url 'social:rate_sub_com_save_ajax' %}",
+          data: {'rate_type':rate_type,
+                'com_of_com_pk':com_of_com_pk,
+                'csrfmiddlewaretoken': csrftoken,
+                },
+          success: function (response) {
+            var btn_like =  $(parent).find('.sub_com_user_liked');
+            var btn_dislike = $(parent).find('.sub_com_user_disliked');
+            var btn_unlike = $(parent).find('.sub_com_user_unliked');
+            var btn_undislike = $(parent).find('.sub_com_user_undisliked');
+
+            var is_like_visibile = $(btn_like).css('display');
+            var is_dislike_visibile = $(btn_dislike).css('display');
+
+            var rate_green = $(parent).find('.rate-green');
+            var rate_red = $(parent).find('.rate-red');
+
+            if(rate_type == 'like-com-of-com')
+            {
+               if(is_like_visibile != 'none')
+               {
+                 $(btn_like).hide();
+                 $(btn_unlike).show();
+
+                 var likes_cnt = parseInt($(rate_green).text());
+                 likes_cnt -= 1;
+                 if(likes_cnt == 0)
+                 {
+                   likes_cnt = '';
+                 }
+                 $(rate_green).text(likes_cnt);
+               }
+               else
+               {
+                 $(btn_like).show();
+                 $(btn_unlike).hide();
+
+                 if($(rate_green).text() == '')
+                 {
+                   $(rate_green).text('1');
+                   $(rate_green).show();
+                 }
+                 else
+                 {
+                    var cnt = parseInt($(rate_green).text());
+                    cnt += 1;
+                   $(rate_green).text(cnt);
+                 }
+               }
+               if(is_dislike_visibile != 'none')
+               {
+                 $(btn_dislike).hide();
+                 $(btn_undislike).show();
+
+                 var dislikes_cnt = parseInt($(rate_red).text());
+                 dislikes_cnt -= 1;
+                 if(dislikes_cnt == 0)
+                 {
+                   dislikes_cnt = '';
+                 }
+                 $(rate_red).text(dislikes_cnt);
+               }
+            }
+            else if(rate_type == 'dislike-com-of-com')
+            {
+              if(is_dislike_visibile != 'none')
+              {
+                $(btn_dislike).hide();
+                $(btn_undislike).show();
+
+                var dislikes_cnt = parseInt($(rate_red).text());
+                dislikes_cnt -= 1;
+                if(dislikes_cnt == 0)
+                {
+                  dislikes_cnt = '';
+                }
+                $(rate_red).text(dislikes_cnt);;
+              }
+              else
+              {
+                $(btn_dislike).show();
+                $(btn_undislike).hide();
+
+                if($(rate_red).text() == '')
+                {
+                  $(rate_red).text('1');
+                  $(rate_red).show();
+                }
+                else
+                {
+                   var cnt = parseInt($(rate_red).text());
+                   cnt += 1;
+                  $(rate_red).text(cnt);
+                }
+              }
+              if(is_like_visibile != 'none')
+              {
+                $(btn_like).hide();
+                $(btn_unlike).show();
+
+                var likes_cnt = parseInt($(rate_green).text());
+                likes_cnt -= 1;
+                if(likes_cnt == 0)
+                {
+                  likes_cnt = '';
+                }
+                $(rate_green).text(likes_cnt);
+              }
+            }
+
+          },
+          error: function (response) {
+
+          }
+      })
+  })
+</script>
+
+<script>
+  var csrftoken = $('[name="csrfmiddlewaretoken"]').val()
+  $(".rate-com-form .ajax-rate-btn").click(function () {
+      var rate_type = $(this).attr('name');
+      parent  = $(this).parents('.rate-com-form').first();
+      var com_pk = $(parent).find('.com_pk').val();
+      $.ajax({
+          type: 'POST',
+          url: "{% url 'social:rate_com_save_ajax' %}",
+          data: {'rate_type':rate_type,
+                'com_pk':com_pk,
+                'csrfmiddlewaretoken': csrftoken,
+                },
+          success: function (response) {
+            var btn_like =  $(parent).find('.user_liked');
+            var btn_dislike = $(parent).find('.user_disliked');
+            var btn_unlike = $(parent).find('.user_unliked');
+            var btn_undislike = $(parent).find('.user_undisliked');
+
+            var is_like_visibile = $(btn_like).css('display');
+            var is_dislike_visibile = $(btn_dislike).css('display');
+
+            var rate_green = $(parent).find('.rate-count.rate-green');
+            var rate_red = $(parent).find('.rate-count.rate-red');
+
+            if(rate_type == 'like-com')
+            {
+               if(is_like_visibile != 'none')
+               {
+                 $(btn_like).hide();
+                 $(btn_unlike).show();
+
+                 var likes_cnt = parseInt($(rate_green).text());
+                 likes_cnt -= 1;
+                 if(likes_cnt == 0)
+                 {
+                   likes_cnt = '';
+                 }
+                 $(rate_green).text(likes_cnt);
+               }
+               else
+               {
+                 $(btn_like).show();
+                 $(btn_unlike).hide();
+
+                  if($(rate_green).text() == '')
+                  {
+                    $(rate_green).text('1');
+                    $(rate_green).show();
+                  }
+                  else
+                  {
+                     var cnt = parseInt($(rate_green).text());
+                     cnt += 1;
+                    $(rate_green).text(cnt);
+                  }
+               }
+               if(is_dislike_visibile != 'none')
+               {
+                 $(btn_dislike).hide();
+                 $(btn_undislike).show();
+
+                 var dislikes_cnt = parseInt($(rate_red).text());
+                 dislikes_cnt -= 1;
+                 if(dislikes_cnt == 0)
+                 {
+                   dislikes_cnt = '';
+                 }
+                 $(rate_red).text(dislikes_cnt);
+               }
+            }
+            else if(rate_type == 'dislike-com')
+            {
+              if(is_dislike_visibile != 'none')
+              {
+                $(btn_dislike).hide();
+                $(btn_undislike).show();
+
+                var dislikes_cnt = parseInt($(rate_red).text());
+                dislikes_cnt -= 1;
+                if(dislikes_cnt == 0)
+                {
+                  dislikes_cnt = '';
+                }
+                $(rate_red).text(dislikes_cnt);
+              }
+              else
+              {
+                $(btn_dislike).show();
+                $(btn_undislike).hide();
+
+                if($(rate_red).text() == '')
+                {
+                  $(rate_red).text('1');
+                  $(rate_red).show();
+                }
+                else
+                {
+                   var cnt = parseInt($(rate_red).text());
+                   cnt += 1;
+                  $(rate_red).text(cnt);
+                }
+              }
+              if(is_like_visibile != 'none')
+              {
+                $(btn_like).hide();
+                $(btn_unlike).show();
+
+                var likes_cnt = parseInt($(rate_green).text());
+                likes_cnt -= 1;
+                if(likes_cnt == 0)
+                {
+                  likes_cnt = '';
+                }
+                $(rate_green).text(likes_cnt);
+              }
+            }
+
+          },
+          error: function (response) {
+
+          }
+      })
+  })
+</script>
+
+<script>
+
+function check_com_rating()
+{
+     var csrftoken = $('[name="csrfmiddlewaretoken"]').val()
+        $.ajax({
+            type: 'GET',
+            url: "{% url 'social:rate_com_refresh_ajax' %}",
+            data: {'post_pk':$('#post_pk').val(),
+                  'csrfmiddlewaretoken': csrftoken,
+            },
+            dataType: 'json',
+            success: function (response) {
+              var curr_user = '';
+              if($('#curr-user').length)
+              {
+                 curr_user = $('#curr-user').val();
+              }
+             for(var com_index=0;com_index<response.length;com_index++)
+             {
+
+               var com_pk = response[com_index]['com_pk']
+               var com_obj = response[com_index]['items'];
+
+               var cnt_likes = 0 ;
+               var cnt_dislikes = 0;
+               var is_user_liked = false;
+               var is_user_disliked = false;
+
+               for(var i=0;i<com_obj.length;i++)
+               {
+                  var rate_type = com_obj[i]['rate-type']
+
+                   if(rate_type == 'like')
+                   {
+                       cnt_likes += 1;
+                       if(com_obj[i]['user'] == curr_user)
+                       {
+                         is_user_liked = true;
+                       }
+                   }
+                   if(rate_type == 'dislike')
+                   {
+                     cnt_dislikes += 1;
+                     if(com_obj[i]['user'] == curr_user)
+                     {
+                       is_user_disliked = true;
+                     }
+
+                   }
+
+               }
+               var com_parent_selector = '#comment' + com_pk;
+               if(cnt_likes > 0)
+               {
+
+                $(com_parent_selector + ' .rate-count.rate-green').text(cnt_likes);
+                $(com_parent_selector + ' .rate-count.rate-green').show();
+
+               }
+               if(cnt_dislikes > 0)
+               {
+
+                 $(com_parent_selector + ' .rate-count.rate-red').text(cnt_dislikes);
+                 $(com_parent_selector + ' .rate-count.rate-red').show();
+
+               }
+               if(cnt_likes == 0)
+               {
+                 $(com_parent_selector + ' .rate-count.rate-green').hide();
+               }
+               if(cnt_dislikes == 0)
+               {
+                 $(com_parent_selector + ' .rate-count.rate-red').hide();
+               }
+               if(is_user_liked)
+               {
+                 $(com_parent_selector + ' .user_liked').show();
+                 $(com_parent_selector + ' .user_unliked').hide();
+                 $(com_parent_selector + ' .user_disliked').hide();
+                 $(com_parent_selector + ' .user_undisliked').show();
+
+               }
+               else if(is_user_disliked)
+               {
+                 $(com_parent_selector + ' .user_liked').hide();
+                 $(com_parent_selector + ' .user_unliked').show();
+                 $(com_parent_selector + ' .user_disliked').show();
+                 $(com_parent_selector + ' .user_undisliked').hide();
+               }
+               else
+               {
+                 $(com_parent_selector + ' .user_liked').hide();
+                 $(com_parent_selector + ' .user_unliked').show();
+                 $(com_parent_selector + ' .user_disliked').hide();
+                 $(com_parent_selector + ' .user_undisliked').show();
+               }
+
+             }
+
+
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        })
+  }
+</script>
+
+  <script>
+    var csrftoken = $('[name="csrfmiddlewaretoken"]').val()
+    $("#rate-post-form .ajax-rate-btn").click(function () {
+        var rate_type = $(this).attr('name');
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'social:rate_post_save_ajax' %}",
+            data: {'rate_type':rate_type,
+                  'post_pk':$('#post_pk').val(),
+                  'csrfmiddlewaretoken': csrftoken,
+                  },
+            success: function (response) {
+              parent = $('#rate-post-form');
+              var btn_like =  $(parent).find('.user_liked');
+              var btn_dislike = $(parent).find('.user_disliked');
+              var btn_unlike = $(parent).find('.user_unliked');
+              var btn_undislike = $(parent).find('.user_undisliked');
+
+              var is_like_visibile = $(btn_like).css('display');
+              var is_dislike_visibile = $(btn_dislike).css('display');
+
+              var rate_green = $(parent).find('.rate-count.rate-green');
+              var rate_red = $(parent).find('.rate-count.rate-red');
+
+              if(rate_type == 'like-btn')
+              {
+                 if(is_like_visibile != 'none')
+                 {
+                   $(btn_like).hide();
+                   $(btn_unlike).show();
+
+                   var likes_cnt = parseInt($(rate_green).text());
+                   likes_cnt -= 1;
+                   if(likes_cnt == 0)
+                   {
+                     likes_cnt = '';
+                   }
+                   $(rate_green).text(likes_cnt);;
+                 }
+                 else
+                 {
+                   $(btn_like).show();
+                   $(btn_unlike).hide();
+
+                   if($(rate_green).text() == '')
+                   {
+                     $(rate_green).text('1');
+                     $(rate_green).show();
+                   }
+                   else
+                   {
+                      var cnt = parseInt($(rate_green).text());
+                      cnt += 1;
+                     $(rate_green).text(cnt);
+                   }
+                 }
+                 if(is_dislike_visibile != 'none')
+                 {
+                   $(btn_dislike).hide();
+                   $(btn_undislike).show();
+
+                   var dislikes_cnt = parseInt($(rate_red).text());
+                   dislikes_cnt -= 1;
+                   if(dislikes_cnt == 0)
+                   {
+                     dislikes_cnt = '';
+                   }
+                   $(rate_red).text(dislikes_cnt);
+                 }
+              }
+              else if(rate_type == 'dislike-btn')
+              {
+                if(is_dislike_visibile != 'none')
+                {
+                  $(btn_dislike).hide();
+                  $(btn_undislike).show();
+
+                  var dislikes_cnt = parseInt($(rate_red).text());
+                  dislikes_cnt -= 1;
+                  if(dislikes_cnt == 0)
+                  {
+                    dislikes_cnt = '';
+                  }
+                  $(rate_red).text(dislikes_cnt);
+                }
+                else
+                {
+                  $(btn_dislike).show();
+                  $(btn_undislike).hide();
+
+                  if($(rate_red).text() == '')
+                  {
+                    $(rate_red).text('1');
+                    $(rate_red).show();
+                  }
+                  else
+                  {
+                     var cnt = parseInt($(rate_red).text());
+                     cnt += 1;
+                    $(rate_red).text(cnt);
+                  }
+                }
+                if(is_like_visibile != 'none')
+                {
+                  $(btn_like).hide();
+                  $(btn_unlike).show();
+
+                  var likes_cnt = parseInt($(rate_green).text());
+                  likes_cnt -= 1;
+                  if(likes_cnt == 0)
+                  {
+                    likes_cnt = '';
+                  }
+                  $(rate_green).text(likes_cnt);
+                }
+              }
+
+            },
+            error: function (response) {
+
+            }
+        })
+    })
+</script>
+
+
 
 <script>
 
 function check_post_rating()
 {
-
      var csrftoken = $('[name="csrfmiddlewaretoken"]').val()
         $.ajax({
             type: 'GET',
@@ -424,8 +1042,7 @@ function check_post_rating()
             },
             dataType: 'json',
             success: function (response) {
-            //var result = JSON.parse(response);
-            //alert('result=' + response[0]['user'])
+
               var cnt_likes = 0 ;
               var cnt_dislikes = 0;
               var is_user_liked = false;
@@ -483,25 +1100,25 @@ function check_post_rating()
               }
               if(is_user_liked)
               {
-                $('.user_liked').show();
-                $('.user_unliked').hide();
-                $('.user_disliked').hide();
-                $('.user_undisliked').show();
+                $('#rate-post-form .user_liked').show();
+                $('#rate-post-form .user_unliked').hide();
+                $('#rate-post-form .user_disliked').hide();
+                $('#rate-post-form .user_undisliked').show();
 
               }
               else if(is_user_disliked)
               {
-                $('.user_liked').hide();
-                $('.user_unliked').show();
-                $('.user_disliked').show();
-                $('.user_undisliked').hide();
+                $('#rate-post-form .user_liked').hide();
+                $('#rate-post-form .user_unliked').show();
+                $('#rate-post-form .user_disliked').show();
+                $('#rate-post-form .user_undisliked').hide();
               }
               else
               {
-                $('.user_liked').hide();
-                $('.user_unliked').show();
-                $('.user_disliked').hide();
-                $('.user_undisliked').show();
+                $('#rate-post-form .user_liked').hide();
+                $('#rate-post-form .user_unliked').show();
+                $('#rate-post-form .user_disliked').hide();
+                $('#rate-post-form .user_undisliked').show();
               }
 
             },
@@ -511,29 +1128,6 @@ function check_post_rating()
         })
   }
 </script>
-
-  <script>
-    var csrftoken = $('[name="csrfmiddlewaretoken"]').val()
-    $("#rate-post-form .ajax-rate-btn").click(function () {
-        var rate_type = $(this).attr('name');
-        $.ajax({
-            type: 'POST',
-            url: "{% url 'social:rate_post_save_ajax' %}",
-            data: {'rate_type':rate_type,
-                  'post_pk':$('#post_pk').val(),
-                  'csrfmiddlewaretoken': csrftoken,
-                  },
-            success: function (response) {
-                check_post_rating()
-
-            },
-            error: function (response) {
-
-            }
-        })
-    })
-</script>
-
 
 
 {%endblock moreJs%}
