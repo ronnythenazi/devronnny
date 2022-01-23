@@ -227,8 +227,8 @@ def rate_com_of_com(request, pk):
 def Article(request, pk, pos_id = '#start'):
 
 
-    comment_frm = CommentFrm(request.POST or None)
-    com_of_com_frm = comment_of_comment_frm(request.POST or None)
+    comment_frm = CommentFrm(request.POST or None, request.FILES or None, prefix="com")
+    com_of_com_frm = comment_of_comment_frm(request.POST or None, request.FILES or None, prefix="subcom")
 
     post = BlogPost.objects.get(pk = pk)
 

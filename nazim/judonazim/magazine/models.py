@@ -55,7 +55,7 @@ class BlogPost(models.Model):
 class Comment(models.Model):
     post = models.ForeignKey(BlogPost, related_name = "comments" , on_delete = models.CASCADE)
     title = models.CharField(blank = True, max_length = 60, null = True, default = 'תגובה למאמר')
-    body = models.TextField(blank = False, null = False, max_length = 10000)
+    body = RichTextField(blank = False, null = False, max_length = 10000)
     comment_usr = models.ForeignKey(User, on_delete = models.CASCADE, blank = True, null = True)
     date_added = models.DateTimeField(auto_now_add = True, blank = True)
     likes = models.ManyToManyField(User, related_name ="likes_com")
@@ -87,8 +87,9 @@ class Comment(models.Model):
 class comment_of_comment(models.Model):
     comment = models.ForeignKey(Comment, related_name = "comments_of_comment" , on_delete = models.CASCADE)
     title = models.CharField(blank = True, max_length = 60, null = True)
-    body = models.TextField(blank = False, null = False, max_length = 10000)
+    body = RichTextField(blank = False, null = False, max_length = 10000)
     comment_of_comment_usr = models.ForeignKey(User, on_delete = models.CASCADE, blank = True, null = True)
+    to_sub_comment = models.ForeignKey('self', on_delete = models.CASCADE, blank = True, null = True)
     date_added = models.DateTimeField(auto_now_add = True, blank = True)
 
     likes = models.ManyToManyField(User, related_name ="likes_com_of_com")

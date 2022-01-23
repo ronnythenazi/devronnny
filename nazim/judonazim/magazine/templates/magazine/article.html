@@ -117,8 +117,9 @@
        {% endif %}
      </div>
 
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
   {%csrf_token%}
+  {{comment_frm.media}}
    <div class="center" style="margin-top:50px;">
       <div class="comment comment-frm">
          <span class="leave-comment-label">כתיבת תגובה</span>
@@ -126,18 +127,13 @@
            <span class="comment-label">התגובה שלך</span>
            {{comment_frm.body}}
         </div>
-        <!--<div style="width:100%;">
-          <span class="comment-label">שם</span>
-          {{comment_frm.name}}
-      </div>-->
+
      <button type="submit" style="width:100%;" class="btn-post-comment btn-loader" name="btn-send-comment">שלח</button>
      {% if object.comments.all|length > 0 %}
    <div class="tiny-row-center-align comment-reply-title" style="justify-content:center;width:100%;margin-top:20px;"><span id="lbl-count-comments"> {{object.comments.all | length}}</span> <span>תגובות למאמר</span></div>
      {% endif %}
    </div>
  </div>
-
-
 </form>
 
 
@@ -202,7 +198,7 @@
                  <span style="display:none;" class="rate-count rate-red"></span>
                 {% endif %}
               </div>
-                {% else %}
+              {% else %}
                 <button class="unstyled-btn" type="button">
                     {% include 'magazine/components/svg/like.html'%}
                 </button>
@@ -220,16 +216,47 @@
                  <span class="rate-count rate-red" style="display:none;"></span>
                  {% endif %}
                  <span class="msg ice-cream-clr">הירשם ותוכל להשפיע</span>
-                {% endif %}
+              {% endif %}
             </div>
 
 
             <a id="{{comment.pk}}" href ="#comment{{comment.pk}}" class="tiny-row-center-align"><span style="color:#2F9BDD;">{{comment.date_added | date:'d/m/Y' | safe}} בשעה: {{comment.date_added | date:'h:m' | safe}}</span></a>
           </span>
-          {{comment.body}}
-          <div class="reply-parent">
+          {% if request.user == comment.comment_usr %}
+          <div class="comment-edit-parent" style="margin-top:-10px;" >
+                <div class="center form-view" style="display:none;align-items:flex-start;margin-top:0;gap:0px;">
+                      <input type="hidden" class="comment-id-edit" value="{{comment.pk}}"/>
+                       <div class="comment comment-frm" style="gap:0px;align-self:flex-start;text-align:right;">
+                          <div style="direction: rtl;width:100%;text-align:right;">
+                            <span class="comment-label">התגובה שלך</span>
+                            <!--<textarea class="comment-text-field comment-field ckeditor" style="resize: none;white-space: normal;text-align:right !important;direction: rtl;padding:0;">-->
+                            <textarea class="ckeditor" name="editor1">
+                              {{comment.body | safe}}
+                            </textarea>
+                          </div>
+                         <div class="super-tiny-row-center-align" style="justify-content:space-between;width:100%;">
+                          <button type="button" class="btn-post-comment btn-cancel-edit">בטל</button>
+                          <button type="button" class="btn-post-comment btn-edit-save">שמור</button>
+                        </div>
+                     </div>
+               </div>
+               <div class="display-view" style="justify-content:flex-start;margin-top:0px;align-items:flex-start;width:500px;box-sizing:border-box;word-wrap: break-word;">
+                 {{comment.body | safe}}
+                 <span class="btn-edit" style="align-self:flex-start;margin-top:20px;">{%include 'magazine/components/btns/btnedit_small.html'%}</span>
+               </div>
+          </div>
+          {% else %}
+          <div style="width:500px;box-sizing:border-box;word-wrap: break-word;">{{comment.body}}</div>
+          {% endif %}
 
-          <span class="reply-label" comment-id="{{comment.pk}}">{% include 'magazine/components/svg/reply.svg' %}</span>
+          <div class="reply-parent" style="margin-top:10px;width:100%;">
+
+          <span class="reply-label"  comment-id="{{comment.pk}}">{% include 'magazine/components/svg/reply.svg' %}</span>
+          <div style="display:none;" class="reply-label-brother">
+          <textarea class="ckeditor" name="editor2">
+          </textarea>
+          </div>
+
          </div>
 
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill expand" viewBox="0 0 16 16" style="display:none;margin-top:5px;">
@@ -251,13 +278,13 @@
                <img class="super-tiny-avatar" src="{{comment_of_comment.comment_of_comment_usr.profile.profile_img.url}}"/>
                {% else %}
                {% include 'members/default_profile_img.html' %}
-              {%endif%}
+              {% endif %}
             </span>
             {% if user.is_authenticated %}
             <b style="margin-right:-10px;" class="author author-sub-comment">{{comment_of_comment.comment_of_comment_usr}} הגיב:</b>
             {% else %}
             <b style="margin-right:-10px;" class="author author-sub-comment">פלוני הגיב:</b>
-            {%  endif %}
+            {% endif %}
 
 
 
@@ -319,6 +346,15 @@
           </span>
           <span class="sub-comment">{{comment_of_comment.body}}</span>
         </div>
+
+        <div class="reply-parent" style="margin-top:10px;width:500px;">
+         <span class="reply-label" sub-com-id="{{comment_of_comment.pk}}" comment-id="{{comment.pk}}">{% include 'magazine/components/svg/reply.svg' %}</span>
+         <div style="display:none;width:500px;" class="reply-label-brother">
+         <textarea class="ckeditor" name="editor2">
+         </textarea>
+        </div>
+       </div>
+
         {% endfor %}
       </div>
         </div>
@@ -326,26 +362,25 @@
       {% endfor %}
 
    {% endif %}
-   <div id="reply-frm" style="display:none;">
-   <form method="post">
+   <div id="reply-frm" style="display:none" >
+   <form method="POST" enctype="multipart/form-data">
   {%csrf_token%}
+  {{com_of_com_frm.media}}
    <div>
          <div class="center">
-               <input type="hidden" name="comment_id" id="comment_id">
+               <input type="hidden" name="comment_id" id="comment_id"/>
                 <div class="comment comment-frm">
                    <div style="width:100%;">
                      <span class="comment-label">התגובה שלך</span>
                      {{com_of_com_frm.body}}
                   </div>
-                  <!--<div style="width:100%;">
-                    <span class="comment-label">שם</span>
-                    {{com_of_com_frm.name}}
-                </div>-->
+
                <button type="submit" class="btn-post-comment" id="btn-reply-comment-of-comment" name="btn-reply-comment-of-comment">הגב</button>
-              <!--{% include 'magazine/components/svg/reply.svg' %}-->
+
              </div>
              </div>
    </div>
+
  </form>
 </div>
 </div>
@@ -361,15 +396,23 @@
 
 
 
-
-  <script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>
+  <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"> </script>
+  <script type="text/javascript" src="{% static 'plugins/jquery.js' %}"> </script>
+  <script>
+  CKEDITOR.replace('editor1');
+  CKEDITOR.replace('editor2');
+</script>
    <script>
-   /*$('#btn-reply-comment-of-comment').click(function(){
-
-     $('#reply-frm').submit();
-
-   });*/
+   $('.btn-edit').click(function(){
+     $(this).parents('.comment-edit-parent').first().find('.display-view').hide();
+     $(this).parents('.comment-edit-parent').first().find('.form-view').show();
+   });
+   $('.btn-cancel-edit').click(function(){
+     $(this).parents('.comment-edit-parent').first().find('.display-view').show();
+     $(this).parents('.comment-edit-parent').first().find('.form-view').hide();
+   });
     $(document).ready(function(){
+
 
        $('.comment.item').each(function(){
          var sub_comments_count = $(this).find('.subitem').length;
@@ -401,8 +444,20 @@
       setInterval(check_com_rating, 30000);
       setInterval(check_sub_com_rating, 60000);
     });
+$('.reply-label').click(function(){
+  var is_visibile = $(this).next('.reply-label-brother').css('display');
+  if(is_visibile == 'none' )
+  {
+    $(this).next('.reply-label-brother').show();
+  }
+  else
+  {
+    $(this).next('.reply-label-brother').hide();
+  }
 
-    $('.reply-label').click(function(){
+
+});
+  /* $('.reply-label').click(function(){
 
       frm = $(this).next('#reply-frm');
       var frm_id = $(frm).attr('id');
@@ -423,7 +478,9 @@
 
 
 
-    });
+    });*/
+
+
 
     $('.expand').click(function(){
       $(this).nextAll('.comment-of-comment').show();

@@ -33,7 +33,10 @@
   .notification-content
   {
     font-size:0.8rem !important;
-    box-sizing:border-box;    
+    /*box-sizing:border-box;*/
+    overflow-y:auto;
+    max-height: 250px;
+    width:250px;
   }
   .notification-content *
   {
@@ -57,7 +60,7 @@
   {% include 'magazine/components/svg/bell.svg' %}
 </span>
 {% endif %}
-<div class="notification-content" style="top:20px;right:0px;display:none;">
+<div class="notification-content" style="top:20px;right:0px;display:none;padding-top:100px important;justify-content:flex-start;">
 {% for notification in notifications %}
     {% if notification.post %}
 
