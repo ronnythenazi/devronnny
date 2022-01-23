@@ -54,7 +54,7 @@ class BlogPost(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey(BlogPost, related_name = "comments" , on_delete = models.CASCADE)
-    name = models.CharField(blank = False, max_length = 60, null = False)
+    title = models.CharField(blank = True, max_length = 60, null = True, default = 'תגובה למאמר')
     body = models.TextField(blank = False, null = False, max_length = 10000)
     comment_usr = models.ForeignKey(User, on_delete = models.CASCADE, blank = True, null = True)
     date_added = models.DateTimeField(auto_now_add = True, blank = True)
@@ -82,11 +82,11 @@ class Comment(models.Model):
         ordering = ['-date_added']
 
     def __str__(self):
-        return '%s - %s' % (self.post.title, self.name)
+        return '%s - %s' % (self.post.title, self.comment_usr)
 
 class comment_of_comment(models.Model):
     comment = models.ForeignKey(Comment, related_name = "comments_of_comment" , on_delete = models.CASCADE)
-    name = models.CharField(blank = False, max_length = 60, null = False)
+    title = models.CharField(blank = True, max_length = 60, null = True)
     body = models.TextField(blank = False, null = False, max_length = 10000)
     comment_of_comment_usr = models.ForeignKey(User, on_delete = models.CASCADE, blank = True, null = True)
     date_added = models.DateTimeField(auto_now_add = True, blank = True)
@@ -114,7 +114,7 @@ class comment_of_comment(models.Model):
         ordering = ['-date_added']
 
     def __str__(self):
-        return '%s הגיב ל %s ב %s' % (self.comment.name, self.comment.post.title, self.comment.date_added)
+        return '%s הגיב ל %s ב %s' % (self.comment_of_comment_usr, self.comment.post.title, self.comment.date_added)
 
 
 class Profile(models.Model):

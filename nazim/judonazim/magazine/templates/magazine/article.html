@@ -126,10 +126,10 @@
            <span class="comment-label">התגובה שלך</span>
            {{comment_frm.body}}
         </div>
-        <div style="width:100%;">
+        <!--<div style="width:100%;">
           <span class="comment-label">שם</span>
           {{comment_frm.name}}
-      </div>
+      </div>-->
      <button type="submit" style="width:100%;" class="btn-post-comment btn-loader" name="btn-send-comment">שלח</button>
      {% if object.comments.all|length > 0 %}
    <div class="tiny-row-center-align comment-reply-title" style="justify-content:center;width:100%;margin-top:20px;"><span id="lbl-count-comments"> {{object.comments.all | length}}</span> <span>תגובות למאמר</span></div>
@@ -164,7 +164,12 @@
                {% include 'members/default_profile_img.html' %}
               {%endif%}
             </span>
-              <b style="margin-right:-10px;" class="author author-comment">{{comment.name}} הגיב:</b>
+            {% if user.is_authenticated %}
+            <b style="margin-right:-10px;" class="author author-comment">{{comment.comment_usr}} הגיב:</b>
+            {% else %}
+            <b style="margin-right:-10px;" class="author author-comment">פלוני הגיב</b>
+            {%  endif %}
+
 
                  {% if user.is_authenticated %}
                  <div class="super-tiny-row-center-align" id="frm-like-comments">
@@ -248,7 +253,12 @@
                {% include 'members/default_profile_img.html' %}
               {%endif%}
             </span>
-              <b style="margin-right:-10px;" class="author author-sub-comment">{{comment_of_comment.name}} הגיב:</b>
+            {% if user.is_authenticated %}
+            <b style="margin-right:-10px;" class="author author-sub-comment">{{comment_of_comment.comment_of_comment_usr}} הגיב:</b>
+            {% else %}
+            <b style="margin-right:-10px;" class="author author-sub-comment">פלוני הגיב:</b>
+            {%  endif %}
+
 
 
               {% if user.is_authenticated %}
@@ -327,10 +337,10 @@
                      <span class="comment-label">התגובה שלך</span>
                      {{com_of_com_frm.body}}
                   </div>
-                  <div style="width:100%;">
+                  <!--<div style="width:100%;">
                     <span class="comment-label">שם</span>
                     {{com_of_com_frm.name}}
-                </div>
+                </div>-->
                <button type="submit" class="btn-post-comment" id="btn-reply-comment-of-comment" name="btn-reply-comment-of-comment">הגב</button>
               <!--{% include 'magazine/components/svg/reply.svg' %}-->
              </div>

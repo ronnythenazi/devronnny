@@ -35,25 +35,26 @@ class BlogPostForm(forms.ModelForm):
 class CommentFrm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields =  ['name', 'body']
+        #fields =  ['name', 'body']
+        fields =  ['body']
 
 
         widgets ={
         #'post': forms.TextInput(attrs = {'value':'', 'type':'hidden'}),
         'body' : forms.Textarea(attrs = { 'class' : 'comment-text-field comment-field'}),
-        'name' : forms.TextInput(attrs = {'class' : 'comment-char-field comment-field'}),
+        #'name' : forms.TextInput(attrs = {'class' : 'comment-char-field comment-field'}),
         }
 
 class comment_of_comment_frm(forms.ModelForm):
     class Meta:
         model = comment_of_comment
-        fields =  ['name', 'body']
+        fields =  ['body']
+        #fields =  ['name', 'body']
 
 
         widgets ={
-        #'post': forms.TextInput(attrs = {'value':'', 'type':'hidden'}),
         'body' : forms.Textarea(attrs = { 'class' : 'comment-text-field comment-field'}),
-        'name' : forms.TextInput(attrs = {'class' : 'comment-char-field comment-field'}),
+        #'name' : forms.TextInput(attrs = {'class' : 'comment-char-field comment-field'}),
         }
 
 
