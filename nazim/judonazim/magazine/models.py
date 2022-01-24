@@ -8,6 +8,12 @@ from datetime import datetime, date
 from django.utils import timezone
 exposed_request = None
 
+def get_default_user():
+    user, created = User.objects.get_or_create(username = 'someone')
+    user.set_password('Axu11P9$500192VzpoPapol@a')
+    user.save()
+    return user
+    
 class BlogPost(models.Model):
 
     title = models.CharField(blank = False, max_length = 60, null = False, default = '')
@@ -56,7 +62,7 @@ class Comment(models.Model):
     post = models.ForeignKey(BlogPost, related_name = "comments" , on_delete = models.CASCADE)
     title = models.CharField(blank = True, max_length = 60, null = True, default = 'תגובה למאמר')
     body = RichTextField(blank = False, null = False, max_length = 10000)
-    comment_usr = models.ForeignKey(User, on_delete = models.CASCADE, blank = True, null = True)
+    comment_usr = models.ForeignKey(User, on_delete = models.CASCADE, blank = True, null = True, default = get_default_user)
     date_added = models.DateTimeField(auto_now_add = True, blank = True)
     likes = models.ManyToManyField(User, related_name ="likes_com")
     dislikes = models.ManyToManyField(User, related_name ="dislikes_com")
@@ -88,7 +94,7 @@ class comment_of_comment(models.Model):
     comment = models.ForeignKey(Comment, related_name = "comments_of_comment" , on_delete = models.CASCADE)
     title = models.CharField(blank = True, max_length = 60, null = True)
     body = RichTextField(blank = False, null = False, max_length = 10000)
-    comment_of_comment_usr = models.ForeignKey(User, on_delete = models.CASCADE, blank = True, null = True)
+    comment_of_comment_usr = models.ForeignKey(User, on_delete = models.CASCADE, blank = True, null = True, default = get_default_user)
     to_sub_comment = models.ForeignKey('self', on_delete = models.CASCADE, blank = True, null = True)
     date_added = models.DateTimeField(auto_now_add = True, blank = True)
 
@@ -174,16 +180,19 @@ class Album(models.Model):
         return str(self.profile.user.username) + '-' + str(self.description)
 
 
+
 class Notification(models.Model):
     # 1=like, 2=comment, 3=follow, 4=dislike
     notification_type = models.IntegerField()
     to_user = models.ForeignKey(User, related_name = 'notification_to', on_delete = models.CASCADE, null = True)
-    from_user = models.ForeignKey(User, related_name = 'notification_form' , on_delete = models.CASCADE, null = True)
+    from_user = models.ForeignKey(User, related_name = 'notification_form' , on_delete = models.CASCADE, null = True, default = get_default_user)
     post = models.ForeignKey(BlogPost, on_delete = models.CASCADE, related_name = '+', blank = True, null = True)
     comment = models.ForeignKey(Comment, on_delete = models.CASCADE, related_name = '+', blank = True, null = True)
     com_of_com = models.ForeignKey(comment_of_comment, on_delete = models.CASCADE, related_name = '+', blank = True, null = True)
     date = models.DateTimeField(default=timezone.now)
     user_has_seen = models.BooleanField(default = False)
+
+
 
     def __str__(self):
         return str(self.to_user.username) + '-type -' + str(self.notification_type) + 'date -' + str(self.date)

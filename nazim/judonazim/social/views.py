@@ -17,6 +17,35 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from .calcs import get_total_seconds
 
+def sub_com_save_ajax(request):
+    if request.method == 'POST' and request.is_ajax:
+        com_parent_id = request.POST.get('com_parent_id')
+        print('sub_com_save_ajax:com_parent_id=' + str(com_parent_id))
+        com_parent = get_object_or_404(Comment, id = com_parent_id)
+        replied_to_sub_com_id = request.POST.get('replied_to_sub_com_id')
+        print('sub_com_save_ajax:replied_to_sub_com_id=' + str(replied_to_sub_com_id))
+        body = request.POST.get('body')
+        print('sub_com_save_ajax:body=' + str(body))
+        if not replied_to_sub_com_id == '':
+            if request.user.is_authenticated:
+                sub_com = comment_of_comment.objects.create(comment_of_comment_usr = request.user, body = body, comment = com_parent)
+                print('sub_com_save_ajax:saved comment to user ' + str(request.user.username))
+            else:
+                sub_com = comment_of_comment.objects.create(body = body, comment = com_parent)
+                print('sub_com_save_ajax:saved comment to פלוני')
+        else:
+            sub_com = get_object_or_404(comment_of_comment, id = replied_to_sub_com_id)
+            if request.user.is_authenticated:
+                sub_com = comment_of_comment.objects.create(comment_of_comment_usr = request.user, body = body, comment = com_parent, to_sub_comment = sub_com)
+                print('sub_com_save_ajax:saved replied to sub_com_id {sub_com_id} to user {user}'.format(sub_com_id = replied_to_sub_com_id, user = str(request.user.username)))
+            else:
+                sub_com = comment_of_comment.objects.create(body = body, comment = com_parent, to_sub_comment = sub_com)
+                print('sub_com_save_ajax:saved replied to sub_com_id {sub_com_id} to פלוני'.format(sub_com_id = replied_to_sub_com_id))
+        t = str(sub_com.date_added.strftime('%H:%M:%S'))
+        print('sub_com_save_ajax: time =' + t)
+        date = str(sub_com.date_added.strftime('%d/%m/%Y'))
+        print('sub_com_save_ajax: date =' + date)
+        return JsonResponse({'sub_com_id':str(sub_com.id), 'date':date, 'time':t})
 
 def rate_sub_com_save_ajax(request):
     if not request.user.is_authenticated:

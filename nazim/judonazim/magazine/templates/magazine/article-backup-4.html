@@ -147,11 +147,6 @@
 
       {% for comment in object.comments.all %}
         <div class="comment item" id="comment{{comment.pk}}" style="gap:10px;margin-bottom:50px;width:500px;">
-          {% if comment.comment_usr %}
-          <input type="hidden" class="com-author" value="{{ comment.comment_usr }}">
-          {% else %}
-          <input type="hidden" class="com-author" value="פלוני">
-          {% endif %}
           <span class="comment" style="gap:5px;">
             <div  class="super-tiny-row-center-align rate-com-form" style="gap:5px;">
               <input type="hidden" class="com_pk" value="{{comment.pk}}"/>
@@ -165,7 +160,7 @@
                {% include 'members/default_profile_img.html' %}
               {%endif%}
             </span>
-            {% if comment.comment_usr %}
+            {% if user.is_authenticated %}
             <b style="margin-right:-10px;" class="author author-comment">{{comment.comment_usr}} הגיב:</b>
             {% else %}
             <b style="margin-right:-10px;" class="author author-comment">פלוני הגיב</b>
@@ -235,12 +230,9 @@
                           <div style="direction: rtl;width:100%;text-align:right;">
                             <span class="comment-label">התגובה שלך</span>
                             <!--<textarea class="comment-text-field comment-field ckeditor" style="resize: none;white-space: normal;text-align:right !important;direction: rtl;padding:0;">-->
-                            <textarea class="ckeditor" name="com-edit-{{comment.pk}}">
+                            <textarea class="ckeditor" name="editor1">
                               {{comment.body | safe}}
                             </textarea>
-                            <script>
-                            CKEDITOR.replace("com-edit-{{comment.pk}}");
-                            </script>
                           </div>
                          <div class="super-tiny-row-center-align" style="justify-content:space-between;width:100%;">
                           <button type="button" class="btn-post-comment btn-cancel-edit">בטל</button>
@@ -250,20 +242,20 @@
                </div>
                <div class="display-view" style="justify-content:flex-start;margin-top:0px;align-items:flex-start;width:500px;box-sizing:border-box;word-wrap: break-word;">
                  {{comment.body | safe}}
-                 <span class="btn-edit" style="align-self:flex-start;">{%include 'magazine/components/btns/btnedit_small.html'%}</span>
+                 <span class="btn-edit" style="align-self:flex-start;margin-top:20px;">{%include 'magazine/components/btns/btnedit_small.html'%}</span>
                </div>
           </div>
           {% else %}
-          <div style="width:500px;box-sizing:border-box;word-wrap: break-word;">{{comment.body | safe }}</div>
+          <div style="width:500px;box-sizing:border-box;word-wrap: break-word;">{{comment.body}}</div>
           {% endif %}
 
       <div class="reply-parent" style="margin-top:10px;width:100%;">
         <span class="reply-label"  comment-id="{{comment.pk}}">{% include 'magazine/components/svg/reply.svg' %}</span>
         <div style="display:none;" class="reply-label-brother">
-            <textarea class="ckeditor" name="ck-reply-to-com-{{comment.pk}}">
+            <textarea class="ckeditor" name="ck-{{comment.pk}}">
             </textarea>
             <script>
-            CKEDITOR.replace('ck-reply-to-com-{{comment.pk}}');
+            CKEDITOR.replace('ck-{{comment.pk}}');
            </script>
             <input type="hidden" class="com-parent-id" value="{{comment.pk}}">
             <input type="hidden" class="replied-to-sub-com-id" value="">
@@ -285,57 +277,22 @@
           <div class="comment-of-comment">
           {% for comment_of_comment in comment.comments_of_comment.all %}
           <div class="item subitem rate-com-of-com-form" id="sub-comment{{comment_of_comment.pk}}" style="margin-top:10px;">
-            {% if comment_of_comment.comment_of_comment_usr %}
-            <input type="hidden" class="sub-com-author" value="{{ comment_of_comment.comment_of_comment_usr }}">
-            {% else %}
-            <input type="hidden" class="sub-com-author" value="פלוני">
-            {% endif %}
             <input type="hidden" class="com_of_com_pk" value="{{comment_of_comment.pk}}"/>
           <span style="gap:5px;">
             <div class="super-tiny-row-center-align" style="gap:5px;">
 
               <span class="order-num" style="left:10px;position:relative;">
                 {% if comment_of_comment.comment_of_comment_usr.profile.profile_img.url %}
-               <img class="super-tiny-avatar" src="{{ comment_of_comment.comment_of_comment_usr.profile.profile_img.url }}"/>
+               <img class="super-tiny-avatar" src="{{comment_of_comment.comment_of_comment_usr.profile.profile_img.url}}"/>
                {% else %}
                {% include 'members/default_profile_img.html' %}
               {% endif %}
             </span>
-
-
-
-            <!--<b style="margin-right:-10px;" class="author author-sub-comment">פלוני הגיב:</b>-->
-              {% if comment_of_comment.to_sub_comment  %}
-                  {% if comment_of_comment.comment_of_comment_usr %}
-                     {% if comment_of_comment.to_sub_comment.comment_of_comment_usr %}
-                     <a href="#sub-comment{{ comment_of_comment.to_sub_comment.pk }}" style="margin-right:-10px;" class="author author-sub-comment respond-to-who">{{comment_of_comment.comment_of_comment_usr}} הגיב ל {{ comment_of_comment.to_sub_comment.comment_of_comment_usr }}</a>
-                     {% else %}
-                     <a href="#sub-comment{{ comment_of_comment.to_sub_comment.pk }}" style="margin-right:-10px;" class="author author-sub-comment respond-to-who"> הגיב ל פלוני {{comment_of_comment.comment_of_comment_usr}}</a>
-                     {% endif %}
-                  {% else %}
-                     {% if comment_of_comment.to_sub_comment.comment_of_comment_usr %}
-                     <a href="#sub-comment{{ comment_of_comment.to_sub_comment.pk }}" style="margin-right:-10px;" class="author author-sub-comment respond-to-who">{{ comment_of_comment.to_sub_comment.comment_of_comment_usr }} פלוני הגיב ל </a>
-                     {% else %}
-                     <a href="#sub-comment{{ comment_of_comment.to_sub_comment.pk }}" style="margin-right:-10px;" class="author author-sub-comment respond-to-who">פלוני הגיב ל פלוני</a>
-                     {% endif %}
-                {% endif %}
-              {% else %}
-                 {% if comment_of_comment.comment_of_comment_usr %}
-                   {% if comment.comment_usr %}
-                   <a href="#comment{{ comment.pk }}" style="margin-right:-10px;" class="author author-sub-comment respond-to-who">{{comment_of_comment.comment_of_comment_usr}} הגיב ל {{ comment.comment_usr }}</a>
-                   {% else %}
-                   <a href="#comment{{ comment.pk }}" style="margin-right:-10px;" class="author author-sub-comment respond-to-who">{{comment_of_comment.comment_of_comment_usr}} פלוני הגיב ל  </a>
-                   {% endif %}
-                 {% else %}
-                   {% if comment.comment_usr %}
-                   <a href="#comment{{ comment.pk }}" style="margin-right:-10px;" class="author author-sub-comment respond-to-who"> פלוני הגיב ל {{ comment.comment_usr }}</a>
-                   {% else %}
-                   <a href="#comment{{ comment.pk }}" style="margin-right:-10px;" class="author author-sub-comment respond-to-who">פלוני הגיב לפלוני</a>
-                   {% endif %}
-                {% endif %}
+            {% if user.is_authenticated %}
+            <b style="margin-right:-10px;" class="author author-sub-comment">{{comment_of_comment.comment_of_comment_usr}} הגיב:</b>
+            {% else %}
+            <b style="margin-right:-10px;" class="author author-sub-comment">פלוני הגיב:</b>
             {% endif %}
-
-
 
 
 
@@ -395,19 +352,19 @@
             <a id="a-sub-comment{{comment_of_comment.pk}}" href ="#sub-comment{{comment_of_comment.pk}}" class="tiny-row-center-align"><span class="tiny-font" style="color:#2F9BDD;">{{comment_of_comment.date_added | date:'d/m/Y' | safe}} בשעה: {{comment_of_comment.date_added | date:'h:m' | safe}}</span></a>
           </span>
           <!-- start 24/1/2022-->
-          {% if request.user == comment_of_comment.comment_of_comment_usr %}
+          {% if request.user == comment_of_comment.comment_usr %}
           <div class="comment-edit-parent" style="margin-top:-10px;" >
                 <div class="center form-view" style="display:none;align-items:flex-start;margin-top:0;gap:0px;">
                       <input type="hidden" class="sub-com-id-edit" value="{{comment_of_comment.pk}}"/>
                        <div class="comment comment-frm" style="gap:0px;align-self:flex-start;text-align:right;">
-                          <div style="direction: rtl;width:100%;text-align:right;margin-top:20px;">
+                          <div style="direction: rtl;width:100%;text-align:right;">
                             <span class="comment-label">התגובה שלך</span>
                             <!--<textarea class="comment-text-field comment-field ckeditor" style="resize: none;white-space: normal;text-align:right !important;direction: rtl;padding:0;">-->
-                            <textarea class="ckeditor" name="ck-edit-sub-com-{{comment_of_comment.pk}}">
+                            <textarea class="ckeditor" name="ck-edit-{{comment_of_comment.pk}}">
                               {{comment_of_comment.body | safe}}
                             </textarea>
                             <script>
-                            CKEDITOR.replace('ck-edit-sub-com-{{comment_of_comment.pk}}');
+                            CKEDITOR.replace('ck-edit-{{comment_of_comment.pk}}');
                            </script>
                           </div>
                          <div class="super-tiny-row-center-align" style="justify-content:space-between;width:100%;">
@@ -416,8 +373,8 @@
                         </div>
                      </div>
                </div>
-               <div class="display-view" style="justify-content:flex-start;margin-top:20px;align-items:flex-start;width:500px;box-sizing:border-box;word-wrap: break-word;">
-                 <div>{{comment_of_comment.body | safe}}</div>
+               <div class="display-view" style="justify-content:flex-start;margin-top:0px;align-items:flex-start;width:500px;box-sizing:border-box;word-wrap: break-word;">
+                 {{comment_of_comment.body | safe}}
                  <span class="btn-edit" style="align-self:flex-start;margin-top:20px;">{%include 'magazine/components/btns/btnedit_smaller.html'%}</span>
                </div>
           </div>
@@ -430,10 +387,10 @@
         <div class="reply-parent" style="margin-top:10px;width:500px;">
            <span class="reply-label" sub-com-id="{{comment_of_comment.pk}}" comment-id="{{comment.pk}}">{% include 'magazine/components/svg/reply.svg' %}</span>
            <div style="display:none;width:500px;" class="reply-label-brother">
-             <textarea class="ckeditor" name="ck-reply-to-sub-com-{{comment_of_comment.pk}}">
+             <textarea class="ckeditor" name="ck-{{comment_of_comment.pk}}">
              </textarea>
              <script>
-             CKEDITOR.replace('ck-reply-to-sub-com-{{comment_of_comment.pk}}');
+             CKEDITOR.replace('ck-{{comment_of_comment.pk}}');
             </script>
              <input type="hidden" class="com-parent-id" value="{{comment.pk}}">
              <input type="hidden" class="replied-to-sub-com-id" replied-to-sub-com-id="{{comment_of_comment.pk}}">
@@ -475,38 +432,33 @@
 </div>
 {% if user.is_authenticated %}
 <input type="hidden" id="curr-user" value="{{user.username}}">
-  {% if user.profile.profile_img.url %}
-  <input type="hidden" id="profile-img" value="{{ user.profile.profile_img.url }}">
-  {% else %}
-  <input type="hidden" id="profile-img" value="">
-  {% endif %}
-{% else %}
-<input type="hidden" id="anonymous" value="פלוני">
-<input type="hidden" id="profile-img" value="">
 {% endif %}
 <input type="hidden" id="post_pk" value="{{object.pk}}" name="post_pk"/>
 </div>
 
+<!-- global hidden inputs-->
 
+<!--end global hidden inputs-->
 
 <!--sub-com-to-clone-->
-<div id="clone-and-unwrap-this-sub-com" style="display:none;">
-<div class="item subitem rate-com-of-com-form" id="replace-sub-com-id" style="margin-top:10px;">
-  <input type="hidden" class="sub-com-author" value="">
+<div id="clone-and-unwrap-this-sub-com">
+<div class="item subitem rate-com-of-com-form" id="replace-sub-com-id" style="margin-top:10px;display:none;">
   <input type="hidden" class="com_of_com_pk" value="replace-sub-com-id"/>
 <span style="gap:5px;">
   <div class="super-tiny-row-center-align" style="gap:5px;">
 
     <span class="order-num" style="left:10px;position:relative;">
-
-    <img style="display:none;" class="super-tiny-avatar has-profile-img" src="" alt="" />
-
-  <span class="no-profile-img">{% include 'members/default_profile_img.html' %}</span>
-
+      {% if user.is_authenticated and profile.profile_img.url %}
+     <img class="super-tiny-avatar" src="{{user.profile.profile_img.url}}"/>
+     {% else %}
+     {% include 'members/default_profile_img.html' %}
+    {% endif %}
   </span>
-
-  <a href="#" style="margin-right:-10px;" class="author author-sub-comment respond-to-who">פלוני הגיב:</a>
-
+  {% if user.is_authenticated %}
+  <b style="margin-right:-10px;" class="author author-sub-comment">{{ user }} הגיב:</b>
+  {% else %}
+  <b style="margin-right:-10px;" class="author author-sub-comment">פלוני הגיב:</b>
+  {% endif %}
 
 
 
@@ -544,10 +496,10 @@
       <div class="center form-view" style="display:none;align-items:flex-start;margin-top:0;gap:0px;">
             <input type="hidden" class="sub-com-id-edit" value=""/>
              <div class="comment comment-frm" style="gap:0px;align-self:flex-start;text-align:right;">
-                <div style="direction: rtl;width:100%;text-align:right;margin-top:20px;">
+                <div style="direction: rtl;width:100%;text-align:right;">
                   <span class="comment-label">התגובה שלך</span>
-
-                  <textarea class="ckeditor" name="">
+                  <!--<textarea class="comment-text-field comment-field ckeditor" style="resize: none;white-space: normal;text-align:right !important;direction: rtl;padding:0;">-->
+                  <textarea class="ckeditor" name="ck-edit-sub-com-id">
 
                   </textarea>
 
@@ -558,21 +510,24 @@
               </div>
            </div>
      </div>
-     <div class="display-view" style="justify-content:flex-start;margin-top:20px;align-items:flex-start;width:500px;box-sizing:border-box;word-wrap: break-word;">
+     <div class="display-view" style="justify-content:flex-start;margin-top:0px;align-items:flex-start;width:500px;box-sizing:border-box;word-wrap: break-word;">
        <div class="sub-comment">comment_of_comment_body to replace</div>
        <span class="btn-edit" style="align-self:flex-start;margin-top:20px;">{%include 'magazine/components/btns/btnedit_smaller.html'%}</span>
      </div>
 </div>
-
-<span class="sub-comment not-author">comment_of_comment.body to replace</span>
+<!-- end edit-btn section -->
+<!-- if edit section don't went well, the commented line below, was the default before the edit section -->
+<!--<span class="sub-comment">comment_of_comment.body to replace</span>-->
 </div>
 
-<div class="reply-parent" style="margin-top:10px;width:500px;">
+<div class="reply-parent" style="margin-top:10px;width:500px;display:none;">
  <span class="reply-label" sub-com-id="replace-sub-com-id" comment-id="replace-com-parent-id">{% include 'magazine/components/svg/reply.svg' %}</span>
  <div style="display:none;width:500px;" class="reply-label-brother">
-   <textarea class="ckeditor" name="">
+   <textarea class="ckeditor" name="ck-sub-com-id-replace">
    </textarea>
-
+   <script>
+    //CKEDITOR.replace('ck-{{comment_of_comment.pk}}');
+  </script>
    <input type="hidden" class="com-parent-id" value="replace-com-parent-id">
    <input type="hidden" class="replied-to-sub-com-id" replied-to-sub-com-id="sub-com-replace">
    <div class="super-tiny-row-center-align" style="justify-content:space-between;width:100%;">
@@ -584,26 +539,12 @@
 </div>
 
 <!--end-sub-com-to-clone-->
-
-
-
   <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"> </script>
   <script type="text/javascript" src="{% static 'plugins/jquery.js' %}"> </script>
   <script>
   CKEDITOR.replace('editor1');
 </script>
    <script>
-   $('.expand').click(function(){
-     $(this).nextAll('.comment-of-comment').show();
-     $(this).hide();
-     $(this).siblings('.collpase').first().show();
-   });
-
-   $('.collpase').click(function(){
-     $(this).nextAll('.comment-of-comment').hide();
-     $(this).hide();
-     $(this).siblings('.expand').first().show();
-   });
    $('.btn-edit').click(f_edit_com);
    function f_edit_com()
    {
@@ -649,26 +590,22 @@
       setInterval(check_com_rating, 30000);
       setInterval(check_sub_com_rating, 60000);
     });
-
-  function f_display_or_hide_sub_com()
-  {
-    var is_visibile = $(this).next('.reply-label-brother').css('display');
-    if(is_visibile == 'none' )
-    {
-        $(this).next('.reply-label-brother').show();
-    }
-    else
-    {
-        $(this).next('.reply-label-brother').hide();
-    }
-  }
-
 $('.reply-label').click(f_display_or_hide_sub_com);
-
-
-function clone_sub_com(sub_com_id, com_parent_id, body, time, date, author_name, replied_to_sub_com_id = '',  profile_img = '')
+function f_display_or_hide_sub_com()
 {
+  var is_visibile = $(this).next('.reply-label-brother').css('display');
+  if(is_visibile == 'none' )
+  {
+    $(this).next('.reply-label-brother').show();
+  }
+  else
+  {
+    $(this).next('.reply-label-brother').hide();
+  }
+}
 
+function clone_sub_com(sub_com_id, com_parent_id, body, time, date, replied_to_sub_com_id = '')
+{
   var selector = '#clone-and-unwrap-this-sub-com';
   var newElement = $(selector).clone(true);
   $(newElement).find('.item.subitem.rate-com-of-com-form').attr('id', 'sub-comment' + sub_com_id);
@@ -680,67 +617,25 @@ function clone_sub_com(sub_com_id, com_parent_id, body, time, date, author_name,
   $(newElement).find('.sub-comment').html(body);
   $(newElement).find('.reply-label').attr('sub-com-id', sub_com_id);
   $(newElement).find('.reply-label').attr('comment-id', com_parent_id);
-  $(newElement).find('.reply-parent .ckeditor').attr('name', 'ck-reply-to-sub-com-' + sub_com_id);
-  $(newElement).find('.comment-edit-parent .ckeditor').attr('name', 'ck-edit-sub-com-'+ sub_com_id);
+  $(newElement).find('.reply-parent .ckeditor').attr('name', 'ck-' + sub_com_id);
+  $(newElement).find('.comment-edit-parent .ckeditor').attr('name', 'ck-edit-'+ sub_com_id);
   $(newElement).find('.comment-edit-parent .ckeditor').text(body);
   $(newElement).find('.sub-com-id-edit').val(sub_com_id);
-  $(newElement).find('.sub-com-author').val(sub_com_id);
-  var who_reply_to_who_label = author_name + '' + 'הגיב ל' +  ' ';
-  var append_after = '';
-  if(replied_to_sub_com_id != '')
-  {
+  CKEDITOR.replace('ck-' + sub_com_id);
+  CKEDITOR.replace('ck-edit-' + sub_com_id);
 
-    var reply_to_parent = $('#sub-comment' + replied_to_sub_com_id);
-    append_after = $(reply_to_parent).next('.reply-parent');
-    var reply_to_member = $(reply_to_parent).find('.sub-com-author').val();
-    who_reply_to_who_label = who_reply_to_who_label + reply_to_member;
-    var respond_to_who_link = $(newElement).find('.respond-to-who');
-    $(respond_to_who_link).attr('href', '#sub-comment' + sub_com_id);
-    $(respond_to_who_link).text(who_reply_to_who_label);
-  }
-  else
+  var append_after = $(newElement).find('.item.subitem.rate-com-of-com-form').next('.reply-parent');
+  if(replied_to_sub_com_id == '')
   {
-    var reply_to_parent = $('#comment' + com_parent_id);
-    var reply_to_member = $(reply_to_parent).find('.com-author').val();
-    who_reply_to_who_label = who_reply_to_who_label + reply_to_member;
     append_after = $('#comment' + com_parent_id).find('.comment-of-comment:last-child');
-    var respond_to_who_link = $(newElement).find('.respond-to-who');
-    $(respond_to_who_link).attr('href', '#comment' + com_parent_id);
-    $(respond_to_who_link).text(who_reply_to_who_label);
-  }
-  if(profile_img == '')
-  {
-    $(newElement).find('.no-profile-img').show();
-    $(newElement).find('.has-profile-img').hide();
-  }
-  else
-  {
-    $(newElement).find('.no-profile-img').hide();
-    $(newElement).find('.has-profile-img').attr('src', profile_img);
-    $(newElement).find('.has-profile-img').show();
   }
 
   $(newElement).find();
-  var is_com_author = false;
-  if($('#curr-user').length)
- {
-    if(author_name == $('#curr-user').val())
-    {
-      $(newElement).find('.not-author').hide();
-      $(newElement).find('.comment-edit-parent').show();
-      $(newElement).find('.btn-edit').unbind('click');
-      $(newElement).find('.btn-edit').on('click', f_edit_com);
-      $(newElement).find('.btn-cancel-edit').unbind('click');
-      $(newElement).find('.btn-cancel-edit').on('click', f_cancel_edit_com);
-      is_com_author = true;
-    }
- }
- if(is_com_author == false)
- {
-     $(newElement).find('.not-author').show();
-     $(newElement).find('.comment-edit-parent').hide();
- }
 
+  $(newElement).find('.btn-edit').unbind('click');
+  $(newElement).find('.btn-edit').on('click', f_edit_com);
+  $(newElement).find('.btn-cancel-edit').unbind('click');
+  $(newElement).find('.btn-cancel-edit').on('click', f_cancel_edit_com);
   $(newElement).find('.reply-label').unbind('click');
   $(newElement).find('.reply-label').on('click', f_display_or_hide_sub_com);
   $(newElement).find('.btn-sub-com-cancel').unbind('click');
@@ -748,11 +643,8 @@ function clone_sub_com(sub_com_id, com_parent_id, body, time, date, author_name,
   $(newElement).find('.btn-sub-com-save').unbind('click');
   $(newElement).find('.btn-sub-com-save').on('click', f_sub_com_save);
   $(append_after).after(newElement);
-  $(newElement).children().first().unwrap();
+  $(newElement).unwrap();
   $(newElement).show();
-  CKEDITOR.replace('ck-reply-to-sub-com-' + sub_com_id);
-  CKEDITOR.replace('ck-edit-sub-com-' + sub_com_id);
-
 }
 
 $('.btn-sub-com-cancel').click(f_sub_com_cancel);
@@ -771,7 +663,7 @@ function f_sub_com_cancel()
 }
 
 
-$(".btn-sub-com-save").click(f_sub_com_save);
+$(".btn-sub-com-save").click();
 
 function f_sub_com_save()
 {
@@ -783,12 +675,11 @@ function f_sub_com_save()
   var ck_name = $(ancestor).find('.ckeditor').attr('name');
   var body = CKEDITOR.instances[ck_name].getData();
   //var desc = CKEDITOR.instances.DSC.getData(); // another way to get data from ckeditor
-  //$(replied_to_sub_com).attr('replied-to-sub-com-id');
-  attr = $(replied_to_sub_com).first().attr('replied-to-sub-com-id');
-  if (attr !== 'undefined' &&  attr !== false)
+  if($(sub_com_brother).attr('.replied-to-sub-com-id'))
   {
-     replied_to_sub_com_id = $(replied_to_sub_com).attr('replied-to-sub-com-id');
+    replied_to_sub_com_id = $(sub_com_brother).attr('.replied-to-sub-com-id');
   }
+
    $.ajax({
        type: 'POST',
        url: "{% url 'social:sub-com-save' %}",
@@ -802,19 +693,7 @@ function f_sub_com_save()
          var sub_com_id = result['sub_com_id'];
          var date = result['date'];
          var time = result ['time'];
-         var author_name = '';
-         var register_user = false;
-         if($('#anonymous').length)
-         {
-           author_name = $('#anonymous').val(); //פלוני
-         }
-         else if($('#curr-user').length)
-         {
-           author_name = $('#curr-user').val();
-         }
-         var profile_img = $('#profile-img').val();
-
-         clone_sub_com(sub_com_id = sub_com_id, com_parent_id = com_parent_id, body=body, time = time, date = date, author_name = author_name, replied_to_sub_com_id = replied_to_sub_com_id, profile_img);
+         clone_sub_com(sub_com_id = sub_com_id, com_parent_id = com_parent_id, body=body, time = time, date = date, replied_to_sub_com_id = replied_to_sub_com_id)
        },
        error: function (response) {
 
@@ -825,7 +704,17 @@ function f_sub_com_save()
 
 
 
+    $('.expand').click(function(){
+      $(this).nextAll('.comment-of-comment').show();
+      $(this).hide();
+      $(this).siblings('.collpase').first().show();
+    });
 
+    $('.collpase').click(function(){
+      $(this).nextAll('.comment-of-comment').hide();
+      $(this).hide();
+      $(this).siblings('.expand').first().show();
+    });
    </script>
 
 
