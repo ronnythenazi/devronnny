@@ -158,7 +158,7 @@ if POSTGRES_READY:
 
 
 #LANGUAGE_CODE = 'en-us'
-LANGUAGE_CODE = 'he'
+LANGUAGE_CODE = 'he-IL'
 USE_I18N = True
 
 USE_L10N = True
