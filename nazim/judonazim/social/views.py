@@ -34,7 +34,7 @@ def sub_com_save_ajax(request):
             else:
                 sub_com = comment_of_comment.objects.create(body = body, comment = com_parent)
                 notification = Notification.objects.create(notification_type = 2,  com_of_com = sub_com, to_user = com_parent.comment_usr)
-                print('sub_com_save_ajax:saved comment to פלוני')
+                print('sub_com_save_ajax:saved comment to someone')
         else:
             sub_com = get_object_or_404(comment_of_comment, id = replied_to_sub_com_id)
             if request.user.is_authenticated:
@@ -44,7 +44,7 @@ def sub_com_save_ajax(request):
             else:
                 sub_com = comment_of_comment.objects.create(body = body, comment = com_parent, to_sub_comment = sub_com)
                 notification = Notification.objects.create(notification_type = 2,  com_of_com = sub_com, to_user = com_parent.comment_usr)
-                print('sub_com_save_ajax:saved replied to sub_com_id {sub_com_id} to פלוני'.format(sub_com_id = replied_to_sub_com_id))
+                print('sub_com_save_ajax:saved replied to sub_com_id {sub_com_id} to someone'.format(sub_com_id = replied_to_sub_com_id))
         t = str(sub_com.date_added.strftime('%H:%M:%S'))
         print('sub_com_save_ajax: time =' + t)
         date = str(sub_com.date_added.strftime('%d/%m/%Y'))
