@@ -16,6 +16,7 @@ import dateutil.parser
 from datetime import datetime
 from django.contrib.auth.models import User
 from .calcs import get_total_seconds
+from django.utils.encoding import smart_str
 
 def sub_com_save_ajax(request):
     if request.method == 'POST' and request.is_ajax:
@@ -24,7 +25,7 @@ def sub_com_save_ajax(request):
         com_parent = get_object_or_404(Comment, id = com_parent_id)
         replied_to_sub_com_id = request.POST.get('replied_to_sub_com_id')
         print('sub_com_save_ajax:replied_to_sub_com_id=' + str(replied_to_sub_com_id))
-        body = request.POST.get('body')
+        body = smart_str(request.POST.get('body'))
         print('sub_com_save_ajax:body=' + str(body))
         if not replied_to_sub_com_id == '':
             if request.user.is_authenticated:
