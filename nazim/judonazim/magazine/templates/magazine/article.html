@@ -423,7 +423,7 @@
           </div>
           {% else %}<!-- 24/1/2022 -->
           <!-- end 24/1/2022-->
-          <span class="sub-comment">{{comment_of_comment.body | safe }}</span> <!-- older -->
+          <div class="sub-comment" style="width:500px;box-sizing:border-box;word-wrap: break-word;">{{comment_of_comment.body | safe }}</div> <!-- older -->
           {% endif %} <!-- 24/1/2022 -->
         </div>
 
@@ -564,7 +564,7 @@
      </div>
 </div>
 
-<span class="sub-comment not-author">comment_of_comment.body to replace</span>
+<div class="sub-comment not-author" style="width:500px;box-sizing:border-box;word-wrap: break-word;">comment_of_comment.body to replace</div>
 </div>
 
 <div class="reply-parent" style="margin-top:10px;width:500px;">
@@ -697,7 +697,7 @@ function clone_sub_com(sub_com_id, com_parent_id, body, time, date, author_name,
     var reply_to_member = $(reply_to_parent).find('.sub-com-author').val();
     who_reply_to_who_label = who_reply_to_who_label + reply_to_member;
     var respond_to_who_link = $(newElement).find('.respond-to-who');
-    $(respond_to_who_link).attr('href', '#sub-comment' + sub_com_id);
+    $(respond_to_who_link).attr('href', '#sub-comment' + replied_to_sub_com_id);
     $(respond_to_who_link).text(who_reply_to_who_label);
   }
   else
