@@ -705,7 +705,7 @@ function clone_sub_com(sub_com_id, com_parent_id, body, time, date, author_name,
     var reply_to_parent = $('#comment' + com_parent_id);
     var reply_to_member = $(reply_to_parent).find('.com-author').val();
     who_reply_to_who_label = who_reply_to_who_label + reply_to_member;
-    //append_after = $('#comment' + com_parent_id).find('.comment-of-comment:last-child');
+    append_after = $('#comment' + com_parent_id).find('.comment-of-comment:last-child');
     var respond_to_who_link = $(newElement).find('.respond-to-who');
     $(respond_to_who_link).attr('href', '#comment' + com_parent_id);
     $(respond_to_who_link).text(who_reply_to_who_label);
@@ -749,14 +749,7 @@ function clone_sub_com(sub_com_id, com_parent_id, body, time, date, author_name,
   $(newElement).find('.btn-sub-com-cancel').on('click', f_sub_com_cancel);
   $(newElement).find('.btn-sub-com-save').unbind('click');
   $(newElement).find('.btn-sub-com-save').on('click', f_sub_com_save);
-  if(replied_to_sub_com_id == '')
-  {
-    $('#comment' + com_parent_id).find('.comment-of-comment').append(newElement);
-  }
-  else
-  {
-    $(append_after).after(newElement);
-  }
+  $(append_after).after(newElement);
   $(newElement).children().first().unwrap();
   $(newElement).show();
   CKEDITOR.replace('ck-reply-to-sub-com-' + sub_com_id);
