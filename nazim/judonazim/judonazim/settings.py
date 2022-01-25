@@ -151,9 +151,6 @@ if POSTGRES_READY:
             "PASSWORD": POSTGRES_PASSWORD,
             "HOST": POSTGRES_HOST,
             "PORT": POSTGRES_PORT,
-            'OPTIONS': {
-                    'charset': 'UTF8',
-                    'use_unicode': True, },
         }
     }
 
