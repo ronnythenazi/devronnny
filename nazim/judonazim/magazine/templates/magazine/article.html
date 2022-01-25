@@ -26,6 +26,7 @@
 
   {%block title%}יהודונאציזם - מאמר דעה{%endblock%}
 
+
    {%block moreLinks%}
    {%endblock moreLinks%}
 
@@ -664,6 +665,24 @@
   }
 
 $('.reply-label').click(f_display_or_hide_sub_com);
+
+$('.respond-to-who').click(function(){
+   var selector = String($(this).attr('href'));
+  $('html, body').animate(
+    {
+     scrollTop: $(selector).offset().top - 100
+   },
+   {duration:800,
+   complete:function(){
+     $('#alert-sound')[0].play();
+     $(selector).find('.super-tiny-row-center-align').first().addClass('strike-me');
+     setTimeout(function(){
+       $(selector).find('.super-tiny-row-center-align').removeClass('strike-me');
+     }, 2000);
+
+    }
+  });
+});
 
 
 function clone_sub_com(sub_com_id, com_parent_id, body, time, date, author_name, replied_to_sub_com_id = '',  profile_img = '')

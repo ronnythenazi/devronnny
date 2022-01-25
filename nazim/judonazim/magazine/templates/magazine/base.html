@@ -48,6 +48,8 @@
       margin-top: 50px;
     }
     </style>
+    {% block morestyle %}
+    {% endblock morestyle %}
   </head>
 
 <body oncontextmenu="return false;">
@@ -203,6 +205,9 @@
 {%endblock body%}
 <audio style="display:none;" id="notification-sound" controls>
     <source src="{% static 'magazine/audio/notification.mp3' %}" type="audio/mp3">
+</audio>
+<audio style="display:none;" id="alert-sound" controls>
+<source src="{% static 'magazine/audio/alert.mp3' %}" type="audio/mp3">
 </audio>
 </div>
  {%include 'components/footer.html'%}

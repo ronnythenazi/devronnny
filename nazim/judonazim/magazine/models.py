@@ -13,7 +13,7 @@ def get_default_user():
     user.set_password('Axu11P9$500192VzpoPapol@a')
     user.save()
     return user
-    
+
 class BlogPost(models.Model):
 
     title = models.CharField(blank = False, max_length = 60, null = False, default = '')
@@ -25,8 +25,8 @@ class BlogPost(models.Model):
     datepublished= models.DateTimeField(auto_now_add = True, blank=True)
     datelastupdated= models.DateTimeField(auto_now = True, blank=True)
     content =  RichTextField(blank = False, null = False) #models.TextField(null = False)
-    likes = models.ManyToManyField(User, related_name = "post_likes")
-    dislikes = models.ManyToManyField(User, related_name = "post_dislikes")
+    likes = models.ManyToManyField(User, related_name = "post_likes", blank = True)
+    dislikes = models.ManyToManyField(User, related_name = "post_dislikes", blank = True)
 
     def total_likes(self):
         return self.likes.count()
@@ -64,8 +64,8 @@ class Comment(models.Model):
     body = RichTextField(blank = False, null = False, max_length = 10000)
     comment_usr = models.ForeignKey(User, on_delete = models.CASCADE, blank = True, null = True, default = get_default_user)
     date_added = models.DateTimeField(auto_now_add = True, blank = True)
-    likes = models.ManyToManyField(User, related_name ="likes_com")
-    dislikes = models.ManyToManyField(User, related_name ="dislikes_com")
+    likes = models.ManyToManyField(User, related_name ="likes_com", blank = True)
+    dislikes = models.ManyToManyField(User, related_name ="dislikes_com", blank = True)
 
     def total_likes(self):
         return self.likes.count()
@@ -95,11 +95,11 @@ class comment_of_comment(models.Model):
     title = models.CharField(blank = True, max_length = 60, null = True)
     body = RichTextField(blank = False, null = False, max_length = 10000)
     comment_of_comment_usr = models.ForeignKey(User, on_delete = models.CASCADE, blank = True, null = True, default = get_default_user)
-    to_sub_comment = models.ForeignKey('self', on_delete = models.CASCADE, blank = True, null = True)
+    to_sub_comment = models.ForeignKey('comment_of_comment', on_delete = models.CASCADE, related_name = 'replied_to', blank = True, null = True)
     date_added = models.DateTimeField(auto_now_add = True, blank = True)
 
-    likes = models.ManyToManyField(User, related_name ="likes_com_of_com")
-    dislikes = models.ManyToManyField(User, related_name ="dislikes_com_of_com")
+    likes = models.ManyToManyField(User, related_name ="likes_com_of_com", blank = True)
+    dislikes = models.ManyToManyField(User, related_name ="dislikes_com_of_com", blank = True)
 
     def total_likes(self):
         return self.likes.count()

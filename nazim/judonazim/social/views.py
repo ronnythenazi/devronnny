@@ -26,7 +26,7 @@ def sub_com_save_ajax(request):
         print('sub_com_save_ajax:replied_to_sub_com_id=' + str(replied_to_sub_com_id))
         body = request.POST.get('body')
         #print('sub_com_save_ajax:body=' + str(body))
-        if not replied_to_sub_com_id == '':
+        if replied_to_sub_com_id == None or replied_to_sub_com_id == '':
             if request.user.is_authenticated:
                 sub_com = comment_of_comment.objects.create(comment_of_comment_usr = request.user, body = body, comment = com_parent)
                 notification = Notification.objects.create(notification_type = 2, from_user = request.user, com_of_com = sub_com, to_user = com_parent.comment_usr)
@@ -36,13 +36,22 @@ def sub_com_save_ajax(request):
                 notification = Notification.objects.create(notification_type = 2,  com_of_com = sub_com, to_user = com_parent.comment_usr)
                 print('sub_com_save_ajax:saved comment to someone')
         else:
-            sub_com = get_object_or_404(comment_of_comment, id = replied_to_sub_com_id)
+            replied_to_sub_com = get_object_or_404(comment_of_comment, id = replied_to_sub_com_id)
+            print('replied_to_sub_com =' + str(replied_to_sub_com.id))
             if request.user.is_authenticated:
-                sub_com = comment_of_comment.objects.create(comment_of_comment_usr = request.user, body = body, comment = com_parent, to_sub_comment = sub_com)
+                sub_com = comment_of_comment.objects.create(comment_of_comment_usr = request.user, body = body, comment = com_parent)
+                print('new sub comment created')
+                print('try sub_com.to_sub_comment = replied_to_sub_com')
+                sub_com.to_sub_comment = replied_to_sub_com
+                sub_com.save()
+                print('success!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
                 notification = Notification.objects.create(notification_type = 2, from_user = request.user, com_of_com = sub_com, to_user = com_parent.comment_usr)
                 print('sub_com_save_ajax:saved replied to sub_com_id {sub_com_id} to user {user}'.format(sub_com_id = replied_to_sub_com_id, user = str(request.user.username)))
             else:
-                sub_com = comment_of_comment.objects.create(body = body, comment = com_parent, to_sub_comment = sub_com)
+                sub_com = comment_of_comment.objects.create(body = body, comment = com_parent)
+                sub_com.to_sub_comment = replied_to_sub_com
+                sub_com.save()
+                print('sub-com saved')
                 notification = Notification.objects.create(notification_type = 2,  com_of_com = sub_com, to_user = com_parent.comment_usr)
                 print('sub_com_save_ajax:saved replied to sub_com_id {sub_com_id} to someone'.format(sub_com_id = replied_to_sub_com_id))
         t = str(sub_com.date_added.strftime('%H:%M:%S'))
