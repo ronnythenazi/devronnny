@@ -151,14 +151,14 @@ if POSTGRES_READY:
             "PASSWORD": POSTGRES_PASSWORD,
             "HOST": POSTGRES_HOST,
             "PORT": POSTGRES_PORT,
+        
         }
     }
 
 
 
 
-#LANGUAGE_CODE = 'en-us'
-LANGUAGE_CODE = 'he-IL'
+LANGUAGE_CODE = 'en-us'
 USE_I18N = True
 
 USE_L10N = True
