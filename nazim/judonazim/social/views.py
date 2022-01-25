@@ -25,7 +25,7 @@ def sub_com_save_ajax(request):
         replied_to_sub_com_id = request.POST.get('replied_to_sub_com_id')
         print('sub_com_save_ajax:replied_to_sub_com_id=' + str(replied_to_sub_com_id))
         body = request.POST.get('body')
-        print('sub_com_save_ajax:body=' + str(body))
+        #print('sub_com_save_ajax:body=' + str(body))
         if not replied_to_sub_com_id == '':
             if request.user.is_authenticated:
                 sub_com = comment_of_comment.objects.create(comment_of_comment_usr = request.user, body = body, comment = com_parent)
