@@ -17,6 +17,74 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from .calcs import get_total_seconds
 
+def com_delete(request):
+    print('inside com_delete view')
+    if request.method == 'POST' and request.is_ajax:
+        com_type = request.POST.get('com_type')
+        com_id = request.POST.get('com_id')
+        com_user = ''
+        is_author_admin = True
+        is_user_owner = False
+        is_user_author = False
+        is_user_admin = False
+        nested_sub_coms = ''
+        has_nested_sub_coms = 'false'
+        if not request.user.is_authenticated:
+            return JsonResponse({'result':'failed', 'has_nested_sub_coms':'false'})
+        groups = list(request.user.groups.values_list('name',flat = True)) 
+        if 'admin' in groups or 'owner' in groups:
+            is_user_admin = True
+            print('user is admin')
+        if 'owner' in groups:
+            is_user_owner = True
+            print('user is owner')
+        if com_type == 'com':
+            print('com type')
+            com = get_object_or_404(Comment, id = com_id)
+            com_user = com.comment_usr
+            if com_user == request.user:
+                is_user_author = True
+                print('user is author')
+        elif com_type == 'sub_com':
+            print('sub-com type')
+            com = get_object_or_404(comment_of_comment, id = com_id)
+            com_user = com.comment_of_comment_usr
+            if com_user == request.user:
+                is_user_author = True
+                print('user is author')
+            if com.replied_to.all().count() > 0:
+                print('has nested replies')
+                has_nested_sub_coms = 'true'
+                print('iterating nested sub-coms')
+                for sub in com.replied_to.all():
+                    nested_sub_coms += str(sub.id) + ' '
+                nested_sub_coms = nested_sub_coms[:-1]
+        if com_user == '':
+            print('com_user is empty')
+            return JsonResponse({'result':'failed', 'has_nested_sub_coms':'false'})
+        author_groups = com_user.groups.all()
+        print('collected author groups')
+        if 'admin' in author_groups or 'owner' in author_groups:
+            is_author_admin = True
+            print('author is admin')
+        if is_user_author == False and is_user_admin == False:
+            print('user is not admin and not author')
+            return JsonResponse({'result':'failed', 'has_nested_sub_coms':'false'})
+        if is_user_author == False and is_user_owner == False and is_author_admin == True:
+            print('author is admin, user is not owner and not the author')
+            return JsonResponse({'result':'failed', 'has_nested_sub_coms':'false'})
+        print('attempting to delete')
+        com.delete()
+        print('succeded')
+        return JsonResponse({'result':'success', 'has_nested_sub_coms':has_nested_sub_coms,'nested_sub_coms':nested_sub_coms})
+    print('failed early')
+    return JsonResponse({'result':'failed', 'has_nested_sub_coms':'false'})
+
+
+
+
+
+
 def sub_com_save_ajax(request):
     if request.method == 'POST' and request.is_ajax:
         com_parent_id = request.POST.get('com_parent_id')

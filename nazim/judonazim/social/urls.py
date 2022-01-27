@@ -23,5 +23,6 @@ path('rate_com_refresh_ajax/', rate_com_refresh_ajax, name='rate_com_refresh_aja
 path('rate_sub_com_save_ajax/', rate_sub_com_save_ajax, name='rate_sub_com_save_ajax'),
 path('rate_sub_com_refresh_ajax/', rate_sub_com_refresh_ajax, name='rate_sub_com_refresh_ajax'),
 path('sub-com-save-ajax/', sub_com_save_ajax, name='sub-com-save'),
+path('com-to-delete/', com_delete, name='com-delete'),
 
 ]

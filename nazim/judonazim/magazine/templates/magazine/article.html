@@ -28,6 +28,7 @@
 
 
    {%block moreLinks%}
+   <link rel="stylesheet" href="{% static 'magazine/com_edit/com_edit.css' %}">
    {%endblock moreLinks%}
 
      {%block body%}
@@ -153,7 +154,7 @@
           {% else %}
           <input type="hidden" class="com-author" value="פלוני">
           {% endif %}
-          <span class="comment" style="gap:5px;">
+          <span class="comment organ" style="gap:5px;">
             <div  class="super-tiny-row-center-align rate-com-form" style="gap:5px;">
               <input type="hidden" class="com_pk" value="{{comment.pk}}"/>
               <strong class="order-num" style="left:10px;position:relative;color:#E00041">
@@ -223,6 +224,10 @@
                  {% endif %}
                  <span class="msg ice-cream-clr">הירשם ותוכל להשפיע</span>
               {% endif %}
+
+              {% if comment.comment_usr == user or request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'owner' %}
+              {% include 'magazine/components/popups/com_edit.html' %}
+              {% endif %}
             </div>
 
 
@@ -255,7 +260,7 @@
                </div>
           </div>
           {% else %}
-          <div style="width:500px;box-sizing:border-box;word-wrap: break-word;">{{comment.body | safe }}</div>
+          <div style="width:500px;box-sizing:border-box;word-wrap:break-word;">{{comment.body | safe }}</div>
           {% endif %}
 
       <div class="reply-parent" style="margin-top:10px;width:100%;">
@@ -293,7 +298,7 @@
             {% endif %}
             <input type="hidden" class="com_of_com_pk" value="{{comment_of_comment.pk}}"/>
           <span style="gap:5px;">
-            <div class="super-tiny-row-center-align" style="gap:5px;">
+            <div class="super-tiny-row-center-align organ"  style="gap:5px;">
 
               <span class="order-num" style="left:10px;position:relative;">
                 {% if comment_of_comment.comment_of_comment_usr.profile.profile_img.url %}
@@ -390,10 +395,13 @@
               {% endif %}
               <span class="msg ice-cream-clr" style="font-size:1rem;">הירשם ותוכל להשפיע</span>
              {% endif %}
-
+             {% if comment_of_comment.comment_of_comment_usr == user or request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'owner' %}
+             {% include 'magazine/components/popups/com_edit.html' %}
+             {% endif %}
             </div>
 
             <a id="a-sub-comment{{comment_of_comment.pk}}" href ="#sub-comment{{comment_of_comment.pk}}" class="tiny-row-center-align"><span class="tiny-font" style="color:#2F9BDD;">{{comment_of_comment.date_added | date:'d/m/Y' | safe}} בשעה: {{comment_of_comment.date_added | date:'h:m' | safe}}</span></a>
+
           </span>
           <!-- start 24/1/2022-->
           {% if request.user == comment_of_comment.comment_of_comment_usr %}
@@ -496,7 +504,7 @@
   <input type="hidden" class="sub-com-author" value="">
   <input type="hidden" class="com_of_com_pk" value="replace-sub-com-id"/>
 <span style="gap:5px;">
-  <div class="super-tiny-row-center-align" style="gap:5px;">
+  <div class="super-tiny-row-center-align organ" style="gap:5px;">
 
     <span class="order-num" style="left:10px;position:relative;">
 
@@ -535,10 +543,13 @@
     <span class="com-of-com-svg rate-red"></span>
     <span class="msg ice-cream-clr" style="font-size:1rem;">הירשם ותוכל להשפיע</span>
    {% endif %}
-
+   {% include 'magazine/components/popups/com_edit.html' %}
   </div>
   <!--<a id="a-sub-comment1" href ="#sub-comment1" class="tiny-row-center-align"><span class="tiny-font" style="color:#2F9BDD;">{{comment_of_comment.date_added | date:'d/m/Y' | safe}} בשעה: {{comment_of_comment.date_added | date:'h:m' | safe}}</span></a>-->
   <a id="replace-a-sub-comment" href ="#replace-sub-comment" class="tiny-row-center-align"><span class="tiny-font" style="color:#2F9BDD;">'d/m/y' בשעה: 'h:m' </span></a>
+
+
+
 </span>
 <!-- edit section -->
 <div class="comment-edit-parent" style="margin-top:-10px;" >
@@ -563,6 +574,7 @@
        <div class="sub-comment">comment_of_comment_body to replace</div>
        <span class="btn-edit" style="align-self:flex-start;margin-top:20px;">{%include 'magazine/components/btns/btnedit_smaller.html'%}</span>
      </div>
+
 </div>
 
 <div class="sub-comment not-author" style="width:500px;box-sizing:border-box;word-wrap: break-word;">comment_of_comment.body to replace</div>
@@ -586,12 +598,77 @@
 
 <!--end-sub-com-to-clone-->
 
-
+<input type="hidden" id="caller-id" value="">
+<input type="hidden" id="caller-type" value="">
 
   <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"> </script>
   <script type="text/javascript" src="{% static 'plugins/jquery.js' %}"> </script>
   <script>
   CKEDITOR.replace('editor1');
+</script>
+<script>
+function f_com_delete(com_type, com_id)
+{
+  var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+   $.ajax({
+       type: 'POST',
+       url: "{% url 'social:com-delete' %}",
+       data: {'com_type':com_type,
+             'com_id':com_id,
+             'csrfmiddlewaretoken': csrftoken,
+             },
+       success: function (response) {
+         var result = response['result'];
+         if(result == 'success')
+         {
+            if(com_type == 'com')
+           {
+             $('#comment'+com_id).remove();
+           }
+           else if(com_type == 'sub_com')
+           {
+             $('#sub-comment' + com_id).next('.reply-parent').remove()
+             $('#sub-comment' + com_id).remove();
+             var has_nested_sub_coms = response['has_nested_sub_coms']
+             if(has_nested_sub_coms == 'false')
+             {
+               return;
+             }
+             var nested_sub_coms = response['nested_sub_coms'];
+             for(var i=0;i<nested_sub_coms.split(' ').length;i++)
+             {
+               var replied_sub =  nested_sub_coms[i];
+               replied_sub_id = replied_sub['id'];
+               $('#sub-comment' + replied_sub_id).next('.reply-parent').remove();
+               $('#sub-comment' + replied_sub_id).remove();
+             }
+
+           }
+         }
+         else
+         {
+           if(com_type == 'com')
+           {
+              $('#comment'+ com_id).find('.msg.ice-cream-clr').first().after('<span id="something-went-wrong">:\ מצטער משהו השתבש</span>');
+              setTimeout(function(){
+                $('#something-went-wrong').remove();
+              }, 1000);
+           }
+           else if(com_type == 'sub_com')
+           {
+             $('#sub-comment'+ com_id).find('.msg.ice-cream-clr').after('<span id="something-went-wrong">:\ מצטער משהו השתבש</span>');
+             setTimeout(function(){
+               $('#something-went-wrong').remove();
+             }, 1000);
+           }
+         }
+
+       },
+       error: function (response) {
+
+       }
+   });
+}
 </script>
    <script>
    $('.expand').click(function(){
@@ -1559,5 +1636,5 @@ function check_post_rating()
   }
 </script>
 
-
+<script type="text/javascript" src="{% static 'magazine/com_edit/com_edit.js' %}"> </script>
 {%endblock moreJs%}
