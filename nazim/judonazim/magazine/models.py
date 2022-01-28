@@ -6,7 +6,25 @@ from django.contrib.auth.models import User, Group, Permission
 from django.urls import reverse
 from datetime import datetime, date
 from django.utils import timezone
+from social.calcs import get_total_seconds, get_curr_datetime
 exposed_request = None
+
+
+def get_time_gap_expired_seconds():
+    return 3600
+
+def is_edit_date_expired(com_date):
+    curr_date = get_curr_datetime()
+    gap = get_total_seconds(curr_date, com_date)
+    if gap >= get_time_gap_expired_seconds():
+        return True
+    return False
+
+def f_is_com_edited(date_added, date_edited):
+    gap = get_total_seconds(date_edited, date_added)
+    if gap > 1:
+        return True
+    return False
 
 def get_default_user():
     user, created = User.objects.get_or_create(username = 'someone')
@@ -64,6 +82,7 @@ class Comment(models.Model):
     body = RichTextField(blank = False, null = False, max_length = 10000)
     comment_usr = models.ForeignKey(User, on_delete = models.CASCADE, blank = True, null = True, default = get_default_user)
     date_added = models.DateTimeField(auto_now_add = True, blank = True)
+    date_last_update = models.DateTimeField(auto_now = True, null = True, blank = True)
     likes = models.ManyToManyField(User, related_name ="likes_com", blank = True)
     dislikes = models.ManyToManyField(User, related_name ="dislikes_com", blank = True)
 
@@ -83,12 +102,17 @@ class Comment(models.Model):
             return True
         return False
 
+    def is_allowed_to_edit(self):
+        return not is_edit_date_expired(self.date_added)
+
+    def is_com_edited(self):
+        return f_is_com_edited(self.date_added, self.date_last_update)
 
     class Meta:
         ordering = ['-date_added']
 
     def __str__(self):
-        return '%s - %s' % (self.post.title, self.comment_usr)
+        return '%s - %s - added at %s  last update at %s' % (self.post.title, self.comment_usr, self.date_added, self.date_last_update)
 
 class comment_of_comment(models.Model):
     comment = models.ForeignKey(Comment, related_name = "comments_of_comment" , on_delete = models.CASCADE)
@@ -97,7 +121,7 @@ class comment_of_comment(models.Model):
     comment_of_comment_usr = models.ForeignKey(User, on_delete = models.CASCADE, blank = True, null = True, default = get_default_user)
     to_sub_comment = models.ForeignKey('comment_of_comment', on_delete = models.CASCADE, related_name = 'replied_to', blank = True, null = True)
     date_added = models.DateTimeField(auto_now_add = True, blank = True)
-
+    date_last_update = models.DateTimeField(auto_now = True, null = True, blank = True)
     likes = models.ManyToManyField(User, related_name ="likes_com_of_com", blank = True)
     dislikes = models.ManyToManyField(User, related_name ="dislikes_com_of_com", blank = True)
 
@@ -116,6 +140,12 @@ class comment_of_comment(models.Model):
         if(self.dislikes.filter(id = exposed_request.user.id).exists()):
             return True
         return False
+
+    def is_allowed_to_edit(self):
+        return not is_edit_date_expired(self.date_added)
+
+    def is_com_edited(self):
+        return f_is_com_edited(self.date_added, self.date_last_update)
 
     class Meta:
         ordering = ['-date_added']

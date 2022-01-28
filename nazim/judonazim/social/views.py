@@ -16,6 +16,35 @@ import dateutil.parser
 from datetime import datetime
 from django.contrib.auth.models import User
 from .calcs import get_total_seconds
+from .members_permissions import is_user_allowed_to_edit
+from .coms import get_com
+
+def com_update(request):
+    print('inside com_update')
+    if request.method == 'POST' and request.is_ajax:
+        com_type = request.POST.get('com_type')
+        com_id = request.POST.get('com_id')
+        print('com_type ' + com_type + ' com_id ' + com_id)
+        allowed_status = is_user_allowed_to_edit(com_type, com_id)
+        answer = allowed_status['answer']
+        if answer == False:
+            reason = allowed_status['reason']
+            print('failed update')
+            print('reason ' + reason)
+            return JsonResponse({'result':'failed', 'reason':reason})
+        body = request.POST.get('body')
+        com = get_com(com_type, com_id)
+        com.body = body
+        print('before save')
+        com.save()
+        print('after saved')
+        date_edited = str(com.date_last_update)
+        show_date_edited = allowed_status['show-date-edited']
+        if show_date_edited == 'true':
+            return JsonResponse({'result':'success','last_update':date_edited})
+        print('update comment succeded! :)')
+        return JsonResponse({'result':'success','last_update':'none' })
+
 
 def com_delete(request):
     print('inside com_delete view')
@@ -31,7 +60,7 @@ def com_delete(request):
         has_nested_sub_coms = 'false'
         if not request.user.is_authenticated:
             return JsonResponse({'result':'failed', 'has_nested_sub_coms':'false'})
-        groups = list(request.user.groups.values_list('name',flat = True)) 
+        groups = list(request.user.groups.values_list('name',flat = True))
         if 'admin' in groups or 'owner' in groups:
             is_user_admin = True
             print('user is admin')

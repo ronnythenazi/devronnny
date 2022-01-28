@@ -12,3 +12,6 @@ def get_total_seconds(date1, date2):
     print('Difference between two datetimes in seconds:')
     print(diff.total_seconds())
     return diff.total_seconds()
+
+def get_curr_datetime():
+    return datetime.now()

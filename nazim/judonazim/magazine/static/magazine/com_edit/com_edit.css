@@ -176,3 +176,15 @@ margin-top:5px;
   color:red;
   font-size:0.8rem;
 }
+
+.last-update
+{
+  font-size:0.7rem !important;
+  color:red;
+  align-self: flex-end;
+}
+.last-update.last-update-small
+{
+  font-size:0.5rem !important;
+  color:red;
+}

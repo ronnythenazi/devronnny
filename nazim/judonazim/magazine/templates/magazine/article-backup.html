@@ -26,7 +26,9 @@
 
   {%block title%}יהודונאציזם - מאמר דעה{%endblock%}
 
+
    {%block moreLinks%}
+   <link rel="stylesheet" href="{% static 'magazine/com_edit/com_edit.css' %}">
    {%endblock moreLinks%}
 
      {%block body%}
@@ -147,7 +149,12 @@
 
       {% for comment in object.comments.all %}
         <div class="comment item" id="comment{{comment.pk}}" style="gap:10px;margin-bottom:50px;width:500px;">
-          <span class="comment" style="gap:5px;">
+          {% if comment.comment_usr %}
+          <input type="hidden" class="com-author" value="{{ comment.comment_usr }}">
+          {% else %}
+          <input type="hidden" class="com-author" value="פלוני">
+          {% endif %}
+          <span class="comment organ" style="gap:5px;">
             <div  class="super-tiny-row-center-align rate-com-form" style="gap:5px;">
               <input type="hidden" class="com_pk" value="{{comment.pk}}"/>
               <strong class="order-num" style="left:10px;position:relative;color:#E00041">
@@ -160,7 +167,7 @@
                {% include 'members/default_profile_img.html' %}
               {%endif%}
             </span>
-            {% if user.is_authenticated %}
+            {% if comment.comment_usr %}
             <b style="margin-right:-10px;" class="author author-comment">{{comment.comment_usr}} הגיב:</b>
             {% else %}
             <b style="margin-right:-10px;" class="author author-comment">פלוני הגיב</b>
@@ -217,6 +224,10 @@
                  {% endif %}
                  <span class="msg ice-cream-clr">הירשם ותוכל להשפיע</span>
               {% endif %}
+
+              {% if comment.comment_usr == user or request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'owner' %}
+              {% include 'magazine/components/popups/com_edit.html' %}
+              {% endif %}
             </div>
 
 
@@ -230,9 +241,12 @@
                           <div style="direction: rtl;width:100%;text-align:right;">
                             <span class="comment-label">התגובה שלך</span>
                             <!--<textarea class="comment-text-field comment-field ckeditor" style="resize: none;white-space: normal;text-align:right !important;direction: rtl;padding:0;">-->
-                            <textarea class="ckeditor" name="editor1">
+                            <textarea class="ckeditor" name="com-edit-{{comment.pk}}">
                               {{comment.body | safe}}
                             </textarea>
+                            <script>
+                            CKEDITOR.replace("com-edit-{{comment.pk}}");
+                            </script>
                           </div>
                          <div class="super-tiny-row-center-align" style="justify-content:space-between;width:100%;">
                           <button type="button" class="btn-post-comment btn-cancel-edit">בטל</button>
@@ -241,23 +255,30 @@
                      </div>
                </div>
                <div class="display-view" style="justify-content:flex-start;margin-top:0px;align-items:flex-start;width:500px;box-sizing:border-box;word-wrap: break-word;">
-                 {{comment.body | safe}}
-                 <span class="btn-edit" style="align-self:flex-start;margin-top:20px;">{%include 'magazine/components/btns/btnedit_small.html'%}</span>
+                 <div class="com-to-display">{{comment.body | safe}}</div>
+                 <span class="btn-edit" style="align-self:flex-start;">{%include 'magazine/components/btns/btnedit_small.html'%}</span>
                </div>
           </div>
           {% else %}
-          <div style="width:500px;box-sizing:border-box;word-wrap: break-word;">{{comment.body}}</div>
+          <div style="width:500px;box-sizing:border-box;word-wrap:break-word;">{{comment.body | safe }}</div>
           {% endif %}
 
-          <div class="reply-parent" style="margin-top:10px;width:100%;">
-
-          <span class="reply-label"  comment-id="{{comment.pk}}">{% include 'magazine/components/svg/reply.svg' %}</span>
-          <div style="display:none;" class="reply-label-brother">
-          <textarea class="ckeditor" name="editor2">
-          </textarea>
-          </div>
-
-         </div>
+      <div class="reply-parent" style="margin-top:10px;width:100%;">
+        <span class="reply-label"  comment-id="{{comment.pk}}">{% include 'magazine/components/svg/reply.svg' %}</span>
+        <div style="display:none;" class="reply-label-brother">
+            <textarea class="ckeditor" name="ck-reply-to-com-{{comment.pk}}">
+            </textarea>
+            <script>
+            CKEDITOR.replace('ck-reply-to-com-{{comment.pk}}');
+           </script>
+            <input type="hidden" class="com-parent-id" value="{{comment.pk}}">
+            <input type="hidden" class="replied-to-sub-com-id" value="">
+            <div class="super-tiny-row-center-align" style="justify-content:space-between;width:100%;">
+              <button type="button" class="btn-post-comment btn-sub-com-cancel">בטל</button>
+              <button type="button" class="btn-post-comment btn-sub-com-save">שמור</button>
+            </div>
+        </div>
+     </div>
 
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill expand" viewBox="0 0 16 16" style="display:none;margin-top:5px;">
           <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
@@ -266,30 +287,65 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle-fill collpase" viewBox="0 0 16 16" style="margin-top:5px;">
          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/>
          </svg>
-          <div class="comment-of-comment" id="frm-like-com-of-com">
+          <!--<div class="comment-of-comment" id="frm-like-com-of-com"> 24/1/2022 -->
+          <div class="comment-of-comment">
           {% for comment_of_comment in comment.comments_of_comment.all %}
           <div class="item subitem rate-com-of-com-form" id="sub-comment{{comment_of_comment.pk}}" style="margin-top:10px;">
+            {% if comment_of_comment.comment_of_comment_usr %}
+            <input type="hidden" class="sub-com-author" value="{{ comment_of_comment.comment_of_comment_usr }}">
+            {% else %}
+            <input type="hidden" class="sub-com-author" value="פלוני">
+            {% endif %}
             <input type="hidden" class="com_of_com_pk" value="{{comment_of_comment.pk}}"/>
           <span style="gap:5px;">
-            <div class="super-tiny-row-center-align" style="gap:5px;">
+            <div class="super-tiny-row-center-align organ"  style="gap:5px;">
 
               <span class="order-num" style="left:10px;position:relative;">
                 {% if comment_of_comment.comment_of_comment_usr.profile.profile_img.url %}
-               <img class="super-tiny-avatar" src="{{comment_of_comment.comment_of_comment_usr.profile.profile_img.url}}"/>
+               <img class="super-tiny-avatar" src="{{ comment_of_comment.comment_of_comment_usr.profile.profile_img.url }}"/>
                {% else %}
                {% include 'members/default_profile_img.html' %}
               {% endif %}
             </span>
-            {% if user.is_authenticated %}
-            <b style="margin-right:-10px;" class="author author-sub-comment">{{comment_of_comment.comment_of_comment_usr}} הגיב:</b>
-            {% else %}
-            <b style="margin-right:-10px;" class="author author-sub-comment">פלוני הגיב:</b>
+
+
+
+            <!--<b style="margin-right:-10px;" class="author author-sub-comment">פלוני הגיב:</b>-->
+              {% if comment_of_comment.to_sub_comment  %}
+                  {% if comment_of_comment.comment_of_comment_usr %}
+                     {% if comment_of_comment.to_sub_comment.comment_of_comment_usr %}
+                     <a href="#sub-comment{{ comment_of_comment.to_sub_comment.pk }}" style="margin-right:-10px;" class="author author-sub-comment respond-to-who">{{comment_of_comment.comment_of_comment_usr}} הגיב ל {{ comment_of_comment.to_sub_comment.comment_of_comment_usr }}</a>
+                     {% else %}
+                     <a href="#sub-comment{{ comment_of_comment.to_sub_comment.pk }}" style="margin-right:-10px;" class="author author-sub-comment respond-to-who"> הגיב ל פלוני {{comment_of_comment.comment_of_comment_usr}}</a>
+                     {% endif %}
+                  {% else %}
+                     {% if comment_of_comment.to_sub_comment.comment_of_comment_usr %}
+                     <a href="#sub-comment{{ comment_of_comment.to_sub_comment.pk }}" style="margin-right:-10px;" class="author author-sub-comment respond-to-who">{{ comment_of_comment.to_sub_comment.comment_of_comment_usr }} פלוני הגיב ל </a>
+                     {% else %}
+                     <a href="#sub-comment{{ comment_of_comment.to_sub_comment.pk }}" style="margin-right:-10px;" class="author author-sub-comment respond-to-who">פלוני הגיב ל פלוני</a>
+                     {% endif %}
+                {% endif %}
+              {% else %}
+                 {% if comment_of_comment.comment_of_comment_usr %}
+                   {% if comment.comment_usr %}
+                   <a href="#comment{{ comment.pk }}" style="margin-right:-10px;" class="author author-sub-comment respond-to-who">{{comment_of_comment.comment_of_comment_usr}} הגיב ל {{ comment.comment_usr }}</a>
+                   {% else %}
+                   <a href="#comment{{ comment.pk }}" style="margin-right:-10px;" class="author author-sub-comment respond-to-who">{{comment_of_comment.comment_of_comment_usr}} פלוני הגיב ל  </a>
+                   {% endif %}
+                 {% else %}
+                   {% if comment.comment_usr %}
+                   <a href="#comment{{ comment.pk }}" style="margin-right:-10px;" class="author author-sub-comment respond-to-who"> פלוני הגיב ל {{ comment.comment_usr }}</a>
+                   {% else %}
+                   <a href="#comment{{ comment.pk }}" style="margin-right:-10px;" class="author author-sub-comment respond-to-who">פלוני הגיב לפלוני</a>
+                   {% endif %}
+                {% endif %}
             {% endif %}
 
 
 
+
+
               {% if user.is_authenticated %}
-            <!--  <div class="super-tiny-row-center-align" id="frm-like-com-of-com">-->
             <div class="super-tiny-row-center-align">
               <button class="unstyled-btn ajax-rate-sub-com-btn" name="like-com-of-com" type="button">
               {% if comment_of_comment.liked %}
@@ -339,20 +395,63 @@
               {% endif %}
               <span class="msg ice-cream-clr" style="font-size:1rem;">הירשם ותוכל להשפיע</span>
              {% endif %}
-
+             {% if comment_of_comment.comment_of_comment_usr == user or request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'owner' %}
+             {% include 'magazine/components/popups/com_edit.html' %}
+             {% endif %}
             </div>
 
             <a id="a-sub-comment{{comment_of_comment.pk}}" href ="#sub-comment{{comment_of_comment.pk}}" class="tiny-row-center-align"><span class="tiny-font" style="color:#2F9BDD;">{{comment_of_comment.date_added | date:'d/m/Y' | safe}} בשעה: {{comment_of_comment.date_added | date:'h:m' | safe}}</span></a>
+
           </span>
-          <span class="sub-comment">{{comment_of_comment.body}}</span>
+          <!-- start 24/1/2022-->
+          {% if request.user == comment_of_comment.comment_of_comment_usr %}
+          <div class="comment-edit-parent" style="margin-top:-10px;" >
+                <div class="center form-view" style="display:none;align-items:flex-start;margin-top:0;gap:0px;">
+                      <input type="hidden" class="sub-com-id-edit" value="{{comment_of_comment.pk}}"/>
+                       <div class="comment comment-frm" style="gap:0px;align-self:flex-start;text-align:right;">
+                          <div style="direction: rtl;width:100%;text-align:right;margin-top:20px;">
+                            <span class="comment-label">התגובה שלך</span>
+                            <!--<textarea class="comment-text-field comment-field ckeditor" style="resize: none;white-space: normal;text-align:right !important;direction: rtl;padding:0;">-->
+                            <textarea class="ckeditor" name="ck-edit-sub-com-{{comment_of_comment.pk}}">
+                              {{comment_of_comment.body | safe}}
+                            </textarea>
+                            <script>
+                            CKEDITOR.replace('ck-edit-sub-com-{{comment_of_comment.pk}}');
+                           </script>
+                          </div>
+                         <div class="super-tiny-row-center-align" style="justify-content:space-between;width:100%;">
+                          <button type="button" class="btn-post-comment btn-cancel-edit">בטל</button>
+                          <button type="button" class="btn-post-comment btn-edit-save">שמור</button>
+                        </div>
+                     </div>
+               </div>
+               <div class="display-view" style="justify-content:flex-start;margin-top:20px;align-items:flex-start;width:500px;box-sizing:border-box;word-wrap: break-word;">
+                 <!-- class="sub-comment" bellow from 28/01/2022-->
+                 <div class="sub-comment com-to-display" >{{comment_of_comment.body | safe}}</div>
+                 <span class="btn-edit" style="align-self:flex-start;margin-top:20px;">{%include 'magazine/components/btns/btnedit_smaller.html'%}</span>
+               </div>
+          </div>
+          {% else %}<!-- 24/1/2022 -->
+          <!-- end 24/1/2022-->
+          <div class="sub-comment" style="width:500px;box-sizing:border-box;word-wrap: break-word;">{{comment_of_comment.body | safe }}</div> <!-- older -->
+          {% endif %} <!-- 24/1/2022 -->
         </div>
 
         <div class="reply-parent" style="margin-top:10px;width:500px;">
-         <span class="reply-label" sub-com-id="{{comment_of_comment.pk}}" comment-id="{{comment.pk}}">{% include 'magazine/components/svg/reply.svg' %}</span>
-         <div style="display:none;width:500px;" class="reply-label-brother">
-         <textarea class="ckeditor" name="editor2">
-         </textarea>
-        </div>
+           <span class="reply-label" sub-com-id="{{comment_of_comment.pk}}" comment-id="{{comment.pk}}">{% include 'magazine/components/svg/reply.svg' %}</span>
+           <div style="display:none;width:500px;" class="reply-label-brother">
+             <textarea class="ckeditor" name="ck-reply-to-sub-com-{{comment_of_comment.pk}}">
+             </textarea>
+             <script>
+             CKEDITOR.replace('ck-reply-to-sub-com-{{comment_of_comment.pk}}');
+            </script>
+             <input type="hidden" class="com-parent-id" value="{{comment.pk}}">
+             <input type="hidden" class="replied-to-sub-com-id" replied-to-sub-com-id="{{comment_of_comment.pk}}">
+             <div class="super-tiny-row-center-align" style="justify-content:space-between;width:100%;">
+               <button type="button" class="btn-post-comment btn-sub-com-cancel">בטל</button>
+               <button type="button" class="btn-post-comment btn-sub-com-save">שמור</button>
+             </div>
+           </div>
        </div>
 
         {% endfor %}
@@ -386,31 +485,238 @@
 </div>
 {% if user.is_authenticated %}
 <input type="hidden" id="curr-user" value="{{user.username}}">
+  {% if user.profile.profile_img.url %}
+  <input type="hidden" id="profile-img" value="{{ user.profile.profile_img.url }}">
+  {% else %}
+  <input type="hidden" id="profile-img" value="">
+  {% endif %}
+{% else %}
+<input type="hidden" id="anonymous" value="פלוני">
+<input type="hidden" id="profile-img" value="">
 {% endif %}
 <input type="hidden" id="post_pk" value="{{object.pk}}" name="post_pk"/>
 </div>
 
 
-<!--</form>-->
+
+<!--sub-com-to-clone-->
+<div id="clone-and-unwrap-this-sub-com" style="display:none;">
+<div class="item subitem rate-com-of-com-form" id="replace-sub-com-id" style="margin-top:10px;">
+  <input type="hidden" class="sub-com-author" value="">
+  <input type="hidden" class="com_of_com_pk" value="replace-sub-com-id"/>
+<span style="gap:5px;">
+  <div class="super-tiny-row-center-align organ" style="gap:5px;">
+
+    <span class="order-num" style="left:10px;position:relative;">
+
+    <img style="display:none;" class="super-tiny-avatar has-profile-img" src="" alt="" />
+
+  <span class="no-profile-img">{% include 'members/default_profile_img.html' %}</span>
+
+  </span>
+
+  <a href="#" style="margin-right:-10px;" class="author author-sub-comment respond-to-who">פלוני הגיב:</a>
 
 
 
+
+    {% if user.is_authenticated %}
+    <div class="super-tiny-row-center-align">
+      <button class="unstyled-btn ajax-rate-sub-com-btn" name="like-com-of-com" type="button">
+        <span  style="display:none;" class="com-of-com-svg sub_com_user_liked">{% include 'magazine/components/svg/like_fill.html' %}</span>
+        <span class="com-of-com-svg sub_com_user_unliked">{% include 'magazine/components/svg/like.html' %}</span>
+      </button>
+      <span style="display:none;" class="rate-green com-of-com-svg"></span>
+      <button class="unstyled-btn ajax-rate-sub-com-btn" name="dislike-com-of-com">
+        <span style="display:none;" class="com-of-com-svg sub_com_user_disliked">{% include 'magazine/components/svg/dislike_fill.html' %}</span>
+        <span class="com-of-com-svg sub_com_user_undisliked">{% include 'magazine/components/svg/dislike.html' %}</span>
+      </button>
+      <span style="display:none;" class="com-of-com-svg rate-red"></span>
+    </div>
+   {% else %}
+   <button class="unstyled-btn com-of-com-svg" type="button">
+       {% include 'magazine/components/svg/like.html' %}
+   </button>
+   <span style="display:none;" class="com-of-com-svg rate-green"></span>
+   <button class="unstyled-btn com-of-com-svg"  type="button">
+      {% include 'magazine/components/svg/dislike.html' %}
+   </button>
+    <span class="com-of-com-svg rate-red"></span>
+    <span class="msg ice-cream-clr" style="font-size:1rem;">הירשם ותוכל להשפיע</span>
+   {% endif %}
+   {% include 'magazine/components/popups/com_edit.html' %}
+  </div>
+  <!--<a id="a-sub-comment1" href ="#sub-comment1" class="tiny-row-center-align"><span class="tiny-font" style="color:#2F9BDD;">{{comment_of_comment.date_added | date:'d/m/Y' | safe}} בשעה: {{comment_of_comment.date_added | date:'h:m' | safe}}</span></a>-->
+  <a id="replace-a-sub-comment" href ="#replace-sub-comment" class="tiny-row-center-align"><span class="tiny-font" style="color:#2F9BDD;">'d/m/y' בשעה: 'h:m' </span></a>
+
+
+
+</span>
+<!-- edit section -->
+<div class="comment-edit-parent" style="margin-top:-10px;" >
+      <div class="center form-view" style="display:none;align-items:flex-start;margin-top:0;gap:0px;">
+            <input type="hidden" class="sub-com-id-edit" value=""/>
+             <div class="comment comment-frm" style="gap:0px;align-self:flex-start;text-align:right;">
+                <div style="direction: rtl;width:100%;text-align:right;margin-top:20px;">
+                  <span class="comment-label">התגובה שלך</span>
+
+                  <textarea class="ckeditor" name="">
+
+                  </textarea>
+
+                </div>
+               <div class="super-tiny-row-center-align" style="justify-content:space-between;width:100%;">
+                <button type="button" class="btn-post-comment btn-cancel-edit">בטל</button>
+                <button type="button" class="btn-post-comment btn-edit-save">שמור</button>
+              </div>
+           </div>
+     </div>
+     <div class="display-view" style="justify-content:flex-start;margin-top:20px;align-items:flex-start;width:500px;box-sizing:border-box;word-wrap: break-word;">
+       <div class="sub-comment com-to-display">comment_of_comment_body to replace</div>
+       <span class="btn-edit" style="align-self:flex-start;margin-top:20px;">{%include 'magazine/components/btns/btnedit_smaller.html'%}</span>
+     </div>
+
+</div>
+
+<div class="sub-comment not-author" style="width:500px;box-sizing:border-box;word-wrap: break-word;">comment_of_comment.body to replace</div>
+</div>
+
+<div class="reply-parent" style="margin-top:10px;width:500px;">
+ <span class="reply-label" sub-com-id="replace-sub-com-id" comment-id="replace-com-parent-id">{% include 'magazine/components/svg/reply.svg' %}</span>
+ <div style="display:none;width:500px;" class="reply-label-brother">
+   <textarea class="ckeditor" name="">
+   </textarea>
+
+   <input type="hidden" class="com-parent-id" value="replace-com-parent-id">
+   <input type="hidden" class="replied-to-sub-com-id" replied-to-sub-com-id="sub-com-replace">
+   <div class="super-tiny-row-center-align" style="justify-content:space-between;width:100%;">
+     <button type="button" class="btn-post-comment btn-sub-com-cancel">בטל</button>
+     <button type="button" class="btn-post-comment btn-sub-com-save">שמור</button>
+   </div>
+ </div>
+</div>
+</div>
+
+<!--end-sub-com-to-clone-->
+
+<input type="hidden" id="caller-id" value="">
+<input type="hidden" id="caller-type" value="">
 
   <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"> </script>
   <script type="text/javascript" src="{% static 'plugins/jquery.js' %}"> </script>
   <script>
   CKEDITOR.replace('editor1');
-  CKEDITOR.replace('editor2');
+</script>
+
+<script>
+function f_ajax_update_com(com_type, com_id, body)
+{
+  var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+  $.ajax({
+    type:'POST',
+    url:"{% url 'social:com-update' %}",
+    data:{'com_type':com_type,
+          'com_id':com_id,
+          'body':body,
+          'csrfmiddlewaretoken': csrftoken,
+        },
+    success:function (response){
+
+    },
+    error:function(response){
+
+    },
+  });
+}
+</script>
+<script>
+function f_com_delete(com_type, com_id)
+{
+  var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+   $.ajax({
+       type: 'POST',
+       url: "{% url 'social:com-delete' %}",
+       data: {'com_type':com_type,
+             'com_id':com_id,
+             'csrfmiddlewaretoken': csrftoken,
+             },
+       success: function (response) {
+         var result = response['result'];
+         if(result == 'success')
+         {
+            if(com_type == 'com')
+           {
+             $('#comment'+com_id).remove();
+           }
+           else if(com_type == 'sub_com')
+           {
+             $('#sub-comment' + com_id).next('.reply-parent').remove()
+             $('#sub-comment' + com_id).remove();
+             var has_nested_sub_coms = response['has_nested_sub_coms']
+             if(has_nested_sub_coms == 'false')
+             {
+               return;
+             }
+             var nested_sub_coms = response['nested_sub_coms'];
+             for(var i=0;i<nested_sub_coms.split(' ').length;i++)
+             {
+               var replied_sub =  nested_sub_coms[i];
+               replied_sub_id = replied_sub['id'];
+               $('#sub-comment' + replied_sub_id).next('.reply-parent').remove();
+               $('#sub-comment' + replied_sub_id).remove();
+             }
+
+           }
+         }
+         else
+         {
+           if(com_type == 'com')
+           {
+              $('#comment'+ com_id).find('.msg.ice-cream-clr').first().after('<span id="something-went-wrong">:\ מצטער משהו השתבש</span>');
+              setTimeout(function(){
+                $('#something-went-wrong').remove();
+              }, 1000);
+           }
+           else if(com_type == 'sub_com')
+           {
+             $('#sub-comment'+ com_id).find('.msg.ice-cream-clr').after('<span id="something-went-wrong">:\ מצטער משהו השתבש</span>');
+             setTimeout(function(){
+               $('#something-went-wrong').remove();
+             }, 1000);
+           }
+         }
+
+       },
+       error: function (response) {
+
+       }
+   });
+}
 </script>
    <script>
-   $('.btn-edit').click(function(){
+   $('.expand').click(function(){
+     $(this).nextAll('.comment-of-comment').show();
+     $(this).hide();
+     $(this).siblings('.collpase').first().show();
+   });
+
+   $('.collpase').click(function(){
+     $(this).nextAll('.comment-of-comment').hide();
+     $(this).hide();
+     $(this).siblings('.expand').first().show();
+   });
+   $('.btn-edit').click(f_edit_com);
+   function f_edit_com()
+   {
      $(this).parents('.comment-edit-parent').first().find('.display-view').hide();
      $(this).parents('.comment-edit-parent').first().find('.form-view').show();
-   });
-   $('.btn-cancel-edit').click(function(){
+   }
+   $('.btn-cancel-edit').click(f_cancel_edit_com);
+   function f_cancel_edit_com()
+   {
      $(this).parents('.comment-edit-parent').first().find('.display-view').show();
      $(this).parents('.comment-edit-parent').first().find('.form-view').hide();
-   });
+   }
     $(document).ready(function(){
 
 
@@ -423,8 +729,11 @@
            $(this).find('.collpase').first().hide();
          }
        });
-      var total_comments = $('.item').length;
-       $('#lbl-count-comments').text(total_comments);
+      var total_comments = $('.item').length - 1;
+      if(total_comments > 0)
+      {
+        $('#lbl-count-comments').text(total_comments);
+      }
       if("{{status}}" == "posted")
       {
          $('.comment-field').val('');
@@ -444,61 +753,218 @@
       setInterval(check_com_rating, 30000);
       setInterval(check_sub_com_rating, 60000);
     });
-$('.reply-label').click(function(){
-  var is_visibile = $(this).next('.reply-label-brother').css('display');
-  if(is_visibile == 'none' )
+
+  function f_display_or_hide_sub_com()
   {
-    $(this).next('.reply-label-brother').show();
+    var is_visibile = $(this).next('.reply-label-brother').css('display');
+    if(is_visibile == 'none' )
+    {
+        $(this).next('.reply-label-brother').show();
+    }
+    else
+    {
+        $(this).next('.reply-label-brother').hide();
+    }
+  }
+
+$('.reply-label').click(f_display_or_hide_sub_com);
+
+$('.respond-to-who').click(function(){
+   var selector = String($(this).attr('href'));
+  $('html, body').animate(
+    {
+     scrollTop: $(selector).offset().top - 100
+   },
+   {duration:800,
+   complete:function(){
+     $('#alert-sound')[0].play();
+     $(selector).find('.super-tiny-row-center-align').first().addClass('strike-me');
+     setTimeout(function(){
+       $(selector).find('.super-tiny-row-center-align').removeClass('strike-me');
+     }, 2000);
+
+    }
+  });
+});
+
+
+function clone_sub_com(sub_com_id, com_parent_id, body, time, date, author_name, replied_to_sub_com_id = '',  profile_img = '')
+{
+
+  var selector = '#clone-and-unwrap-this-sub-com';
+  var newElement = $(selector).clone(true);
+  $(newElement).find('.item.subitem.rate-com-of-com-form').attr('id', 'sub-comment' + sub_com_id);
+  $(newElement).find('.com_of_com_pk').val(sub_com_id);
+  var link_to_sub_com = $(newElement).find('#replace-a-sub-comment');
+  $(link_to_sub_com).attr('href', '#sub-comment' + sub_com_id);
+  $(link_to_sub_com).find('.tiny-font').text(date + ' ' + 'בשעה:' + time);
+  $(link_to_sub_com).attr('id', 'a-sub-comment' + sub_com_id);
+  $(newElement).find('.sub-comment').html(body);
+  $(newElement).find('.reply-label').attr('sub-com-id', sub_com_id);
+  $(newElement).find('.reply-label').attr('comment-id', com_parent_id);
+  $(newElement).find('.com-parent-id').val(com_parent_id);
+  $(newElement).find('.reply-parent .ckeditor').attr('name', 'ck-reply-to-sub-com-' + sub_com_id);
+  $(newElement).find('.comment-edit-parent .ckeditor').attr('name', 'ck-edit-sub-com-'+ sub_com_id);
+  $(newElement).find('.comment-edit-parent .ckeditor').text(body);
+  $(newElement).find('.sub-com-id-edit').val(sub_com_id);
+  $(newElement).find('.sub-com-author').val(author_name);
+  $(newElement).find('.replied-to-sub-com-id').attr('replied-to-sub-com-id', sub_com_id);
+  var who_reply_to_who_label = author_name + '' + 'הגיב ל' +  ' ';
+  var append_after = '';
+  if(replied_to_sub_com_id != '')
+  {
+
+    var reply_to_parent = $('#sub-comment' + replied_to_sub_com_id);
+    append_after = $(reply_to_parent).next('.reply-parent');
+    var reply_to_member = $(reply_to_parent).find('.sub-com-author').val();
+    who_reply_to_who_label = who_reply_to_who_label + reply_to_member;
+    var respond_to_who_link = $(newElement).find('.respond-to-who');
+    $(respond_to_who_link).attr('href', '#sub-comment' + replied_to_sub_com_id);
+    $(respond_to_who_link).text(who_reply_to_who_label);
   }
   else
   {
-    $(this).next('.reply-label-brother').hide();
+    var reply_to_parent = $('#comment' + com_parent_id);
+    var reply_to_member = $(reply_to_parent).find('.com-author').val();
+    who_reply_to_who_label = who_reply_to_who_label + reply_to_member;
+    //append_after = $('#comment' + com_parent_id).find('.comment-of-comment:last-child');
+    var respond_to_who_link = $(newElement).find('.respond-to-who');
+    $(respond_to_who_link).attr('href', '#comment' + com_parent_id);
+    $(respond_to_who_link).text(who_reply_to_who_label);
+  }
+  if(profile_img == '')
+  {
+    $(newElement).find('.no-profile-img').show();
+    $(newElement).find('.has-profile-img').hide();
+  }
+  else
+  {
+    $(newElement).find('.no-profile-img').hide();
+    $(newElement).find('.has-profile-img').attr('src', profile_img);
+    $(newElement).find('.has-profile-img').show();
   }
 
+  $(newElement).find();
+  var is_com_author = false;
+  if($('#curr-user').length)
+ {
+    if(author_name == $('#curr-user').val())
+    {
+      $(newElement).find('.not-author').hide();
+      $(newElement).find('.comment-edit-parent').show();
+      $(newElement).find('.btn-edit').unbind('click');
+      $(newElement).find('.btn-edit').on('click', f_edit_com);
+      $(newElement).find('.btn-cancel-edit').unbind('click');
+      $(newElement).find('.btn-cancel-edit').on('click', f_cancel_edit_com);
+      is_com_author = true;
+    }
+ }
+ if(is_com_author == false)
+ {
+     $(newElement).find('.not-author').show();
+     $(newElement).find('.comment-edit-parent').hide();
+ }
 
-});
-  /* $('.reply-label').click(function(){
+  $(newElement).find('.reply-label').unbind('click');
+  $(newElement).find('.reply-label').on('click', f_display_or_hide_sub_com);
+  $(newElement).find('.btn-sub-com-cancel').unbind('click');
+  $(newElement).find('.btn-sub-com-cancel').on('click', f_sub_com_cancel);
+  $(newElement).find('.btn-sub-com-save').unbind('click');
+  $(newElement).find('.btn-sub-com-save').on('click', f_sub_com_save);
+  if(replied_to_sub_com_id == '')
+  {
+    $('#comment' + com_parent_id).find('.comment-of-comment').append(newElement);
+  }
+  else
+  {
+    $(append_after).after(newElement);
+  }
+  $(newElement).children().first().unwrap();
+  $(newElement).show();
+  CKEDITOR.replace('ck-reply-to-sub-com-' + sub_com_id);
+  CKEDITOR.replace('ck-edit-sub-com-' + sub_com_id);
 
-      frm = $(this).next('#reply-frm');
-      var frm_id = $(frm).attr('id');
-      var is_frm_after_this_lbl = false;
-      if(frm_id == 'reply-frm')
-      {
-        is_frm_after_this_lbl = true;
-      }
+}
 
-      if(is_frm_after_this_lbl && $('#reply-frm').css('display').toLowerCase() != 'none')
-      {
-          $('#reply-frm').hide();
-          return;
-      }
-      $(this).after($('#reply-frm'));
-      $('#comment_id').val($(this).attr('comment-id'));
-      $('#reply-frm').show();
+$('.btn-sub-com-cancel').click(f_sub_com_cancel);
 
-
-
-    });*/
+function f_sub_com_cancel()
+{
+  var is_visibile = $(this).parents('.reply-label-brother').css('display');
+  if(is_visibile == 'none' )
+  {
+    $(this).parents('.reply-label-brother').show();
+  }
+  else
+  {
+    $(this).parents('.reply-label-brother').hide();
+  }
+}
 
 
+$(".btn-sub-com-save").click(f_sub_com_save);
 
-    $('.expand').click(function(){
-      $(this).nextAll('.comment-of-comment').show();
-      $(this).hide();
-      $(this).siblings('.collpase').first().show();
-    });
+function f_sub_com_save()
+{
+  var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+  var ancestor = $(this).parents('.reply-parent');
+  var com_parent_id = $(ancestor).find('.com-parent-id').val();
+  var replied_to_sub_com = $(ancestor).find('.replied-to-sub-com-id');
+  var replied_to_sub_com_id = '';
+  var ck_name = $(ancestor).find('.ckeditor').attr('name');
+  var body = CKEDITOR.instances[ck_name].getData();
+  //var desc = CKEDITOR.instances.DSC.getData(); // another way to get data from ckeditor
+  //$(replied_to_sub_com).attr('replied-to-sub-com-id');
+  attr = $(replied_to_sub_com).first().attr('replied-to-sub-com-id');
+  if (attr !== 'undefined' &&  attr !== false)
+  {
+     replied_to_sub_com_id = $(replied_to_sub_com).attr('replied-to-sub-com-id');
+  }
+   $.ajax({
+       type: 'POST',
+       url: "{% url 'social:sub-com-save' %}",
+       data: {'com_parent_id':com_parent_id,
+             'replied_to_sub_com_id':replied_to_sub_com_id,
+             'body':body,
+             'csrfmiddlewaretoken': csrftoken,
+             },
+       success: function (response) {
+         var result = response;
+         var sub_com_id = result['sub_com_id'];
+         var date = result['date'];
+         var time = result ['time'];
+         var author_name = '';
+         var register_user = false;
+         if($('#anonymous').length)
+         {
+           author_name = $('#anonymous').val(); //פלוני
+         }
+         else if($('#curr-user').length)
+         {
+           author_name = $('#curr-user').val();
+         }
+         var profile_img = $('#profile-img').val();
 
-    $('.collpase').click(function(){
-      $(this).nextAll('.comment-of-comment').hide();
-      $(this).hide();
-      $(this).siblings('.expand').first().show();
-    });
+         clone_sub_com(sub_com_id = sub_com_id, com_parent_id = com_parent_id, body=body, time = time, date = date, author_name = author_name, replied_to_sub_com_id = replied_to_sub_com_id, profile_img);
+         $(ancestor).find('.reply-label-brother').hide();
+       },
+       error: function (response) {
+
+       }
+   });
+}
+
+
+
+
+
    </script>
 
 
   {%endblock body%}
 
 {%block moreJs%}
+
 <script>
 
 function check_sub_com_rating()
@@ -1196,5 +1662,5 @@ function check_post_rating()
   }
 </script>
 
-
+<script type="text/javascript" src="{% static 'magazine/com_edit/com_edit.js' %}"> </script>
 {%endblock moreJs%}

@@ -132,7 +132,7 @@
 
      <button type="submit" style="width:100%;" class="btn-post-comment btn-loader" name="btn-send-comment">שלח</button>
      {% if object.comments.all|length > 0 %}
-   <div class="tiny-row-center-align comment-reply-title" style="justify-content:center;width:100%;margin-top:20px;"><span id="lbl-count-comments"> {{object.comments.all | length}}</span> <span>תגובות למאמר</span></div>
+   <div class="tiny-row-center-align comment-reply-title" style="justify-content:center;width:100%;margin-top:20px;"><span id="lbl-count-comments"> {{object.comments.all | length}}</span> <span id="coms-to-article-lbl">תגובות למאמר</span></div>
      {% endif %}
    </div>
  </div>
@@ -233,7 +233,7 @@
 
             <a id="{{comment.pk}}" href ="#comment{{comment.pk}}" class="tiny-row-center-align"><span style="color:#2F9BDD;">{{comment.date_added | date:'d/m/Y' | safe}} בשעה: {{comment.date_added | date:'h:m' | safe}}</span></a>
           </span>
-          {% if request.user == comment.comment_usr %}
+          {% if request.user == comment.comment_usr and comment.is_allowed_to_edit or request.user.groups.all.0.name == 'owner' %}
           <div class="comment-edit-parent" style="margin-top:-10px;" >
                 <div class="center form-view" style="display:none;align-items:flex-start;margin-top:0;gap:0px;">
                       <input type="hidden" class="comment-id-edit" value="{{comment.pk}}"/>
@@ -255,7 +255,7 @@
                      </div>
                </div>
                <div class="display-view" style="justify-content:flex-start;margin-top:0px;align-items:flex-start;width:500px;box-sizing:border-box;word-wrap: break-word;">
-                 {{comment.body | safe}}
+                 <div class="com-to-display">{{comment.body | safe}}</div>
                  <span class="btn-edit" style="align-self:flex-start;">{%include 'magazine/components/btns/btnedit_small.html'%}</span>
                </div>
           </div>
@@ -287,7 +287,13 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash-circle-fill collpase" viewBox="0 0 16 16" style="margin-top:5px;">
          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/>
          </svg>
-          <!--<div class="comment-of-comment" id="frm-like-com-of-com"> 24/1/2022 -->
+          <!-- 23:26 28/01/2022-->
+          {% if not comment.comment_usr.groups.all.0.name == 'admin' and  not comment.comment_usr.groups.all.0.name == 'owner' %}
+          {% if comment.date_last_update and comment.is_com_edited %}
+          <span class="last-update"> עודכן לאחרונה ב {{comment.date_last_update | date:'d/m/Y'}} {{comment.date_last_update | date:'h:m'}}</span>
+          {% endif %}
+          {% endif %}
+          <!-- end 23:26 28/01/2022-->
           <div class="comment-of-comment">
           {% for comment_of_comment in comment.comments_of_comment.all %}
           <div class="item subitem rate-com-of-com-form" id="sub-comment{{comment_of_comment.pk}}" style="margin-top:10px;">
@@ -404,7 +410,7 @@
 
           </span>
           <!-- start 24/1/2022-->
-          {% if request.user == comment_of_comment.comment_of_comment_usr %}
+          {% if request.user == comment_of_comment.comment_of_comment_usr and comment_of_comment.is_allowed_to_edit or request.user.groups.all.0.name == 'owner' %}
           <div class="comment-edit-parent" style="margin-top:-10px;" >
                 <div class="center form-view" style="display:none;align-items:flex-start;margin-top:0;gap:0px;">
                       <input type="hidden" class="sub-com-id-edit" value="{{comment_of_comment.pk}}"/>
@@ -426,7 +432,8 @@
                      </div>
                </div>
                <div class="display-view" style="justify-content:flex-start;margin-top:20px;align-items:flex-start;width:500px;box-sizing:border-box;word-wrap: break-word;">
-                 <div>{{comment_of_comment.body | safe}}</div>
+                 <!-- class="sub-comment" bellow from 28/01/2022-->
+                 <div class="sub-comment com-to-display" >{{comment_of_comment.body | safe}}</div>
                  <span class="btn-edit" style="align-self:flex-start;margin-top:20px;">{%include 'magazine/components/btns/btnedit_smaller.html'%}</span>
                </div>
           </div>
@@ -452,7 +459,13 @@
              </div>
            </div>
        </div>
-
+      <!-- 23:26 28/01/2022-->
+      {% if not comment_of_comment.comment_of_comment_usr.groups.all.0.name == 'admin' and  not comment_of_comment.comment_of_comment_usr.groups.all.0.name == 'owner' %}
+      {% if comment_of_comment.date_last_update and comment_of_comment.is_com_edited %}
+      <span class="last-update last-update-small">עודכן לאחרונה ב {{comment_of_comment.date_last_update | date:'d/m/Y'}} {{comment_of_comment.date_last_update | date:'h:m'}}</span>
+      {% endif %}
+      {% endif %}
+      <!--end  23:26 28/01/2022-->
         {% endfor %}
       </div>
         </div>
@@ -571,12 +584,11 @@
            </div>
      </div>
      <div class="display-view" style="justify-content:flex-start;margin-top:20px;align-items:flex-start;width:500px;box-sizing:border-box;word-wrap: break-word;">
-       <div class="sub-comment">comment_of_comment_body to replace</div>
+       <div class="sub-comment com-to-display">comment_of_comment_body to replace</div>
        <span class="btn-edit" style="align-self:flex-start;margin-top:20px;">{%include 'magazine/components/btns/btnedit_smaller.html'%}</span>
      </div>
 
 </div>
-
 <div class="sub-comment not-author" style="width:500px;box-sizing:border-box;word-wrap: break-word;">comment_of_comment.body to replace</div>
 </div>
 
@@ -594,6 +606,9 @@
    </div>
  </div>
 </div>
+<!-- 28/01/2022 -->
+<span class="last-update last-update-small"></span>
+<!--end  28/01/2022-->
 </div>
 
 <!--end-sub-com-to-clone-->
@@ -605,6 +620,58 @@
   <script type="text/javascript" src="{% static 'plugins/jquery.js' %}"> </script>
   <script>
   CKEDITOR.replace('editor1');
+</script>
+
+<script>
+function f_ajax_update_com(com_type, com_id, body)
+{
+  var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+  $.ajax({
+    type:'POST',
+    url:"{% url 'social:com-update' %}",
+    data:{'com_type':com_type,
+          'com_id':com_id,
+          'body':body,
+          'csrfmiddlewaretoken': csrftoken,
+        },
+    success:function (response){
+     var result = response['result'];
+     var com_prefix = '';
+     if(com_type == 'com')
+     {
+        com_prefix = 'comment';
+     }
+     else if(com_type == 'sub_com')
+     {
+       com_prefix= 'comment-of-comment';
+     }
+     var com_selector_name = '#' + com_prefix + com_id;
+     if(result == 'failed')
+     {
+       var reason = response['reason']
+       if(reason == 'time over')
+       {
+         var update_lbl = $(com_selector_name).find('.last-update').first();
+         $(update_lbl).text('תם הזמן המאפשר עריכה לתגובה זו');
+         setTimeout(function(){
+           $(update_lbl).text('');
+         }, 5000);
+       }
+       return;
+     }
+     if(last_update == 'none')
+     {
+       return;
+     }
+     var update_lbl = $(com_selector_name).find('.last-update').first();
+     var last_update = response['last_update'];
+     $(update_lbl).text(last_update + ' ' + 'עודכן לאחרונה ב');
+    },
+    error:function(response){
+
+    },
+  });
+}
 </script>
 <script>
 function f_com_delete(com_type, com_id)
@@ -621,6 +688,17 @@ function f_com_delete(com_type, com_id)
          var result = response['result'];
          if(result == 'success')
          {
+           var total_coms = $('.item').length - 2; //1 for the hidden clone, another 1 for the removal
+           if(total_coms <= 0)
+           {
+             $('#lbl-count-comments').text('');
+             $('#coms-to-article-lbl').hide();
+           }
+           else
+           {
+             $('#lbl-count-comments').text(total_coms);
+             $('#coms-to-article-lbl').show();
+           }
             if(com_type == 'com')
            {
              $('#comment'+com_id).remove();
@@ -706,8 +784,11 @@ function f_com_delete(com_type, com_id)
            $(this).find('.collpase').first().hide();
          }
        });
-      var total_comments = $('.item').length;
-       $('#lbl-count-comments').text(total_comments);
+      var total_comments = $('.item').length - 1;
+      if(total_comments > 0)
+      {
+        $('#lbl-count-comments').text(total_comments);
+      }
       if("{{status}}" == "posted")
       {
          $('.comment-field').val('');
@@ -787,7 +868,6 @@ function clone_sub_com(sub_com_id, com_parent_id, body, time, date, author_name,
   var append_after = '';
   if(replied_to_sub_com_id != '')
   {
-
     var reply_to_parent = $('#sub-comment' + replied_to_sub_com_id);
     append_after = $(reply_to_parent).next('.reply-parent');
     var reply_to_member = $(reply_to_parent).find('.sub-com-author').val();
@@ -921,6 +1001,9 @@ function f_sub_com_save()
 
          clone_sub_com(sub_com_id = sub_com_id, com_parent_id = com_parent_id, body=body, time = time, date = date, author_name = author_name, replied_to_sub_com_id = replied_to_sub_com_id, profile_img);
          $(ancestor).find('.reply-label-brother').hide();
+         var total_coms = $('.item').length;
+         $('#lbl-count-comments').text(total_coms);
+         $('#coms-to-article-lbl').show();
        },
        error: function (response) {
 
