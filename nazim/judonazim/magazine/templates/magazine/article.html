@@ -112,7 +112,7 @@
        {% if user.is_authenticated %}
            {% if object.author_id == request.user.id and request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'owner'  %}
        <div class = "submit-row submit-row-edit">
-         <a style="text-decoration:none;" href="{% url 'magazine:updateRecord'  object.id %}">{%include 'magazine/components/btns/btnedit.html'%}</a>
+         <a style="text-decoration:none;" href="{% url 'magazine:updateRecord'  object.id %}">{%include 'magazine/components/btns/btnedit_small.html'%}</a>
 
        </div>
            {% endif %}
@@ -256,7 +256,7 @@
                </div>
                <div class="display-view" style="justify-content:flex-start;margin-top:0px;align-items:flex-start;width:500px;box-sizing:border-box;word-wrap: break-word;">
                  <div class="com-to-display">{{comment.body | safe}}</div>
-                 <span class="btn-edit" style="align-self:flex-start;">{%include 'magazine/components/btns/btnedit_small.html'%}</span>
+                 <span class="btn-edit" style="align-self:flex-start;">{%include 'magazine/components/btns/btnedit_smaller.html'%}</span>
                </div>
           </div>
           {% else %}
