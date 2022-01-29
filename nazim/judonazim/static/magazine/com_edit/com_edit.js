@@ -69,6 +69,7 @@ $('.btn-edit-save').click(function(){
   $(com).html(body);
   $(this).parents('.comment-edit-parent').first().find('.display-view').show();
   $(this).parents('.comment-edit-parent').first().find('.form-view').hide();
+
 });
 
 //com-ctl-popup

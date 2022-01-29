@@ -779,8 +779,6 @@ function update_total_coms_lbl()
      $(this).parents('.comment-edit-parent').first().find('.form-view').hide();
    }
     $(document).ready(function(){
-
-
        $('.comment.item').each(function(){
          var sub_comments_count = $(this).find('.subitem').length;
          if(sub_comments_count == 0)
@@ -1010,6 +1008,10 @@ function f_sub_com_save()
          var total_coms = $('.item').length;
          $('#lbl-count-comments').text(total_coms);
          $('#coms-to-article-lbl').show();
+
+         //29/01/2022
+         CKEDITOR.instances[ck_name].setData('');
+         //end 29/01/2022
        },
        error: function (response) {
 
