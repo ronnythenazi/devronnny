@@ -163,8 +163,8 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = False
-#USE_TZ = True
+#USE_TZ = False #29/01/2022
+USE_TZ = True  #29/01/2022
 TIME_ZONE = 'Israel'
 
 

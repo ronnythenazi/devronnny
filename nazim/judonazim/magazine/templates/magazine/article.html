@@ -231,7 +231,7 @@
             </div>
 
 
-            <a id="{{comment.pk}}" href ="#comment{{comment.pk}}" class="tiny-row-center-align"><span style="color:#2F9BDD;">{{comment.date_added | date:'d/m/Y' | safe}} בשעה: {{comment.date_added | date:'h:m' | safe}}</span></a>
+            <a id="{{comment.pk}}" href ="#comment{{comment.pk}}" class="tiny-row-center-align"><span style="color:#2F9BDD;">{{comment.date_added | date:'d/m/Y' | safe}} בשעה: {{comment.date_added | date:'H:i' | safe}}</span></a>
           </span>
           {% if request.user == comment.comment_usr and comment.is_allowed_to_edit or request.user.groups.all.0.name == 'owner' %}
           <div class="comment-edit-parent" style="margin-top:-10px;" >
@@ -290,7 +290,7 @@
           <!-- 23:26 28/01/2022-->
           {% if not comment.comment_usr.groups.all.0.name == 'admin' and  not comment.comment_usr.groups.all.0.name == 'owner' %}
           {% if comment.date_last_update and comment.is_com_edited %}
-          <span class="last-update"> עודכן לאחרונה ב {{comment.date_last_update | date:'d/m/Y'}} {{comment.date_last_update | date:'h:m'}}</span>
+          <span class="last-update"> עודכן לאחרונה ב {{comment.date_last_update | date:'d/m/Y'}} {{comment.date_last_update | date:'H:i'}}</span>
           {% endif %}
           {% endif %}
           <!-- end 23:26 28/01/2022-->
@@ -406,7 +406,7 @@
              {% endif %}
             </div>
 
-            <a id="a-sub-comment{{comment_of_comment.pk}}" href ="#sub-comment{{comment_of_comment.pk}}" class="tiny-row-center-align"><span class="tiny-font" style="color:#2F9BDD;">{{comment_of_comment.date_added | date:'d/m/Y' | safe}} בשעה: {{comment_of_comment.date_added | date:'h:m' | safe}}</span></a>
+            <a id="a-sub-comment{{comment_of_comment.pk}}" href ="#sub-comment{{comment_of_comment.pk}}" class="tiny-row-center-align"><span class="tiny-font" style="color:#2F9BDD;">{{comment_of_comment.date_added | date:'d/m/Y' | safe}} בשעה: {{comment_of_comment.date_added | date:'H:i' | safe}}</span></a>
 
           </span>
           <!-- start 24/1/2022-->
@@ -462,7 +462,7 @@
       <!-- 23:26 28/01/2022-->
       {% if not comment_of_comment.comment_of_comment_usr.groups.all.0.name == 'admin' and  not comment_of_comment.comment_of_comment_usr.groups.all.0.name == 'owner' %}
       {% if comment_of_comment.date_last_update and comment_of_comment.is_com_edited %}
-      <span class="last-update last-update-small">עודכן לאחרונה ב {{comment_of_comment.date_last_update | date:'d/m/Y'}} {{comment_of_comment.date_last_update | date:'h:m'}}</span>
+      <span class="last-update last-update-small">עודכן לאחרונה ב {{comment_of_comment.date_last_update | date:'d/m/Y'}} {{comment_of_comment.date_last_update | date:'H:i'}}</span>
       {% endif %}
       {% endif %}
       <!--end  23:26 28/01/2022-->
@@ -558,8 +558,8 @@
    {% endif %}
    {% include 'magazine/components/popups/com_edit.html' %}
   </div>
-  <!--<a id="a-sub-comment1" href ="#sub-comment1" class="tiny-row-center-align"><span class="tiny-font" style="color:#2F9BDD;">{{comment_of_comment.date_added | date:'d/m/Y' | safe}} בשעה: {{comment_of_comment.date_added | date:'h:m' | safe}}</span></a>-->
-  <a id="replace-a-sub-comment" href ="#replace-sub-comment" class="tiny-row-center-align"><span class="tiny-font" style="color:#2F9BDD;">'d/m/y' בשעה: 'h:m' </span></a>
+  
+  <a id="replace-a-sub-comment" href ="#replace-sub-comment" class="tiny-row-center-align"><span class="tiny-font" style="color:#2F9BDD;">'d/m/y' בשעה: 'H:i' </span></a>
 
 
 
