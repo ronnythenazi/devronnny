@@ -688,20 +688,10 @@ function f_com_delete(com_type, com_id)
          var result = response['result'];
          if(result == 'success')
          {
-           var total_coms = $('.item').length - 2; //1 for the hidden clone, another 1 for the removal
-           if(total_coms <= 0)
-           {
-             $('#lbl-count-comments').text('');
-             $('#coms-to-article-lbl').hide();
-           }
-           else
-           {
-             $('#lbl-count-comments').text(total_coms);
-             $('#coms-to-article-lbl').show();
-           }
+
             if(com_type == 'com')
            {
-             $('#comment'+com_id).remove();
+             $('#comment'+ com_id).remove();
            }
            else if(com_type == 'sub_com')
            {
@@ -710,13 +700,14 @@ function f_com_delete(com_type, com_id)
              var has_nested_sub_coms = response['has_nested_sub_coms']
              if(has_nested_sub_coms == 'false')
              {
+               update_total_coms_lbl();
                return;
              }
              var nested_sub_coms = response['nested_sub_coms'];
-             for(var i=0;i<nested_sub_coms.split(' ').length;i++)
+             sub_coms_to_remove = nested_sub_coms.split(',');
+             for(var i=0;i<sub_coms_to_remove.length;i++)
              {
-               var replied_sub =  nested_sub_coms[i];
-               replied_sub_id = replied_sub['id'];
+               var replied_sub_id =  sub_coms_to_remove[i];
                $('#sub-comment' + replied_sub_id).next('.reply-parent').remove();
                $('#sub-comment' + replied_sub_id).remove();
              }
@@ -740,12 +731,27 @@ function f_com_delete(com_type, com_id)
              }, 1000);
            }
          }
-
+          update_total_coms_lbl();
        },
        error: function (response) {
 
        }
    });
+}
+
+function update_total_coms_lbl()
+{
+  var total_coms = $('.item').length - 1; //1 for the hidden clone
+  if(total_coms <= 0)
+  {
+    $('#lbl-count-comments').text('');
+    $('#coms-to-article-lbl').hide();
+  }
+  else
+  {
+    $('#lbl-count-comments').text(total_coms);
+    $('#coms-to-article-lbl').show();
+  }
 }
 </script>
    <script>

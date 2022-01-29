@@ -17,7 +17,7 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from .calcs import get_total_seconds
 from .members_permissions import is_user_allowed_to_edit
-from .coms import get_com
+from .coms import get_com, get_all_nested_coms_id
 
 def com_update(request):
     print('inside com_update')
@@ -81,13 +81,15 @@ def com_delete(request):
             if com_user == request.user:
                 is_user_author = True
                 print('user is author')
-            if com.replied_to.all().count() > 0:
+            nested_sub_coms_id_list = get_all_nested_coms_id(com)
+            if len(nested_sub_coms_id_list) > 0:
                 print('has nested replies')
                 has_nested_sub_coms = 'true'
                 print('iterating nested sub-coms')
-                for sub in com.replied_to.all():
-                    nested_sub_coms += str(sub.id) + ' '
+                for sub_id in nested_sub_coms_id_list:
+                    nested_sub_coms += str(sub_id) + ','
                 nested_sub_coms = nested_sub_coms[:-1]
+                print(nested_sub_coms)
         if com_user == '':
             print('com_user is empty')
             return JsonResponse({'result':'failed', 'has_nested_sub_coms':'false'})

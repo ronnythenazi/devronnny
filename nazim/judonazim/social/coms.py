@@ -26,3 +26,9 @@ def get_com_author(com_type, com_id):
 def get_com_created_date(com_type, com_id):
     com = get_com(com_type, com_id)
     return com.date_added
+
+def get_all_nested_coms_id(com, lst = []):
+    for sub_com in com.replied_to.all():
+        lst.append(sub_com.id)
+        lst = get_all_nested_coms_id(sub_com, lst)
+    return lst
