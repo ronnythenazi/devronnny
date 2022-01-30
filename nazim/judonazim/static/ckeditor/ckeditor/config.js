@@ -11,7 +11,4 @@ CKEDITOR.editorConfig = function( config ) {
          config.contentsLangDirection = 'rtl';
          config.defaultLanguage = "he";
          config.language = 'he';
-        // 29/01/2022 18:14
-        config.removePlugins = 'scayt,menubutton,contextmenu';
-        // end 29/01/2022 18:14
 };

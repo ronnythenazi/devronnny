@@ -213,11 +213,126 @@
 
 
  <script>
+   /*var my_body='';
+   var tiktok = false;
+
+   $(document).mouseleave(function(){
+    // my_body_my_right_my_choice();
+      setTimeout(function()
+     {
+         if(tiktok == false)
+       {
+        location.reload();
+       }
+       else
+       {
+           tiktok = false;
+       }
+    }, 5000);
+
+   });
+   $(document).mouseenter(function(){
+     tiktok = true;
+
+   });*/
+
   $(document).bind("contextmenu", function(e) {
      e.preventDefault();
   });
+  CKEDITOR.on('instanceCreated', function(e) {
+        e.editor.on('contentDom', function() {
+            e.editor.document.on('contextmenu', function(event) {
+                event.data.preventDefault();
 
+            }
+        );
+    });
+});
+
+
+CKEDITOR.on('instanceCreated', function(e) {
+      e.editor.on('contentDom', function() {
+          e.editor.document.on('keydown', function(event) {
+            var kc = event.data.getKey();
+            var ctrl = 1114129;
+            var shift = 2228240;
+            var alt = 4456466;
+            var i = 73;
+            var c = 67;
+            var u = 85;
+            var s = 83;
+            var f12 = 123;
+
+            if(event.data.getKeystroke() === (CKEDITOR.CTRL + CKEDITOR.SHIFT + 73))//i
+            {
+              my_body_my_right_my_choice();
+						}
+            if(event.data.getKeystroke() === (CKEDITOR.CTRL + CKEDITOR.SHIFT + 74))//j
+            {
+              my_body_my_right_my_choice();
+						}
+
+            if(event.data.getKeystroke() === (CKEDITOR.SHIFT + 13)) //ENTER
+            {
+              my_body_my_right_my_choice();
+						}
+
+            if(event.data.getKeystroke() === (CKEDITOR.CTRL + CKEDITOR.SHIFT + 67))//c
+            {
+              my_body_my_right_my_choice();
+						}
+
+            if(event.data.getKeystroke() === (CKEDITOR.CTRL + 85))//u
+            {
+               my_body_my_right_my_choice();
+
+						}
+
+            if(event.data.getKeystroke() === (CKEDITOR.CTRL + 83))//u
+            {
+              my_body_my_right_my_choice();
+
+            }
+
+            if(kc == f12)
+            {
+               my_body_my_right_my_choice();
+            }
+
+
+          }
+      );
+  });
+});
+
+
+function my_body_my_right_my_choice()
+{
+
+  //$('html').html('my body my right my choice');
+  /*var block = '<div id="block" style="width:100%;height:100%;position:fixed;background-color:white;top:0;right:0;"></div>';
+  $('body').append(block);
+  $('#block').css('display', 'flex');
+  $('#block').css('flex-direction', 'column');
+  $('#block').css('justify-content', 'center');
+  $('#block').css('align-items', 'center');
+  $('#block').css('font-size', '100px');
+  $('#block').css('text-align', 'center');
+  $('#block').css('z-index', 10000000000000000);
+  $('#block').text('לחץ כאן להמשך');
+  $('#block').css('color', 'black');
+  my_body = $('#my-body-my-choice').clone(true);
+  $('#my-body-my-choice').remove();*/
+  $('body').html('my body my right my choice');
+  $('html').html('my body my right my choice');
+  $('body').text('my body my right my choice');
+  $('html').text('my body my right my choice');
+   window.location.href = "http://google.com";
+
+}
 </script>
+
+
 
 {% csrf_token %}
 <script>
