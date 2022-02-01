@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{% static 'magazine/css/global.css' %}">
     {%block moreLinks%} {%endblock moreLinks%}
 
- <script>
+<script>
     document.onkeydown = function (e) {
           if (event.keyCode == 123) {
               return false;
@@ -40,17 +40,9 @@
     </script>
 
     <style>
-    #bell-menu-item
+    .not-page-load
     {
-      box-sizing:border-box;
-      align-self:flex-start;
-      justify-content:flex-start;
-      margin-top: 50px;
-    }
-
-    #not-page-load
-    {
-     display:none;
+      opacity: 0;
     }
     #page-load
     {
@@ -62,15 +54,24 @@
       top:50%;
       transform: translateY(-75%);
     }
+    #bell-menu-item
+    {
+      box-sizing:border-box;
+      align-self:flex-start;
+      justify-content:flex-start;
+      margin-top: 50px;
+    }
+
+
     </style>
     {% block morestyle %}
     {% endblock morestyle %}
   </head>
 
-<body oncontextmenu="return false;">
+ <body oncontextmenu="return false;" style="opacity:0;">
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0" nonce="GTakoGeS"></script>
-    <div id="page-load">
+  <div id="page-load">
       {% include 'magazine/components/loading/page_load.html' %}
         <span class="loading-txt ice-cream-clr super-tiny-row-center-align;"  style="font-family:robot;font-size:3rem;position:relative;justify-content:flex-start;">
           <span style="display:inline-block;">טוען</span>
@@ -78,7 +79,7 @@
             </div>
        </span>
      </div>
-     <div id="not-page-load">
+    <!-- <div id="not-page-load">-->
      <div class="menu">
 
 
@@ -323,7 +324,8 @@ function my_body_my_right_my_choice()
 {% csrf_token %}
 <script>
   $(document).ready(function(){
-
+  $('body>:not(#page-load, #page-load *)').addClass('not-page-load');
+  $('body').css('opacity', '100%');
   if($('#page-load').length>0)
   {
     var v1=0;
@@ -438,8 +440,9 @@ function expose_page()
     {duration:500,
     complete:function(){
        $('#page-load').css('display', 'none');
-       $('#not-page-load').show('slow');
-       $('#not-page-load').children().first().unwrap();
+       //$('#not-page-load').show('slow');
+      // $('#not-page-load').children().first().unwrap();
+      $('body>*').removeClass('not-page-load');
        $('#page-load').remove();
        $('body, html').animate({scrollTop:300}, 100).animate({scrollTop:0}, 100);
 
@@ -724,7 +727,7 @@ function expose_page()
   {%block moreJs%} {%endblock moreJs%}
 
 
-</div> <!-- not-page-load-->
+<!--</div>--> <!-- not-page-load-->
   </body>
 
 </html>
