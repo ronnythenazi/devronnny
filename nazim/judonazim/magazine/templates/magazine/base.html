@@ -75,20 +75,7 @@
         <span class="loading-txt ice-cream-clr super-tiny-row-center-align;"  style="font-family:robot;font-size:3rem;position:relative;justify-content:flex-start;">
           <span style="display:inline-block;">טוען</span>
             <div id="dots-parent" class="tiny-row-center-align" style="gap:5px;display:inline-flex;width:30px;margin-right:-10px;justify-content:flex-start;">
-
             </div>
-            <script>
-            setInterval(function(){
-              if ($('.dot').length >= 3)
-              {
-                  $('.dot').each(function(){
-                    $(this).remove();
-                  });
-                  return;
-              }
-              $('#dots-parent').append('<span class="dot">.</span>');
-            }, 1000);
-            </script>
        </span>
      </div>
      <div id="not-page-load">
@@ -336,9 +323,111 @@ function my_body_my_right_my_choice()
 {% csrf_token %}
 <script>
   $(document).ready(function(){
+
+  if($('#page-load').length>0)
+  {
+    var v1=0;
+    var v2 = 0;
+    var v3 = 0;
+    var v4 = 0;
+    var v5 = 0;
+    m1 = 1190;
+    m2  = 1279;
+    m3 = 563;
+    m4 = 684;
+    m5 = 553;
+    k = 25;
+    var base = 400;
+    var sum_v = 0;
+    var sum_max =  m1 + m2 + m3 + m4 + m5;
+    var d = String($('#judologo-load path').attr('d'));
+
+    setInterval(function(){
+      if ($('.dot').length >= 3)
+      {
+          $('.dot').each(function(){
+            $(this).remove();
+          });
+          return;
+      }
+      $('#dots-parent').append('<span class="dot">.</span>');
+    }, 1000);
+
+
+     setInterval(function(){
+
+      if(sum_v == sum_max)
+      {
+        setTimeout(function(){
+          v1 = Math.max(v1, base);
+          v2 = Math.max(v2, base);
+          v3 = Math.max(v3, base);
+          v4 = Math.max(v4, base);
+          v5 = Math.max(v5, base);
+
+          v1 = Math.min(v1 + k, m1);
+          v2 = Math.min(v2 + k, m2);
+          v3 = Math.min(v3 + k, m3);
+          v4 = Math.min(v4 + k, m4);
+          v5 = Math.min(v5 + k, m5);
+          var curr_d = d;
+
+          var curr_d = curr_d.replace('M' + m1, '@' + v1);
+          curr_d = curr_d.replace('M' + m2, '@' + v2);
+          curr_d = curr_d.replace('M' + m3, '@' + v3);
+          curr_d = curr_d.replace('M' + m4, '@' + v4);
+          curr_d = curr_d.replace('M' + m5, '@' + v5);
+          curr_d = curr_d.replaceAll('@', 'M');
+         $('#judologo-load path').attr('d', curr_d);
+
+         sum_v = v1 + v2 + v3 + v4 + v5;
+
+         v1 =  v1 * ((sum_v % sum_max) / sum_v);
+         v2 =  v2 * ((sum_v % sum_max) / sum_v) * (1 -  ( (v1 + 1) % (m1 + 1) ) / (v1 + 1) );
+         v3 =  v3 * ((sum_v % sum_max) / sum_v) * (1 -  ( (v2 + 1) % (m2 + 1) ) / (v2 + 1) );
+         v4 =  v4 * ((sum_v % sum_max) / sum_v) * (1 -  ( (v3 + 1) % (m3 + 1) ) / (v3 + 1) );
+         v5 =  v5 * ((sum_v % sum_max) / sum_v) * (1 -  ( (v4 + 1) % (m4 + 1) ) / (v4 + 1) );
+        }, 500);
+      }
+      else
+      {
+        v1 = Math.max(v1, base);
+        v2 = Math.max(v2, base);
+        v3 = Math.max(v3, base);
+        v4 = Math.max(v4, base);
+        v5 = Math.max(v5, base);
+
+        v1 = Math.min(v1 + k, m1);
+        v2 = Math.min(v2 + k, m2);
+        v3 = Math.min(v3 + k, m3);
+        v4 = Math.min(v4 + k, m4);
+        v5 = Math.min(v5 + k, m5);
+        var curr_d = d;
+
+        var curr_d = curr_d.replace('M' + m1, '@' + v1);
+        curr_d = curr_d.replace('M' + m2, '@' + v2);
+        curr_d = curr_d.replace('M' + m3, '@' + v3);
+        curr_d = curr_d.replace('M' + m4, '@' + v4);
+        curr_d = curr_d.replace('M' + m5, '@' + v5);
+        curr_d = curr_d.replaceAll('@', 'M');
+       $('#judologo-load path').attr('d', curr_d);
+
+       sum_v = v1 + v2 + v3 + v4 + v5;
+
+       v1 =  v1 * ((sum_v % sum_max) / sum_v);
+       v2 =  v2 * ((sum_v % sum_max) / sum_v) * (1 -  ( (v1 + 1) % (m1 + 1) ) / (v1 + 1) );
+       v3 =  v3 * ((sum_v % sum_max) / sum_v) * (1 -  ( (v2 + 1) % (m2 + 1) ) / (v2 + 1) );
+       v4 =  v4 * ((sum_v % sum_max) / sum_v) * (1 -  ( (v3 + 1) % (m3 + 1) ) / (v3 + 1) );
+       v5 =  v5 * ((sum_v % sum_max) / sum_v) * (1 -  ( (v4 + 1) % (m4 + 1) ) / (v4 + 1) );
+      }
+
+
+   }, 10);
+  }
    setInterval(check_notficiations, 10000);
-   }
-);
+  });
+
+
 window.onload = (event) => {
    expose_page();
 };
