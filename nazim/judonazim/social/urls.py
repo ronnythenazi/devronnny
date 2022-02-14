@@ -25,5 +25,8 @@ path('rate_sub_com_refresh_ajax/', rate_sub_com_refresh_ajax, name='rate_sub_com
 path('sub-com-save-ajax/', sub_com_save_ajax, name='sub-com-save'),
 path('com-to-delete/', com_delete, name='com-delete'),
 path('com-update/', com_update, name='com-update'),
+path('notification/follow-com-notification/<int:notification_pk>', follow_com_notification, name='follow-com-notification'),
+path('notification/follow-sub-com-notification/<int:notification_pk>', follow_sub_com_notification, name='follow-sub-com-notification'),
+path('notification/get-post', get_post_ajax, name = 'get-post'),
 
 ]

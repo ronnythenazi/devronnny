@@ -18,6 +18,42 @@
   {
     fill:red;
   }
+  .profile_link
+  {
+    color:blue !important;
+    font-family:formal2;
+  }
+  .profile_link:hover
+  {
+    color:#79008f !important;
+  }
+  .under_com_link:hover
+  {
+    color:#990021 !important;
+  }
+  .under_post_link:hover
+  {
+    color:#79008f !important;
+  }
+  .under_com_link
+  {
+    color:red !important;
+    font-family:formal2;
+  }
+  .under_post_link
+  {
+    color:black !important;
+    font-family:formal2;
+  }
+
+  .subMenuItem.notification:not(.subMenuItem.notification:last-of-type)
+  {
+    border:2px solid rgba(0,0,0,0.2);
+    border-top:none;
+    border-right:none;
+    border-left:none;
+  }
+
   .bell .notification-counter
   {
     position:absolute;
@@ -36,7 +72,7 @@
     /*box-sizing:border-box;*/
     overflow-y:auto;
     max-height: 250px;
-    width:250px;
+    width:300px;
   }
   .notification-content *
   {
@@ -46,7 +82,7 @@
 {% if notifications.count > 0 %}
 <span class="super-tiny-row-center-align bell red-bell" id="ring-the-bell">
   {% include 'magazine/components/svg/bell.svg' %}
-  <span class="notification-counter">  {{ notifications.count }}</span>
+  <span class="notification-counter">  {{ notifications.count }} </span>
 </span>
 <span class="super-tiny-row-center-align bell" id="dont-ring-the-bell" style="display:none;">
   {% include 'magazine/components/svg/bell.svg' %}
@@ -54,7 +90,7 @@
 {% else %}
 <span class="super-tiny-row-center-align bell red-bell" id="ring-the-bell" style="display:none;">
   {% include 'magazine/components/svg/bell.svg' %}
-  <span class="notification-counter">  {{ notifications.count }}</span>
+  <span class="notification-counter">  {{ notifications.count }} </span>
 </span>
 <span class="super-tiny-row-center-align bell" id="dont-ring-the-bell">
   {% include 'magazine/components/svg/bell.svg' %}
@@ -67,12 +103,16 @@
       {% if notification.notification_type == 1 %}
       <div class="subMenuItem notification">
         <a href="{% url 'social:remove-notification' notification.pk %}?prev_page={{  path | urlencode }}">{% include 'social/components/svg/close.svg' %}</a>
-        <a href="{% url 'social:post-notification' notification.pk notification.post.pk %}">@{{notification.from_user}} נתן לך לייק לפוסט </a>
+        <a class="profile_link"> @{{notification.from_user}} </a>
+        <a  class="under_com_link" href="{% url 'social:post-notification' notification.pk notification.post.pk %}">נתן לך לייק לפוסט </a>
+        <a class="under_post_link" href="{% url 'magazine:anArticle' notification.post.pk %}"> {{ notification.post.title|safe|slice:":15" }} </a>
       </div>
       {% elif notification.notification_type == 4 %}
       <div class="subMenuItem notification">
         <a href="{% url 'social:remove-notification' notification.pk %}?prev_page={{  path | urlencode }}">{% include 'social/components/svg/close.svg' %}</a>
-        <a href="{% url 'social:post-notification' notification.pk notification.post.pk %}">@{{notification.from_user}} נתן לך דיסלייק לפוסט</a>
+        <a class="profile_link">@{{notification.from_user}}</a>
+        <a class="under_com_link"  href="{% url 'social:post-notification' notification.pk notification.post.pk %}">נתן לך דיסלייק לפוסט</a>
+        <a class="under_post_link" href="{% url 'magazine:anArticle' notification.post.pk %}"> {{ notification.post.title|safe|slice:":15" }} </a>
       </div>
       {% endif %}
 
@@ -80,34 +120,60 @@
       {% if notification.notification_type == 1 %}
        <div class="subMenuItem notification">
          <a href="{% url 'social:remove-notification' notification.pk %}?prev_page={{  path | urlencode }}">{% include 'social/components/svg/close.svg' %}</a>
-         <a href="{% url 'social:comment-notification' notification.pk notification.comment.post.pk  notification.comment.pk %}">@{{notification.from_user}} נתן לך לייק לתגובה </a>
+         <a class="profile_link" >@{{notification.from_user}}</a>
+         <a class="under_com_link" href="{% url 'social:comment-notification' notification.pk notification.comment.post.pk  notification.comment.pk %}">{{notification.comment.body|slice:":15"}} נתן לך לייק לתגובה </a>
+         <a class="under_post_link" href="{% url 'magazine:anArticle' notification.comment.post.pk %}">  תחת מאמר {{ notification.comment.post.title|safe|slice:":15" }} </a>
        </div>
       {% elif notification.notification_type == 2 %}
       <div class="subMenuItem notification">
         <a href="{% url 'social:remove-notification' notification.pk %}?prev_page={{  path | urlencode }}">{% include 'social/components/svg/close.svg' %}</a>
-        <a href="{% url 'social:comment-notification' notification.pk notification.comment.post.pk  notification.comment.pk %}">@{{notification.from_user}} הגיב לך על המאמר </a>
+        <a class="profile_link" >@{{notification.from_user}}</a>
+        <a class="under_com_link" href="{% url 'social:comment-notification' notification.pk notification.comment.post.pk  notification.comment.pk %}"> הגיב לך על המאמר </a>
+        <a class="under_post_link" href="{% url 'magazine:anArticle' notification.comment.post.pk %}"> {{ notification.comment.post.title|safe|slice:":15" }} </a>
       </div>
       {% elif notification.notification_type == 4 %}
        <div class="subMenuItem notification">
          <a href="{% url 'social:remove-notification' notification.pk %}?prev_page={{  path | urlencode }}">{% include 'social/components/svg/close.svg' %}</a>
-         <a href="{% url 'social:comment-notification' notification.pk notification.comment.post.pk  notification.comment.pk %}">@{{notification.from_user}}נתן לך דיסלייק לתגובה</a>
+         <a class="profile_link" >@{{notification.from_user}}</a>
+         <a class="under_com_link" href="{% url 'social:comment-notification' notification.pk notification.comment.post.pk  notification.comment.pk %}"> נתן לך דיסלייק לתגובה {{notification.comment.body|slice:":15"}} </a>
+         <a class="under_post_link" href="{% url 'magazine:anArticle' notification.comment.post.pk %}"> תחת מאמר {{ notification.comment.post.title|safe|slice:":15" }} </a>
+       </div>
+       {% elif notification.notification_type == 5 %}
+       <div class="subMenuItem notification">
+         <a href="{% url 'social:remove-notification' notification.pk %}?prev_page={{  path | urlencode }}">{% include 'social/components/svg/close.svg' %}</a>
+         <a class="profile_link" >@{{notification.from_user}}</a>
+         <a class="under_com_link" href="{% url 'social:follow-com-notification' notification.pk %}"> הגיב למאמר </a>
+         <a class="under_post_link" href="{% url 'magazine:anArticle' notification.comment.post.pk %}"> {{ notification.comment.post.title|safe|slice:":15" }}</a>
        </div>
       {% endif %}
   {% elif notification.com_of_com %}
       {% if notification.notification_type == 1 %}
       <div class="subMenuItem notification">
         <a href="{% url 'social:remove-notification' notification.pk %}?prev_page={{  path | urlencode }}">{% include 'social/components/svg/close.svg' %}</a>
-        <a href="{% url 'social:com-of-com-notification' notification.pk notification.com_of_com.comment.post.pk  notification.com_of_com.comment.pk notification.com_of_com.pk %}">@{{notification.from_user}}נתן לך לייק</a>
+        <a class="profile_link" >@{{notification.from_user}}</a>
+        <a class="under_com_link" href="{% url 'social:com-of-com-notification' notification.pk notification.com_of_com.comment.post.pk  notification.com_of_com.comment.pk notification.com_of_com.pk %}"> נתן לך לייק לתגובה {{notification.com_of_com.body|slice:":15"}} </a>
+        <a class="under_post_link" href="{% url 'magazine:anArticle' notification.com_of_com.comment.post.pk %}"> תחת מאמר {{notification.com_of_com.comment.post.title|safe|slice:":15"}} </a>
       </div>
       {% elif notification.notification_type == 2 %}
       <div class="subMenuItem notification">
         <a href="{% url 'social:remove-notification' notification.pk %}?prev_page={{  path | urlencode }}">{% include 'social/components/svg/close.svg' %}</a>
-        <a href="{% url 'social:com-of-com-notification' notification.pk notification.com_of_com.comment.post.pk  notification.com_of_com.comment.pk notification.com_of_com.pk %}">@{{notification.from_user}} הגיב לך </a>
+        <a class="profile_link" >@{{notification.from_user}}</a>
+        <a class="under_com_link" href="{% url 'social:com-of-com-notification' notification.pk notification.com_of_com.comment.post.pk  notification.com_of_com.comment.pk notification.com_of_com.pk %}"> הגיב לך תחת תגובה {{notification.com_of_com.comment.body|slice:":15"}} </a>
+        <a class="under_post_link" href="{% url 'magazine:anArticle' notification.com_of_com.comment.post.pk %}"> תחת מאמר {{notification.com_of_com.comment.post.title|safe|slice:":15"}} </a>
       </div>
       {% elif notification.notification_type == 4 %}
       <div class="subMenuItem notification">
         <a href="{% url 'social:remove-notification' notification.pk %}?prev_page={{  path | urlencode }}">{% include 'social/components/svg/close.svg' %}</a>
-        <a href="{% url 'social:com-of-com-notification' notification.pk notification.com_of_com.comment.post.pk  notification.com_of_com.comment.pk notification.com_of_com.pk %}">@{{notification.from_user}}נתן לך דיסלייק</a>
+        <a class="profile_link" >@{{notification.from_user}}</a>
+        <a class="under_com_link" href="{% url 'social:com-of-com-notification' notification.pk notification.com_of_com.comment.post.pk  notification.com_of_com.comment.pk notification.com_of_com.pk %}"> נתן לך דיסלייק לתגובה {{notification.com_of_com.body|slice:":15"}}</a>
+        <a class="under_post_link" href="{% url 'magazine:anArticle' notification.com_of_com.comment.post.pk %}"> תחת מאמר {{notification.com_of_com.comment.post.title|safe|slice:":15"}} </a>
+      </div>
+      {% elif notification.notification_type == 6 %}
+      <div class="subMenuItem notification">
+        <a href="{% url 'social:remove-notification' notification.pk %}?prev_page={{  path | urlencode }}">{% include 'social/components/svg/close.svg' %}</a>
+        <a class="profile_link" >@{{notification.from_user}}</a>
+        <a class="under_com_link" href="{% url 'social:follow-sub-com-notification' notification.pk %}"> הגיב תחת תגובה {{notification.com_of_com.comment.body|safe|slice:":15"}} </a>
+        <a class="under_post_link" href="{% url 'magazine:anArticle' notification.com_of_com.comment.post.pk %}">  תחת מאמר {{ notification.com_of_com.comment.post.title|safe|slice:":15" }} </a>
       </div>
       {% endif %}
   {% else %}
@@ -131,8 +197,11 @@
 <input type="hidden"  id="post-notification"  value="{% url 'social:post-notification' 1 2 %}"/>
 <input type="hidden"  id="comment-notification"  value="{% url 'social:comment-notification' 1 2 3 %}"/>
 <input type="hidden"  id="com-of-com-notification"  value="{% url 'social:com-of-com-notification' 1 2 3 4 %}"/>
+<input type="hidden"  id="follow-com-notification"  value="{% url 'social:follow-com-notification' 1 %}"/>
+<input type="hidden"  id="follow-sub-com-notification"  value="{% url 'social:follow-sub-com-notification' 1 %}"/>
 <input type="hidden"  id="follow-notification"  value="{% url 'social:follow-notification' 1 2 %}"/>
 <input type="hidden"  id="remove_notification"  value="{% url 'social:remove-notification' 1 %}?prev_page={{  path | urlencode }}"/>
+<input type="hidden"  id="redirect-to-post" value="{% url 'magazine:anArticle' 1 %}"/>
 
 
 </div>

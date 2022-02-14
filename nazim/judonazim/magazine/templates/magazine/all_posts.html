@@ -173,3 +173,22 @@
 </div>
 
 {% endblock body %}
+
+{% block moreJs %}
+<script>
+  $(window).on("scroll", function() {
+  	var scrollHeight = $(document).height();
+  	var scrollPosition = $(window).height() + $(window).scrollTop();
+    var bottom = 360;
+  	if (scrollHeight - scrollPosition < bottom ) {
+      $('.pos-btm-left').css('bottom', bottom + 'px');
+      $('.pos-btm-right').css('bottom', bottom + 'px');
+  	}
+    else
+    {
+      $('.pos-btm-left').css('bottom', '50px');
+      $('.pos-btm-right').css('bottom', '50px');
+    }
+  });
+</script>
+{% endblock moreJs %}

@@ -45,6 +45,11 @@ class BlogPost(models.Model):
     content =  RichTextField(blank = False, null = False) #models.TextField(null = False)
     likes = models.ManyToManyField(User, related_name = "post_likes", blank = True)
     dislikes = models.ManyToManyField(User, related_name = "post_dislikes", blank = True)
+    followers = models.ManyToManyField(User, related_name = "post_followers", blank = True)
+
+
+    def total_followers(self):
+        return self.follow.count()
 
     def total_likes(self):
         return self.likes.count()
@@ -85,6 +90,11 @@ class Comment(models.Model):
     date_last_update = models.DateTimeField(auto_now = True, null = True, blank = True)
     likes = models.ManyToManyField(User, related_name ="likes_com", blank = True)
     dislikes = models.ManyToManyField(User, related_name ="dislikes_com", blank = True)
+    followers = models.ManyToManyField(User, related_name = "com_followers", blank = True)
+
+
+    def total_followers(self):
+        return self.follow.count()
 
     def total_likes(self):
         return self.likes.count()
@@ -124,6 +134,11 @@ class comment_of_comment(models.Model):
     date_last_update = models.DateTimeField(auto_now = True, null = True, blank = True)
     likes = models.ManyToManyField(User, related_name ="likes_com_of_com", blank = True)
     dislikes = models.ManyToManyField(User, related_name ="dislikes_com_of_com", blank = True)
+
+    followers = models.ManyToManyField(User, related_name = "sub_com_followers", blank = True)
+
+    def total_followers(self):
+        return self.follow.count()
 
     def total_likes(self):
         return self.likes.count()
@@ -212,7 +227,9 @@ class Album(models.Model):
 
 
 class Notification(models.Model):
-    # 1=like, 2=comment, 3=follow, 4=dislike
+    # 1=like, 2=comment, 3=follow user, 4=dislike, 5=com on post you are follow,
+    # 6=sub_com on post you are follow, #7 sub_com on com you are follow
+
     notification_type = models.IntegerField()
     to_user = models.ForeignKey(User, related_name = 'notification_to', on_delete = models.CASCADE, null = True)
     from_user = models.ForeignKey(User, related_name = 'notification_form' , on_delete = models.CASCADE, null = True, default = get_default_user)

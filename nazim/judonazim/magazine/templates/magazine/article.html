@@ -849,7 +849,6 @@ $('.respond-to-who').click(function(){
 
 function clone_sub_com(sub_com_id, com_parent_id, body, time, date, author_name, replied_to_sub_com_id = '',  profile_img = '')
 {
-
   var selector = '#clone-and-unwrap-this-sub-com';
   var newElement = $(selector).clone(true);
   $(newElement).find('.item.subitem.rate-com-of-com-form').attr('id', 'sub-comment' + sub_com_id);
@@ -1002,7 +1001,6 @@ function f_sub_com_save()
            author_name = $('#curr-user').val();
          }
          var profile_img = $('#profile-img').val();
-
          clone_sub_com(sub_com_id = sub_com_id, com_parent_id = com_parent_id, body=body, time = time, date = date, author_name = author_name, replied_to_sub_com_id = replied_to_sub_com_id, profile_img);
          $(ancestor).find('.reply-label-brother').hide();
          var total_coms = $('.item').length;

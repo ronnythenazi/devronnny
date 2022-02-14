@@ -10,6 +10,7 @@ from django.db.models import Count, Q
 from django.utils.dateparse import parse_datetime
 from datetime import datetime, timedelta
 from .dates import *
+from social.notifications import follow_post_by_sending_com
 import math
 
 
@@ -251,7 +252,7 @@ def Article(request, pk, pos_id = '#start'):
                     notification = Notification.objects.create(notification_type = 2, from_user = request.user, comment = com_obj, to_user = post.author)
                 else:
                     notification = Notification.objects.create(notification_type = 2, comment = com_obj, to_user = post.author)
-
+                follow_post_by_sending_com(com = com_obj)
                 dict = {'pos_id':pos_id, 'object':post, 'comment_frm':comment_frm, 'com_of_com_frm':com_of_com_frm , 'status':'posted', 'com_obj':com_obj, 'total_likes':total_likes, 'total_dislikes':total_dislikes, 'liked':liked, 'disliked' :disliked}
                 return render(request, 'magazine/article.html', dict )
 
@@ -266,7 +267,7 @@ def Article(request, pk, pos_id = '#start'):
                 if request.user.is_authenticated:
                     notification = Notification.objects.create(notification_type = 2, from_user = request.user, com_of_com = com_of_com, to_user = comment.comment_usr)
                 else:
-                    notification = Notification.objects.create(notification_type = 2, com_of_com = com_of_com, to_user = comment.comment_usr)                
+                    notification = Notification.objects.create(notification_type = 2, com_of_com = com_of_com, to_user = comment.comment_usr)
                 dict = {'pos_id':pos_id, 'object':post, 'comment_frm':comment_frm, 'com_of_com_frm':com_of_com_frm , 'status':'posted', 'com_obj':comment, 'total_likes':total_likes, 'total_dislikes':total_dislikes, 'liked':liked, 'disliked' :disliked}
                 return render(request, 'magazine/article.html', dict)
 

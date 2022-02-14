@@ -43,6 +43,7 @@
     .not-page-load
     {
       opacity: 0;
+      display: none !important;
     }
     #page-load
     {
@@ -79,7 +80,7 @@
             </div>
        </span>
      </div>
-    <!-- <div id="not-page-load">-->
+
      <div class="menu">
 
 
@@ -440,8 +441,7 @@ function expose_page()
     {duration:500,
     complete:function(){
        $('#page-load').css('display', 'none');
-       //$('#not-page-load').show('slow');
-      // $('#not-page-load').children().first().unwrap();
+
       $('body>*').removeClass('not-page-load');
        $('#page-load').remove();
        $('body, html').animate({scrollTop:300}, 100).animate({scrollTop:0}, 100);
@@ -540,15 +540,15 @@ function expose_page()
 
         if(String(next_notification["notification_type"]) == "1")
         {
-          msg= "נתן לך לייק לפוסט";
+          msg= " נתן לך לייק לפוסט ";
           var elem = build_notification_object(from_user_id, msg, next_notification["notification_type"], from_user, 'post-notification', notification_pk, next_notification['post']);
-          $(parent).prepend(elem);
+          //$(parent).prepend(elem);
         }
         else if(String(next_notification["notification_type"]) == "4")
         {
-          msg= "נתן לך דיסלייק לפוסט";
+          msg= " נתן לך דיסלייק לפוסט ";
           var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'post-notification', notification_pk, next_notification['post']);
-          $(parent).prepend(elem);
+        //  $(parent).prepend(elem);
         }
       }
       else if(next_notification["comment"])
@@ -568,25 +568,40 @@ function expose_page()
                  return;
                }
                var comment = result[0]['fields'];
-               var comment_pk = result[0]['pk']
+               var comment_pk = result[0]['pk'];
+               var title = comment['body'];
+               title = stripHtml(title);
 
                if(String(next_notification["notification_type"]) == "1")
                {
-                 msg= "נתן לך לייק לתגובה";
+                 msg = " נתן לך לייק לתגובה ";
+                 msg += title.substring(0, Math.min(title.length, 15)) + ' ';
                  var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'comment-notification', notification_pk, comment['post'], next_notification['comment']);
-                 $(parent).prepend(elem);
+                 //$(parent).prepend(elem);
                }
                else if(String(next_notification["notification_type"]) == "2")
                {
-                 msg= "הגיב לך על המאמר";
+                 msg= " הגיב לך על המאמר ";
                  var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'comment-notification', notification_pk, comment['post'], next_notification['comment']);
-                 $(parent).prepend(elem);
+                // $(parent).prepend(elem);
+               }
+               else if(String(next_notification["notification_type"]) == "4")
+               {
+                 msg= " נתן לך דיסלייק לתגובה ";
+                 msg += title.substring(0, Math.min(title.length, 15)) + ' ';
+                 var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'comment-notification', notification_pk, comment['post'], next_notification['comment']);
+                // $(parent).prepend(elem);
+               }
+               else if(String(next_notification["notification_type"]) == "5")
+               {
+                 msg= " הגיב למאמר ";
+                 //msg += title.substring(0, Math.min(title.length, 20)) + ' ';
+                 var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'follow-com-notification', notification_pk);
+                 //$(parent).prepend(elem);
                }
                else
                {
-                 msg= "נתן לך דיסלייק לתגובה";
-                 var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'comment-notification', notification_pk, comment['post'], next_notification['comment']);
-                 $(parent).prepend(elem);
+
                }
              },
                error: function (response) {
@@ -624,28 +639,44 @@ function expose_page()
                  dataType: 'json',
                  success: function (response2) {
                    var result2 = JSON.parse(response2["comment"]);
-                   var comment = result2[0]['fields']
-                   var post =comment['post']
+                   var comment = result2[0]['fields'];
+                   var sub_com_title = com_of_com['body'];
+                   sub_com_title = stripHtml(sub_com_title);
+                   var com_title = comment['body'];
+                   com_title = stripHtml(com_title);
+                   var post =comment['post'];
                    if(String(next_notification["notification_type"]) == "1")
                    {
-
-
-                     msg= "נתן לך לייק";
+                     msg= " נתן לך לייק לתגובה ";
+                     msg += sub_com_title.substring(0, Math.min(sub_com_title.length, 15)) + ' ';
                      var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'com-of-com-notification', notification_pk, post, com_of_com['comment'], com_of_com_pk);
-                     $(parent).prepend(elem);
+                     //$(parent).prepend(elem);
                    }
                    else if(String(next_notification["notification_type"]) == "2")
                    {
-                     msg= "הגיב לך";
+                     msg = " הגיב לך תחת תגובה ";
+                     msg += com_title.substring(0, Math.min(com_title.length, 15)) + ' ';
                      var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'com-of-com-notification', notification_pk, post, com_of_com['comment'], com_of_com_pk);
-                     $(parent).prepend(elem);
+                     //$(parent).prepend(elem);
 
+                   }
+                   else if(String(next_notification["notification_type"]) == "4")
+                   {
+                     msg= " נתן לך דיסלייק לתגובה ";
+                     msg += sub_com_title.substring(0, Math.min(sub_com_title.length, 15)) + ' ';
+                     var elem = build_notification_object(from_user_id, msg, next_notification["notification_type"], from_user, 'com-of-com-notification', notification_pk, post, com_of_com['comment'], com_of_com_pk);
+                     //$(parent).prepend(elem);
+
+                   }
+                   else if(String(next_notification["notification_type"]) == "6")
+                   {
+                     msg= " הגיב תחת תגובה ";
+                     msg += com_title.substring(0, Math.min(com_title.length, 15)) + ' ';
+                     var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'follow-sub-com-notification', notification_pk);
+                     //$(parent).prepend(elem);
                    }
                    else
                    {
-                     msg= "נתן לך דיסלייק";
-                     var elem = build_notification_object(from_user_id, msg, next_notification["notification_type"], from_user, 'com-of-com-notification', notification_pk, post, com_of_com['comment'], com_of_com_pk);
-                     $(parent).prepend(elem);
 
                    }
                  },
@@ -707,19 +738,75 @@ function expose_page()
      var next = i + 2;
      href2 = href2.replace('-' + next + '-', args[i]);
    }
-
-   var a2 = '<a href="';
+   var profile_link = '<a class="profile_link">' + "@" + from_user  + '</a>';
+   var a2 = '<a class="under_com_link" href="';
    a2 = a2 + href2 +'">';
 
-   a2 += "@" + from_user + ' ' +  msg  + "</a>";
-   obj = obj + a1 + a2 + "</div>";
+   a2 +=  ' ' +  msg  + "</a>";
+ var a3 = '';
+ var parent = $('.notification-content');
+ if(view_name != 'follow-notification')
+ {
+     get_post(notification_pk, function(result){
+     var post = result;
+     var post_id = post['id'];
+     var post_title = post['title'];
+     var href3 = $('#redirect-to-post').val();
+     href3 = href3.replace('1', post_id);
+     a3 = '<a class="under_post_link" href="';
+     a3 += href3 + '">';
+     var a3_prefix = " תחת מאמר ";
+     if( (view_name == 'comment-notification' && notification_type == 2) || view_name == 'post-notification' || view_name == 'follow-com-notification')
+     {
+       a3_prefix = '';
+     }
+     a3 = a3 + a3_prefix + post_title.substring(0, Math.min(post_title.length, 15)) + "</a>";
+     obj = obj + a1 + profile_link + a2 + a3 + "</div>";
+     $(parent).prepend(obj);
+
+   });
+ }
+ else
+ {
+   obj = obj + a1 + profile_link  + a2 + "</div>";
+   $(parent).prepend(obj);
+ }
+
    return obj;
 
 
   }
 
+function get_post(notification_pk, callback)
+{
+  var result;
+  var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+     $.ajax({
+         type: 'GET',
+         //dataType: 'json',
+         url: "{% url 'social:get-post' %}",
+         data: {'notification_pk':notification_pk,
+               'csrfmiddlewaretoken':csrftoken,
+         },
+         success: callback, /*function(response) {
+         result = response;
+       },*/
+       error:function(response)
+       {
+           console.log(response);
+       },
 
+     });
+  return result;
 
+}
+
+function stripHtml(html)
+{
+   let tmp = document.createElement("DIV");
+   tmp.innerHTML = html;
+   return tmp.textContent || tmp.innerText || "";
+}
 
 </script>
 
@@ -727,7 +814,7 @@ function expose_page()
   {%block moreJs%} {%endblock moreJs%}
 
 
-<!--</div>--> <!-- not-page-load-->
+
   </body>
 
 </html>

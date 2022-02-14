@@ -18,6 +18,14 @@ from django.contrib.auth.models import User
 from .calcs import get_total_seconds
 from .members_permissions import is_user_allowed_to_edit
 from .coms import get_com, get_all_nested_coms_id
+from .notifications import follow_com_by_sending_sub_com, follow_post, follow_com, get_post
+
+def get_post_ajax(request):
+    print('inside get_post_ajax')
+    if request.method == 'GET' and request.is_ajax:
+        notification_pk = request.GET.get('notification_pk')
+        post = get_post(notification_pk)
+        return JsonResponse({'id':str(post.id), 'title':str(post.title)})
 
 def com_update(request):
     print('inside com_update')
@@ -157,6 +165,7 @@ def sub_com_save_ajax(request):
         print('sub_com_save_ajax: time =' + t)
         date = str(sub_com.date_added.strftime('%d/%m/%Y'))
         print('sub_com_save_ajax: date =' + date)
+        follow_com_by_sending_sub_com(sub_com)
         return JsonResponse({'sub_com_id':str(sub_com.id), 'date':date, 'time':t})
 
 def rate_sub_com_save_ajax(request):
@@ -189,6 +198,7 @@ def rate_sub_com_save_ajax(request):
                 com_of_com.likes.remove(request.user)
                 notification = Notification.objects.create(notification_type = 4, from_user = request.user, com_of_com = com_of_com, to_user = com_of_com.comment_of_comment_usr)
                 print('added dislike for com_of_com')
+        follow_com(com_of_com.comment, request.user)
     return JsonResponse({})
 
 def rate_post_refresh_ajax(request):
@@ -269,6 +279,8 @@ def rate_com_save_ajax(request):
                 com.dislikes.add(request.user)
                 com.likes.remove(request.user)
                 notification = Notification.objects.create(notification_type = 4, from_user = request.user, comment = com, to_user = com.comment_usr)
+        follow_com(com, request.user)
+
     return JsonResponse({})
 
 def rate_post_save_ajax(request):
@@ -300,6 +312,7 @@ def rate_post_save_ajax(request):
                 post.dislikes.add(request.user)
                 post.likes.remove(request.user)
                 notification = Notification.objects.create(notification_type = 4, from_user = request.user, post = post, to_user = post.author)
+        follow_post(post, request.user)
     return JsonResponse({})
 
 
@@ -413,6 +426,27 @@ class PostNotification(View):
         notification.save()
 
         return redirect('magazine:anArticle', pk = post_pk)
+
+def follow_com_notification(request, notification_pk):
+    notification = Notification.objects.get(pk = notification_pk)
+    com = notification.comment
+    com_id = com.id
+    post_id = com.post.id
+    notification.user_has_seen = True
+    notification.save()
+    return redirect('magazine:anArticle', pk = post_id, pos_id = "-replace-me-comment" + str(com_id))
+
+def follow_sub_com_notification(request, notification_pk):
+    notification = Notification.objects.get(pk = notification_pk)
+    sub_com = notification.com_of_com
+    com = sub_com.comment
+    post_id = com.post.id
+    sub_com_id = sub_com.id
+    notification.user_has_seen = True
+    notification.save()
+    return redirect('magazine:anArticle', pk = post_id, pos_id = "-replace-me-sub-comment" + str(sub_com_id))
+
+
 
 class ComOfComNotification(View):
     def get(self, request, notification_pk, post_pk, comment_pk, com_of_com_pk, *args, **kwargs):
