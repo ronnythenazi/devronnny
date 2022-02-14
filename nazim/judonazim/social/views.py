@@ -417,67 +417,83 @@ def remove_notification(request, notification_pk):
     #return HttpResponseRedirect(prev_page)
     return HttpResponseRedirect(prev_page)
 
+def page_not_found(request):
+    return render(request, 'social/page_404.html')
+
 class PostNotification(View):
     def get(self, request, notification_pk, post_pk, *args, **kwargs):
-        notification = Notification.objects.get(pk = notification_pk)
-        post = BlogPost.objects.get(pk = post_pk)
-
-        notification.user_has_seen = True
-        notification.save()
-
-        return redirect('magazine:anArticle', pk = post_pk)
+        try:
+            notification = Notification.objects.get(pk = notification_pk)
+            post = BlogPost.objects.get(pk = post_pk)
+            notification.user_has_seen = True
+            notification.save()
+            return redirect('magazine:anArticle', pk = post_pk)
+        except Notification.DoesNotExist:
+            return redirect('social:page-404')
 
 def follow_com_notification(request, notification_pk):
-    notification = Notification.objects.get(pk = notification_pk)
-    com = notification.comment
-    com_id = com.id
-    post_id = com.post.id
-    notification.user_has_seen = True
-    notification.save()
-    return redirect('magazine:anArticle', pk = post_id, pos_id = "-replace-me-comment" + str(com_id))
+    try:
+        notification = Notification.objects.get(pk = notification_pk)
+        com = notification.comment
+        com_id = com.id
+        post_id = com.post.id
+        notification.user_has_seen = True
+        notification.save()
+        return redirect('magazine:anArticle', pk = post_id, pos_id = "-replace-me-comment" + str(com_id))
+    except Notification.DoesNotExist:
+        return redirect('social:page-404')
+
 
 def follow_sub_com_notification(request, notification_pk):
-    notification = Notification.objects.get(pk = notification_pk)
-    sub_com = notification.com_of_com
-    com = sub_com.comment
-    post_id = com.post.id
-    sub_com_id = sub_com.id
-    notification.user_has_seen = True
-    notification.save()
-    return redirect('magazine:anArticle', pk = post_id, pos_id = "-replace-me-sub-comment" + str(sub_com_id))
-
+    try:
+        notification = Notification.objects.get(pk = notification_pk)
+        sub_com = notification.com_of_com
+        com = sub_com.comment
+        post_id = com.post.id
+        sub_com_id = sub_com.id
+        notification.user_has_seen = True
+        notification.save()
+        return redirect('magazine:anArticle', pk = post_id, pos_id = "-replace-me-sub-comment" + str(sub_com_id))
+    except Notification.DoesNotExist:
+        return redirect('social:page-404')
 
 
 class ComOfComNotification(View):
     def get(self, request, notification_pk, post_pk, comment_pk, com_of_com_pk, *args, **kwargs):
-        notification = Notification.objects.get(pk = notification_pk)
-        comment =  Comment.objects.get(pk = comment_pk)
-        com_of_com =  comment_of_comment.objects.get(pk = com_of_com_pk)
-        post = BlogPost.objects.get(pk = post_pk)
+        try:
+            notification = Notification.objects.get(pk = notification_pk)
+            comment =  Comment.objects.get(pk = comment_pk)
+            com_of_com =  comment_of_comment.objects.get(pk = com_of_com_pk)
+            post = BlogPost.objects.get(pk = post_pk)
+            notification.user_has_seen = True
+            notification.save()
+            return redirect('magazine:anArticle', pk = post_pk, pos_id = "-replace-me-sub-comment" + str(com_of_com_pk))
+        except Notification.DoesNotExist:
+            return redirect('social:page-404')
 
-        notification.user_has_seen = True
-        notification.save()
 
-        return redirect('magazine:anArticle', pk = post_pk, pos_id = "-replace-me-sub-comment" + str(com_of_com_pk))
 
 class CommentNotification(View):
     def get(self, request, notification_pk, post_pk, comment_pk, *args, **kwargs):
-        notification = Notification.objects.get(pk = notification_pk)
-        comment =  Comment.objects.get(pk = comment_pk)
-        post = BlogPost.objects.get(pk = post_pk)
+        try:
+            notification = Notification.objects.get(pk = notification_pk)
+            comment =  Comment.objects.get(pk = comment_pk)
+            post = BlogPost.objects.get(pk = post_pk)
+            notification.user_has_seen = True
+            notification.save()
+            return redirect('magazine:anArticle', pk = post_pk, pos_id = "-replace-me-comment" + str(comment_pk))
+        except Notification.DoesNotExist:
+            return redirect('social:page-404')
 
-        notification.user_has_seen = True
-        notification.save()
-
-        return redirect('magazine:anArticle', pk = post_pk, pos_id = "-replace-me-comment" + str(comment_pk))
 
 
 class FollowNotification(View):
     def get(self, request, notification_pk, profile_pk, *args, **kwargs):
-        notification = Notification.objects.get(pk = notification_pk)
-        profile = Profile.objects.get(pk = profile_pk)
-
-        notification.user_has_seen = True
-        notification.save()
-
-        return redirect('magazine:magazineNews')
+        try:
+            notification = Notification.objects.get(pk = notification_pk)
+            profile = Profile.objects.get(pk = profile_pk)
+            notification.user_has_seen = True
+            notification.save()
+            return redirect('magazine:magazineNews')
+        except Notification.DoesNotExist:
+            return redirect('social:page-404')

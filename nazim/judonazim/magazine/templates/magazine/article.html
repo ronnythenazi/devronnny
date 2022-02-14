@@ -778,6 +778,8 @@ function update_total_coms_lbl()
      $(this).parents('.comment-edit-parent').first().find('.display-view').show();
      $(this).parents('.comment-edit-parent').first().find('.form-view').hide();
    }
+
+
     $(document).ready(function(){
        $('.comment.item').each(function(){
          var sub_comments_count = $(this).find('.subitem').length;
@@ -793,21 +795,49 @@ function update_total_coms_lbl()
       {
         $('#lbl-count-comments').text(total_comments);
       }
+      //start jump to section
       if("{{status}}" == "posted")
       {
          $('.comment-field').val('');
          var a_id =  "{{com_obj.pk}}";
          var href = $("#" + String(a_id)).attr("href");
-         window.location.href = href
-      }
-      var replace_str = '-replace-me-'
-      var curr_url = window.location.href
+           var tiktok = setInterval(function(){
 
+           var com_top = $(href).offset().top;
+             if( $('#page-load').length <= 0)
+             {
+
+               $('body, html').animate({scrollTop:com_top - 200}, 1000);
+
+               clearInterval(tiktok);
+             }
+          }, 100);
+          //window.location.href = href;
+          //window.history.replaceState("", "", href);
+      }
+      var replace_str = '-replace-me-';
+      var curr_url = window.location.href;
       if(curr_url.includes(replace_str))
       {
-        jump_to = curr_url.replace('-replace-me-', '#')
-        window.location.href = jump_to
+        var a_id = curr_url.substring(curr_url.indexOf('-replace-me-') + 12);
+        a_id =  '#' + a_id;
+        jump_to = curr_url.replace('-replace-me-', '#');
+
+        var tiktok2 = setInterval(function(){
+          var sub_com_top = $(a_id).offset().top;
+           if( $('#page-load').length <= 0)
+           {
+
+             $('body, html').animate({scrollTop:sub_com_top - 200 }, 1000);
+
+             clearInterval(tiktok2);
+           }
+        }, 100);
+        window.history.replaceState("", "", jump_to);
+        //window.location.href = jump_to;
+
       }
+      //end jump to section
       setInterval(check_post_rating, 10000);
       setInterval(check_com_rating, 30000);
       setInterval(check_sub_com_rating, 60000);
