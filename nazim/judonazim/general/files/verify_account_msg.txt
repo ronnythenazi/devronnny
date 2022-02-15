@@ -1,0 +1,8 @@
+
+
+<div style="font-size:2rem;font-weight:bold;">
+  Hello    <span style="color:blue;">@username</span>   Please use this link to verify your account
+</div>
+<div>
+  @link
+</div>

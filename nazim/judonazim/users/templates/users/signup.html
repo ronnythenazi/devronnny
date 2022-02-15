@@ -22,6 +22,14 @@
 <div class="center" style="gap:50px;">
 <div class="signfieldcolumn" style="width:100%;">
   <span style="color:red;">{{ form.username.errors }}</span>
+  {% if no_error == 'true' %}
+  <div style="display:flex;flex-direction:column;align-items:center;color:green;font-size:2rem;">
+    <span>פרטיך נשמרו, אך חשבונך עדין לא פעיל</span>
+    <span>ברגעים אלו אמור להישלח לך דואר למייל שהזנת</span>
+    <span>נא בדוק את את תיבת המייל, ולחץ על הלינק שנשלח לך, כדי לאמת את חשבונך</span>
+    <span>וכדי שחשבונך יופעל</span>
+  </div>
+  {% endif %}
   <div class="signfieldrow">
     <span class="label ice-cream-clr">שם משתמש</span>
     <span class="super-tiny-row-center-align ronny-style-field">

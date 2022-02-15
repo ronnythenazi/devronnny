@@ -24,8 +24,12 @@ class SignInFrm(forms.ModelForm):
         username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
         user = authenticate(username=username, password=password)
-        if not user or not user.is_active:
+        #if not user or not user.is_active:
+        #    raise forms.ValidationError("מצטער, שם משתמש או סיסמה אינם נכונים, נסה שוב")
+        if not user:
             raise forms.ValidationError("מצטער, שם משתמש או סיסמה אינם נכונים, נסה שוב")
+        if not user.is_active:
+            raise forms.ValidationError("חשבונך טרם הופעל, נא לחץ על הלינק שנשלח לך לתיבת המייל, בכדי שחשבונך יופעל")
         return self.cleaned_data
 
 class SignUpFrm(forms.ModelForm):

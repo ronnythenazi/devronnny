@@ -118,3 +118,14 @@ https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file
 
 #how-to-return-a-json-response-in-django-gen
 #https://dev.to/brian101co/how-to-return-a-json-response-in-django-gen
+
+#verification email link
+  #part 1
+  #https://youtu.be/e3UhXKVECPI
+  #part 2
+  #https://youtu.be/IYncWej3Mn4
+
+
+  #html to email body
+
+  #https://stackoverflow.com/questions/2809547/creating-email-templates-with-django

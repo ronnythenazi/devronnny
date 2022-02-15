@@ -27,5 +27,5 @@ urlpatterns = [
  path('rate-com-of-com/<int:pk>', views.rate_com_of_com, name = 'rate_com_of_com'),
  path('about-ronny-the-nazi/', views.about_ronny_the_nazi , name="about_ronny_the_nazi"),
  path('login/', login_view, name = 'login'),
-
+ 
 ]

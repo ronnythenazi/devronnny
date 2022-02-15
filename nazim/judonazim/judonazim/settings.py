@@ -55,9 +55,7 @@ INSTALLED_APPS = [
         'magazine.apps.MagazineConfig',
         'users',
         'social',
-
-
-
+        'general',
     ]
 
 
@@ -202,6 +200,7 @@ if DEBUG:
         os.path.join(BASE_DIR, 'magazine', 'static'),
         os.path.join(BASE_DIR, 'users', 'static'),
         os.path.join(BASE_DIR, 'social', 'static'),
+        os.path.join(BASE_DIR, 'general', 'static'),
       )
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 else:
@@ -249,3 +248,11 @@ if not DEBUG:
 
 #LOGIN_REDIRECT_URL = 'magazine:magazineNews'
 LOGOUT_REDIRECT_URL = 'magazine:magazineNews'
+
+
+EMAIL_HOST = os.environ.get('EMAIL_HOST')
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
+EMAIL_PORT = 587
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')

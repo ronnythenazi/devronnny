@@ -18,9 +18,11 @@ from django.urls import path, include
 from blog import urls
 from magazine import urls
 from social import urls
+from general import urls
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
 from django.conf.urls.static import static
+
 if settings.DEBUG:
     from django.contrib import admin
 
@@ -30,6 +32,7 @@ if settings.DEBUG:
         path('admin/', admin.site.urls),
         path('magazine/', include('magazine.urls')),
         path('social/', include('social.urls')),
+        path('general/', include('general.urls')),
         path('users/', include('django.contrib.auth.urls')),
         path('users/', include('users.urls')),
 
@@ -41,6 +44,7 @@ else:
       path('', include('blog.urls')),
       path('magazine/', include('magazine.urls')),
       path('social/', include('social.urls')),
+      path('general/', include('general.urls')),
       path('users/', include('django.contrib.auth.urls')),
       path('users/', include('users.urls')),
     ]
