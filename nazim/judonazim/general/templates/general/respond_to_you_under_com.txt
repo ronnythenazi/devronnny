@@ -1,0 +1,7 @@
+שלום {{to_user}} זו היא הודעה מיהודונאציזם
+{{from_user}} הגיב לך תחת תגובה {{respond_to_com|safe|slice:":20"}} תחת מאמר
+{{post_title}}
+זו היא תגובתו
+{{his_response|safe}}
+קישור לתגובה כאן/n
+{{link}}

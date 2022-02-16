@@ -18,7 +18,7 @@ from django.contrib.auth.models import User
 from .calcs import get_total_seconds
 from .members_permissions import is_user_allowed_to_edit
 from .coms import get_com, get_all_nested_coms_id
-from .notifications import follow_com_by_sending_sub_com, follow_post, follow_com, get_post
+from .notifications import follow_com_by_sending_sub_com, follow_post, follow_com, get_post, send_mail_notification
 
 def get_post_ajax(request):
     print('inside get_post_ajax')
@@ -137,10 +137,12 @@ def sub_com_save_ajax(request):
             if request.user.is_authenticated:
                 sub_com = comment_of_comment.objects.create(comment_of_comment_usr = request.user, body = body, comment = com_parent)
                 notification = Notification.objects.create(notification_type = 2, from_user = request.user, com_of_com = sub_com, to_user = com_parent.comment_usr)
+                send_mail_notification(notification.pk)
                 print('sub_com_save_ajax:saved comment to user ' + str(request.user.username))
             else:
                 sub_com = comment_of_comment.objects.create(body = body, comment = com_parent)
                 notification = Notification.objects.create(notification_type = 2,  com_of_com = sub_com, to_user = com_parent.comment_usr)
+                send_mail_notification(notification.pk)
                 print('sub_com_save_ajax:saved comment to someone')
         else:
             replied_to_sub_com = get_object_or_404(comment_of_comment, id = replied_to_sub_com_id)
@@ -153,6 +155,7 @@ def sub_com_save_ajax(request):
                 sub_com.save()
                 print('success!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
                 notification = Notification.objects.create(notification_type = 2, from_user = request.user, com_of_com = sub_com, to_user = com_parent.comment_usr)
+                send_mail_notification(notification.pk)
                 print('sub_com_save_ajax:saved replied to sub_com_id {sub_com_id} to user {user}'.format(sub_com_id = replied_to_sub_com_id, user = str(request.user.username)))
             else:
                 sub_com = comment_of_comment.objects.create(body = body, comment = com_parent)
@@ -160,6 +163,7 @@ def sub_com_save_ajax(request):
                 sub_com.save()
                 print('sub-com saved')
                 notification = Notification.objects.create(notification_type = 2,  com_of_com = sub_com, to_user = com_parent.comment_usr)
+                send_mail_notification(notification.pk)
                 print('sub_com_save_ajax:saved replied to sub_com_id {sub_com_id} to someone'.format(sub_com_id = replied_to_sub_com_id))
         t = str(sub_com.date_added.strftime('%H:%M:%S'))
         print('sub_com_save_ajax: time =' + t)
@@ -187,6 +191,7 @@ def rate_sub_com_save_ajax(request):
                 com_of_com.likes.add(request.user)
                 com_of_com.dislikes.remove(request.user)
                 notification = Notification.objects.create(notification_type = 1, from_user = request.user, com_of_com = com_of_com, to_user = com_of_com.comment_of_comment_usr)
+                send_mail_notification(notification.pk)
                 print('added like for com_of_com')
         elif rate_type == 'dislike-com-of-com':
             is_already_disliked = com_of_com.dislikes.filter(id = request.user.id).exists()
@@ -197,6 +202,7 @@ def rate_sub_com_save_ajax(request):
                 com_of_com.dislikes.add(request.user)
                 com_of_com.likes.remove(request.user)
                 notification = Notification.objects.create(notification_type = 4, from_user = request.user, com_of_com = com_of_com, to_user = com_of_com.comment_of_comment_usr)
+                send_mail_notification(notification.pk)
                 print('added dislike for com_of_com')
         follow_com(com_of_com.comment, request.user)
     return JsonResponse({})
@@ -270,6 +276,7 @@ def rate_com_save_ajax(request):
                 com.likes.add(request.user)
                 com.dislikes.remove(request.user)
                 notification = Notification.objects.create(notification_type = 1, from_user = request.user, comment = com, to_user = com.comment_usr)
+                send_mail_notification(notification.pk)
 
         elif rate_type == 'dislike-com':
             is_already_disliked = com.dislikes.filter(id = request.user.id).exists()
@@ -279,6 +286,7 @@ def rate_com_save_ajax(request):
                 com.dislikes.add(request.user)
                 com.likes.remove(request.user)
                 notification = Notification.objects.create(notification_type = 4, from_user = request.user, comment = com, to_user = com.comment_usr)
+                send_mail_notification(notification.pk)
         follow_com(com, request.user)
 
     return JsonResponse({})
@@ -303,6 +311,7 @@ def rate_post_save_ajax(request):
                 post.likes.add(request.user)
                 post.dislikes.remove(request.user)
                 notification = Notification.objects.create(notification_type = 1, from_user = request.user, post = post, to_user = post.author)
+                send_mail_notification(notification.pk)
 
         elif rate_type == 'dislike-btn':
             is_already_disliked = post.dislikes.filter(id = request.user.id).exists()
@@ -312,6 +321,7 @@ def rate_post_save_ajax(request):
                 post.dislikes.add(request.user)
                 post.likes.remove(request.user)
                 notification = Notification.objects.create(notification_type = 4, from_user = request.user, post = post, to_user = post.author)
+                send_mail_notification(notification.pk)
         follow_post(post, request.user)
     return JsonResponse({})
 

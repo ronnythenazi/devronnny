@@ -1,0 +1,32 @@
+<div>
+
+     <svg xmlns="http://www.w3.org/2000/svg" width="130" height="130"
+      viewBox="0 0 1920 2130" style="fill:white;filter:drop-shadow(-10px 0 10px red)  drop-shadow(10px 0 5px red) drop-shadow(10px 0 10px blue);">
+
+      <path d="M1190,1549v-414h-183v414h-152l-71-123h101v-291h-289v-415h-273l108,187-78
+      135-265-437h638v419h159l1-419h153l67,115h-99v304h300v402h277l-118-192 77-128 271,443h-624z
+      M1279,605h536l-474,773v-255l243-403h-232l-73-115z
+      M563,765v257l-241,404h219l72,123h-525l475-784z
+      M684,565h84v113l176-296 408,666 77-128-483-788-262,433z
+      M553,1116l390,670 206-343v142h65l-267,437-471-777 77-129z"/>
+      </svg>
+</div>
+
+<div dir="rtl" style="font-size:2rem;font-weight:bold;">
+<span>שלום,</span> <span sytle="color:blue;">{{to_user}}</span> <span> זו היא הודעה מיהודונאציזם </span>
+</div>
+<div dir="rtl" style="font-size:2rem;font-weight:bold;">
+<span style="color:red;"> {{from_user}} </span> <span> הגיב לך תחת תגובה </span> <span style="color:green;">{{respond_to_com|safe|slice:":20"}}</span>
+<span> תחת מאמר </span> <span sylte="color:blue;"><u> {{post_title}} </u></span>
+</div>
+<div dir="rtl" style="font-size:2rem;font-weight:bold;">
+ <span>זו היא תגובתו</span>
+</div>
+
+<div dir="rtl" style="font-size:2rem;font-weight:bold;color:red;">
+{{his_response|safe}}
+</div>
+
+<div dir="rtl" style="font-size:2rem;font-weight:bold;display:flex;flex-direction:row;">
+<span> קישור לתגובה </span> <a href="{{link}}">כאן</a>
+</div>

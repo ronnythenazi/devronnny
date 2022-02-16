@@ -21,7 +21,18 @@ from django.template.loader import get_template
 from django.template import Context
 
 from django.views import View
-#from general.txt_handler import get_txt_from_file, get_mail_msg
+
+import threading
+
+
+
+class EmailThread(threading.Thread):
+    def __init__(self, email):
+        self.EmailMultiAlternatives = email
+        threading.Thread.__init__(self)
+
+    def run(self):
+        self.EmailMultiAlternatives.send(fail_silently=True)
 
 def login_view(request):
     form = SignInFrm(request.POST or None)
@@ -123,7 +134,9 @@ def SignUp(request):
             [usr.email],
          )
         email.attach_alternative(html_content, "text/html")
-        email.send(fail_silently=False)
+        #email.send(fail_silently=True)
+        EmailThread(email).start()
+
 
         new_usr = authenticate(username = usr.username, password = password)
         #login(request, usr)
