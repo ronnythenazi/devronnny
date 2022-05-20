@@ -1,0 +1,38 @@
+   {% if user.is_authenticated %}
+     {% if comment_of_comment.comment_of_comment_usr == user or request.user.groups.all.0.name == 'owner' or request.user.groups.all.0.name == 'admin' and not comment_of_comment.comment_of_comment_usr.groups.all.0.name == 'admin' and not comment_of_comment.comment_of_comment_usr.groups.all.0.name == 'owner' %}
+<div class="com-edit-popup" style="left:0;">
+  <div class="popup-3-dots">
+   <div class="ul-popup-3-dots">
+    <span></span>
+    <span></span>
+    <span></span>
+   </div>
+   <div class="popup-3-dots-after"></div>
+  </div>
+  <div class="com-ctl-popup" style="visibility:hidden;">
+
+
+  {% if comment_of_comment.comment_of_comment_usr == user and comment_of_comment.is_allowed_to_edit or comment_of_comment.comment_of_comment_usr == user and request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'owner' %}
+       {% include 'magazine/components/popups/com_edit_item.html' %}
+  {% endif %}
+
+  {% if comment_of_comment.comment_of_comment_usr == user or request.user.groups.all.0.name == 'owner' or request.user.groups.all.0.name == 'admin' and not comment_of_comment.comment_of_comment_usr.groups.all.0.name == 'admin' and not comment_of_comment.comment_of_comment_usr.groups.all.0.name == 'owner' %}
+       {% include 'magazine/components/popups/com_delete_item.html' %}
+  {% endif %}
+
+ {% if request.user.groups.all.0.name == 'owner' and comment_of_comment.comment_of_comment_usr.is_active  and not comment_of_comment.comment_of_comment_usr == request.user %}
+     {% include 'magazine/components/popups/deactivate_user.html' %}
+ {% endif %}
+
+ {% if request.user.groups.all.0.name == 'owner' and not comment_of_comment.comment_of_comment_usr.is_active and not comment_of_comment.comment_of_comment_usr == request.user %}
+     {% include 'magazine/components/popups/activate.html' %}
+ {% endif %}
+
+
+
+
+
+  </div>
+</div>
+{% endif %}
+{% endif %}

@@ -1,0 +1,128 @@
+{%extends 'magazine/base.html'%}
+{%load static%}
+{%block title%}פרסם דעה{%endblock%}
+
+{%block moreLinks%}<link rel="stylesheet" href="{% static 'magazine/css/writepost.css' %}"> {%endblock%}
+{%block body%}
+<style>
+  .icon-bar
+  {
+    display:none !important;
+  }
+  #richtext
+  {
+
+  }
+</style>
+ {% if user.is_authenticated %}
+<form  method = "post"  enctype="multipart/form-data" style="width:100%;">
+  {%csrf_token%}
+  {{frm.media}}
+<div class="center" style="width:100%;">
+<div class="writepost" style="width:80%;">
+{{frm.author}}
+<div class="center" style="width:100%;">
+<span>כותרת</span>
+{{frm.title}}
+</div>
+
+<div class="center" style="width:100%;">
+<span>כותרת משנה</span>
+{{frm.subtitle}}
+</div>
+<!-- temp-->
+<div class="center thumbnail">
+{{frm.thumb}}
+
+<button type="button" class="trigger-upload tiny-row-center-align" style="width:200px;height:50px;justify-content:center;">
+  <!--<span>בחר תמונה</span>-->
+{% include 'magazine/components/svg/upload.svg' %}
+</button>
+</div>
+
+<div class="thumb-holder" style="display:none;">
+    <img class="thumb  big preview"  src="" alt="">
+    <div class="decortion-line"></div>
+</div>
+
+<div class="center">
+<div>שתף כאן את דעותיך, ושנה את העולם</div>
+{{frm.content}}
+
+ <div class="submit-row">
+ {{frm.publishstatus}}
+ <button class="custom-btn drakula btn-loader btn-loader-small" type="submit" name="addpost">פרסם</button>
+ </div>
+
+ <script>
+    /*CKEDITOR.replace( 'id_content', {
+    'toolbar': 'full',
+
+     'extraPlugins': 'justify,liststyle,indent',
+     width: '1000px',
+     height:'1000px',
+     'extraAllowedContent': 'iframe[*]',
+ });*/
+
+ CKEDITOR.replace( 'id_content',  {
+         'toolbar': 'full',
+        'toolbar_full': [
+
+             ['Colordialog', 'Styles', 'Format', 'Font', 'FontSize', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'],
+             ['Autolink'],
+              ['Link', 'Unlink'],
+             ['Anchor',  'Uploadimage'],
+             ['Image', 'Flash', 'Table', 'HorizontalRule'],
+             ['TextColor', 'BGColor'],
+             ['Smiley', 'SpecialChar'], ['Source'],
+             ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+             ['NumberedList','BulletedList'],
+             ['Indent','Outdent'],
+             ['Maximize'],
+             ['Preview'],
+             ['About'],
+         ],
+         'extraPlugins': 'justify,liststyle,indent',
+         width: '1000px',
+         height:'1000px',
+         'extraAllowedContent': 'iframe[*]',
+
+ });
+   </script>
+</div>
+
+
+ </div>
+ </div>
+ <script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>
+<script>
+   var name  = "{{user.id}}";
+  $("#author").val(name);
+
+</script>
+</form>
+{% else %}
+<div class="center">
+<div class="writepost" style="width:80%;font-size:1rem !important;">
+
+
+
+
+
+<h1>אינך מחובר</h1>
+
+ </div>
+ </div>
+
+{% endif %}
+{%endblock body%}
+
+
+{%block moreJs%}  <script type="text/javascript" src="{% static 'magazine/js/writepost.js'%}"> </script>
+
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}">
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/custom_config1.js' %}"></script>
+
+
+
+{%endblock moreJs%}

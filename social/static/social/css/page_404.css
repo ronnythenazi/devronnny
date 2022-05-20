@@ -1,0 +1,52 @@
+html, body
+{
+  height: 100%;
+}
+
+body
+{
+  display:flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap:0px;
+}
+#sad-face-svg-div-parent
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+#back-home-link
+{
+  color:blue;
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 100px;
+}
+#back-home-link:hover
+{
+  color:red;
+}
+a:visited
+{
+  color:unset;
+}
+#sad-face
+{
+  width:50px;
+  height: 50px;
+}
+.msg
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  font-size:40px;
+
+}

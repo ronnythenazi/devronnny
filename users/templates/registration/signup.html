@@ -1,0 +1,89 @@
+{%extends 'magazine/base.html'%}
+{%load static%}
+
+
+{%block title%}הרשמה ליהודונאציזם{%endblock%}
+
+{%block moreLinks%}
+<link rel="stylesheet" href="{% static 'magazine/css/writepost.css' %}">
+<link rel="stylesheet" href="{% static 'memebers/css/sign.css' %}">
+{%endblock%}
+{%block body%}
+<style>
+  .icon-bar
+  {
+    display:none !important;
+  }
+</style>
+<form  method = "post"  style="width:100%;" enctype="multipart/form-data">
+{%csrf_token%}
+{{ form.non_field_errors }}
+
+<div class="center">
+
+<div class="writepost" style="width:80%;font-size:1rem !important;">
+{% if not user.is_authenticated %}
+<h1><u>הרשמה</u></h1>
+
+<div class="signfieldcolumn" style="width:100%;">
+  {{ form.username.errors }}
+  {% if no_error == 'true' %}
+  <div style="display:flex;flex-direction:column;align-items:center;">
+    <span>פרטיך נשמרו, אך חשבונך עדין לא פעיל</span>
+    <span>ברגעים אלו אמור להישלח לך דואר למייל שהזנת</span>
+    <span>נא בדוק את את תיבת המייל, ולחץ על הלינק שנשלח לך, כדי לאמת את חשבונך</span>
+    <span>וכדי שחשבונך יופעל</span>
+  </div>
+
+  {% endif %}
+  <div class="signfieldrow"><span class="label">שם משתמש</span>{{ form.username }}</div>
+</div>
+
+<div class="signfieldcolumn" style="width:100%;">
+  {{ form.email.errors }}
+  <div class="signfieldrow"><span class="label">כתובת מייל</span>{{form.email}}</div>
+</div>
+
+<div class="signfieldcolumn" style="width:100%;">
+  {{ form.email2.errors }}
+  <div class="signfieldrow"><span class="label">חזור על כתובת מייל</span>{{form.email2}}</div>
+</div>
+
+<div class="signfieldcolumn" style="width:100%;">
+  {{ form.password.errors }}
+  <div class="signfieldrow"><span class="label">סיסמה</span>{{form.password}}</div>
+</div>
+
+<div class="signfieldcolumn" style="width:100%;">
+  {{ form.password2.errors }}
+  <div class="signfieldrow"><span class="label">חזור על סיסמה</span>{{form.password2}}</div>
+</div>
+
+
+<div class="signfieldcolumn" style="width:100%;align-items:flex-end;">
+
+<div class="signfieldrow" style="justify-content:flex-end;margin-bottom:30px;"><button type="submit" style="top:unset;right:unset;" class="subscribe btn-loader btn-loader-small">הירשם</button></div>
+
+</div>
+
+
+{% else %}
+<h1>  אתה כבר מחובר </h1>
+{% endif %}
+ </div>
+ </div>
+
+</form>
+
+
+
+
+{%endblock body%}
+
+{%block moreJs%}
+ <script type="text/javascript" src="{% static 'magazine/js/writepost.js'%}"> </script>
+ <script type="text/javascript" src="{% static 'memebers/js/general.js'%}"> </script>
+ <script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>
+ <script type="text/javascript">
+
+{%endblock moreJs%}

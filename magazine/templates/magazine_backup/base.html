@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+{%load static%}
+{% load custom_tag_notification %}
+<html lang="he-IL" dir="rtl">
+
+
+  <head>
+    <meta charset="utf-8">
+
+  {%block meta%}
+  {%endblock meta%}
+    <title>{%block title%}בלוג יהודונאציזם{%endblock%}</title>
+    <link rel = "shortcut icon" href="{% static 'images/judonazim.svg' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'magazine/css/magazine.css' %}">
+    <link rel="stylesheet" href="{% static 'magazine/css/article.css' %}">
+    <link rel="stylesheet" href="{% static 'magazine/css/global.css' %}">
+    <link rel="stylesheet" href="{% static 'general/css/general.css' %}">
+    {%block moreLinks%} {%endblock moreLinks%}
+
+<!--<script>
+    document.onkeydown = function (e) {
+          if (event.keyCode == 123) {
+              return false;
+          }
+          if (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'i'.charCodeAt(0))) {
+              return false;
+          }
+          if (e.ctrlKey && e.shiftKey && (e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'c'.charCodeAt(0))) {
+              return false;
+          }
+          if (e.ctrlKey && e.shiftKey && (e.keyCode == 'J'.charCodeAt(0) || e.keyCode == 'j'.charCodeAt(0))) {
+              return false;
+          }
+          if (e.ctrlKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'u'.charCodeAt(0))) {
+              return false;
+          }
+          if (e.ctrlKey && (e.keyCode == 'S'.charCodeAt(0) || e.keyCode == 's'.charCodeAt(0))) {
+              return false;
+          }
+      }
+    </script>-->
+
+    <style>
+    .not-page-load
+    {
+      opacity: 0;
+      display: none !important;
+    }
+    #page-load
+    {
+      width:100%;
+      position:absolute;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      top:50%;
+      transform: translateY(-75%);
+    }
+    #bell-menu-item
+    {
+      box-sizing:border-box;
+      align-self:flex-start;
+      justify-content:flex-start;
+      margin-top: 50px;
+    }
+
+
+    </style>
+    {% block morestyle %}
+    {% endblock morestyle %}
+  </head>
+<body style="opacity:0;">
+ <!--<body oncontextmenu="return false;" style="opacity:0;">-->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v12.0" nonce="GTakoGeS"></script>
+  <div id="page-load">
+      {% include 'magazine/components/loading/page_load.html' %}
+        <span class="loading-txt ice-cream-clr super-tiny-row-center-align;"  style="font-family:robot;font-size:3rem;position:relative;justify-content:flex-start;">
+          <span style="display:inline-block;">טוען</span>
+            <div id="dots-parent" class="tiny-row-center-align" style="gap:5px;display:inline-flex;width:30px;margin-right:-10px;justify-content:flex-start;">
+            </div>
+       </span>
+     </div>
+
+     <div class="menu">
+
+
+
+
+
+{% if user.is_authenticated  %}
+      <div class="menuItem not-bg-hover" id= "bell-menu-item">
+       {% show_notifications %}
+      </div>
+
+{% endif %}
+
+
+
+
+       <!-- end notification tag -->
+       {% if user.is_authenticated  %}
+
+       <div class="menuItem not-bg-hover rotate-arrow-up" style="margin-right:30px;">
+       <span class="scale-hover" style="font-size:1rem;color:white;">
+         {{user.username | safe}}
+       </span>
+       {% if user.profile.profile_img.url %}
+       <span class="scale-hover">
+         <img src="{{user.profile.profile_img.url | safe}}" alt="" class="very-tiny-avatar">
+         {% include 'magazine/components/svg/dropdownarrow.svg' %}
+       </span>
+       {% else %}
+       <span class="scale-hover">{% include 'members/default_profile_img.html' %}
+       {% include 'magazine/components/svg/dropdownarrow.svg' %}
+       </span>
+       {% endif %}
+
+       <div>
+         {% if user.profile.id %}
+         <a class= "subMenuItem" href = "{% url 'users:UpdateProfile' user.profile.id %}">
+           {% include 'magazine/components/svg/person_plus.svg' %}
+         עדכן פרופיל
+         </a>
+         {% else %}
+         <a class= "subMenuItem" href = "{% url 'users:CreateProfile' %}">
+           {% include 'magazine/components/svg/person_plus.svg' %}
+          צור פרופיל
+         </a>
+         {% endif %}
+         <a class= "subMenuItem" href = "{% url 'users:profile_ctl' %}">
+           {% include 'magazine/components/svg/setting.svg' %}
+            עדכן חשבון
+         </a>
+         <a class="subMenuItem" href = "{% url 'users:change-password' %}">
+           {% include 'magazine/components/svg/key.svg' %}
+            שינוי סיסמא
+         </a>
+         <a class= "subMenuItem">
+           {% include 'magazine/components/svg/mail.svg' %}
+            תיבת דואר
+         </a>
+         <a class="subMenuItem" href="{% url 'logout' %}">
+
+          <span>{% include 'magazine/components/svg/reverse.html' %} צא</span>
+         </a>
+       </div>
+     </div>
+
+
+       {% endif %}
+       <a class="menuItem" href="{% url 'magazine:magazineNews' %}">
+         <!--<span>דף הבית</span>-->
+         {% include 'magazine/components/svg/homepage.html' %}
+       </a>
+
+       {% if not user.is_authenticated %}
+       <a class="menuItem" href="{% url 'users:SignUp' %}">
+         <span>הירשם</span>
+         {% include 'magazine/components/svg/signup.html' %}
+       </a>
+       <a class="menuItem" href="{% url 'users:SignIn' %}">
+        <span>התחבר</span>
+       {% include 'magazine/components/svg/signin.html' %}
+       </a>
+       {% endif %}
+
+       {% if user.is_authenticated %}
+
+         {% if request.user.groups.all.0.name == 'owner' or request.user.groups.all.0.name == 'admin' %}
+         <div class="menuItem">
+      <!--    <span>האזור האישי</span>-->
+           {% include 'magazine/components/svg/pen.html' %}
+          <div>
+          <a class="subMenuItem" href = "{% url 'magazine:myposts' %}">
+           נהל בלוג אישי
+          </a>
+          <a class="subMenuItem" href="{% url 'magazine:enlightThePublic' %}">
+            פרסם מאמר
+          </a>
+
+          {% if request.user.groups.all.0.name == 'owner'%}
+          <a class="subMenuItem" href = "{% url 'magazine:userRoles' %}">
+           ניהול מודרטורים והרשאות
+          </a>
+          {% endif %}
+        </div>
+       </div>
+      {% endif %}
+
+
+
+    {% endif %}
+   <a id="judo-logo-wrap" href="{% url 'magazine:magazineNews' %}" class="ice-cream-clr" style="align-self:center;">
+     <div class="super-tiny-row-center-align stroke-white">
+     <span>יהודו</span>
+     {% include 'magazine/components/svg/judonazim.svg' %}
+     <span>נאציזם</span>
+   </div>
+ </a>
+
+   <div id="more-info"  style="align-self:center;">
+     <div class="super-tiny-row-center-align stroke-white">
+     <a class="copyright"  href="{% url 'magazine:about_ronny_the_nazi' %}"  style="cursor:pointer;display:flex;flex-direction:row;align-items:center;">
+       <img src="{% static 'images/ronny.jpg' %}" class="round-styled-small-img-smaller" alt="">
+       <span class="text-muted">רוני הנאצי/יהודונאציזם</span>
+       © 2021
+     </a>
+   </div>
+   </div>
+ </div>
+
+
+
+
+     <div class="arrow-up"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
+   <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
+ </svg></div>
+ <div style="display:flex;flex-direction:row; justify-content:flex-start;align-items:flex-start;">
+{%include 'components/sharestickybar.html'%}
+{%block body%}
+
+{%endblock body%}
+<audio style="display:none;" id="notification-sound" controls>
+    <source src="{% static 'magazine/audio/notification.mp3' %}" type="audio/mp3">
+</audio>
+<audio style="display:none;" id="alert-sound" controls>
+<source src="{% static 'magazine/audio/alert.mp3' %}" type="audio/mp3">
+</audio>
+<input type="hidden" id="caret-x" value="-1">
+<input type="hidden" id="caret-y" value="-1">
+</div>
+{% include 'magazine/components/popups/confirmation.html' %}
+{% include 'magazine/components/popups/popup_msg.html' %}
+{% include 'members/components/popups/tagged_user_suggestion_lst.html' %}
+
+ {%include 'components/footer.html'%}
+  <script type="text/javascript" src="{% static 'plugins/jquery.js' %}"> </script>
+  <script type="text/javascript" src="{% static 'magazine/js/magazine.js' %}"> </script>
+  <script type="text/javascript" src="{% static 'magazine/js/posts.js' %}"> </script>
+  <script type="text/javascript" src="{% static 'magazine/js/editPosts.js' %}"> </script>
+  <script type="text/javascript" src="{% static 'magazine/js/global.js' %}"> </script>
+  <script type="text/javascript" src="{% static 'general/js/general.js' %}"> </script>
+  <script type="text/javascript" src="{% static 'general/js/popup_lst.js' %}"> </script>
+  <script type="text/javascript" src="{% static 'general/js/txt.js' %}"> </script>
+  <script type="text/javascript" src="{% static 'general/js/ckeditors.js' %}"> </script>
+  <script type="text/javascript" src="{% static 'memebers/js/profiles.js' %}"> </script>
+
+
+
+
+ <script>
+
+  /*$(document).bind("contextmenu", function(e) {
+     e.preventDefault();
+  });*/
+  /*CKEDITOR.on('instanceCreated', function(e) {
+        e.editor.on('contentDom', function() {
+            e.editor.document.on('contextmenu', function(event) {
+                event.data.preventDefault();
+
+            }
+        );
+    });
+});*/
+
+
+function get_suggestion_lst_popup_selector()
+{
+  return '#tagged-users-suggestion-lst';
+}
+CKEDITOR.on('instanceReady', function(evt) {
+    var editor = evt.editor;
+    editor.on('blur', function(e) {
+      var selector = get_suggestion_lst_popup_selector();
+      //remove_user_lst_popup($(selector));
+      remove_lst_popup($(selector));
+    });
+});
+function call_remove_user_lst_popup()
+{
+  var selector = get_suggestion_lst_popup_selector();
+  //remove_user_lst_popup($(selector));
+  remove_lst_popup($(selector));
+}
+function call_get_tagged_user_from_ckeditor_event(editor)
+{
+  set_caret_pos(editor);
+  var ck_name = editor.name;
+
+  var word = getWordBeforeCursor(editor);
+  var tagged_user = get_tagged_username(word);
+  if(tagged_user == '')
+  {
+    call_remove_user_lst_popup();
+
+    return;
+  }
+  get_tagged_user_ajax(tagged_user, editor);
+  get_user_list_suggestion_to_tag(tagged_user);
+
+}
+
+function call_move_bg_arrow_pressed(ks, evt)
+{
+  if(is_popup_lst_shown() == false)
+  {
+    return;
+  }
+  evt.data.preventDefault();
+  evt.data.stopPropagation();
+
+  move_bg_arrow_pressed(ks);
+}
+function call_auto_complete_enter_pressed(editor, evt)
+{
+  if(is_popup_lst_shown() == false)
+  {
+    return;
+  }
+  //evt.data.preventDefault();
+  evt.cancel();
+  evt.stop();
+  //evt.data.stopPropagation();
+  auto_complete_enter_pressed(editor, '@');
+}
+
+/*CKEDITOR.on('instanceReady', function(evt) {
+    var editor = evt.editor;
+    editor.on('focus', function(e) {
+      call_get_tagged_user_from_ckeditor_event(editor);
+    });
+});*/
+
+/*CKEDITOR.on('instanceReady', function(evt) {
+    var editor = evt.editor;
+    editor.on('change', function(e) {
+
+      call_get_tagged_user_from_ckeditor_event(editor);
+    });
+});*/
+
+CKEDITOR.on('instanceReady', function(evt) {
+    var editor = evt.editor;
+    editor.on('key', function(e) {
+        if (e.data.keyCode == '13')
+        {
+          call_auto_complete_enter_pressed(editor, e);
+          //call_get_tagged_user_from_ckeditor_event(editor, suggestion_user_lst=false);
+        }
+    });
+});
+
+
+
+CKEDITOR.on('instanceReady', function(e) {
+     var editor = e.editor;
+    //  e.editor.on('contentDom', function() {
+          e.editor.document.on('keydown', function(event) {
+            var kc = event.data.getKey();
+            var ctrl = 1114129;
+            var shift = 2228240;
+            var alt = 4456466;
+            var i = 73;
+            var c = 67;
+            var u = 85;
+            var s = 83;
+            var f12 = 123;
+            var ks = event.data.getKeystroke();
+            if(ks == 40 || ks==38)
+            {
+              call_move_bg_arrow_pressed(ks, event);
+              return;
+            }
+            call_get_tagged_user_from_ckeditor_event(editor);
+            return;
+
+
+            if(event.data.getKeystroke() === (CKEDITOR.CTRL + CKEDITOR.SHIFT + 73))//i
+            {
+              my_body_my_right_my_choice();
+						}
+            if(event.data.getKeystroke() === (CKEDITOR.CTRL + CKEDITOR.SHIFT + 74))//j
+            {
+              my_body_my_right_my_choice();
+						}
+
+            if(event.data.getKeystroke() === (CKEDITOR.SHIFT + 13)) //ENTER
+            {
+              my_body_my_right_my_choice();
+						}
+
+            if(event.data.getKeystroke() === (CKEDITOR.CTRL + CKEDITOR.SHIFT + 67))//c
+            {
+              my_body_my_right_my_choice();
+						}
+
+            if(event.data.getKeystroke() === (CKEDITOR.CTRL + 85))//u
+            {
+               my_body_my_right_my_choice();
+
+						}
+
+            if(event.data.getKeystroke() === (CKEDITOR.CTRL + 83))//u
+            {
+              my_body_my_right_my_choice();
+
+            }
+
+            if(kc == f12)
+            {
+               my_body_my_right_my_choice();
+            }
+
+
+          }
+      );
+  //});
+});
+
+
+/*function my_body_my_right_my_choice()
+{
+  $('body').html('my body my right my choice');
+  $('html').html('my body my right my choice');
+  $('body').text('my body my right my choice');
+  $('html').text('my body my right my choice');
+   window.location.href = "http://google.com";
+
+}*/
+
+function get_caret_x()
+{
+  var val = $('#caret-x').val();
+  return parseInt(val);
+}
+function get_caret_y()
+{
+  var val = $('#caret-y').val();
+  return parseInt(val);
+}
+</script>
+
+
+
+{% csrf_token %}
+<script>
+  function get_user_list_suggestion_to_tag(s_query)
+  {
+    var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+    $.ajax({
+
+      type: 'GET',
+      url: "{% url 'social:get-tagged-user-lst-suggestion' %}",
+      data: {'s_query':s_query,
+            'csrfmiddlewaretoken': csrftoken,
+      },
+      dataType: 'json',
+
+      success: function (response) {
+
+        if(response == undefined || response == null || response.length <= 0)
+        {
+           call_remove_user_lst_popup();
+           return;
+        }
+        x = get_caret_x();
+        y = get_caret_y();
+        var selector = get_suggestion_lst_popup_selector();  //return '#tagged-users-suggestion-lst'
+        //clear_user_lst_popup($(selector));
+        clear_lst_popup($(selector));
+        show_user_lst_popup(response, $(selector), x , y);
+
+      },
+
+      error: function (response) {
+          console.log(response);
+      }
+    })
+  }
+  function get_tagged_user_ajax(word, editor)
+  {
+    var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+    $.ajax({
+
+      type: 'GET',
+      url: "{% url 'social:get-tagged-user' %}",
+      data: {'username':word,
+            'csrfmiddlewaretoken': csrftoken,
+      },
+      dataType: 'json',
+
+      success: function (response) {
+        var ck_name = editor.name;
+        if(response == undefined || response == null)
+        {
+           return;
+        }
+        if(response['status'] == 'empty')
+        {
+          //remove_profile_link_from_cke('@' + word, ck_name);
+          return;
+        }
+        var username = response['username'];
+        var link = create_profile_link(username);
+        s_to_replace = '@' + username;
+        replace_html_in_ckeditor(s_to_replace, link, ck_name);
+      },
+
+      error: function (response) {
+          console.log(response);
+      }
+    })
+  }
+  $(document).ready(function(){
+  $('body>:not(#page-load, #page-load *)').addClass('not-page-load');
+  $('body').css('opacity', '100%');
+  if($('#page-load').length>0)
+  {
+    var v1=0;
+    var v2 = 0;
+    var v3 = 0;
+    var v4 = 0;
+    var v5 = 0;
+    m1 = 1190;
+    m2  = 1279;
+    m3 = 563;
+    m4 = 684;
+    m5 = 553;
+    k = 25;
+    var base = 400;
+    var sum_v = 0;
+    var sum_max =  m1 + m2 + m3 + m4 + m5;
+    var d = String($('#judologo-load path').attr('d'));
+
+    setInterval(function(){
+      if ($('.dot').length >= 3)
+      {
+          $('.dot').each(function(){
+            $(this).remove();
+          });
+          return;
+      }
+      $('#dots-parent').append('<span class="dot">.</span>');
+    }, 1000);
+
+
+     setInterval(function(){
+
+      if(sum_v == sum_max)
+      {
+        setTimeout(function(){
+          v1 = Math.max(v1, base);
+          v2 = Math.max(v2, base);
+          v3 = Math.max(v3, base);
+          v4 = Math.max(v4, base);
+          v5 = Math.max(v5, base);
+
+          v1 = Math.min(v1 + k, m1);
+          v2 = Math.min(v2 + k, m2);
+          v3 = Math.min(v3 + k, m3);
+          v4 = Math.min(v4 + k, m4);
+          v5 = Math.min(v5 + k, m5);
+          var curr_d = d;
+
+          var curr_d = curr_d.replace('M' + m1, '@' + v1);
+          curr_d = curr_d.replace('M' + m2, '@' + v2);
+          curr_d = curr_d.replace('M' + m3, '@' + v3);
+          curr_d = curr_d.replace('M' + m4, '@' + v4);
+          curr_d = curr_d.replace('M' + m5, '@' + v5);
+          curr_d = curr_d.replaceAll('@', 'M');
+         $('#judologo-load path').attr('d', curr_d);
+
+         sum_v = v1 + v2 + v3 + v4 + v5;
+
+         v1 =  v1 * ((sum_v % sum_max) / sum_v);
+         v2 =  v2 * ((sum_v % sum_max) / sum_v) * (1 -  ( (v1 + 1) % (m1 + 1) ) / (v1 + 1) );
+         v3 =  v3 * ((sum_v % sum_max) / sum_v) * (1 -  ( (v2 + 1) % (m2 + 1) ) / (v2 + 1) );
+         v4 =  v4 * ((sum_v % sum_max) / sum_v) * (1 -  ( (v3 + 1) % (m3 + 1) ) / (v3 + 1) );
+         v5 =  v5 * ((sum_v % sum_max) / sum_v) * (1 -  ( (v4 + 1) % (m4 + 1) ) / (v4 + 1) );
+        }, 500);
+      }
+      else
+      {
+        v1 = Math.max(v1, base);
+        v2 = Math.max(v2, base);
+        v3 = Math.max(v3, base);
+        v4 = Math.max(v4, base);
+        v5 = Math.max(v5, base);
+
+        v1 = Math.min(v1 + k, m1);
+        v2 = Math.min(v2 + k, m2);
+        v3 = Math.min(v3 + k, m3);
+        v4 = Math.min(v4 + k, m4);
+        v5 = Math.min(v5 + k, m5);
+        var curr_d = d;
+
+        var curr_d = curr_d.replace('M' + m1, '@' + v1);
+        curr_d = curr_d.replace('M' + m2, '@' + v2);
+        curr_d = curr_d.replace('M' + m3, '@' + v3);
+        curr_d = curr_d.replace('M' + m4, '@' + v4);
+        curr_d = curr_d.replace('M' + m5, '@' + v5);
+        curr_d = curr_d.replaceAll('@', 'M');
+       $('#judologo-load path').attr('d', curr_d);
+
+       sum_v = v1 + v2 + v3 + v4 + v5;
+
+       v1 =  v1 * ((sum_v % sum_max) / sum_v);
+       v2 =  v2 * ((sum_v % sum_max) / sum_v) * (1 -  ( (v1 + 1) % (m1 + 1) ) / (v1 + 1) );
+       v3 =  v3 * ((sum_v % sum_max) / sum_v) * (1 -  ( (v2 + 1) % (m2 + 1) ) / (v2 + 1) );
+       v4 =  v4 * ((sum_v % sum_max) / sum_v) * (1 -  ( (v3 + 1) % (m3 + 1) ) / (v3 + 1) );
+       v5 =  v5 * ((sum_v % sum_max) / sum_v) * (1 -  ( (v4 + 1) % (m4 + 1) ) / (v4 + 1) );
+      }
+
+
+   }, 15);
+  }
+   setInterval(check_notficiations, 10000);
+  });
+
+
+window.onload = (event) => {
+   expose_page();
+};
+function expose_page()
+{
+  $('#page-load').animate(
+    {opacity:0},
+    {duration:500,
+    complete:function(){
+       $('#page-load').css('display', 'none');
+
+      $('body>*').removeClass('not-page-load');
+       $('#page-load').remove();
+       $('body, html').animate({scrollTop:300}, 100).animate({scrollTop:0}, 100);
+       }
+   });
+
+}
+
+  function check_notficiations()
+  {
+
+       var last_notification_date = $('#last_notification_date').val();
+
+
+       var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+          $.ajax({
+              type: 'GET',
+              url: "{% url 'social:ajax-notifications' %}",
+              data: {'last_notification_date':last_notification_date,
+                    'csrfmiddlewaretoken': csrftoken,
+              },
+              dataType: 'json',
+              success: function (response) {
+              var result = JSON.parse(response["next_notifications"]);
+
+              if(result.length == 0)
+              {
+                return;
+              }
+              var next_notification = result[0]['fields'];
+              var notification_pk = result[0]['pk']
+              if(result == null)
+              {
+                return;
+              }
+
+
+             $.ajax({
+
+               type: 'GET',
+               url: "{% url 'social:ajax_get_user_name' %}",
+               data: {'notification_pk':notification_pk,
+                     'csrfmiddlewaretoken': csrftoken,
+               },
+               dataType: 'json',
+
+               success: function (response2) {
+                 result2 = JSON.parse(response2['username']);
+                 from_user = result2[0]['fields']['username'];
+                 render_new_notifications(next_notification, notification_pk, from_user);
+
+               },
+
+               error: function (response2) {
+                   console.log(response2);
+               }
+             })
+
+
+
+
+
+
+              },
+              error: function (response) {
+                  console.log(response);
+              }
+          })
+    }
+
+
+
+  function render_new_notifications(next_notification, notification_pk, from_user)
+  {
+
+    var cnt = parseInt($('.notification-counter').text());
+    cnt = cnt + 1;
+    $('.notification-counter').text(cnt);
+
+    $('#ring-the-bell').show();
+    $('#dont-ring-the-bell').hide();
+
+    $('#notification-sound')[0].play();
+
+    var parent = $('.notification-content');
+
+
+
+      var from_user_id = next_notification['from_user'];
+
+
+
+      if(next_notification["post"])
+      {
+
+        if(String(next_notification["notification_type"]) == "1")
+        {
+          msg= " נתן לך לייק למאמר ";
+          var elem = build_notification_object(from_user_id, msg, next_notification["notification_type"], from_user, 'post-notification', notification_pk, next_notification['post']);
+          //$(parent).prepend(elem);
+        }
+        else if(String(next_notification["notification_type"]) == "4")
+        {
+          msg= " נתן לך דיסלייק למאמר ";
+          var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'post-notification', notification_pk, next_notification['post']);
+        //  $(parent).prepend(elem);
+        }
+      }
+      else if(next_notification["comment"])
+      {
+        var csrftoken = $('[name="csrfmiddlewaretoken"]').val()
+           $.ajax({
+               type: 'GET',
+               url: "{% url 'social:ajax_notification_comment' %}",
+               data: {'comment_id':next_notification['comment'],
+                     'csrfmiddlewaretoken': csrftoken,
+               },
+               dataType: 'json',
+               success: function (response) {
+               var result = JSON.parse(response["comment"]);
+               if(result.length == 0)
+               {
+                 return;
+               }
+               var comment = result[0]['fields'];
+               var comment_pk = result[0]['pk'];
+               var title = comment['body'];
+               title = stripHtml(title);
+
+               if(String(next_notification["notification_type"]) == "1")
+               {
+                 msg = " נתן לך לייק לתגובה תחת מאמר ";
+                 //msg += title.substring(0, Math.min(title.length, 15)) + ' ';
+                 var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'comment-notification', notification_pk, comment['post'], next_notification['comment']);
+                 //$(parent).prepend(elem);
+               }
+               else if(String(next_notification["notification_type"]) == "2")
+               {
+                 msg= " הגיב לך על המאמר ";
+                 var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'comment-notification', notification_pk, comment['post'], next_notification['comment']);
+                // $(parent).prepend(elem);
+               }
+               else if(String(next_notification["notification_type"]) == "4")
+               {
+                 msg= " נתן לך דיסלייק לתגובה תחת מאמר ";
+                 //msg += title.substring(0, Math.min(title.length, 15)) + ' ';
+                 var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'comment-notification', notification_pk, comment['post'], next_notification['comment']);
+                // $(parent).prepend(elem);
+               }
+               else if(String(next_notification["notification_type"]) == "5")
+               {
+                 msg= " הגיב למאמר ";
+                 //msg += title.substring(0, Math.min(title.length, 20)) + ' ';
+                 var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'follow-com-notification', notification_pk);
+                 //$(parent).prepend(elem);
+               }
+               else if(String(next_notification["notification_type"]) == "8")
+               {
+                 msg= " תייג אותך תחת מאמר ";
+                 //msg += com_title.substring(0, Math.min(com_title.length, 15)) + ' ';
+                 var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'tag-you-notification', notification_pk);
+                 //$(parent).prepend(elem);
+               }
+               else
+               {
+
+               }
+             },
+               error: function (response) {
+                   console.log(response);
+               }
+
+
+             })
+      }
+      else if(next_notification["com_of_com"])
+      {
+
+        var csrftoken = $('[name="csrfmiddlewaretoken"]').val()
+           $.ajax({
+               type: 'GET',
+               url: "{% url 'social:ajax_notification_com_of_com' %}",
+               data: {'com_of_com_id':next_notification["com_of_com"],
+                     'csrfmiddlewaretoken': csrftoken,
+               },
+               dataType: 'json',
+               success: function (response) {
+               var result = JSON.parse(response["com_of_com"]);
+               if(result.length == 0)
+               {
+                 return;
+               }
+               var com_of_com = result[0]['fields'];
+               var com_of_com_pk = result[0]['pk'];
+               $.ajax({
+                 type: 'GET',
+                 url: "{% url 'social:ajax_notification_comment' %}",
+                 data:{'comment_id':com_of_com['comment'],
+                 'csrfmiddlewaretoken': csrftoken,
+               },
+                 dataType: 'json',
+                 success: function (response2) {
+                   var result2 = JSON.parse(response2["comment"]);
+                   var comment = result2[0]['fields'];
+                   var sub_com_title = com_of_com['body'];
+                   sub_com_title = stripHtml(sub_com_title);
+                   var com_title = comment['body'];
+                   com_title = stripHtml(com_title);
+                   var post =comment['post'];
+                   if(String(next_notification["notification_type"]) == "1")
+                   {
+                     msg= " נתן לך לייק לתגובה תחת מאמר ";
+                     //msg += sub_com_title.substring(0, Math.min(sub_com_title.length, 15)) + ' ';
+                     var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'com-of-com-notification', notification_pk, post, com_of_com['comment'], com_of_com_pk);
+                     //$(parent).prepend(elem);
+                   }
+                   else if(String(next_notification["notification_type"]) == "2")
+                   {
+                     msg = " הגיב לך תחת אמר ";
+                     //msg += com_title.substring(0, Math.min(com_title.length, 15)) + ' ';
+                     var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'com-of-com-notification', notification_pk, post, com_of_com['comment'], com_of_com_pk);
+                     //$(parent).prepend(elem);
+
+                   }
+                   else if(String(next_notification["notification_type"]) == "4")
+                   {
+                     msg= " נתן לך דיסלייק לתגובה תחת מאמר ";
+                     //msg += sub_com_title.substring(0, Math.min(sub_com_title.length, 15)) + ' ';
+                     var elem = build_notification_object(from_user_id, msg, next_notification["notification_type"], from_user, 'com-of-com-notification', notification_pk, post, com_of_com['comment'], com_of_com_pk);
+                     //$(parent).prepend(elem);
+
+                   }
+                   else if(String(next_notification["notification_type"]) == "6")
+                   {
+                     msg= " הגיב תחת מאמר ";
+                     //msg += com_title.substring(0, Math.min(com_title.length, 15)) + ' ';
+                     var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'follow-sub-com-notification', notification_pk);
+                     //$(parent).prepend(elem);
+                   }
+                   else if(String(next_notification["notification_type"]) == "8")
+                   {
+                     msg= " תייג אותך תחת מאמר ";
+                     //msg += com_title.substring(0, Math.min(com_title.length, 15)) + ' ';
+                     var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'tag-you-notification', notification_pk);
+                     //$(parent).prepend(elem);
+                   }
+                   else
+                   {
+
+                   }
+                 },
+
+               error: function (response) {
+                   console.log(response);
+               }
+             })
+
+           },
+
+
+               error: function (response) {
+                   console.log(response);
+               }
+
+
+             })
+      }
+      else
+      {
+
+        msg= "החל לעקוב אחריך";
+        var elem = build_notification_object(from_user_id , msg, next_notification["notification_type"], from_user, 'follow-notification', notification_pk, from_user);
+        $(parent).prepend(elem);
+      }
+
+      var curr_date = next_notification["date"];
+
+         $('#last_notification_date').val(String(curr_date));
+
+  }
+
+  function build_notification_object(from_user_id, msg, notification_type, from_user,  view_name, notification_pk, ...args)
+  {
+   var obj = '<div class="subMenuItem notification">';
+
+     var a1 = '<a href="';
+     var href1 = $('#remove_notification').val();
+     href1 = href1.replace('/1?', '/' + notification_pk + '?');
+     a1 = a1 + href1 + '" >';
+
+    a1 += '<svg xmlns="http://www.w3.org/2000/svg width="20" height="20" fill="black" class="bi bi-x"';
+    a1 += ' viewBox="0 0 16 16">';
+    a1 += '<path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"';
+    a1 += '/></svg></a>';
+
+   //var a2 = '<a href="' +  $('#' + view_name).val() + '/' + notification_pk;
+    var href2 = $('#' + view_name).val();
+    href2 = href2.replace(1, '-1-');
+    href2 = href2.replace(2, '-2-');
+    href2 = href2.replace(3, '-3-');
+    href2 = href2.replace(4, '-4-');
+
+    href2 = href2.replace('-1-',  notification_pk);
+
+   for(var i=0;i<args.length;i++)
+   {
+     var next = i + 2;
+     href2 = href2.replace('-' + next + '-', args[i]);
+   }
+   var profile_link = '<a class="profile_link">' + "@" + from_user  + '</a>';
+   var a2 = '<a class="under_com_link" href="';
+   a2 = a2 + href2 +'">';
+
+   a2 +=  ' ' +  msg  + "</a>";
+ var a3 = '';
+ var parent = $('.notification-content');
+ if(view_name != 'follow-notification')
+ {
+     get_post(notification_pk, function(result){
+     var post = result;
+     var post_id = post['id'];
+     var post_title = post['title'];
+     var href3 = $('#redirect-to-post').val();
+     href3 = href3.replace('1', post_id);
+     a3 = '<a class="under_post_link" href="';
+     a3 += href3 + '">';
+     /*var a3_prefix = " תחת מאמר ";
+     if( (view_name == 'comment-notification' && notification_type == 2) || view_name == 'post-notification' || view_name == 'follow-com-notification')
+     {
+       a3_prefix = '';
+     }*/
+     //a3 = a3 + a3_prefix + post_title.substring(0, Math.min(post_title.length, 15)) + "</a>";
+     a3 = a3  + post_title.substring(0, Math.min(post_title.length, 15)) + "</a>";
+     obj = obj + a1 + profile_link + a2 + a3 + "</div>";
+     $(parent).prepend(obj);
+
+   });
+ }
+ else
+ {
+   obj = obj + a1 + profile_link  + a2 + "</div>";
+   $(parent).prepend(obj);
+ }
+
+   return obj;
+
+
+  }
+
+function get_post(notification_pk, callback)
+{
+  var result;
+  var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+     $.ajax({
+         type: 'GET',
+         //dataType: 'json',
+         url: "{% url 'social:get-post' %}",
+         data: {'notification_pk':notification_pk,
+               'csrfmiddlewaretoken':csrftoken,
+         },
+         success: callback, /*function(response) {
+         result = response;
+       },*/
+       error:function(response)
+       {
+           console.log(response);
+       },
+
+     });
+  return result;
+
+}
+
+function stripHtml(html)
+{
+   let tmp = document.createElement("DIV");
+   tmp.innerHTML = html;
+   return tmp.textContent || tmp.innerText || "";
+}
+
+</script>
+
+
+  {%block moreJs%} {%endblock moreJs%}
+
+
+
+  </body>
+
+</html>

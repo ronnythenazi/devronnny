@@ -1,0 +1,28 @@
+.tagged-user
+{
+  color:#037ffc;
+  font-weight:bolder;
+  cursor: pointer;
+}
+
+.profile-lst
+{
+  gap:10px;
+  padding: 2px;
+  border-radius: 5px;
+}
+.profile-lst>.popup-msg-list-row-item>img
+{
+  height: 25px;
+  width:25px;
+}
+.profile-lst>.popup-msg-list-row-item
+{
+    height: 25px;
+    position: relative;
+    justify-content: space-between !important;
+}
+
+#tagged-users-suggestion-lst
+{
+}

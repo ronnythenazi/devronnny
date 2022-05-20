@@ -1,0 +1,63 @@
+{%extends "base.html"%}
+{%block title%}יהודונאציזם{%endblock%}
+{%load static%}
+{%csrf_token%}
+
+{%block content%}
+
+
+
+
+
+<div class="middle_section">
+<div id="upperrow">
+
+  <div class="judonazimlogorotate logoright smallbg animated">
+  <img class = "judonazimlogorotate" src="{%static 'images/judonazimlogoglow.jpg'%}" alt="">
+  </div>
+
+<div id="centersloganandfootage">
+  <div class="hg1middleimgwarpper" id="hg1bgc">
+  <div class="hg1middleimg">
+  <img class="arnoldimg" src="{%static 'images/comewithmeifyouwanttolive.jpg'%}" alt="">
+  </div>
+  </div>
+  <div class="solganwarper"><div class="sloganh1">תהיו יותר גזענים אם אתם רוצים לחיות</div></div>
+</div>
+
+
+  <div class="judonazimlogorotate logoleft smallbg animated">
+  <img class= "judonazimlogorotate" src="{%static 'images/judonazimlogoglow.jpg'%}" alt="">
+  </div>
+
+
+</div>
+
+<div class="maincontext">
+  {%with "tableofcontent/txt/"|add:txtfilename as template%}
+  {%include template%}
+  {%endwith%}
+
+  <div class="txtcenter">
+  <ul id="ulnavpages">
+
+  </ul>
+  </div>
+</div>
+</div>
+
+
+
+
+
+
+{%endblock%}
+
+{%block additionalscripts%}
+<script type="text/javascript" src="{%static 'js/adjustments/zoomindex.js'%}"></script>
+<script type="text/javascript" src="{%static 'js/videos.js'%}"></script>
+<script type="text/javascript" src="{%static 'js/pagesnav.js'%}"> </script>
+<script type="text/javascript" src="{%static 'js/effects.js'%}"> </script>
+<script type="text/javascript" src="{%static 'js/txteffects.js'%}"> </script>
+<script type="text/javascript" src="{%static 'js/pages/ooamyth.js'%}"></script>
+{%endblock%}

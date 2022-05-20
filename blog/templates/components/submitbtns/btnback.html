@@ -1,0 +1,47 @@
+{%load static%}
+
+<style>
+
+
+  .btnback>span
+  {
+      font-size: 20px;
+  }
+  .btnback:hover
+  {
+    background-color: #0b8409;
+    -webkit-box-shadow: 2px 2px 20px rgb(76, 255, 0, 1);
+  }
+  .btnback
+  {
+    display:flex;
+    flex-direction:row;
+    justify-content:flex-start;
+    align-items:center;
+    direction:rtl;
+
+    padding:0;
+    background:none;
+    font-family:formal;
+    background-color: green;
+    color:white;
+    cursor:pointer;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+
+    border:none;
+
+
+    width:120px;
+    height:60px;
+    filter:-webkit-drop-shadow(0px, 0px, 500px, red);
+  }
+</style>
+
+<button value = "{{ page_index }}" class="btnback" name="btnback" type="submit">
+  <img style="height:50%;margin-right:5%;" src="{% static 'svg/back.svg'%}" alt="">
+  <span class="noshrink" style="margin-right:5%;">לקודם</span>
+</button>

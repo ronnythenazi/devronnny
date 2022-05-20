@@ -1,0 +1,109 @@
+{%extends 'magazine/base.html'%}
+{%load static%}
+
+
+{%block title%} עדכן חשבון משתמש{%endblock%}
+
+{%block moreLinks%}
+<link rel="stylesheet" href="{% static 'magazine/css/writepost.css' %}">
+<link rel="stylesheet" href="{% static 'memebers/css/sign.css' %}">
+{%endblock%}
+{%block body%}
+<style>
+  .icon-bar
+  {
+    display:none !important;
+  }
+</style>
+<form  method = "post"  enctype="multipart/form-data" style="width:100%;">
+  {%csrf_token%}
+{{ form.non_field_errors }}
+<div class="center">
+<div class="writepost" style="width:80%;font-size:1rem !important;">
+
+{% if user.is_authenticated %}
+<h1 style="font-family:robot;" class="bluish-clr"><u>עדכן חשבון</u></h1>
+<div class="center" style="gap:50px;">
+<div class="center" style="width:100%;">
+
+<span style="color:red;">  {{ form.username.errors }}</span>
+<div class="signfieldrow">
+  <span class="label ice-cream-clr">שם משתמש</span>
+  <span class="super-tiny-row-center-align ronny-style-field">
+    <span class="box-field">
+      {% include 'members/svg/default_profile_img.svg' %}
+    </span>
+  {{form.username}}
+  </span>
+</div>
+
+</div>
+
+
+
+<!--<div class="center" style="width:100%;">
+<div class="signfieldrow">
+  <span class="label ice-cream-clr">דואר אלקטרוני</span>
+  <span class="super-tiny-row-center-align ronny-style-field">
+    <span class="box-field">
+      {% include 'members/svg/mail.svg' %}
+    </span>
+  {{form.email}}
+  </span>
+</div>
+</div>-->
+
+<div class="center" style="width:100%;">
+<div class="signfieldrow">
+  <span class="label ice-cream-clr box-field-green">כינוי</span>
+  <span class="super-tiny-row-center-align ronny-style-field">
+    <span class="box-field box-field-green">
+      {% include 'members/svg/default_profile_img.svg' %}
+    </span>
+  {{form.last_name}}
+  </span>
+</div>
+</div>
+
+<div class="center" style="width:100%;">
+<div class="signfieldrow">
+  <span class="label ice-cream-clr">שם</span>
+  <span class="super-tiny-row-center-align ronny-style-field">
+    <span class="box-field box-field-orange">
+      {% include 'members/svg/default_profile_img.svg' %}
+    </span>
+  {{form.first_name}}
+  </span>
+</div>
+</div>
+
+
+
+
+
+<div class="signfieldcolumn" style="width:100%;align-items:flex-end;">
+  <div class="signfieldrow" style="justify-content:flex-end;margin-bottom:30px;">
+    <button type="submit" class="subscribe btn-loader btn-loader-small" style="top:unset;right:unset;">עדכן</button>
+  </div>
+</div>
+
+</div>
+{% else %}
+<h1> אינך מחובר </h1>
+{% endif %}
+ </div>
+ </div>
+
+</form>
+
+
+
+
+{%endblock body%}
+
+{%block moreJs%}
+ <script type="text/javascript" src="{% static 'magazine/js/writepost.js'%}"> </script>
+ <script type="text/javascript" src="{% static 'memebers/js/general.js'%}"> </script>
+ <script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>
+
+{%endblock moreJs%}

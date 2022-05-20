@@ -1,0 +1,70 @@
+
+<div class="super-tiny-row-center-align" style="margin-right:50px;justify-content:space-between;width:100%;">
+
+  <div class="tiny-row-center-align" style="cursor:pointer;">
+    {% if comment.total_followers > 0 %}
+    <span class="follower-label ice-cream-clr super-tiny-row-center-align" style="font-size:1rem;font-family:fantasy;opacity:0.8;cursor:pointer;gap:2px;">
+      <span> {{comment.total_followers}} </span> <span> עוקבים </span>
+     </span>
+     {% endif %}
+
+
+  {% if user.is_authenticated and comment.is_follow %}
+       {% include 'magazine/components/popups/com_unfollow_item.html' %}
+       <div class="follow-popup-item tiny-row-center-align" style="padding-top:10px;padding-bottom:10px;display:none;">
+         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-toggle-off" viewBox="0 0 16 16">
+       <path d="M11 4a4 4 0 0 1 0 8H8a4.992 4.992 0 0 0 2-4 4.992 4.992 0 0 0-2-4h3zm-6 8a4 4 0 1 1 0-8 4 4 0 0 1 0 8zM0 8a5 5 0 0 0 5 5h6a5 5 0 0 0 0-10H5a5 5 0 0 0-5 5z"/>
+         </svg>
+         <span>עקוב</span>
+       </div>
+  {% endif %}
+
+  {% if user.is_authenticated and not comment.is_follow %}
+       {% include 'magazine/components/popups/com_follow_item.html' %}
+       <div class="unfollow-popup-item tiny-row-center-align" style="padding-top:10px;padding-bottom:10px;display:none;">
+         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-toggle-on" viewBox="0 0 16 16">
+         <path d="M5 3a5 5 0 0 0 0 10h6a5 5 0 0 0 0-10H5zm6 9a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/>
+         </svg>
+         <span>בטל</span>
+       </div>
+  {% endif %}
+ </div>
+ {% if user.is_authenticated %}
+ {% if comment.comment_usr == user or request.user.groups.all.0.name == 'owner' or request.user.groups.all.0.name == 'admin' and not comment.comment_usr.groups.all.0.name == 'admin' and not comment.comment_usr.groups.all.0.name == 'owner' %}
+<div style="left:0;position:absolute;align-self:flex-start;">
+ <div class="com-edit-popup">
+   <div class="popup-3-dots">
+    <div class="ul-popup-3-dots">
+     <span></span>
+     <span></span>
+     <span></span>
+    </div>
+    <div class="popup-3-dots-after"></div>
+   </div>
+   <div class="com-ctl-popup" style="visibility:hidden;">
+
+
+   {% if comment.comment_usr == user and comment.is_allowed_to_edit or comment.comment_usr == user and request.user.groups.all.0.name == 'admin' or request.user.groups.all.0.name == 'owner' %}
+        {% include 'magazine/components/popups/com_edit_item.html' %}
+   {% endif %}
+
+   {% if comment.comment_usr == user or request.user.groups.all.0.name == 'owner' or request.user.groups.all.0.name == 'admin' and not comment.comment_usr.groups.all.0.name == 'admin' and not comment.comment_usr.groups.all.0.name == 'owner' %}
+        {% include 'magazine/components/popups/com_delete_item.html' %}
+   {% endif %}
+
+
+   {% if request.user.groups.all.0.name == 'owner' and comment.comment_usr.is_active and not comment.comment_usr == request.user %}
+       {% include 'magazine/components/popups/deactivate_user.html' %}
+   {% endif %}
+
+   {% if request.user.groups.all.0.name == 'owner' and not comment.comment_usr.is_active and not comment.comment_usr == request.user %}
+       {% include 'magazine/components/popups/activate.html' %}
+   {% endif %}
+
+
+   </div>
+ </div>
+ </div>
+ {% endif %}
+ {% endif %}
+</div>

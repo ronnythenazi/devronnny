@@ -1,0 +1,105 @@
+
+
+.leftmostdiv
+{
+  position: relative;
+  top: 0px;
+  right:0px;
+}
+
+#imghitler
+{
+  height: 10px;
+  width: 200px;
+  opacity: 0;
+  display: none;
+
+}
+
+/*header
+{
+  position: relative;
+  width: 50%;
+  left: 25%;
+  top:0;
+  z-index:100;
+}*/
+#navcol1
+{
+  flex-grow: 1;
+}
+#navcol2
+{
+  flex-grow: 40;
+}
+#navcol3
+{
+  flex-grow: 1;
+}
+
+#navbar
+{
+  position:sticky;
+  display: flex;
+  direction: ltr;
+  flex-direction: row-reverse;
+  gap:0;
+  top:0px;
+  margin-top: 0px;
+  background: -webkit-linear-gradient(-90deg, #14103D, #344BA4, #000);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+  /*background-color: #010001;*/
+  height: 150px;
+  /*width: 50%;*/
+  box-sizing: border-box;
+  filter: blur(1px);
+/*  right:25%;*/
+
+}
+
+
+
+#judonazimnavimg
+{
+ position:absolute;
+ top:0px;
+ left:10%;
+ height:90%;
+ width: 80%;
+ box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+ filter:saturate(50%);
+ z-index: 2;
+
+}
+#fire
+{
+  width: 80%;
+  height:90%;
+  position: absolute;
+  top:0%;
+  left: 10%;
+  filter:saturate(0%);
+  display: none;
+  z-index: 1;
+}
+#judonazimnavimg:hover
+{
+   filter:saturate(100%);
+}
+
+.navbarcol
+{
+  /*padding-left: 500px;*/
+  position: relative;
+  /*display: inline-block;
+  box-sizing: border-box;*/
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+}
+
+.divbody
+{
+   position: relative;
+   top: 160px;
+   padding-top:20px;
+}

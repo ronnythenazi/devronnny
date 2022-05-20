@@ -1,0 +1,40 @@
+{%extends 'magazine/base.html'%}
+{%load static%}
+
+
+{%block title%}התחבר{%endblock%}
+
+{%block moreLinks%}<link rel="stylesheet" href="{% static 'magazine/css/writepost.css' %}"> {%endblock%}
+{%block body%}
+<style>
+  .icon-bar
+  {
+    display:none !important;
+  }
+</style>
+<form  method = "post" style="width:100%;"  enctype="multipart/form-data">
+  {% csrf_token %}
+
+<div class="center">
+<div class="writepost" style="width:80%;font-size:1rem !important;">
+{% if not user.is_authenticated %}
+{{form.as_p}}
+<div class="center">
+<button type="submit" class="subscribe btn-loader btn-loader-small">התחבר</button>
+</div>
+{% else %}
+<h1>  אתה כבר מחובר </h1>
+{% endif %}
+ </div>
+ </div>
+
+</form>
+
+
+
+
+{%endblock body%}
+
+{%block moreJs%}  <script type="text/javascript" src="{% static 'magazine/js/writepost.js'%}"> </script>
+<script type="text/javascript" src="{% static 'memebers/js/general.js'%}"> </script>
+{%endblock moreJs%}

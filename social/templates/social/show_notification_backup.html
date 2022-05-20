@@ -1,0 +1,111 @@
+<style>
+  .bell svg
+  {
+    height:20px;
+    width:20px;
+    z-index:3;
+  }
+  .bell
+  {
+    z-index:5;
+    font-size:1.5rem !important;
+    position:relative;
+    direction:rtl;
+    top:10px;
+    fill:white;
+  }
+  .bell.red-bell
+  {
+    fill:red;
+  }
+  .bell .notification-counter
+  {
+    position:absolute;
+    direction:rtl;
+    top:-2px;
+    right:12px;
+    z-index:4;
+    color:white;
+    font-weight:bold;
+    -webkit-text-stroke-width:1px;
+    -webkit-text-stroke-color:black;
+  }
+  .notification-content
+  {
+    font-size:0.8rem !important;
+    box-sizing:border-box;
+  }
+  .notification-content *
+  {
+    box-sizing:border-box;
+  }
+</style>
+{% if notifications.count > 0 %}
+<span class="super-tiny-row-center-align bell red-bell">
+  {% include 'magazine/components/svg/bell.svg' %}
+  <span class="notification-counter">  {{ notifications.count }}</span>
+</span>
+{% else %}
+<span class="super-tiny-row-center-align bell">
+  {% include 'magazine/components/svg/bell.svg' %}
+</span>
+{% endif %}
+<div class="notification-content" style="top:20px;right:0px;">
+{% for notification in notifications %}
+    {% if notification.post %}
+
+      {% if notification.notification_type == 1 %}
+      <div class="subMenuItem notification">
+        <a href="{% url 'social:remove-notification' notification.pk %}?prev_page={{  path | urlencode }}">{% include 'social/components/svg/close.svg' %}</a>
+        <a href="{% url 'social:post-notification' notification.pk notification.post.pk %}">@{{notification.from_user}} נתן לך לייק לפוסט </a>
+      </div>
+      {% elif notification.notification_type == 4 %}
+      <div class="subMenuItem notification">
+        <a href="{% url 'social:remove-notification' notification.pk %}?prev_page={{  path | urlencode }}">{% include 'social/components/svg/close.svg' %}</a>
+        <a href="{% url 'social:post-notification' notification.pk notification.post.pk %}">@{{notification.from_user}} נתן לך דיסלייק לפוסט</a>
+      </div>
+      {% endif %}
+
+   {% elif notification.comment %}
+      {% if notification.notification_type == 1 %}
+       <div class="subMenuItem notification">
+         <a href="{% url 'social:remove-notification' notification.pk %}?prev_page={{  path | urlencode }}">{% include 'social/components/svg/close.svg' %}</a>
+         <a href="{% url 'social:comment-notification' notification.pk notification.comment.post.pk  notification.comment.pk %}">@{{notification.from_user}} נתן לך לייק לתגובה </a>
+       </div>
+      {% elif notification.notification_type == 2 %}
+      <div class="subMenuItem notification">
+        <a href="{% url 'social:remove-notification' notification.pk %}?prev_page={{  path | urlencode }}">{% include 'social/components/svg/close.svg' %}</a>
+        <a href="{% url 'social:comment-notification' notification.pk notification.comment.post.pk  notification.comment.pk %}">@{{notification.from_user}} הגיב לך על המאמר </a>
+      </div>
+      {% elif notification.notification_type == 4 %}
+       <div class="subMenuItem notification">
+         <a href="{% url 'social:remove-notification' notification.pk %}?prev_page={{  path | urlencode }}">{% include 'social/components/svg/close.svg' %}</a>
+         <a href="{% url 'social:comment-notification' notification.pk notification.comment.post.pk  notification.comment.pk %}">@{{notification.from_user}}נתן לך דיסלייק לתגובה</a>
+       </div>
+      {% endif %}
+  {% elif notification.com_of_com %}
+      {% if notification.notification_type == 1 %}
+      <div class="subMenuItem notification">
+        <a href="{% url 'social:remove-notification' notification.pk %}?prev_page={{  path | urlencode }}">{% include 'social/components/svg/close.svg' %}</a>
+        <a href="{% url 'social:com-of-com-notification' notification.pk notification.com_of_com.comment.post.pk  notification.com_of_com.comment.pk notification.com_of_com.pk %}">@{{notification.from_user}} עשה לך לייק </a>
+      </div>
+      {% elif notification.notification_type == 2 %}
+      <div class="subMenuItem notification">
+        <a href="{% url 'social:remove-notification' notification.pk %}?prev_page={{  path | urlencode }}">{% include 'social/components/svg/close.svg' %}</a>
+        <a href="{% url 'social:com-of-com-notification' notification.pk notification.com_of_com.comment.post.pk  notification.com_of_com.comment.pk notification.com_of_com.pk %}">@{{notification.from_user}} הגיב לך </a>
+      </div>
+      {% elif notification.notification_type == 4 %}
+      <div class="subMenuItem notification">
+        <a href="{% url 'social:remove-notification' notification.pk %}?prev_page={{  path | urlencode }}">{% include 'social/components/svg/close.svg' %}</a>
+        <a href="{% url 'social:com-of-com-notification' notification.pk notification.com_of_com.comment.post.pk  notification.com_of_com.comment.pk notification.com_of_com.pk %}">@{{notification.from_user}} עשה לך דיסלייק </a>
+      </div>
+      {% endif %}
+  {% else %}
+  <div class="subMenuItem notification">
+    <a href="{% url 'social:remove-notification' notification.pk %}?prev_page={{  path | urlencode }}">{% include 'social/components/svg/close.svg' %}</a>
+    <a href="{% url 'social:follow-notification' notification.pk notification.from_user.profile.pk %}">@{{notification.from_user}} החל לעקוב אחריך </a>
+  </div>
+
+  {% endif %}
+{% endfor %}
+</div>

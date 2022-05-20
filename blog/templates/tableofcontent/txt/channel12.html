@@ -1,0 +1,293 @@
+{%load static%}
+{%csrf_token%}
+
+{%if page_index != 4%}
+<div style="height:100px;">
+ <div class="deepredbg" style="width:100%;">
+   {% if page_index == 1 %}
+   <div class="subtitle2 txtcenter" style="color:white;">ראיון טלפוני ביני לבין כתב ערוץ 12</div>
+   {% elif page_index == 2 %}
+   <div class="subtitle2 txtcenter" style="color:white;">ראיון ביני לבין העיתונאית ליאור שלו</div>
+   {% elif page_index == 3 %}
+   <div class="subtitle2 txtcenter" style="color:white;">שיחה ביני לבין יו"ר התנועה הראלית, קובי דרורי"</div>
+   {% endif %}
+ </div>
+</div>
+
+<div class="twoedgerow" style="margin-top:100px;">
+
+  <div class="loopholder blueborder wiggle smallbg animated">
+   <div class="loophole">
+     {% if page_index == 1 %}
+     <img class= "judonazimlogorotate" src="{%static 'images/ronny.jpg'%}" alt="">
+     {% elif page_index == 2 %}
+     <img class= "judonazimlogorotate" src="{%static 'images/thumbs/ronnygorilla.jpg'%}" alt="">
+     {% elif page_index == 3 %}
+      <img class= "judonazimlogorotate" src="{%static 'images/ronny.jpg'%}" alt="">
+     {% endif %}
+   </div>
+  </div>
+
+
+
+<div class="edgesconnectingbridge">
+  <div class="phonelinetoright phoneline wiggle"><span class="gradarrow">&#11166;</span></div>
+  <div class="phonelinetoleft phoneline wiggle"><span class="gradarrow">&#11164;</span></div>
+</div>
+
+  <div class="loopholder wiggle smallbg animated">
+   <div class="loophole">
+     {% if page_index == 1 %}
+     <img class= "judonazimlogorotate" src="{%static 'images/thumbs/ashkenazijournalistinterview.jpg'%}" alt="">
+     {% elif page_index == 2 %}
+     <img class= "judonazimlogorotate" src="{%static 'images/thumbs/lior12.jpg'%}" alt="">
+     {% elif page_index == 3 %}
+     <img class= "judonazimlogorotate" src="{%static 'images/thumbs/realistic.jpg'%}" alt="">
+     {% endif %}
+   </div>
+  </div>
+
+</div>
+
+
+
+<div class="column"  style="margin-bottom:200px;">
+  {% if page_index == 1 %}
+<img id="revealhidden" class="pushbutton imgbtn" src="{%static 'images/pushbutton.gif'%}" alt="">
+<audio  class="hiddenaudio noauto" controls>
+    <source src="{{MEDIA_URL}}media/myvideos/aboutronnythenazi/meand12media/telephoneconversation.mp3" type="audio/mp3">
+</audio>
+   {% elif page_index == 2 %}
+   <div class="loopholder imgbtn">
+    <div class="loophole" style="background-color:#eaeaea">
+      <img class="biggerimg" src="{%static 'images/thumbs/ronnyvslior12.jpg'%}" alt="">
+      <!--<img class="clickhere" style="width:40%;height:40%;position:absolute;top:30%;right:30%;z-index:3" src="{%static 'svg/clickhere.svg'%}" alt="">-->
+      <!-- Single-Finger Tap Icon -->
+  <svg style="width:60%;height:60%;position:absolute;top:20%;right:20%" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="wrapper translate">
+    <circle class="tap-none" cx="89.43" cy="64.48" r="19.46"/>
+    <path class="hand-tap" d="M139.93,102.68,98.81,95.75V65.2A9.25,9.25,0,0,0,89.56,56h0a9.25,9.25,0,0,0-9.25,9.25v57.36L71,111.77c-3.61-3.61-8.44-3.89-13.08,0,0,0-7.24,5.84-3.83,9.25l34,34h42.63a9.25,9.25,0,0,0,9.07-7.43l6.82-34.09A9.28,9.28,0,0,0,139.93,102.68Z"/>
+  </svg>
+
+
+    </div>
+   </div>
+   <audio  class="hiddenaudio noauto" controls>
+       <source src="{{MEDIA_URL}}media/myvideos/aboutronnythenazi/meand12media/interviewmako.mp3" type="audio/mp3">
+   </audio>
+   {% elif page_index == 3 %}
+   <img id="revealhidden" class="pushbutton imgbtn" src="{%static 'images/pushbutton.gif'%}" alt="">
+   <audio  class="hiddenaudio noauto" controls>
+       <source src="{{MEDIA_URL}}media/myvideos/ashkenazim/realisticceo/ashkenazipromotecommunism.mp3" type="audio/mp3">
+   </audio>
+  {% endif %}
+</div>
+{% else %}
+<ul id="ulpages">
+  <li>
+<div style="height:100px;">
+ <div class="deepredbg" style="width:100%;">
+   <div class="subtitle2 txtcenter" style="color:white;">שמי מוזכר בכתבה של מאקו</div>
+ </div>
+</div>
+<div class="txtcenter" style="margin-bottom:50px;top:100px;margin-top:50px;">
+  <img src="{%static 'images/thumbs/‏‏mako.jpg'%}">
+</div>
+
+<audio class="hiddenaudio" controls>
+    <source src="{{MEDIA_URL}}media/myvideos/aboutronnythenazi/meand12media/mediaoverlookmycontentonnazim.ogg" type="audio/ogg">
+</audio>
+<audio  class="hiddenaudio" controls>
+    <source src="{{MEDIA_URL}}media/myvideos/aboutronnythenazi/meand12media/ashkslawminor1.ogg" type="audio/ogg">
+</audio>
+<audio  class="hiddenaudio" controls>
+    <source src="{{MEDIA_URL}}media/myvideos/aboutronnythenazi/meand12media/ashklawminors2.ogg" type="audio/ogg">
+</audio>
+<audio  class="hiddenaudio" controls>
+    <source src="{{MEDIA_URL}}media/myvideos/aboutronnythenazi/meand12media/jourdblstand1.ogg" type="audio/ogg">
+</audio>
+
+<audio  class="hiddenaudio" controls>
+    <source src="{{MEDIA_URL}}media/myvideos/aboutronnythenazi/meand12media/jourdblstand2.ogg" type="audio/ogg">
+</audio>
+</li>
+</ul>
+{% endif %}
+
+
+  <div class="submit_actions_row" style="margin:0">
+  <div class="submit_actions_row_rightmost_child">
+   {% if page_index > 1 %}
+   {% include 'components/submitbtns/btnback.html' %}
+   {% endif %}
+
+  </div>
+  <div class="submit_actions_row_leftmost_child">
+    {% if page_index < numofpages  %}
+    {% include 'components/submitbtns/btncontinue.html' %}
+    {% endif %}
+  </div>
+ </div>
+
+
+
+
+
+
+<script>
+
+var font_size_incremeant = 1;
+var max_incremeant = 20;
+var font_size_def = 50;
+var inc_orientation = 1;
+
+var def_arrowsgap = 5;
+var gap_max_incremeant = 200;
+var gap_curr_incremeant = 1;
+
+$(document).ready(function(){
+  font_size_def = parseInt($('.gradarrow').first().css('font-size').replace('px', ''));
+  arrowsgap = parseInt($('.phoneline').css('gap').replace('px', ''));
+  //setThingsUp();
+  fwiggle();
+});
+
+ $('.imgbtn').click(function(){
+    $('.gradarrow').css('visibility', 'hidden');
+    $(this).hide();
+    $('.twoedgerow').width(0);
+    $('.twoedgerow').css('display','flex');
+    $('.twoedgerow').animate({width: '100%'},{duration:1000, complete:setThingsUp});
+    $(this).siblings('audio')[0].play();
+  });
+ $(window).resize(function(){setTimeout(fillphonelineswitharrow, 100);});
+
+   function setThingsUp()
+   {
+     $('.gradarrow').css('visibility', 'visible');
+     fillphonelineswitharrow();
+     setInterval(rotatearrows ,100);
+     setInterval(switchPhonelinesrows ,5000);
+  }
+
+  function fillphonelineswitharrow()
+  {
+      var num_of_arrows = $('.phoneline').first().children('.gradarrow').length;
+      var arrowidth = $('.phoneline').first().children('span').eq(0).width();
+      var arrowsgap = 5;
+      var sum_arrow_width = 0;
+      $('.phoneline').first().children('.gradarrow').each(function(){
+         sum_arrow_width += $(this).width();
+      });
+      var content_width = sum_arrow_width + (num_of_arrows - 1) * arrowsgap;
+      var phonelinewidth = $('.edgesconnectingbridge').width();
+
+      var width_remained = phonelinewidth  - content_width;
+      while(width_remained > 0)
+      {
+
+        $('.phonelinetoright').append('<span class="gradarrow">&#11166;</span>');
+        $('.phonelinetoleft').append('<span class="gradarrow">&#11164;</span>');
+        width_remained -= (arrowidth + arrowsgap);
+      }
+      set_gradient('.phonelinetoleft', '0517bc');
+      set_gradient('.phonelinetoright', 'f70e0e');
+  }
+  function set_gradient(sender = '.phonelinetoleft', startClr = '548dff')
+  {
+    var currClr = startClr;
+    var clrIncreament = '001100';
+    $(sender).children('span').first().nextAll('span').each(function(){
+     currClr = addTwoHexnums(currClr, clrIncreament, 6);
+     $(this).css('color', '#' + currClr);
+    });
+  }
+  function addTwoHexnums(a, b, ndigits = 6)
+  {
+    var i, carry = 0, d, result = "";
+    for (i = ndigits - 1; i >= 0; i--) {
+    d = parseInt(a[i], 16) + parseInt(b[i], 16) + carry;
+    carry = d >> 4;
+    result = (d & 15).toString(16) + result;
+    }
+    return result;
+  }
+
+  function rotatearrows()
+  {
+    var lastchild = $('.phonelinetoleft').children('span').last()[0];
+
+    $('.phonelinetoleft').prepend(lastchild);
+
+    var lastchild2 = $('.phonelinetoright').children('span').last()[0];
+    $('.phonelinetoright').prepend(lastchild2);
+
+    changearrowSize();
+  }
+
+  function changearrowSize()
+  {
+
+    var new_font_size = (font_size_incremeant % max_incremeant) + font_size_def;
+    new_font_size = Math.max(new_font_size, font_size_def);
+    $('.phonelinetoleft>.gradarrow').first().css('font-size' , new_font_size + 'px');
+    $('.phonelinetoright>.gradarrow').first().css('font-size' , new_font_size + 'px');
+    if(font_size_incremeant == max_incremeant - 1)
+    {
+        inc_orientation = -1;
+    }
+    if(font_size_incremeant == 0)
+    {
+       inc_orientation = 1;
+    }
+    font_size_incremeant = (font_size_incremeant % max_incremeant) + inc_orientation;
+
+
+  }
+
+  function switchPhonelinesrows()
+  {
+
+      $('.edgesconnectingbridge').children('.phoneline').first().appendTo('.edgesconnectingbridge');
+
+  }
+
+  function fwiggle(elem_name = '.wiggle', interval = 1000, max_magnitude_for_wig = 3)
+  {
+
+  		setInterval(function() {
+    //console.log("timer!");
+  	wiggle(elem_name, Math.floor(interval/2), max_magnitude_for_wig);
+  },interval);
+
+  }
+
+  function wiggle(elem_name, wig_dir_time, max_magnitude_for_wig)
+  {
+
+  	var strtop = $(elem_name).css('top');
+  	var strleft = $(elem_name).css('left');
+  	var orgtop = strtop;
+  	var orgleft = strleft;
+    var numtop = parseInt(strtop.replace('px',''));
+  	var numleft = parseInt(strleft.replace('px',''));
+    var orientVer = Math.pow(-1, Math.floor(Math.random() * 3));
+  	var orientHor = Math.pow(-1, Math.floor(Math.random() * 3));
+  	var magnitudeVer = Math.floor(Math.random() * (max_magnitude_for_wig +1));
+  	var magnitudeHor = Math.floor(Math.random() * (max_magnitude_for_wig +1));
+  	var msforchange = Math.floor(Math.random() * (wig_dir_time*2)) +wig_dir_time +1;
+  	var msforreturn = Math.floor(Math.random() * (wig_dir_time*2)) +wig_dir_time +1;
+
+
+    magnitudeHor = magnitudeHor*orientHor;
+
+  	magnitudeVer = magnitudeVer*orientVer;
+
+  	strtop= (magnitudeVer + numtop) + "px";
+  	strleft = (magnitudeHor + numleft) + "px";
+
+  	$('.wiggle').animate({top:strtop, left:strleft},msforchange);
+  	$('.wiggle').animate({top:orgtop, left:orgleft},msforreturn);
+
+  }
+
+</script>

@@ -1,0 +1,196 @@
+{% extends 'magazine/base.html' %}
+{% load static %}
+{%block title%} {{author_username}} כתבות של{%endblock%}
+
+{%block body%}
+<style>
+
+  .article-txt
+  {
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:space-between;
+
+  }
+  .side-title
+  {
+    font-size: 2rem;
+    color:#272728;
+    font-weight: bolder;
+    font-family:formal2;
+    box-sizing: border-box;
+    /*max-width:350px;*/
+    line-height: 2rem;
+    opacity: 0.9;
+  }
+  .grid-row
+  {
+  /*  display:grid;
+    grid-template-columns: 300px [col1]  300px [col2];
+    grid-template-rows: autofill [row] ;*/
+  }
+  .side-thumb
+  {
+    /*width:300px;*/
+    height:100%;
+    box-shadow: 0 0 10px black;
+  }
+  .equal-cols-height-row>*
+  {
+    width:400px;
+  }
+  .equal-cols-height-row
+  {
+    height:200px;
+    display:flex;
+    flex-direction:row;
+    aligm-items:flex-start;
+    justify-content:flex-start;
+    gap:20px;
+  }
+
+  .all-posts-view
+  {
+    margin-top:50px;
+    margin-bottom:50px;
+    display:flex;
+    flex-direction:column;
+    gap:100px;
+    align-items:center;
+    width:100%;
+  }
+  .all-posts-view a
+  {
+    text-decoration: none;
+  }
+
+  .all-posts-body
+  {
+    width:100%;
+    position:relative;
+  }
+
+ .pos-btm-left
+ {
+   font-size:1.25rem;
+   font-family:formal2;
+   font-weight:bold;
+   text-decoration:none;
+   display:flex;
+   flex-direction:row;
+   align-items:center;
+   position:fixed;
+   bottom:50px;
+   left:50px;
+
+ }
+ .pos-btm-right
+ {
+   font-size:1.25rem;
+   font-family:formal2;
+   font-weight:bold;
+   text-decoration:none;
+   display:flex;
+   flex-direction:row;
+   align-items:center;
+   position:fixed;
+   bottom:50px;
+   right:100px;
+ }
+ .red-hover
+ {
+   transition: 1s all;
+ }
+ .red-hover:hover
+ {
+   color:red;
+
+ }
+ .side-title:hover
+ {
+    color:blue;
+ }
+ .equal-cols-height-row:hover
+ {
+    -webkit-box-shadow: inset 0 0 1000px rgb(9, 239, 212, 0.5);
+ }
+</style>
+
+<div class="all-posts-body">
+  <div class="all-posts-view">
+  {% for post in posts %}
+    <a class="equal-cols-height-row"  href="{%url 'magazine:anArticle' post.pk %}">
+         <img class="side-thumb" src="{{post.thumb.url}}" alt="">
+
+      <div class="article-txt">
+         <div class="side-title">{{post.title | safe | slice:":100"}}</div>
+         <div class="a-subtitle" style="justify-content:flex-start;">{{post.subtitle | safe | slice:":100"}}</div>
+         {% if post.author.profile.profile_img.url %}
+           <div class="author super-tiny-row-center-align" style="font-size:0.6rem;">
+               <img class="very-tiny-avatar" src="{{post.author.profile.profile_img.url}}"/>
+               <span>{{post.author | safe}}</span> &nbsp; | &nbsp;
+               <span>{{post.datepublished | date:'d/m/Y' | safe}}</span>
+           </div>
+         {% else %}
+         <div class="author super-tiny-row-center-align" style="font-size:0.6rem;">
+             {% include 'members/default_profile_img.html' %}
+             <span>{{post.author | safe}}</span> &nbsp; | &nbsp;
+             <span>{{post.datepublished | date:'d/m/Y' | safe}}</span>
+         </div>
+         {% endif %}
+         <div class="ice-cream-seperator"></div>
+      </div>
+    </a>
+  {% if forloop.counter == posts|length %}
+    {% if post.datepublished > first_date  %}
+    <a class="red-hover super-tiny-row-center-align pos-btm-left" href="{% url 'magazine:more_posts_by_author_next' s_date=post.datepublished|date:'c' author_username=author_username %}">עוד כתבות
+      <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="blue" class="red-hover bi bi-chevron-double-left" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+        <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+      </svg>
+    </a>
+   {% endif %}
+  {% endif %}
+
+ {% if forloop.counter0 == 0 %}
+   {% if post.datepublished < last_date %}
+  <a class="red-hover super-tiny-row-center-align pos-btm-right" href="{% url 'magazine:more_posts_by_author_prev' s_date=post.datepublished|date:'c' author_username=author_username %}">כתבות חדשות יותר
+     <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="blue" class="red-hover bi bi-chevron-double-left" viewBox="0 0 16 16">
+       <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+       <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+      </svg>
+  </a>
+  {% endif %}
+{% endif %}
+
+{% endfor %}
+  </div>
+
+  <audio style="display:none;" id="mouseclick" controls>
+      <source src="{% static 'magazine/audio/mouseclick.mp3' %}" type="audio/mp3">
+  </audio>
+
+</div>
+
+{% endblock body %}
+
+
+{% block moreJs %}
+<script>
+  $(window).on("scroll", function() {
+  	var scrollHeight = $(document).height();
+  	var scrollPosition = $(window).height() + $(window).scrollTop();
+    var bottom = 360;
+  	if (scrollHeight - scrollPosition < bottom ) {
+      $('.pos-btm-left').css('bottom', bottom + 'px');
+      $('.pos-btm-right').css('bottom', bottom + 'px');
+  	}
+    else
+    {
+      $('.pos-btm-left').css('bottom', '50px');
+      $('.pos-btm-right').css('bottom', '50px');
+    }
+  });
+</script>
+{% endblock moreJs %}
