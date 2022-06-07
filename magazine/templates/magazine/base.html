@@ -9,7 +9,7 @@
 
   {%block meta%}
   {%endblock meta%}
-    <title>{%block title%}בלוג יהודונאציזם{%endblock%}</title>
+    <title>{%block title%}בלוג העבריים{%endblock%}</title>
     <link rel = "shortcut icon" href="{% static 'images/judonazim.svg' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'magazine/css/magazine.css' %}">
     <link rel="stylesheet" href="{% static 'magazine/css/article.css' %}">
@@ -196,9 +196,9 @@
     {% endif %}
    <a id="judo-logo-wrap" href="{% url 'magazine:magazineNews' %}" class="ice-cream-clr" style="align-self:center;">
      <div class="super-tiny-row-center-align stroke-white">
-     <span>יהודו</span>
+     <span>הדרור</span>
      {% include 'magazine/components/svg/judonazim.svg' %}
-     <span>נאציזם</span>
+     <span>העברי</span>
    </div>
  </a>
 
@@ -206,7 +206,7 @@
      <div class="super-tiny-row-center-align stroke-white">
      <a class="copyright"  href="{% url 'magazine:about_ronny_the_nazi' %}"  style="cursor:pointer;display:flex;flex-direction:row;align-items:center;">
        <img src="{% static 'images/ronny.jpg' %}" class="round-styled-small-img-smaller" alt="">
-       <span class="text-muted">רוני הנאצי/יהודונאציזם</span>
+       <span class="text-muted">רוני הכנעני/כוח שמי</span>
        © 2021
      </a>
    </div>
