@@ -155,7 +155,6 @@ def send_mail_notification(notification_pk):
         template_name += "tag_you.html"
         respond_to_com = ''
         his_response = ''
-
     #body = 'Hello ' + usr.username + ' Please use this link to verify your account\n' + active_url
     txt_name = template_name.replace('html', 'txt')
     msg_htmly = get_template(template_name)
@@ -163,7 +162,6 @@ def send_mail_notification(notification_pk):
     dict =  {'to_user':to_user, 'from_user':from_user,'post_title':title,'respond_to_com':respond_to_com,'his_response':his_response, 'link':url}
     text_content = msg_plaintext.render(dict)
     html_content = msg_htmly.render(dict)
-    print('before email = EmailMultiAlternatives')
     email = EmailMultiAlternatives(
         subject,
         text_content,
@@ -172,7 +170,6 @@ def send_mail_notification(notification_pk):
      )
     email.attach_alternative(html_content, "text/html")
     #email.send(fail_silently=True)
-
     EmailThread(email).start()
 
 
