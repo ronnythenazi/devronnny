@@ -28,9 +28,10 @@ if settings.DEBUG:
 
 if settings.DEBUG:
     urlpatterns = [
-        path('', include('blog.urls')),
+        path('info/', include('blog.urls')),
         path('admin/', admin.site.urls),
-        path('magazine/', include('magazine.urls')),
+        #path('magazine/', include('magazine.urls')),
+        path('', include('magazine.urls')),
         path('social/', include('social.urls')),
         path('general/', include('general.urls')),
         path('users/', include('django.contrib.auth.urls')),
@@ -41,8 +42,9 @@ if settings.DEBUG:
 
 else:
     urlpatterns = [
-      path('', include('blog.urls')),
-      path('magazine/', include('magazine.urls')),
+      path('info/', include('blog.urls')),
+      #path('magazine/', include('magazine.urls')),
+      path('', include('magazine.urls')),
       path('social/', include('social.urls')),
       path('general/', include('general.urls')),
       path('users/', include('django.contrib.auth.urls')),

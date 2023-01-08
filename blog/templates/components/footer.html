@@ -309,17 +309,20 @@ footer
               <li class="nav-item d-none d-md-inline-block">
                 <a href="{% url 'magazine:magazineNews' %}" class="nav-link">בית</a>
               </li>
-              <li class="nav-item"><a traget="_blank" href="{% url 'magazine:about_ronny_the_nazi' %}" class="nav-link">אודות</a>
-              </li>
+            <!--  <li class="nav-item"><a traget="_blank" href="{% url 'magazine:about_ronny_the_nazi' %}" class="nav-link">אודות</a>
+              </li>-->
+              <li class="nav-item"><a traget="_blank" href="{% url 'blog:blank' %}" class="nav-link">אודות</a>
+                </li>
               <li class="nav-item"><a traget="_blank" href="{% url 'blog:blank' %}" class="nav-link">תמכו בי</a></li>
               <li class="nav-item"><a traget="_blank" href="https://www.bitchute.com/channel/M6uGehL7XzoY/" class="nav-link">ערוץ ה-{% include 'components/svg/bitchute.html' %} שלי</a></li>
             </ul>
           </div>
 
           <div>
-            <a class="copyright"  href="{% url 'magazine:about_ronny_the_nazi' %}">
+        <!-- <a class="copyright"  href="{% url 'magazine:about_ronny_the_nazi' %}">-->
+        <a class="copyright"  href="{% url 'blog:blank' %}">
               <img src="{% static 'images/ronny.jpg' %}" class="round-styled-small-img-bigger" alt="">
-              <span class="text-muted">רוני העברי</span>
+              <span class="text-muted">רוני הקומוניסט/ראליסט</span>
               © 2021
             </a>
           </div>
@@ -355,10 +358,10 @@ footer
           else
           {
 
-            slug = "קהילת+העברים+האתר+הרשמי";
+            slug = "קהילת+הקומוניסטים+וראליסטים";
             slug += "%26";
-            slug = slug + "גזענות+מצילה+חיים";
-            linkdin_slug = "&title=העברים בישראל&summary=לא רוצים זרים במדינה ומותר לנו להיות גזענים&source=";
+            slug = slug + "עולם גלובלי מאוחד";
+            linkdin_slug = "&title=קומוניזם&summary=האתר תומך בסדר עולמי חדש ושלטון הטכנוקרטים&source=";
           }
           $('.facebook-footer').attr('href', "https://www.facebook.com/sharer/sharer.php?u=" + window.location.href);
 
