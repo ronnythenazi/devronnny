@@ -4,7 +4,7 @@
 
 {%block title%}אין עוד מלבד השם{%endblock%}
 
-
+  {%block moreLinks%}<link rel="stylesheet" href="{% static 'general/css/popups.css' %}"> {%endblock moreLinks%}
     {%block body%}
 
       <div class="magazine-container">
@@ -290,9 +290,149 @@
 
   {% endfor %}
 
+
+  {% for posts_of_label,label in posts_by_labels %}
+
+     <div class="posts-category" id="posts-label-23-{{label.0}}" style="margin-bottom:20px;">
+          <div class="labeled-posts-bar section-sticky category-2023">
+          <span class="tapuzina-clr labeld-post-caption lbl-2023">{{ label.1 }}</span>
+            {% if request.user.groups.all.0.name == 'owner' %}
+            <textarea class="standard-txt-input tapuzina-clr labeld-post-caption" style="display:none;text-align:center;height:50px;">{{ label.1 }}</textarea>
+            {% endif %}
+          {% if request.user.groups.all.0.name == 'owner' %}
+        <div style = "position:absolute;left:0px;top:(50%);">
+          {%include 'magazine/components/btns/ctl_cancel_edit.html'  %}
+          {% include 'magazine/components/btns/menu_tooltip_general.html' %}</div>
+
+        {% endif %}
+        <input type="hidden" class="label-id-23" value="{{ label.0 }}">
+       </div>
+
+
+       <div class="articles-parent" style="margin-top:50px;width:100%;">
+
+
+
+       <div class="articles-block" style="width:100%;flex-basis:1;flex-grow:1;gap:50px;">
+
+           <div class="articles-parent">
+             <a class="tradon-cube" href="{%url 'magazine:anArticle' posts_of_label.0.pk %}">
+
+
+                  <img  class="tradon-img-set"  src="{{posts_of_label.0.thumb.url}}" alt="">
+
+
+              <div class="v-title" style="justify-content:flex-start;"><div class="post-caption-transbg-ver"><span>{{posts_of_label.0.title | safe }}</span> </div></div>
+
+
+            </a>
+
+
+             <a class="tradon-cube" href="{%url 'magazine:anArticle' posts_of_label.1.pk %}">
+
+
+                  <img  class="tradon-img-set"  src="{{posts_of_label.1.thumb.url}}" alt="">
+
+
+              <div class="v-title" style="justify-content:flex-start;"><div class="post-caption-transbg-ver"><span>{{posts_of_label.1.title | safe }}</span></div></div>
+
+
+            </a>
+
+
+
+          </div>
+            <div class="articles-parent">
+            <a class="tradon-cube" href="{%url 'magazine:anArticle' posts_of_label.2.pk %}">
+
+
+
+                 <img  class="tradon-img-set"  src="{{author_posts.2.thumb.url}}" alt="">
+
+
+             <div class="v-title" style="justify-content:flex-start;"><div class="post-caption-transbg-ver"><span>{{posts_of_label.2.title | safe }}</span></div></div>
+
+
+           </a>
+
+           <a class="tradon-cube"  href="{%url 'magazine:anArticle' posts_of_label.3.pk %}">
+
+
+
+                <img class="tradon-img-set"  src="{{posts_of_label.3.thumb.url}}" alt="">
+
+
+            <div class="v-title" style="justify-content:flex-start;"><div class="post-caption-transbg-ver"><span>{{posts_of_label.3.title | safe }}</span></div></div>
+
+
+          </a>
+
+         </div>
+
+
+
+     </div>
+
+      </div>
+   </div>
+
+   {% endfor %}
    <!-- end posty by author -->
    </div>
 
    <div style="height:100px;"></div>
 
   {%endblock body%}
+
+  {%block moreJs%}
+
+  <script type="text/javascript" src="{% static 'general/js/popup_confirm_abort.js' %}"> </script>
+   <script type="text/javascript" src="{% static 'general/js/contex_menu_tooltip.js' %}"> </script>
+   <script>
+   function update_label_name_ajax(label_id, name)
+   {
+     var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'magazine:update-label-name-ajax' %}",
+            data: {'txt': name,
+                   'label_id':label_id,
+
+                   'csrfmiddlewaretoken': csrftoken,
+            },
+            dataType: 'json',
+            success:function (response)
+            {
+
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+   }
+   </script>
+
+   <script>
+   function remove_label_ajax(label_id)
+   {
+     var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'magazine:remove-label-ajax' %}",
+            data: {'label_id':label_id,
+
+                   'csrfmiddlewaretoken': csrftoken,
+            },
+            dataType: 'json',
+            success:function (response)
+            {
+
+            },
+            error: function (response) {
+                console.log(response);
+            }
+        });
+   }
+   </script>
+
+  {%endblock moreJs%}

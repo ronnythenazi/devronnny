@@ -51,6 +51,9 @@ def get_obj_author(obj):
     author = get_com_author(com_type, id)
     return author
 
+def get_post_author(post_id):
+    post = get_object_or_404(BlogPost, id = post_id)
+    return post.author
 
 def get_com_author(com_type, com_id):
     com = get_com(com_type, com_id)

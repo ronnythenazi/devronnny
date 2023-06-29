@@ -1,5 +1,34 @@
 
 
+
+
+
+
+
+
+
+
+$('#article-menu-lst').mouseleave(function(){
+  $('#article-menu-lst').hide();
+});
+
+$('#article-menu-btn').hover(function(){
+  $('#article-menu-btn-bg').show();
+});
+$('#article-menu-btn').mouseleave(function(){
+  $('#article-menu-btn-bg').hide();
+});
+$('#article-menu-btn').click(function(){
+
+  $('#article-menu-lst').css('display', 'flex');
+});
+
+
+
+
+
+
+
 $('#btn-follow').click(function(){
 
   var caller_type = 'post';

@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, Http404, redirect
 from django.views.generic import ListView, DetailView , CreateView
-from .models import BlogPost, Profile, Comment, Notification, comment_of_comment, Labels
+from .models import BlogPost, Profile, Comment, Notification, comment_of_comment
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from .blogpublishing import *
@@ -18,8 +18,6 @@ from social.members_permissions import f_is_user_owner
 from .articles import get_search_result, get_seach_result_qs_in_lst
 from social.coms import get_post_author
 from .posts import get_post_labels, update_post_labels, create_new_label_for_post
-from .posts import update_label_name, remove_label
-
 
 
 import math
@@ -191,51 +189,20 @@ class MagazineHome(ListView):
         min_num_of_posts = 7
         authors =  BlogPost.objects.filter(publishstatus = 'public').order_by('-datepublished').filter(Q(author__groups__name = 'admin') | Q(author__groups__name = 'owner')).values_list('author__id').annotate(total=Count('author__id')).distinct().order_by()
         authors_id = []
-
+        #print(len(authors))
+        #print(authors)
         for author in authors:
             auhtor_count = author[1]
-            if (auhtor_count >= min_num_of_posts):
+            if (auhtor_count > min_num_of_posts + num_of_main_posts):
                 authors_id.append(author[0])
-            #if (auhtor_count > min_num_of_posts + num_of_main_posts):
-            #    authors_id.append(author[0])
+        #print(authors_id)
 
-        first_8_posts = BlogPost.objects.filter(publishstatus = 'public').order_by('-datepublished')[0:8]
         context['authors_posts'] = []
-
-        used_posts = []
-        used_posts.append(first_8_posts)
         for author_id in authors_id:
-            #posts of author not in the first 15 posts
-            #(not that the number 15 can cahnge with website update)
-            #(this is why i use variables such num_of_main_posts  and min_num_of_posts)
-            #(instead of hardcore number)
-            posts_of_author= BlogPost.objects.filter(publishstatus = 'public').order_by('-datepublished').filter(author__id = author_id).exclude(id__in=first_8_posts)[0:min_num_of_posts]
-            if(posts_of_author.count() >= 7):
-                context['authors_posts'].append(posts_of_author)
-                used_posts.append(posts_of_author)
+            context['authors_posts'].append(BlogPost.objects.filter(publishstatus = 'public').order_by('-datepublished').filter(author__id = author_id)[num_of_main_posts + 1:][:min_num_of_posts])
+        #content['author_pubs'] = BlogPost.objects.filter(publishstatus = 'public').order_by('-datepublished')[9:].order_by('author').annotate(authr_posts_num=Count('author', distinct=True)).filter(author__level__gte = 6)
 
-            #context['authors_posts'].append(BlogPost.objects.filter(publishstatus = 'public').order_by('-datepublished').filter(author__id = author_id)[num_of_main_posts + 1:][:min_num_of_posts])
-
-
-        not_used_posts = BlogPost.objects.filter(publishstatus = 'public').order_by('-datepublished')
-        for posts_by_author in used_posts:
-            not_used_posts  = not_used_posts.exclude(id__in = posts_by_author)
-
-        min_num_posts_per_label = 4
-        posts_by_labels = []
-        labels =  Labels.objects.all().values_list('id', 'text').distinct().order_by()
-        stored_labels_to_html = []
-        for label in labels:
-            posts_of_label = not_used_posts.filter(id__in = Labels.objects.filter(id=label[0]).values_list('articles'))
-            if(posts_of_label.count() >= min_num_posts_per_label):
-                posts_by_labels.append(posts_of_label[0:min_num_posts_per_label])
-                stored_labels_to_html.append(label)
-
-        zipped_lst = []
-        zipped_lst = zip(posts_by_labels, stored_labels_to_html)
-        context['posts_by_labels'] = zipped_lst
-
-
+        #print(context['authors_posts'][0][0]['pk'])
         return context
 
 
@@ -493,40 +460,3 @@ def create_new_label_ajax(request):
         cblist_of_what = request.POST.get('cblist_of_what')
         result = create_new_label_for_post(post_id, txt, cblist_of_what)
         return JsonResponse(result)
-
-
-def update_label_name_ajax(request):
-    if not request.user.is_authenticated:
-        return JsonResponse({'status':'not-log-in'})
-    if request.is_ajax and request.method == "POST":
-        #username = request.GET.get('username')
-        is_user_owner = False
-        groups = list(request.user.groups.values_list('name',flat = True))
-        if 'owner' in groups:
-            is_user_owner = True
-        if(is_user_owner == False):
-            return JsonResponse({'status':'acesss is denied'})
-
-        txt = request.POST.get('txt')
-        id = request.POST.get('label_id')
-        update_label_name(id, txt)
-        return JsonResponse({'status':'succeeded'})
-
-def remove_label_ajax(request):
-    if not request.user.is_authenticated:
-        return JsonResponse({'status':'not-log-in'})
-    if request.is_ajax and request.method == "POST":
-        #username = request.GET.get('username')
-        is_user_owner = False
-        groups = list(request.user.groups.values_list('name',flat = True))
-        if 'owner' in groups:
-            is_user_owner = True
-        if(is_user_owner == False):
-            return JsonResponse({'status':'acesss is denied'})
-
-        id = request.POST.get('label_id')
-        remove_label(id)
-        return JsonResponse({'status':'succeeded'})
-
-
-#update_label_name, remove_label

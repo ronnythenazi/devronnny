@@ -31,5 +31,10 @@ urlpatterns = [
  path('activate_user/', views.activate_user_ajax, name='activate_user'),
  path('search-results-articles/', views.search_articles, name='search-articles'),
  path('load-more-matched-articles/', views.load_more_matched_articles_ajax, name='load-more-matched-articles'),
-
+ path('get-cblist-article-ajax', views.get_labels_for_post_ajax , name = 'get-cblist-ajax'),
+ path('update-cblist-ajax', views.update_cblist_for_post_ajax , name = 'update-cblist-ajax'),
+ path('create-new-label-ajax', views.create_new_label_ajax , name = 'create-new-label-ajax'),
+ path('remove-label-ajax', views.remove_label_ajax, name = 'remove-label-ajax'),
+ path('update-label-name-ajax', views.update_label_name_ajax, name = 'update-label-name-ajax'),
+ path('quick-delete-label-item-ajax', views.remove_label_ajax, name ='quick-delete-label-item-ajax'),
 ]

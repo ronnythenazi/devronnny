@@ -32,8 +32,14 @@ def get_default_user():
     user.save()
     return user
 
-class BlogPost(models.Model):
+class Labels(models.Model):
+    text = models.CharField(max_length = 200)
+    articles = models.ManyToManyField('BlogPost', blank = True, related_name = 'articles')
 
+    #on_delete = models.CASCADE
+
+
+class BlogPost(models.Model):
     title = models.CharField(blank = False, max_length = 60, null = False, default = '')
     subtitle = models.CharField(blank = False, max_length = 200, null = False , default ='')
     thumb = models.ImageField(blank = False, null = False, upload_to = 'posts/images/%Y/%m/%d/')
@@ -133,7 +139,7 @@ class Comment(models.Model):
         return '%s - %s - added at %s  last update at %s' % (self.post.title, self.comment_usr, self.date_added, self.date_last_update)
 
 class comment_of_comment(models.Model):
-    comment = models.ForeignKey(Comment, related_name = "comments_of_comment" , on_delete = models.CASCADE)
+    comment = models.ForeignKey(Comment, related_name = "comments_of_comment", on_delete = models.CASCADE)
     title = models.CharField(blank = True, max_length = 60, null = True)
     body = RichTextField(blank = False, null = False, max_length = 10000)
     comment_of_comment_usr = models.ForeignKey(User, on_delete = models.CASCADE, blank = True, null = True, default = get_default_user)

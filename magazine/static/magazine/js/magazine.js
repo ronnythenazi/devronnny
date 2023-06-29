@@ -77,3 +77,7 @@ $('.svg-rate').click(function(){
        set_in_the_middle($('#judo-logo-wrap'));
    }
    });
+
+
+
+   
