@@ -316,7 +316,11 @@
                               {{comment.body | safe}}
                             </textarea>
                             <script>
-                            CKEDITOR.replace("com-edit-{{comment.pk}}");
+                            CKEDITOR.replace("com-edit-{{comment.pk}}", {
+                            filebrowserUploadUrl: "{% url 'ckeditor_upload' %}",
+                            filebrowserBrowseUrl: "{% url 'ckeditor_browse' %}",});
+
+
                             </script>
                           </div>
                          <div class="super-tiny-row-center-align" style="justify-content:space-between;width:100%;">
@@ -340,7 +344,9 @@
             <textarea class="ckeditor" name="ck-reply-to-com-{{comment.pk}}">
             </textarea>
             <script>
-            CKEDITOR.replace('ck-reply-to-com-{{comment.pk}}');
+            CKEDITOR.replace('ck-reply-to-com-{{comment.pk}}', {
+            filebrowserUploadUrl: "{% url 'ckeditor_upload' %}",
+            filebrowserBrowseUrl: "{% url 'ckeditor_browse' %}",});
            </script>
             <input type="hidden" class="com-parent-id" value="{{comment.pk}}">
             <input type="hidden" class="replied-to-sub-com-id" value="">
@@ -543,7 +549,9 @@
                               {{comment_of_comment.body | safe}}
                             </textarea>
                             <script>
-                            CKEDITOR.replace('ck-edit-sub-com-{{comment_of_comment.pk}}');
+                            CKEDITOR.replace('ck-edit-sub-com-{{comment_of_comment.pk}}',{
+                            filebrowserUploadUrl: "{% url 'ckeditor_upload' %}",
+                            filebrowserBrowseUrl: "{% url 'ckeditor_browse' %}",});
                            </script>
                           </div>
                          <div class="super-tiny-row-center-align" style="justify-content:space-between;width:100%;">
@@ -570,7 +578,9 @@
              <textarea class="ckeditor" name="ck-reply-to-sub-com-{{comment_of_comment.pk}}">
              </textarea>
              <script>
-             CKEDITOR.replace('ck-reply-to-sub-com-{{comment_of_comment.pk}}');
+             CKEDITOR.replace('ck-reply-to-sub-com-{{comment_of_comment.pk}}',{
+             filebrowserUploadUrl: "{% url 'ckeditor_upload' %}",
+             filebrowserBrowseUrl: "{% url 'ckeditor_browse' %}",});
             </script>
              <input type="hidden" class="com-parent-id" value="{{comment.pk}}">
              <input type="hidden" class="replied-to-sub-com-id" replied-to-sub-com-id="{{comment_of_comment.pk}}">
@@ -744,7 +754,9 @@
   <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"> </script>
   <script type="text/javascript" src="{% static 'plugins/jquery.js' %}"> </script>
   <script>
-  CKEDITOR.replace('editor1');
+  CKEDITOR.replace('editor1',{
+  filebrowserUploadUrl: "{% url 'ckeditor_upload' %}",
+  filebrowserBrowseUrl: "{% url 'ckeditor_browse' %}",});
 </script>
 
 <script>
@@ -1125,8 +1137,12 @@ function clone_sub_com(sub_com_id, com_parent_id, body, time, date, author_name,
   }
   $(newElement).children().first().unwrap();
   $(newElement).show();
-  CKEDITOR.replace('ck-reply-to-sub-com-' + sub_com_id);
-  CKEDITOR.replace('ck-edit-sub-com-' + sub_com_id);
+  CKEDITOR.replace('ck-reply-to-sub-com-' + sub_com_id,{
+  filebrowserUploadUrl: "{% url 'ckeditor_upload' %}",
+  filebrowserBrowseUrl: "{% url 'ckeditor_browse' %}",});
+  CKEDITOR.replace('ck-edit-sub-com-' + sub_com_id,{
+  filebrowserUploadUrl: "{% url 'ckeditor_upload' %}",
+  filebrowserBrowseUrl: "{% url 'ckeditor_browse' %}",});
 
 }
 

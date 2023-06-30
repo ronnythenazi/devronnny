@@ -1985,6 +1985,27 @@ function create_new_label_to_post_ajax(cblist_of_what, txt, callback)
 
 </script>
 
+<script>
+function quick_delete_label_item_ajax(id, cblist_of_what, callback)
+{
+  var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+     $.ajax({
+         type: 'POST',
+         url: "{% url 'magazine:quick-delete-label-item-ajax' %}",
+         data: {
+                'label_id':id,
+                'cblist_of_what': cblist_of_what,
+                'csrfmiddlewaretoken': csrftoken,
+         },
+         dataType: 'json',
+         success:callback,
+         error: function (response) {
+             console.log(response);
+         }
+     });
+}
+</script>
+
 <script type="text/javascript" src="{% static 'magazine/com_edit/com_edit.js' %}"> </script>
 <script type="text/javascript" src="{% static 'magazine/js/article.js' %}"> </script>
 <script type="text/javascript" src="{% static 'general/js/popup_cklst.js' %}"> </script>

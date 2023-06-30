@@ -76,7 +76,8 @@
                 width: '1000px',
                 height:'1000px',
                 'extraAllowedContent': 'iframe[*]',
-                //filebrowserUploadUrl: '{{MEDIA_URL}}' + 'ckeditor/uploads/',
+                filebrowserUploadUrl: "{% url 'ckeditor_upload' %}",
+                filebrowserBrowseUrl: "{% url 'ckeditor_browse' %}",
 
             });
               </script>
