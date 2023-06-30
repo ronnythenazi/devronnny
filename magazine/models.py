@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import User, Group, Permission
 from django.urls import reverse
 from datetime import datetime, date
@@ -48,7 +49,8 @@ class BlogPost(models.Model):
     #author_email = models.EmailField(null = False, blank = True, default = "ronnythenazi@gmail.com")
     datepublished= models.DateTimeField(auto_now_add = True, blank=True)
     datelastupdated= models.DateTimeField(auto_now = True, blank=True)
-    content =  RichTextField(blank = False, null = False) #models.TextField(null = False)
+    #content =  RichTextField(blank = False, null = False)
+    content =  RichTextUploadingField(blank = False, null = False)
     likes = models.ManyToManyField(User, related_name = "post_likes", blank = True)
     dislikes = models.ManyToManyField(User, related_name = "post_dislikes", blank = True)
     followers = models.ManyToManyField(User, related_name = "post_followers", blank = True)
@@ -94,7 +96,8 @@ class BlogPost(models.Model):
 class Comment(models.Model):
     post = models.ForeignKey(BlogPost, related_name = "comments" , on_delete = models.CASCADE)
     title = models.CharField(blank = True, max_length = 60, null = True, default = 'תגובה למאמר')
-    body = RichTextField(blank = False, null = False, max_length = 10000)
+    #body = RichTextField(blank = False, null = False, max_length = 10000)
+    body = RichTextUploadingField(blank = False, null = False, max_length = 10000)
     comment_usr = models.ForeignKey(User, on_delete = models.CASCADE, blank = True, null = True, default = get_default_user)
     date_added = models.DateTimeField(auto_now_add = True, blank = True)
     date_last_update = models.DateTimeField(auto_now = True, null = True, blank = True)
@@ -141,7 +144,8 @@ class Comment(models.Model):
 class comment_of_comment(models.Model):
     comment = models.ForeignKey(Comment, related_name = "comments_of_comment", on_delete = models.CASCADE)
     title = models.CharField(blank = True, max_length = 60, null = True)
-    body = RichTextField(blank = False, null = False, max_length = 10000)
+    #body = RichTextField(blank = False, null = False, max_length = 10000)
+    body = RichTextUploadingField(blank = False, null = False, max_length = 10000)
     comment_of_comment_usr = models.ForeignKey(User, on_delete = models.CASCADE, blank = True, null = True, default = get_default_user)
     to_sub_comment = models.ForeignKey('comment_of_comment', on_delete = models.CASCADE, related_name = 'replied_to', blank = True, null = True)
     date_added = models.DateTimeField(auto_now_add = True, blank = True)

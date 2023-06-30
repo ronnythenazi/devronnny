@@ -66,13 +66,13 @@
 
  CKEDITOR.replace( 'id_content',  {
          'toolbar': 'full',
-        'toolbar_full': [
+         'toolbar_full': [
 
              ['Colordialog', 'Styles', 'Format', 'Font', 'FontSize', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'],
              ['Autolink'],
-              ['Link', 'Unlink'],
+             ['Link', 'Unlink'],
              ['Anchor',  'Uploadimage'],
-             ['Image', 'Flash', 'Table', 'HorizontalRule'],
+             ['Image', 'Update', 'Flash', 'Table', 'HorizontalRule'],
              ['TextColor', 'BGColor'],
              ['Smiley', 'SpecialChar'], ['Source'],
              ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
@@ -81,11 +81,14 @@
              ['Maximize'],
              ['Preview'],
              ['About'],
+             ['Image'],
          ],
          'extraPlugins': 'justify,liststyle,indent',
          width: '1000px',
          height:'1000px',
          'extraAllowedContent': 'iframe[*]',
+         //filebrowserUploadUrl: '{{MEDIA_URL}}' + 'ckeditor/uploads/',
+
 
  });
    </script>

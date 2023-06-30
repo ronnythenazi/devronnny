@@ -57,6 +57,11 @@ INSTALLED_APPS = [
         'users',
         'social',
         'general',
+
+        #'filer',
+        #'ckeditor_filebrowser_filer',
+        #'easy_thumbnails',
+        'ckeditor_uploader',
     ]
 
 
@@ -247,13 +252,17 @@ CKEDITOR_CONFIGS = {
 }
 """
 
+CKEDITOR_IMAGE_BACKEND = "pillow"
+CKEDITOR_UPLOAD_PATH = 'ckeditor/uploads/'
+CKEDITOR_UPLOAD_SLUGIFY_FILENAME = False
+
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'Custom',
         'toolbar__Custom': [
      ['Styles', 'Format', 'Font', 'FontSize', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'],
      ['Link', 'Unlink', 'Anchor', 'Uploadimage'],
-     ['Image', 'Flash', 'Table', 'HorizontalRule'],
+     ['Image','Update', 'Flash', 'Table', 'HorizontalRule'],
      ['TextColor', 'BGColor'],
      ['Smiley', 'SpecialChar'], ['Source'],
      ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
@@ -261,9 +270,16 @@ CKEDITOR_CONFIGS = {
      ['Indent','Outdent'],
      ['Maximize'],
      ['Preview'],
+     ['Image'],
+     #['FilerImage'],
  ],
         'width': '100%',
         'extraAllowedContent': 'iframe[*]',
+        #'extraPlugins': 'filerimage',
+        #'removePlugins': 'image',
+        #"filebrowserUploadUrl":"upload/",
+
+
     },
 
 }

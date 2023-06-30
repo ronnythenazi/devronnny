@@ -22,6 +22,10 @@ from general import urls
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import url
+from ckeditor_uploader import views as uploader_views
+from django.views.decorators.cache import never_cache
+
 
 if settings.DEBUG:
     from django.contrib import admin
@@ -36,8 +40,19 @@ if settings.DEBUG:
         path('general/', include('general.urls')),
         path('users/', include('django.contrib.auth.urls')),
         path('users/', include('users.urls')),
+        #url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+        url(r'^ckeditor/upload/',uploader_views.upload, name='ckeditor_upload'),
+        url(r'^ckeditor/browse/',never_cache(uploader_views.browse), name='ckeditor_browse'),
+
+
 
     ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+    '''urlpatterns += [
+        url(r'^media/(?P<path>.*)$', serve, {
+            'document_root': settings.MEDIA_ROOT
+        }),
+    ]'''
+
 
 
 else:
@@ -49,4 +64,9 @@ else:
       path('general/', include('general.urls')),
       path('users/', include('django.contrib.auth.urls')),
       path('users/', include('users.urls')),
+      #url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+      url(r'^ckeditor/upload/',uploader_views.upload, name='ckeditor_upload'),
+      url(r'^ckeditor/browse/',never_cache(uploader_views.browse), name='ckeditor_browse'),
+
+
     ]

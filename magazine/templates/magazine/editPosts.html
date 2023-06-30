@@ -3,7 +3,7 @@
 
 
     <meta charset="utf-8">
-    {%block title%}הפוסטים שלך{%endblock%}
+    {%block title%}עריכה{%endblock%}
 
    {%block moreLinks%}<link rel="stylesheet" href="{% static 'magazine/css/editPosts.css' %}">{%endblock moreLinks%}
 
@@ -68,11 +68,16 @@
                {{frm.publishstatus | safe}}
                </div>
              </div>
+             <script>
+
+             </script>
             <script>
                CKEDITOR.replace( 'id_content', {
                 width: '1000px',
                 height:'1000px',
                 'extraAllowedContent': 'iframe[*]',
+                //filebrowserUploadUrl: '{{MEDIA_URL}}' + 'ckeditor/uploads/',
+
             });
               </script>
             </div>
