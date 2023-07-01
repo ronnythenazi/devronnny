@@ -166,8 +166,7 @@ def send_mail_notification(notification_pk):
     email = EmailMultiAlternatives(
         subject,
         html_content,
-        #'noreply@semycolon.com',
-        'notifications.ronnywasright.com',
+        'notifications@em5210.ronnywasright.com',
         [to_user.email],
      )
 
@@ -176,9 +175,8 @@ def send_mail_notification(notification_pk):
 
 
 
-
+    #send_mail('dsds', 'sdsdd','notifications@em5210.ronnywasright.com', [to_user.email], fail_silently=False)
     email.attach_alternative(html_content, "text/html")
-    #email.send(fail_silently=True)
     EmailThread(email).start()
 
 

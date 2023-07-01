@@ -299,13 +299,25 @@ LOGOUT_REDIRECT_URL = 'magazine:magazineNews'
 
 
 
-
+SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY')
+#EMAIL_BACKEND = django.core.mail.backends.smtp.EmailBackend
 
 EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND')
-EMAIL_HOST = os.environ.get('EMAIL_HOST')
+
+#FROM_EMAIL = 'ronnywasright.com' # replace with your address
+
+if DEBUG:
+    SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+    #SENDGRID_SANDBOX_MODE_IN_DEBUG = True
+    #SENDGRID_ECHO_TO_STDOUT=True
+else:
+    SENDGRID_SANDBOX_MODE_IN_DEBUG = False
+
+
+'''EMAIL_HOST = os.environ.get('EMAIL_HOST')
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
 EMAIL_PORT = 587
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL =  os.environ.get('em450.ronnywasright.com')
+DEFAULT_FROM_EMAIL =  os.environ.get(DEFAULT_FROM_EMAIL)'''

@@ -123,12 +123,9 @@ def create_and_send_activation_link(body_template_name, subject, user, url_to_go
 
     email = EmailMultiAlternatives(
         subject,
-        text_content,
-        'noreply@semycolon.com',
-        #headers={"Reply-To": "support@sendgrid.com"},
+        html_content,
+        'activate@em5210.ronnywasright.com',
         [user.email],
-
-
      )
     email.attach_alternative(html_content, "text/html")
     #email.send(fail_silently=True)
@@ -180,11 +177,11 @@ def SignUp(request):
         html_content = msg_htmly.render(dict)
 
         email = EmailMultiAlternatives(
-            subject,
-            text_content,
-            'noreply@semycolon.com',
-            [usr.email],
-         )
+             subject,
+             html_content,
+             'signup@em5210.ronnywasright.com',
+             [usr.email],
+          )
         email.attach_alternative(html_content, "text/html")
         #email.send(fail_silently=True)
         EmailThread(email).start()
