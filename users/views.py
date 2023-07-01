@@ -125,11 +125,17 @@ def create_and_send_activation_link(body_template_name, subject, user, url_to_go
         subject,
         text_content,
         'noreply@semycolon.com',
+        #headers={"Reply-To": "support@sendgrid.com"},
         [user.email],
+
+
      )
     email.attach_alternative(html_content, "text/html")
     #email.send(fail_silently=True)
+
     EmailThread(email).start()
+
+
 
 def create_activation_link(user, url_to_go, request):
     uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
@@ -194,7 +200,7 @@ def SignUp(request):
 
 def create_new_password(request, uidb64, token):
     try:
-        
+
         id = force_text(urlsafe_base64_decode(uidb64))
         user = User.objects.get(pk=id)
         print('user resotre passowrd name' + user.username)

@@ -12,7 +12,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
 from users.utils import token_generator
 from django.template.loader import get_template
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives, send_mail
 import threading
 from .coms import get_article_obj, get_this_obj_type, get_com_author
 from users.members import get_all_active_users, filter_lst_to_active_users
@@ -63,7 +63,8 @@ class EmailThread(threading.Thread):
         threading.Thread.__init__(self)
 
     def run(self):
-        self.EmailMultiAlternatives.send(fail_silently=True)
+        self.EmailMultiAlternatives.send(fail_silently=False)
+
 
 
 
@@ -164,10 +165,18 @@ def send_mail_notification(notification_pk):
     html_content = msg_htmly.render(dict)
     email = EmailMultiAlternatives(
         subject,
-        text_content,
-        'noreply@semycolon.com',
+        html_content,
+        #'noreply@semycolon.com',
+        'notifications.ronnywasright.com',
         [to_user.email],
      )
+
+
+
+
+
+
+
     email.attach_alternative(html_content, "text/html")
     #email.send(fail_silently=True)
     EmailThread(email).start()
