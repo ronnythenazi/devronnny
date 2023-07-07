@@ -19,6 +19,7 @@ from .articles import get_search_result, get_seach_result_qs_in_lst
 from social.coms import get_post_author
 from .posts import get_post_labels, update_post_labels, create_new_label_for_post
 from .posts import update_label_name, remove_label
+from .signals import user_visit_site
 
 
 
@@ -235,6 +236,12 @@ class MagazineHome(ListView):
         zipped_lst = zip(posts_by_labels, stored_labels_to_html)
         context['posts_by_labels'] = zipped_lst
 
+        #signal
+        try:
+            user = self.request.user
+            user_visit_site.send(user.__class__, instance = user, request = self.request)
+        except:
+            pass
 
         return context
 

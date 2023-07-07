@@ -62,6 +62,7 @@ INSTALLED_APPS = [
         #'ckeditor_filebrowser_filer',
         #'easy_thumbnails',
         'ckeditor_uploader',
+        'analytics',
     ]
 
 
@@ -207,6 +208,7 @@ if DEBUG:
         os.path.join(BASE_DIR, 'users', 'static'),
         os.path.join(BASE_DIR, 'social', 'static'),
         os.path.join(BASE_DIR, 'general', 'static'),
+        os.path.join(BASE_DIR, 'analytics', 'static'),
       )
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 else:
@@ -313,6 +315,9 @@ if DEBUG:
 else:
     SENDGRID_SANDBOX_MODE_IN_DEBUG = False
 
+
+FORCE_SESSION_TO_ONE = False
+FORCE_INACTIVE_USER_ENDSESSION = False
 
 '''EMAIL_HOST = os.environ.get('EMAIL_HOST')
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')

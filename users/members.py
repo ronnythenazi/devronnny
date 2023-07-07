@@ -82,6 +82,17 @@ def get_profile_info_for_validated_user(username):
     info['avatar'] = str(profile.profile_img.url)
     return info
 
+def get_profile_info_nick_or_user(user):
+    profile = get_profile(user)
+    info = {}
+
+    if not profile.nick is None:
+        info['name'] = nick
+    else:
+        info['name'] = str(user.username)
+    info['avatar'] = str(profile.profile_img.url)
+    return info
+
 def get_profile_info(username):
     if is_username_exists(username) == False:
         return {}

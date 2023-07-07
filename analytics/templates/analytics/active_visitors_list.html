@@ -1,0 +1,323 @@
+{%load static%}
+
+
+<div class="active_visitors_parent_holder">
+
+     <div class="shrink-win-to-left-svg-23" style="display:none;">
+      <svg xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
+     <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+     <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+   </svg>
+    </div>
+    <div class="expand-win-to-right-svg-23">
+      <svg xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
+     <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z"/>
+     <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z"/>
+   </svg>
+    </div>
+ <div class="active_visitor_parent">
+  <div class="header_active_visitor_parent">
+   <span>פעילים לאחרונה באתר</span>
+  </div>
+
+  <div class="body_active_visitor" data-height="">
+    <div class="active_visitor_item templeate_visitor_item">
+
+      <div class="active_visitor_button_container">
+        <div class="active_visitor_button">
+
+        </div>
+      </div>
+
+      <div class="img_active_user_container">
+        <img class="img_active_user"  id="" onload="fadeInImg('')" src="" alt="">
+
+        </img>
+      </div>
+
+      <div class="active_user_item_name blood-clr">
+
+      </div>
+
+      <div class="active_visitor_item_last_seen bluish-clr">
+
+      </div>
+      <div class="hidden_user_id_for_active_user" data-user_id="">
+
+      </div>
+    </div>
+  </div>
+
+
+
+<div class="footer-active-visitors">
+ <span></span>
+</div>
+
+</div>
+<script type="text/javascript" src="{% static 'analytics/js/active_visitors_lst.js' %}"> </script>
+<link rel="stylesheet" href="{% static 'analytics/css/active_visitor_list.css' %}">
+
+
+
+<div style="display:none";>
+<script>
+  function check_site_activity_true_or_false_23()
+  {
+    var site_was_active = $('#site_was_active_in_the_last_minute_23').val();
+    if(site_was_active != 'true')
+    {
+       return;
+    }
+
+    //call ajax
+    $('#site_was_active_in_the_last_minute_23').val('false');
+    update_session_in_db();
+  }
+
+  function get_active_visitors()
+  {
+
+    var active_users;
+    var active_guests;
+
+    var active_users_on_post;
+    var active_guests_on_post;
+
+    get_active_users_on_site(function(result){
+      active_users = result;
+
+
+   if($('#visitors-win-view').val() == 'site')
+     {
+      refresh_active_users(active_users, 'site');
+     }
+
+    });
+
+    get_active_guests_on_site(function(result){
+
+
+      active_guests = result;
+      if($('#visitors-win-view').val() == 'site')
+      {
+        set_footer_visitors(active_guests, 'site');
+      }
+
+    });
+
+
+    if ($('#post_pk').length <= 0)
+    {
+      return;
+    }
+
+    get_active_users_on_post(function(result){
+      active_users_on_post = result;
+
+      if(active_users_on_post.length<=0)
+      {
+        $('#visitors-win-view').val('site');
+      }
+      if($('#visitors-win-view').val() == 'page')
+      {
+
+           refresh_active_users(active_users_on_post, 'page');
+      }
+
+    });
+
+    get_active_guests_on_post(function(result){
+      active_guests_on_post = result;
+      if($('#visitors-win-view').val() == 'page')
+      {
+        set_footer_visitors(active_guests_on_post, 'page');
+      }
+    });
+
+
+  }
+
+  function set_site_activity_true_23()
+  {
+    $('#site_was_active_in_the_last_minute_23').val('true');
+
+  }
+
+
+  $(document).ready(function(){
+    setInterval(check_site_activity_true_or_false_23, 10000);
+    setInterval(get_active_visitors, 10000);
+
+
+   setInterval(function(){switch_visitors_win();}, 30000);
+
+  });
+
+function switch_visitors_win()
+{
+  if($('#visitors-win-view').val() == 'site' && $('#post_pk').length)
+  {
+    $('#visitors-win-view').val('page');
+    return;
+  }
+  $('#visitors-win-view').val('site');
+
+}
+
+
+
+$(window).scroll(function(){
+    set_site_activity_true_23();
+  });
+
+
+
+
+  function update_session_in_db()
+  {
+    if ($('#post_pk').length)
+    {
+      update_session_for_post_in_db(function(result){
+
+      });
+    }
+    else
+    {
+      update_session_for_homepage_in_db(function(result){
+
+      });
+    }
+
+  }
+
+
+
+  function get_active_users_on_post(callback)
+  {
+    var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+       $.ajax({
+           type: 'GET',
+           url: "{% url 'analytics:get_member_visitors_for_post_ajax' %}",
+           data: {'page_id':$('#post_pk').val(),
+                  'csrfmiddlewaretoken': csrftoken,
+           },
+           dataType: 'json',
+           success:callback,
+           error: function (response) {
+               console.log(response);
+           }
+       });
+  }
+
+  function get_active_guests_on_post(callback)
+  {
+    var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+       $.ajax({
+           type: 'GET',
+           url: "{% url 'analytics:get_anonymous_visitors_for_post_ajax' %}",
+           data: {'page_id':$('#post_pk').val(),
+                  'csrfmiddlewaretoken': csrftoken,
+           },
+           dataType: 'json',
+           success:callback,
+           error: function (response) {
+               console.log(response);
+           }
+       });
+  }
+
+
+
+
+  function get_active_users_on_site(callback)
+  {
+    var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+       $.ajax({
+           type: 'GET',
+           url: "{% url 'analytics:get_member_visitors_ajax' %}",
+           data: {
+                  'csrfmiddlewaretoken': csrftoken,
+           },
+           dataType: 'json',
+           success:callback,
+           error: function (response) {
+               console.log(response);
+           }
+       });
+  }
+
+  function get_active_guests_on_site(callback)
+  {
+    var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+       $.ajax({
+           type: 'GET',
+            url: "{% url 'analytics:get_anonymous_visitors_ajax' %}",
+            data: {
+                  'csrfmiddlewaretoken': csrftoken,
+           },
+           dataType: 'json',
+           success:callback,
+           error: function (response) {
+               console.log(response);
+           }
+       });
+  }
+
+  function update_session_for_post_in_db(callback)
+  {
+    var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+       $.ajax({
+           type: 'POST',
+           url: "{% url 'analytics:set_visitor_date_for_post_ajax' %}",
+           data: {'page_id':$('#post_pk').val(),
+                  'csrfmiddlewaretoken': csrftoken,
+           },
+           dataType: 'json',
+           success:callback,
+           error: function (response) {
+               console.log(response);
+           }
+       });
+  }
+
+
+  function update_session_for_homepage_in_db(callback)
+  {
+    var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+       $.ajax({
+           type: 'POST',
+           url: "{% url 'analytics:set_visitor_date_for_homepage_ajax' %}",
+           data: {
+                  'csrfmiddlewaretoken': csrftoken,
+           },
+           dataType: 'json',
+           success:callback,
+           error: function (response) {
+               console.log(response);
+           }
+       });
+  }
+
+</script>
+
+
+<input type="hidden" id="site_was_active_in_the_last_minute_23" value="false">
+<input type="hidden" id="visitors-win-view" value="site">
+
+<audio style="display:none;" id="update_audio" controls>
+    <source src="{% static 'general/audio/update.mp3' %}" type="audio/mp3">
+</audio>
+
+<audio style="display:none;" id="hide_audio" controls>
+    <source src="{% static 'general/audio/hide_popup.mp3' %}" type="audio/mp3">
+</audio>
+
+<audio style="display:none;" id="press_audio" controls>
+    <source src="{% static 'general/audio/press.mp3' %}" type="audio/mp3">
+</audio>
+
+</div>
+
+
+</div>

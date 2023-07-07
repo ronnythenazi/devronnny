@@ -21,11 +21,9 @@ from .utils import token_generator, token_generator_general
 from django.template.loader import get_template
 from django.template import Context
 from .members import is_username_active
-
 from django.views import View
-
 import threading
-
+from .signals import user_logged_in
 
 
 class EmailThread(threading.Thread):
@@ -56,6 +54,10 @@ def login_view(request):
 
         if is_username_active(username):
             login(request, user)
+            #using signal to store in session for tracking online users
+            #before redirecting after login
+            user_logged_in.send(user.__class__, instance = user, request = request)
+
             return redirect('magazine:magazineNews')
         return HttpResponseRedirect("/SignIn")
 

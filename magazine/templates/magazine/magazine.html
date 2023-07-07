@@ -4,7 +4,9 @@
 
 {%block title%}אין עוד מלבד השם{%endblock%}
 
-  {%block moreLinks%}<link rel="stylesheet" href="{% static 'general/css/popups.css' %}"> {%endblock moreLinks%}
+  {%block moreLinks%}<link rel="stylesheet" href="{% static 'general/css/popups.css' %}">
+
+  {%endblock moreLinks%}
     {%block body%}
 
       <div class="magazine-container">
@@ -381,6 +383,8 @@
    </div>
 
    <div style="height:100px;"></div>
+
+  {% include 'analytics/active_visitors_list.html' %}
 
   {%endblock body%}
 

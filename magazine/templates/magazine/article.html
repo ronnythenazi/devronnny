@@ -1216,6 +1216,9 @@ function f_sub_com_save()
 
    </script>
 
+   {% include 'analytics/active_visitors_list.html' %}
+
+
 
   {%endblock body%}
 
@@ -2009,5 +2012,6 @@ function quick_delete_label_item_ajax(id, cblist_of_what, callback)
 <script type="text/javascript" src="{% static 'magazine/com_edit/com_edit.js' %}"> </script>
 <script type="text/javascript" src="{% static 'magazine/js/article.js' %}"> </script>
 <script type="text/javascript" src="{% static 'general/js/popup_cklst.js' %}"> </script>
+
 
 {%endblock moreJs%}

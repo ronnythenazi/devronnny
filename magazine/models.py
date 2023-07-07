@@ -197,6 +197,7 @@ class Profile(models.Model):
     bio = models.TextField(max_length = 1000, null = True, blank = True)
     profile_img =  models.ImageField(default="default.jpg", blank = True, null = True, upload_to = 'members/profile/avatar')
 
+    nick = models.CharField(max_length = 20, null = True, blank = True)
     first_name = models.CharField(max_length = 100, null = True, blank = True)
     last_name = models.CharField(max_length = 100, null = True, blank = True)
     race = models.CharField(max_length = 200, null = True, blank = True)
