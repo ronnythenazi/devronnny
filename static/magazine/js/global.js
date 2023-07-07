@@ -151,5 +151,5 @@ function hide_elem_if_close_to_footer(elem, display='flex', extra_space=0)
   //bottom is the height of the footer and is 343
   //not just hide but also make visible again in
   //case it no longer too close to what is defined bottom
-  hide_elem_if_close_to_bottom(elem, bottom = 250, display='flex', extra_space=0);
+  hide_elem_if_close_to_bottom(elem, bottom = 334, display='flex', extra_space=0);
 }
