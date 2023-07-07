@@ -147,10 +147,10 @@
 
   $(document).ready(function(){
     setInterval(check_site_activity_true_or_false_23, 10000);
-    setInterval(get_active_visitors, 10000);
+    setInterval(get_active_visitors, 30000);
 
 
-   setInterval(function(){switch_visitors_win();}, 30000);
+   setInterval(function(){switch_visitors_win();}, 60000);
 
   });
 
@@ -169,6 +169,8 @@ function switch_visitors_win()
 
 $(window).scroll(function(){
     set_site_activity_true_23();
+    var elem = $('.active_visitors_parent_holder').first();
+    hide_elem_if_close_to_footer(elem, display='flex');
   });
 
 

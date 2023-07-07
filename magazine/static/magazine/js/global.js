@@ -142,3 +142,14 @@ function cloneMore(selector, type) {
     $('#id_' + type + '-TOTAL_FORMS').val(total);
      $(selector).after(newElement);
 }
+
+
+//not just hide but also make visible again in
+//case it no longer too close to the footer
+function hide_elem_if_close_to_footer(elem, display='flex', extra_space=0)
+{
+  //bottom is the height of the footer and is 343
+  //not just hide but also make visible again in
+  //case it no longer too close to what is defined bottom
+  hide_elem_if_close_to_bottom(elem, bottom = 250, display='flex', extra_space=0);
+}

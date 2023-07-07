@@ -13,7 +13,7 @@ def get_member_visitors_ajax(request):
     if not request.is_ajax or not request.method == "GET":
         return JsonResponse({'status':'not-ajax'})
 
-    
+
     result = get_member_visitors()
     return JsonResponse(result, safe=False)
 
@@ -53,6 +53,7 @@ def set_visitor_date_for_post_ajax(request):
 
     page_id = request.POST.get('page_id')
     set_visitor_date_for_post(request, page_id)
+    set_visitor_date(request)
 
     return JsonResponse({'status':'succeeded'})
 

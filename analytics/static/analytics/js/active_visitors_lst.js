@@ -48,7 +48,7 @@ function refresh_active_users(items, win_view = 'site')
   $('#update_audio')[0].play();
   window.setTimeout(function(){
     $('#hide_audio')[0].play();
-    hide_win_active_visitors();}, 10000);
+    hide_win_active_visitors();}, 30000);
 
 
 }
