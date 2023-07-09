@@ -65,7 +65,7 @@ class frmProfile(forms.ModelForm):
     class Meta:
         model = Profile
 
-        birthDate=forms.DateField(input_formats=['%d%m%Y'])
+        #birthDate=forms.DateField(input_formats=['%d%m%Y'])
         #-up is acronyms for Update Profile
         fields =  ['bio',
         'profile_img',
@@ -117,7 +117,7 @@ class frmProfile(forms.ModelForm):
 
          'familial_status': forms.Select(attrs = {'class' :  'in-up signfield select-box', 'id':'familial-status-up'}),
 
-         'birthDate':forms.DateInput(attrs={'class': 'in-up signfield', 'type':'date'}, format=['%d/%m/%Y']),
+         'birthDate':forms.DateInput(attrs={'class': 'in-up signfield', 'type':'date'}),
 
 
 
