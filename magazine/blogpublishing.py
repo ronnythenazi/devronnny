@@ -102,38 +102,38 @@ class frmProfile(forms.ModelForm):
 
         widgets ={
         'bio' : forms.Textarea(attrs = {'class': 'bio'}),
-        'nick' : forms.Textarea(attrs = {'class': 'nick-up signfield', 'placeholder' : 'כינוי'}),
-        'sex' : forms.Select(attrs = {'class' :  'sex-up signfield select-box', 'id':'sex-up'}),
+        'nick' : forms.TextInput(attrs = {'class': 'nick-up signfield-v2', 'placeholder' : 'כינוי'}),
+        'sex' : forms.Select(attrs = {'class' :  'sex-up signfield-v2 select-box', 'id':'sex-up'}),
         'profile_img' : forms.ClearableFileInput(attrs = {'class': 'upload-img'}),
 
-        'first_name' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'שם פרטי'}),
-        'last_name' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'שם משפחה'}),
-        'race' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'גזע/מוצא'}),
-        'y_dna' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'Y-dna'}),
-        'mtdna' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'mtDNA'}),
-        'politic_views' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'השקפה פוליטית'}),
-        'religion' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'דת/אמונה'}),
-         'slogan' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'משפט מחץ'}),
+        'first_name' : forms.TextInput(attrs = {'class': 'in-up signfield-v2', 'placeholder' : 'שם פרטי'}),
+        'last_name' : forms.TextInput(attrs = {'class': 'in-up signfield-v2', 'placeholder' : 'שם משפחה'}),
+        'race' : forms.TextInput(attrs = {'class': 'in-up signfield-v2', 'placeholder' : 'גזע/מוצא'}),
+        'y_dna' : forms.TextInput(attrs = {'class': 'in-up signfield-v2', 'placeholder' : 'Y-dna'}),
+        'mtdna' : forms.TextInput(attrs = {'class': 'in-up signfield-v2', 'placeholder' : 'mtDNA'}),
+        'politic_views' : forms.TextInput(attrs = {'class': 'in-up signfield-v2', 'placeholder' : 'השקפה פוליטית'}),
+        'religion' : forms.TextInput(attrs = {'class': 'in-up signfield-v2', 'placeholder' : 'דת/אמונה'}),
+         'slogan' : forms.TextInput(attrs = {'class': 'in-up signfield-v2', 'placeholder' : 'משפט מחץ'}),
 
          'familial_status': forms.Select(attrs = {'class' :  'in-up signfield select-box', 'id':'familial-status-up'}),
 
-         'birthDate':forms.DateInput(attrs={'class': 'in-up signfield', 'type':'date'}),
+         'birthDate':forms.DateInput(attrs={'class': 'in-up signfield-v2', 'type':'date'}),
 
 
 
-         'education' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'השכלה'}),
-         'hobby' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'תחביבים'}),
-         'skills' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'כישורים'}),
-         'profession' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'מקצוע'}),
+         'education' : forms.TextInput(attrs = {'class': 'in-up signfield-v2', 'placeholder' : 'השכלה'}),
+         'hobby' : forms.TextInput(attrs = {'class': 'in-up signfield-v2', 'placeholder' : 'תחביבים'}),
+         'skills' : forms.TextInput(attrs = {'class': 'in-up signfield-v2', 'placeholder' : 'כישורים'}),
+         'profession' : forms.TextInput(attrs = {'class': 'in-up signfield-v2', 'placeholder' : 'מקצוע'}),
 
 
-          'hate' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'רשום מה הכי שנוא עליך'}),
-          'love' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'מה אתה הכי אוהב'}),
-          'nightmare' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'הסיוט הכי גדול שלך'}),
-          'fantasy' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'הפנטזיה שלך'}),
+          'hate' : forms.TextInput(attrs = {'class': 'in-up signfield-v2', 'placeholder' : 'רשום מה הכי שנוא עליך'}),
+          'love' : forms.TextInput(attrs = {'class': 'in-up signfield-v2', 'placeholder' : 'מה אתה הכי אוהב'}),
+          'nightmare' : forms.TextInput(attrs = {'class': 'in-up signfield-v2', 'placeholder' : 'הסיוט הכי גדול שלך'}),
+          'fantasy' : forms.TextInput(attrs = {'class': 'in-up signfield-v2', 'placeholder' : 'הפנטזיה שלך'}),
 
-          'bestEvent' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'הדבר הכי טוב שארע לי בחיים'}),
-          'worstEvent' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'החוויה הכי קשה שעברתי'}),
+          'bestEvent' : forms.TextInput(attrs = {'class': 'in-up signfield-v2', 'placeholder' : 'הדבר הכי טוב שארע לי בחיים'}),
+          'worstEvent' : forms.TextInput(attrs = {'class': 'in-up signfield-v2', 'placeholder' : 'החוויה הכי קשה שעברתי'}),
         }
 
 
