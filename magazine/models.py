@@ -55,6 +55,10 @@ class BlogPost(models.Model):
     dislikes = models.ManyToManyField(User, related_name = "post_dislikes", blank = True)
     followers = models.ManyToManyField(User, related_name = "post_followers", blank = True)
 
+
+
+
+
     def total_followers(self):
         return self.followers.count()
 
@@ -191,13 +195,20 @@ class comment_of_comment(models.Model):
     def __str__(self):
         return '%s הגיב ל %s ב %s' % (self.comment_of_comment_usr, self.comment.post.title, self.comment.date_added)
 
+def validate_min_length_2(value):
+    if len(value) <2:
+        raise ValidationError(
+            _('%(value)s must be at least 2 characters'),
+            params={'value': value},
+        )
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, null = True, blank = True, on_delete = models.CASCADE)
     bio = models.TextField(max_length = 1000, null = True, blank = True)
     profile_img =  models.ImageField(default="default.jpg", blank = True, null = True, upload_to = 'members/profile/avatar')
 
-    nick = models.CharField(max_length = 20, null = True, blank = True)
+    nick = models.CharField(max_length = 20, validators = [validate_min_length_2], null = True, blank = True)
     first_name = models.CharField(max_length = 100, null = True, blank = True)
     last_name = models.CharField(max_length = 100, null = True, blank = True)
     race = models.CharField(max_length = 200, null = True, blank = True)
@@ -206,6 +217,11 @@ class Profile(models.Model):
     birthDate = models.DateField(null = True, blank = True)
     joinDate = models.DateField(auto_now_add = True, blank = True)
 
+
+
+
+
+
     male = 'male'
     female = 'female'
     sex_choices = [(male, 'גבר' ), (female, 'נקבה')]
@@ -213,7 +229,20 @@ class Profile(models.Model):
 
     politic_views = models.CharField(null = True, blank = True, max_length = 200)
     religion = models.CharField(null = True, blank = True, max_length = 100)
+
     education = models.TextField(null = True, blank = True, max_length = 200)
+    hobby = models.TextField(null = True, blank = True, max_length = 200)
+    skills =  models.TextField(null = True, blank = True, max_length = 200)
+    profession = models.TextField(null = True, blank = True, max_length = 200)
+
+    hate = models.TextField(null = True, blank = True, max_length = 200)
+    love = models.TextField(null = True, blank = True, max_length = 200)
+    nightmare = models.TextField(null = True, blank = True, max_length = 200)
+    fantasy = models.TextField(null = True, blank = True, max_length = 200)
+
+    bestEvent = models.TextField(null = True, blank = True, max_length = 200)
+    worstEvent = models.TextField(null = True, blank = True, max_length = 200)
+
     slogan = models.TextField(null = True, blank = True, max_length = 1000)
 
     single = 'single'
@@ -221,7 +250,7 @@ class Profile(models.Model):
     divorced = 'divorced'
     married_again = 'married_again'
 
-    status_list = [(single , 'רווק'), (married , 'נשוי'), (divorced , 'גרוש'), (married_again , 'נשוי פעם נוספת')]
+    status_list = [(single , 'רווק'), (married , 'נשוי'), (divorced , 'גרוש'), (married_again , 'נשוי שוב')]
 
     familial_status = models.CharField(null = True, blank = True, choices = status_list, max_length = 100)
 

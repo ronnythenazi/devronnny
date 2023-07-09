@@ -87,7 +87,7 @@ def get_profile_info_nick_or_user(user):
     info = {}
 
     if not profile.nick is None:
-        info['name'] = nick
+        info['name'] = profile.nick
     else:
         info['name'] = str(user.username)
     info['avatar'] = str(profile.profile_img.url)

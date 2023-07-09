@@ -6,6 +6,7 @@ from django.contrib.auth.models import User, Group
 
 
 
+
 class UsrToGroupForm(forms.Form):
     users = Profile.objects.all() #User.objects.values_list('username', flat = True)
     members = forms.ModelMultipleChoiceField(queryset = users, widget=forms.SelectMultiple(attrs={'class':'signfield select-box'}))
@@ -63,13 +64,79 @@ class comment_of_comment_frm(forms.ModelForm):
 class frmProfile(forms.ModelForm):
     class Meta:
         model = Profile
-        fields =  ['bio', 'profile_img']
+
+        birthDate=forms.DateField(input_formats=['%d%m%Y'])
+        #-up is acronyms for Update Profile
+        fields =  ['bio',
+        'profile_img',
+         'nick',
+         'sex',
+         'first_name',
+         'last_name',
+         'race',
+         'y_dna',
+         'mtdna',
+         'birthDate',
+         'politic_views',
+          'religion',
+          'education',
+          'slogan',
+          'familial_status',
+          'hobby',
+          'skills',
+          'profession',
+          'hate',
+          'love',
+          'nightmare',
+          'profession',
+          'fantasy',
+
+          'bestEvent',
+          'worstEvent',
+
+
+
+
+        ]
 
 
         widgets ={
         'bio' : forms.Textarea(attrs = {'class': 'bio'}),
+        'nick' : forms.Textarea(attrs = {'class': 'nick-up signfield', 'placeholder' : 'כינוי'}),
+        'sex' : forms.Select(attrs = {'class' :  'sex-up signfield select-box', 'id':'sex-up'}),
         'profile_img' : forms.ClearableFileInput(attrs = {'class': 'upload-img'}),
+
+        'first_name' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'שם פרטי'}),
+        'last_name' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'שם משפחה'}),
+        'race' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'גזע/מוצא'}),
+        'y_dna' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'Y-dna'}),
+        'mtdna' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'mtDNA'}),
+        'politic_views' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'השקפה פוליטית'}),
+        'religion' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'דת/אמונה'}),
+         'slogan' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'משפט מחץ'}),
+
+         'familial_status': forms.Select(attrs = {'class' :  'in-up signfield select-box', 'id':'familial-status-up'}),
+
+         'birthDate':forms.DateInput(attrs={'class': 'in-up signfield', 'type':'date'}, format=['%d/%m/%Y']),
+
+
+
+         'education' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'השכלה'}),
+         'hobby' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'תחביבים'}),
+         'skills' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'כישורים'}),
+         'profession' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'מקצוע'}),
+
+
+          'hate' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'רשום מה הכי שנוא עליך'}),
+          'love' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'מה אתה הכי אוהב'}),
+          'nightmare' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'הסיוט הכי גדול שלך'}),
+          'fantasy' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'הפנטזיה שלך'}),
+
+          'bestEvent' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'הדבר הכי טוב שארע לי בחיים'}),
+          'worstEvent' : forms.Textarea(attrs = {'class': 'in-up signfield', 'placeholder' : 'החוויה הכי קשה שעברתי'}),
         }
+
+
 
 
     def __init__(self, *args, **kwargs):

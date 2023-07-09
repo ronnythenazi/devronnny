@@ -1,0 +1,145 @@
+:root
+{
+
+  --ddl-default-height:60px;
+  --online-ddl-green1:-webkit-linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+  --online-ddl-green2:linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+
+}
+
+.styled-drop-down-wrapper
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  direction: rtl;
+  width: 100%;
+  background-color: white;
+  position: relative;
+}
+
+.style-drop-down
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+  position: relative;
+
+}
+
+.styled-droped-down-body
+{
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  position: absolute;
+  top:calc(var(--ddl-default-height) - 10px);
+  right: 0;
+  direction: rtl;
+
+  -webkit-box-shadow:  rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  z-index: 5;
+
+}
+
+.display-choice-styled-droped-down
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: white;
+  padding: relative;
+  cursor: pointer;
+}
+
+.styled-droped-down-item
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: white;
+  position: relative;
+  cursor: pointer;
+  padding: 2px;
+  box-sizing: border-box;
+
+}
+.styled-droped-down-item:not(:last-child)
+{
+   /*box-shadow: 0px 1px 1px  rgba(0, 0, 0, 0.35);*/
+    border-bottom: 0.5px solid #006100;
+
+}
+
+.styled-droped-down-item.styled-droped-item-template
+{
+   display: none;
+}
+
+.styled-droped-down-item:hover
+{
+  background: var(--online-ddl-green1, --online-ddl-green2);
+  color: red;
+}
+
+.styled-droped-down-selected-box
+{
+  height: var(--ddl-default-height);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  cursor: pointer;
+}
+
+.styled-drop-down-btn{
+  background: #1d1f24;
+  font-size: 18px;
+  height: 100%;
+  border: none;
+  color: #fff;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+}
+
+.styled-dd-arrow {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #fff;
+  transition: transform ease-in-out 0.3s;
+}
+
+.styled-dd-txt
+{
+  transform: translateX(50%);
+  margin-right: 50%;
+
+}
+.ddl-click-element
+{
+  position: absolute;
+  width: 100%;
+  cursor: pointer;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: 10;
+}

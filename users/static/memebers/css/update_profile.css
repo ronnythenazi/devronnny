@@ -1,0 +1,182 @@
+:root
+{
+  --online-green1:-webkit-linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+  --online-green2:linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+
+
+  --sutdio-blue1:linear-gradient(90deg, #09203f 0%, #537895 100%);
+  --sutdio-blue12:-webkit-linear-gradient(90deg, #09203f 0%, #537895 100%);
+
+  --studio-white-23-1:linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  --studio-white-23-2:-webkit-linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+
+  --wine-23-1:linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+  --wine-23-2:-webkit-linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
+
+  --sutdio-blue-reverse1:linear-gradient(90deg, #09203f 0%, #537895 100%);
+  --sutdio-blue-reverse2:-webkit-linear-gradient(90deg, #09203f 0%, #537895 100%);
+
+  --epic-black1:linear-gradient(180deg, #434343 0%, black 100%);
+  --epic-black2:-webkit-linear-gradient(180deg, #434343 0%, black 100%);
+}
+
+
+
+  .icon-bar
+  {
+    display:none !important;
+  }
+  .ice-cream-border
+  {
+    border: 2px solid transparent;
+    border-image:var(--ice-cream1) 30% stretch;
+  }
+
+  .bio
+  {
+    width:100%;
+    min-height:300px;
+    padding:0;
+    margin:0;
+  }
+  textarea
+  {
+    resize: none;
+    padding:0;
+    margin: 0;
+
+  }
+  /* -up is acronyms for Update Profile*/
+  .nick-up, .sex-up, .in-up
+  {
+    height: 50px;
+    width: 100%;
+  }
+
+  :not(.serach-txt)::placeholder
+  {
+    /*text-align: center;*/
+    color: blue;
+    font-weight: bold;
+    opacity: 0.5;
+    font-size: 1.7rem;
+    line-height: 3.4rem;
+
+
+
+
+  }
+  /* -up is acronyms for Update Profile*/
+  .row-of-input-fields-up,.row-of-input-fields-up-center
+  {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    direction: rtl;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    padding-right:5px;
+    padding-bottom: 5px;
+    padding-top: 30px;
+    box-sizing: border-box;
+    background: var(--wine-23-1, --wine-23-2);
+  }
+
+  .row-of-input-fields-up-center
+  {
+    justify-content: center;
+
+  }
+  /* -up is acronyms for Update Profile*/
+  .category-header-up
+  {
+    align-self:center;
+    text-align:center;
+    margin:0;
+    font-size:2rem;
+    background: var(--epic-black1, --epic-black2);
+    height: 50px;
+    width: 100%;
+    color: white;
+  }
+  /* -up is acronyms for Update Profile*/
+  .category-block-up
+  {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    /*gap:10px;*/
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .category-block-up>.signfieldcolumn
+  {
+
+  }
+
+
+
+  input[type="text"]:not(.serach-txt)
+  {
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border-right:none;
+    border-color:blue;
+    text-align: right;
+    height: 50px;
+    font-size: 1.6rem;
+    font-family: Lucida Sans Typewriter;
+    line-height: 3.2rem;
+
+
+    font-stretch: expanded;
+    color:blue;
+    font-weight: bold;
+    width:100%;
+    padding: 0;
+    border-width: 5px;
+
+  }
+  .thumb-holder
+  {
+    border-radius:10px;
+    box-shadow: 5px 5px 10px blue, 2px 2px 20px red;
+  }
+  .more-button, .delete-button
+  {
+    transition: 0.1s all ease;
+  }
+  .more-button:hover
+  {
+    border-radius:10px;
+    filter:drop-shadow( 0px 0px 3px blue);
+  }
+  .delete-button:hover
+  {
+    border-radius:10px;
+    filter:drop-shadow(0px 0px 3px red);
+  }
+
+
+  .person1-svg
+  {
+    color:green !important;
+    fill:green !important;
+  }
+
+.cake-svg
+{
+  color:pink !important;
+  fill:pink !important;
+}
+
+
+  .person2-svg
+  {
+    color:yellow !important;
+    fill:yellow !important;
+    opacity: 0.5;
+  }

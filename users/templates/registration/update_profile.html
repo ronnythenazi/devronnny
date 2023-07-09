@@ -7,64 +7,11 @@
 {%block moreLinks%}
 <link rel="stylesheet" href="{% static 'magazine/css/writepost.css' %}">
 <link rel="stylesheet" href="{% static 'memebers/css/sign.css' %}">
+<link rel="stylesheet" href="{% static 'memebers/css/update_profile.css' %}">
+
 {%endblock%}
 {%block body%}
-<style>
-  .icon-bar
-  {
-    display:none !important;
-  }
-  .ice-cream-border
-  {
-    border: 2px solid transparent;
-    border-image:var(--ice-cream1) 30% stretch;
-  }
 
-  .bio
-  {
-    width:100%;
-    min-height:150px;
-    padding:0;
-    margin:0;
-  }
-  input[type="text"]
-  {
-    border-top-left-radius: 2px;
-    border-bottom-left-radius: 2px;
-    border-right:none;
-    border-color:blue;
-    text-align: right;
-    height: 50px;
-    font-size: 1.3rem;
-    font-family: Lucida Sans Typewriter;
-    line-height: 1.3rem;
-    font-stretch: expanded;
-    color:blue;
-    font-weight: bold;
-    width:100%;
-    padding: 0;
-    border-width: 5px;
-  }
-  .thumb-holder
-  {
-    border-radius:10px;
-    box-shadow: 5px 5px 10px blue, 2px 2px 20px red;
-  }
-  .more-button, .delete-button
-  {
-    transition: 0.1s all ease;
-  }
-  .more-button:hover
-  {
-    border-radius:10px;
-    filter:drop-shadow( 0px 0px 3px blue);
-  }
-  .delete-button:hover
-  {
-    border-radius:10px;
-    filter:drop-shadow(0px 0px 3px red)
-  }
-</style>
 <form  method = "post"  enctype="multipart/form-data" style="width:100%;">
   {%csrf_token%}
 
@@ -80,13 +27,386 @@
 <h1 style="font-family:robot;margin:0;gap:0;"  class="bluish-clr"><u>עדכון פרופיל</u></h1>
 {% include 'members/default_profile_img_btn_square.html' %}
 
-<div class="center ice-cream-border" style="width:100%;margin-top:20px;background-color:black;">
-  <span class="ice-cream-clr" style="align-self:flex-start;text-align:right;margin:0;font-size:2rem;">על עצמי</span>
-  {{form.bio}}
-</div>
 
 
-<div class="center ice-cream-border" style="width:100%;margin-top:20px;background-color:black;">
+
+
+      <div class="category-block-up ice-cream-border">
+            <div class="category-header-up">
+              <span>זיהוי כללי</span>
+            </div>
+            <div class="row-of-input-fields-up">
+                  <div class="signfieldcolumn ronny-style-field" style="width:40%;">
+                       <span class="super-tiny-row-center-align">
+                         <span class="box-field">
+                           {% include 'members/svg/nick.svg' %}
+                         </span>
+                       {{ form.nick }}
+                      </span>
+                  </div>
+
+                  <div class="signfieldcolumn ronny-style-field" style="width:40%;margin-left:5px;">
+                       <span class="super-tiny-row-center-align" style="width:100%;">
+                         <span class="box-field">
+                           {% include 'members/svg/sex.svg' %}
+                         </span>
+                       {{ form.sex }}
+                          <div class="dict-ddl" style="display:none;">
+                            <div class="dict-item">
+                               <span  class="ddl-txt"> גבר</span>
+                               <span class="ddl-svg-item">{% include 'members/svg/male.svg' %} </span>
+
+                            </div>
+                            <div class="dict-item">
+                              <span  class="ddl-txt"> אישה</span>
+                               <span class="ddl-svg-item">{% include 'members/svg/female.svg' %}</span>
+
+                            </div>
+
+
+                           </div>
+
+
+
+                      </span>
+                  </div>
+            </div>
+      </div>
+
+
+
+      <div class="category-block-up ice-cream-border">
+            <div class="category-header-up">
+              <span>פרטים אישיים</span>
+            </div>
+            <div class="row-of-input-fields-up">
+
+                  <div class="signfieldcolumn ronny-style-field" style="width:30%;">
+                       <span class="super-tiny-row-center-align">
+                         <span class="box-field">
+                           {% include 'members/svg/person1.svg' %}
+                         </span>
+                       {{ form.first_name }}
+                      </span>
+                  </div>
+
+                  <div class="signfieldcolumn ronny-style-field" style="width:30%;">
+                       <span class="super-tiny-row-center-align" style="width:100%;">
+                         <span class="box-field">
+                           {% include 'members/svg/person2.svg' %}
+                         </span>
+                       {{ form.last_name }}
+
+                      </span>
+                  </div>
+
+
+                  <div class="signfieldcolumn ronny-style-field" style="width:30%;">
+                       <span class="super-tiny-row-center-align" style="width:100%;margin-left:5px;">
+                         <span class="box-field">
+                           {% include 'members/svg/birthday_cake.svg' %}
+                         </span>
+                       {{ form.birthDate }}
+
+                      </span>
+                  </div>
+
+            </div>
+      </div>
+
+
+      <div class="category-block-up ice-cream-border">
+            <div class="category-header-up">
+              <span>השקפות ודעות</span>
+            </div>
+            <div class="row-of-input-fields-up">
+
+                  <div class="signfieldcolumn ronny-style-field" style="width:40%;">
+                       <span class="super-tiny-row-center-align">
+                         <span class="box-field">
+                           {% include 'members/svg/politics.svg' %}
+                         </span>
+                       {{ form.politic_views }}
+                      </span>
+                  </div>
+
+                  <div class="signfieldcolumn ronny-style-field" style="width:40%;margin-left:5px;">
+                       <span class="super-tiny-row-center-align" style="width:100%;">
+                         <span class="box-field">
+                           {% include 'members/svg/synagogue.svg' %}
+                         </span>
+                       {{ form.religion }}
+
+                      </span>
+                  </div>
+
+
+
+
+            </div>
+            <div class="row-of-input-fields-up-center">
+              <div class="signfieldcolumn ronny-style-field" style="width:100%;margin-left:5px;">
+                   <span class="super-tiny-row-center-align" style="width:100%;">
+                     <span class="box-field">
+                       {% include 'members/svg/slogan.svg' %}
+                     </span>
+                   {{ form.slogan }}
+
+                  </span>
+              </div>
+            </div>
+      </div>
+
+
+
+
+      <div class="category-block-up ice-cream-border">
+            <div class="category-header-up">
+              <span>מצב ביולוגי/זוגי/משפחתי</span>
+            </div>
+            <div class="row-of-input-fields-up">
+
+                  <div class="signfieldcolumn ronny-style-field" style="width:30%;">
+                       <span class="super-tiny-row-center-align">
+                         <span class="box-field">
+                           {% include 'members/svg/ancestry.svg' %}
+                         </span>
+                       {{ form.race }}
+                      </span>
+                  </div>
+
+                  <div class="signfieldcolumn ronny-style-field" style="width:30%;">
+                       <span class="super-tiny-row-center-align" style="width:100%;">
+                         <span class="box-field">
+                           {% include 'members/svg/family_status.svg' %}
+                         </span>
+                       {{ form.familial_status }}
+
+                       <div class="dict-ddl" style="display:none;">
+                         <div class="dict-item">
+                            <span  class="ddl-txt"> רווק </span>
+                            <span class="ddl-svg-item">{% include 'members/svg/single.svg' %} </span>
+
+                         </div>
+
+                         <div class="dict-item">
+                           <span  class="ddl-txt">נשוי</span>
+                            <span class="ddl-svg-item">{% include 'members/svg/marrige.svg' %}</span>
+
+                         </div>
+
+                         <div class="dict-item">
+                           <span  class="ddl-txt">גרוש</span>
+                            <span class="ddl-svg-item">{% include 'members/svg/divorce.svg' %}</span>
+
+                         </div>
+
+                         <div class="dict-item">
+                           <span  class="ddl-txt">נשוי פעם נוספת</span>
+                            <span class="ddl-svg-item">{% include 'members/svg/second.svg' %}</span>
+
+                         </div>
+
+
+                        </div>
+
+                      </span>
+                  </div>
+
+
+
+
+            </div>
+
+
+
+             <div class="row-of-input-fields-up">
+
+            <div class="signfieldcolumn ronny-style-field" style="width:30%;">
+                 <span class="super-tiny-row-center-align" style="width:100%;margin-left:5px;">
+                   <span class="box-field">
+                     {% include 'members/svg/ydna.svg' %}
+                   </span>
+                 {{ form.y_dna }}
+
+                </span>
+            </div>
+
+            <div class="signfieldcolumn ronny-style-field" style="width:30%;">
+                 <span class="super-tiny-row-center-align" style="width:100%;margin-left:5px;">
+                   <span class="box-field">
+                     {% include 'members/svg/mtdna.svg' %}
+                   </span>
+                 {{ form.mtdna }}
+
+                </span>
+            </div>
+
+            </div>
+
+
+      </div>
+
+
+
+      <div class="category-block-up ice-cream-border">
+            <div class="category-header-up">
+              <span>תחומי עניין והתמקצעות</span>
+            </div>
+            <div class="row-of-input-fields-up">
+
+                  <div class="signfieldcolumn ronny-style-field" style="width:40%;">
+                       <span class="super-tiny-row-center-align">
+                         <span class="box-field">
+                           {% include 'members/svg/hobby.svg' %}
+                         </span>
+                       {{ form.hobby }}
+                      </span>
+                  </div>
+
+                  <div class="signfieldcolumn ronny-style-field" style="width:40%;">
+                       <span class="super-tiny-row-center-align" style="width:100%;">
+                         <span class="box-field">
+                           {% include 'members/svg/skills.svg' %}
+                         </span>
+                       {{ form.skills }}
+
+                      </span>
+                  </div>
+
+
+
+
+            </div>
+
+
+
+             <div class="row-of-input-fields-up">
+
+            <div class="signfieldcolumn ronny-style-field" style="width:40%;">
+                 <span class="super-tiny-row-center-align" style="width:100%;margin-left:5px;">
+                   <span class="box-field">
+                     {% include 'members/svg/education.svg' %}
+                   </span>
+                 {{ form.education }}
+
+                </span>
+            </div>
+
+            <div class="signfieldcolumn ronny-style-field" style="width:40%;">
+                 <span class="super-tiny-row-center-align" style="width:100%;margin-left:5px;">
+                   <span class="box-field">
+                     {% include 'members/svg/profession.svg' %}
+                   </span>
+                 {{ form.profession }}
+
+                </span>
+            </div>
+
+            </div>
+
+
+      </div>
+
+
+
+      <div class="category-block-up ice-cream-border">
+            <div class="category-header-up">
+              <span>אישיות</span>
+            </div>
+            <div class="row-of-input-fields-up">
+
+                  <div class="signfieldcolumn ronny-style-field" style="width:40%;">
+                       <span class="super-tiny-row-center-align">
+                         <span class="box-field">
+                           {% include 'members/svg/hate.svg' %}
+                         </span>
+                       {{ form.hate }}
+                      </span>
+                  </div>
+
+                  <div class="signfieldcolumn ronny-style-field" style="width:40%;">
+                       <span class="super-tiny-row-center-align" style="width:100%;">
+                         <span class="box-field">
+                           {% include 'members/svg/love.svg' %}
+                         </span>
+                       {{ form.love }}
+
+                      </span>
+                  </div>
+
+
+
+
+            </div>
+
+
+
+             <div class="row-of-input-fields-up">
+
+            <div class="signfieldcolumn ronny-style-field" style="width:40%;">
+                 <span class="super-tiny-row-center-align" style="width:100%;margin-left:5px;">
+                   <span class="box-field">
+                     {% include 'members/svg/nightmare.svg' %}
+                   </span>
+                 {{ form.nightmare }}
+
+                </span>
+            </div>
+
+            <div class="signfieldcolumn ronny-style-field" style="width:40%;">
+                 <span class="super-tiny-row-center-align" style="width:100%;margin-left:5px;">
+                   <span class="box-field">
+                     {% include 'members/svg/fantasy.svg' %}
+                   </span>
+                 {{ form.fantasy }}
+
+                </span>
+            </div>
+
+            </div>
+
+
+
+            <div class="row-of-input-fields-up-center">
+
+                <div class="signfieldcolumn ronny-style-field" style="width:100%;">
+                     <span class="super-tiny-row-center-align" style="width:100%;margin-left:5px;">
+                       <span class="box-field">
+                         {% include 'members/svg/glory.svg' %}
+                       </span>
+                     {{ form.bestEvent }}
+
+                    </span>
+                </div>
+
+           </div>
+
+           <div class="row-of-input-fields-up-center">
+                <div class="signfieldcolumn ronny-style-field" style="width:100%;">
+                     <span class="super-tiny-row-center-align" style="width:100%;margin-left:5px;">
+                       <span class="box-field">
+                         {% include 'members/svg/tragedy.svg' %}
+                       </span>
+                     {{ form.worstEvent }}
+
+                    </span>
+               </div>
+           </div>
+
+
+      </div>
+
+
+
+
+      <div class="center ice-cream-border" style="width:100%;margin-top:20px;background-color:black;">
+        <span class="ice-cream-clr" style="align-self:flex-start;text-align:right;margin:0;font-size:2rem;">על עצמי</span>
+        {{form.bio}}
+      </div>
+
+
+<div class="center ice-cream-border" style="width:100%;background-color:black;">
  {{ album_formset.management_form }}
 
  <span class="ice-cream-clr" style="align-self:flex-start;text-align:right;margin:0;font-size:2rem;">אלבום תמונות</span>
@@ -150,13 +470,14 @@
 </form>
 
 
-
+{% include 'general/components/standalones/styleddropdown/styleddropdown.html' %}
 
 {%endblock body%}
 
 {%block moreJs%}
  <script type="text/javascript" src="{% static 'magazine/js/writepost.js'%}"> </script>
  <script type="text/javascript" src="{% static 'memebers/js/general.js'%}"> </script>
- <script type="text/javascript" src="{% static 'plugins/jquery.js'%}"> </script>
+
+
 
 {%endblock moreJs%}
