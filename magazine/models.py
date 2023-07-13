@@ -8,6 +8,7 @@ from django.urls import reverse
 from datetime import datetime, date
 from django.utils import timezone
 from social.calcs import get_total_seconds, get_curr_datetime
+
 exposed_request = None
 
 
@@ -195,12 +196,7 @@ class comment_of_comment(models.Model):
     def __str__(self):
         return '%s הגיב ל %s ב %s' % (self.comment_of_comment_usr, self.comment.post.title, self.comment.date_added)
 
-def validate_min_length_2(value):
-    if len(value) <2:
-        raise ValidationError(
-            _('%(value)s must be at least 2 characters'),
-            params={'value': value},
-        )
+
 
 
 class Profile(models.Model):
@@ -208,7 +204,7 @@ class Profile(models.Model):
     bio = models.TextField(max_length = 1000, null = True, blank = True)
     profile_img =  models.ImageField(default="default.jpg", blank = True, null = True, upload_to = 'members/profile/avatar')
 
-    nick = models.CharField(max_length = 20, validators = [validate_min_length_2], null = True, blank = True)
+    nick = models.CharField(max_length = 20, null = True, blank = True)
     first_name = models.CharField(max_length = 100, null = True, blank = True)
     last_name = models.CharField(max_length = 100, null = True, blank = True)
     race = models.CharField(max_length = 200, null = True, blank = True)
@@ -273,7 +269,7 @@ class Profile(models.Model):
 class Album(models.Model):
 
     profile = models.ForeignKey(Profile, related_name = 'profile_album', on_delete = models.CASCADE)
-    description = models.CharField(max_length = 500, null = True, blank = True)
+    description = models.CharField(max_length = 50, null = True, blank = True)
     myfile = models.ImageField(null = False, blank = True,  upload_to = 'album/%Y/%m/%d')
     upload_date = models.DateTimeField(default = timezone.now)
 
