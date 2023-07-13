@@ -55,7 +55,7 @@ def get_member_visitors():
     member_visitors = all_visitors.filter(session_key__in = UserSession.objects.all().values_list('session_key'))[:1000]
 
     lst = []
-
+    
     for visitor in member_visitors:
 
         miniutes_passed = get_miniutes_passed(visitor.LastTimeWasActive)

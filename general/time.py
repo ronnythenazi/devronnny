@@ -22,7 +22,7 @@ def get_days_passed(d_start):
 
 def get_delta_dates_in_days(d_end, d_start):
     delta = d_end - d_start
-    return delta.days
+    return delta.total_days()
 
 def get_delta_dates_in_hours(d_end, d_start):
     return int(get_delta_dates_in_minutes(d_end, d_start)/60)
@@ -32,4 +32,4 @@ def get_delta_dates_in_minutes(d_end, d_start):
 
 def get_delta_dates_in_seconds(d_end, d_start):
     delta = d_end - d_start
-    return delta.seconds
+    return delta.total_seconds()
