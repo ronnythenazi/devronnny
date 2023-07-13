@@ -257,6 +257,9 @@ class Profile(models.Model):
     followers = models.ManyToManyField(User, related_name ="followers")
     following = models.ManyToManyField(User, related_name = "following")
 
+    def __str__(self):
+        return '%id: user:%s  nick:%s' %(self.user.id, self.user.username, self.user.nick)
+
     def total_followers(self):
         return self.followers.count()
 
@@ -271,7 +274,7 @@ class Album(models.Model):
 
     profile = models.ForeignKey(Profile, related_name = 'profile_album', on_delete = models.CASCADE)
     description = models.CharField(max_length = 500, null = True, blank = True)
-    myfile = models.ImageField(null = False, blank = False,  upload_to = 'album/%Y/%m/%d')
+    myfile = models.ImageField(null = False, blank = True,  upload_to = 'album/%Y/%m/%d')
     upload_date = models.DateTimeField(default = timezone.now)
 
     def __str__(self):

@@ -1,6 +1,8 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User, Group, Permission
 from django import forms
+import re
+
 
 from django.contrib.auth import (authenticate, get_user_model, login, logout,)
 
@@ -83,6 +85,15 @@ class SignUpFrm(forms.ModelForm):
 
         elif '@' in str(username):
              raise forms.ValidationError("אסור @ בשם משתמש")
+
+        elif not re.match(r'^[A-Za-z][A-Za-z0-9.]*$', username):
+            raise forms.ValidationError("שם משתמש יכול להכיל רק אותיות באנגלית, מספרים, ונקודה, וחייב להתחיל באות")
+
+        elif len(username)<2:
+            raise forms.ValidationError("שם משתמש חייב להיות לפחות בן שתי תווים")
+
+
+
 
         return self.data['username']
 

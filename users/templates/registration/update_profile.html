@@ -20,7 +20,7 @@
 
 {% if user.is_authenticated %}
    {% if user.profile.id %}
-      {% if user.profile.id == profile_obj.id %}
+      {% if user.profile.id == profile_obj.id or request.user.groups.all.0.name == 'owner' %}
 
 
 <div class="center" style="gap:0px;margin:0px;width:70%;">
