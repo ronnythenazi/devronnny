@@ -59,6 +59,7 @@ class UserSession(models.Model):
     active          = models.BooleanField(default = True)
     ended           = models.BooleanField(default = False)
 
+
     def end_session(self):
         session_key = self.session_key
         try:
@@ -78,12 +79,29 @@ class PageVisitor(models.Model):
     LastTimeWasActive       = models.DateTimeField(auto_now_add=True)
     ip_address              = models.CharField(max_length=120, blank=True, null=True)
 
+    def __str__(self):
+        if(self.session_key != None):
+            return "page:%s session_key:%s ip: %s first_time_visit:%s LastTimeWasActive %s" %(self.page.title, self.session_key , self.ip_address , self.first_time_visit, self.LastTimeWasActive)
+        else:
+
+            return "page:%s ip: %s first_time_visit:%s LastTimeWasActive %s" %(self.page.title, self.ip_address , self.first_time_visit, self.LastTimeWasActive)
+
 
 class SiteVisitor(models.Model):
     session_key             = models.CharField(max_length=120, blank=True, null=True)
     first_time_visit        = models.DateTimeField(auto_now=True)
     LastTimeWasActive       = models.DateTimeField(auto_now_add=True)
     ip_address              = models.CharField(max_length=120, blank=True, null=True)
+
+
+    def __str__(self):
+        if(self.session_key != None):
+            return "session_key:%s ip: %s first_time_visit:%s LastTimeWasActive %s" %(self.session_key , self.ip_address , self.first_time_visit, self.LastTimeWasActive)
+        else:
+
+            return "ip: %s first_time_visit:%s LastTimeWasActive %s" %(self.ip_address , self.first_time_visit, self.LastTimeWasActive)
+
+
 
 
 def post_save_session_receiver(sender, instance, created, *args, **kwargs):

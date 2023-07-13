@@ -65,7 +65,7 @@ def get_member_visitors():
         member_details = {}
         member_details['last_time_active'] = miniutes_passed
 
-        users_qs  = UserSession.objects.filter(session_key = visitor.session_key)
+        users_qs  = UserSession.objects.filter(session_key = visitor.session_key, ip_address = visitor.ip_address)
         if not users_qs.exists():
             continue
         member = users_qs.first()
@@ -98,7 +98,7 @@ def get_member_visitors_for_post(page_id):
         member_details = {}
         member_details['last_time_active'] = miniutes_passed
 
-        users_qs  = UserSession.objects.filter(session_key = visitor.session_key)
+        users_qs  = UserSession.objects.filter(session_key = visitor.session_key, ip_address = visitor.ip_address)
         if not users_qs.exists():
             continue
         member = users_qs.first()
