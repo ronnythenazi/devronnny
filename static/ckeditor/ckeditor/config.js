@@ -4,7 +4,9 @@
  */
 
 CKEDITOR.editorConfig = function( config ) {
-           config.contentsLangDirection = 'rtl';
            config.defaultLanguage = "he";
            config.language = 'he';
+
+           config.contentsLangDirection = 'rtl';
+
 };

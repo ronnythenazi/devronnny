@@ -320,9 +320,8 @@
                             CKEDITOR.replace("com-edit-{{comment.pk}}", {
                               height: '100%',
                               width:'100%',
-                              contentsLangDirection: 'rtl',
-                              defaultLanguage: 'he',
-                              language:'he',
+                              language: 'he',
+                              contentsLangDirection: 'ui',
                             });
                             </script>
                           </div>
@@ -350,9 +349,8 @@
             CKEDITOR.replace('ck-reply-to-com-{{comment.pk}}', {
               height: '100%',
               width:'100%',
-              contentsLangDirection: 'rtl',
-              defaultLanguage: 'he',
-              language:'he',
+              language: 'he',
+              contentsLangDirection: 'ui',
             });
            </script>
             <input type="hidden" class="com-parent-id" value="{{comment.pk}}">
@@ -559,9 +557,9 @@
                             CKEDITOR.replace('ck-edit-sub-com-{{comment_of_comment.pk}}', {
                               height: '100%',
                               width:'100%',
-                              contentsLangDirection: 'rtl',
-                              defaultLanguage: 'he',
-                              language:'he',
+                              language: 'he',
+                              contentsLangDirection: 'ui',
+
                             });
                            </script>
                           </div>
@@ -592,9 +590,9 @@
              CKEDITOR.replace('ck-reply-to-sub-com-{{comment_of_comment.pk}}', {
                height: '100%',
                width:'100%',
-               contentsLangDirection: 'rtl',
-               defaultLanguage: 'he',
-               language:'he',
+               language: 'he',
+               contentsLangDirection: 'ui',
+
              });
             </script>
              <input type="hidden" class="com-parent-id" value="{{comment.pk}}">
@@ -770,7 +768,9 @@
   <script type="text/javascript" src="{% static 'ckeditor/ckeditor/custom_config1.js' %}"></script>
   <script type="text/javascript" src="{% static 'plugins/jquery.js' %}"> </script>
   <script>
-  CKEDITOR.replace('editor1');
+  CKEDITOR.replace('editor1',
+  {language: 'he',
+  contentsLangDirection: 'rtl',});
 
 </script>
 
@@ -1155,16 +1155,14 @@ function clone_sub_com(sub_com_id, com_parent_id, body, time, date, author_name,
   CKEDITOR.replace('ck-reply-to-sub-com-' + sub_com_id, {
     height: '100%',
     width:'100%',
-    contentsLangDirection: 'rtl',
-    defaultLanguage: 'he',
-    language:'he',
+    language: 'he',
+    contentsLangDirection: 'ui',
   });
   CKEDITOR.replace('ck-edit-sub-com-' + sub_com_id, {
     height: '100%',
     width:'100%',
-    contentsLangDirection: 'rtl',
-    defaultLanguage: 'he',
-    language:'he',
+    language: 'he',
+    contentsLangDirection: 'ui',
   });
 
 }
