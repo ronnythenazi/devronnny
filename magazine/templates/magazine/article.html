@@ -79,13 +79,6 @@
        max-width:100%;
      }
 
-
-     div.comment-frm[Attributes Style]
-      {
-               unicode-bidi: bidi-override;
-               -webkit-locale: "he";
-               direction: rtl;
-      }
      </style>
     <div class="center" style="width:100%;">
      <div class="post">
@@ -327,6 +320,7 @@
                             CKEDITOR.replace("com-edit-{{comment.pk}}", {
                               height: '100%',
                               width:'100%',
+                              contentsLangDirection: 'rtl',
                             });
                             </script>
                           </div>
@@ -354,6 +348,7 @@
             CKEDITOR.replace('ck-reply-to-com-{{comment.pk}}', {
               height: '100%',
               width:'100%',
+              contentsLangDirection: 'rtl',
             });
            </script>
             <input type="hidden" class="com-parent-id" value="{{comment.pk}}">
@@ -560,6 +555,7 @@
                             CKEDITOR.replace('ck-edit-sub-com-{{comment_of_comment.pk}}', {
                               height: '100%',
                               width:'100%',
+                              contentsLangDirection: 'rtl',
                             });
                            </script>
                           </div>
@@ -590,6 +586,7 @@
              CKEDITOR.replace('ck-reply-to-sub-com-{{comment_of_comment.pk}}', {
                height: '100%',
                width:'100%',
+               contentsLangDirection: 'rtl',
              });
             </script>
              <input type="hidden" class="com-parent-id" value="{{comment.pk}}">
