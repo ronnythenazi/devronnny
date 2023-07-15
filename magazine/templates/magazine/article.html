@@ -322,6 +322,8 @@
                               width:'100%',
                               language: 'he',
                               contentsLangDirection: 'ui',
+                              filebrowserUploadUrl: "{% url 'ckeditor_upload' %}",
+                              filebrowserBrowseUrl: "{% url 'ckeditor_browse' %}",
                             });
                             </script>
                           </div>
@@ -351,6 +353,8 @@
               width:'100%',
               language: 'he',
               contentsLangDirection: 'ui',
+              filebrowserUploadUrl: "{% url 'ckeditor_upload' %}",
+              filebrowserBrowseUrl: "{% url 'ckeditor_browse' %}",
             });
            </script>
             <input type="hidden" class="com-parent-id" value="{{comment.pk}}">
@@ -559,6 +563,8 @@
                               width:'100%',
                               language: 'he',
                               contentsLangDirection: 'ui',
+                              filebrowserUploadUrl: "{% url 'ckeditor_upload' %}",
+                              filebrowserBrowseUrl: "{% url 'ckeditor_browse' %}",
 
                             });
                            </script>
@@ -592,6 +598,8 @@
                width:'100%',
                language: 'he',
                contentsLangDirection: 'ui',
+               filebrowserUploadUrl: "{% url 'ckeditor_upload' %}",
+               filebrowserBrowseUrl: "{% url 'ckeditor_browse' %}",
 
              });
             </script>
@@ -770,7 +778,10 @@
   <script>
   CKEDITOR.replace('editor1',
   {language: 'he',
-  contentsLangDirection: 'rtl',});
+  contentsLangDirection: 'rtl',
+  filebrowserUploadUrl: "{% url 'ckeditor_upload' %}",
+  filebrowserBrowseUrl: "{% url 'ckeditor_browse' %}",
+});
 
 </script>
 
@@ -821,7 +832,7 @@ function f_ajax_update_com(com_type, com_id, body)
      $(update_lbl).text(last_update + ' ' + 'עודכן לאחרונה ב');
      //yahoo
      var s_body = response['body'];
-     $(com_selector_name).find('.com-body').html(s_body);
+     $(com_selector_name).find('.com-body').first().html(s_body);
      var cke_edit = $(com_selector_name).find('.comment-edit-parent .ckeditor');
      var cke_edit_name = $(cke_edit).attr('name');
      set_cke_body(s_body, cke_edit_name);
@@ -1157,12 +1168,16 @@ function clone_sub_com(sub_com_id, com_parent_id, body, time, date, author_name,
     width:'100%',
     language: 'he',
     contentsLangDirection: 'ui',
+    filebrowserUploadUrl: "{% url 'ckeditor_upload' %}",
+    filebrowserBrowseUrl: "{% url 'ckeditor_browse' %}",
   });
   CKEDITOR.replace('ck-edit-sub-com-' + sub_com_id, {
     height: '100%',
     width:'100%',
     language: 'he',
     contentsLangDirection: 'ui',
+    filebrowserUploadUrl: "{% url 'ckeditor_upload' %}",
+    filebrowserBrowseUrl: "{% url 'ckeditor_browse' %}",
   });
 
 }
