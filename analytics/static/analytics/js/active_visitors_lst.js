@@ -1,6 +1,16 @@
 
 
 
+function active_visitor_item_clicked()
+{
+  var hid = $(this).find('.hidden_user_id_for_active_user').first();
+  var user_id = $(hid).data('user_id');
+  redirect_to_public_profile_from_user_id_ajax(user_id, function(callback){
+
+      window.location = callback['url'];
+  });
+}
+
 $('.shrink-win-to-left-svg-23').click(function(){
 
     $('#press_audio')[0].play();
@@ -117,6 +127,7 @@ function clone_active_visitors_lst_item(last_time_active, user_id, name, avatar,
   $(cloned).find('.active_user_item_name').text(name);
   $(cloned).find('.active_visitor_item_last_seen').text(last_seen_msg);
   $(cloned).find('.hidden_user_id_for_active_user').data('user_id',user_id);
+  $(cloned).on('click', active_visitor_item_clicked);
   if(win_view == 'page')
   {
 

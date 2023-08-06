@@ -3,6 +3,17 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth.models import Group, Permission
 from magazine.models import Profile
+from general.time import get_years_passed
+
+from analytics.models import UserSession
+
+def check_if_user_online(username):
+    is_online = UserSession.objects.filter(user__username=username).exists()
+    if(is_online == True):
+        return 'online'
+    return 'offline'
+
+
 
 def deactivate_user(username):
     user = User.objects.get(username = username)
@@ -37,6 +48,35 @@ def get_user(username):
 def get_profile(user):
     profile = Profile.objects.get(user = user)
     return profile
+
+def get_profile_from_profile_id(id):
+    profile = get_object_or_404(Profile, id = id)
+    return profile
+
+def get_profile_from_user_id(id):
+    profile = Profile.objects.get(user__id = id)
+    return profile
+
+def get_profile_from_username(username):
+    profile = Profile.objects.get(user__username = username)
+    return profile
+
+def get_profile_snippet(username):
+    profile = get_profile_from_username(username)
+    user = User.objects.get(username = username)
+    dict = {}
+    dict['sex'] = str(profile.sex)
+    dict['age'] = str(get_years_passed(profile.birthDate))
+
+    if not profile.nick is None:
+        dict['name'] = str(profile.nick)
+    else:
+        dict['name'] = str(user.username)
+    dict['avatar'] = str(profile.profile_img.url)
+
+    dict['profile_id'] = str(profile.id)
+
+    return dict
 
 def is_username_exists(username):
     return User.objects.filter(username = username).exists()

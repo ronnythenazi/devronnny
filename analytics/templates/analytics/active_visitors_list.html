@@ -193,7 +193,24 @@ $(window).scroll(function(){
 
   }
 
+  
 
+  function redirect_to_public_profile_from_user_id_ajax(user_id, callback)
+  {
+    var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+       $.ajax({
+           type: 'GET',
+           url: "{% url 'users:public-profile-url-from-user-id' %}",
+           data: {'user_id':user_id,
+                  'csrfmiddlewaretoken': csrftoken,
+           },
+           dataType: 'json',
+           success:callback,
+           error: function (response) {
+               console.log(response);
+           }
+       });
+  }
 
   function get_active_users_on_post(callback)
   {

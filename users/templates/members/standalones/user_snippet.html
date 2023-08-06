@@ -1,0 +1,134 @@
+{% load static %}
+
+
+<div id="the_snippet" style="display:none;">
+  <div class="online-green-rdbtn">
+    <span class="online-green-rdbtn" style='display:none;'>
+
+    </span>
+    <span class="user-online-status-txt">
+      מחובר
+    </span>
+  </div>
+
+  <div class="offline-red-rdbtn">
+    <span class="offline-red-rdbtn" style='display:none;'>
+
+    </span>
+    <span class="user-online-status-txt">
+      לא זמין
+    </span>
+  </div>
+
+<div class="snippet">
+
+      <div class="snippet-img-container">
+
+        <img src="" alt="" id="snippet-img">
+
+
+      </div>
+
+      <div class="snippet-txt-body">
+        <div class="snippet-row">
+
+      <!--שם או כינוי-->
+          <div class="snippet-val" id="snippet-name">
+
+          </div>
+        </div>
+
+      <div class="snippet-row">
+      <!--גיל -->
+          <div class="snippet-key">
+
+          </div>
+          <div class="snippet-val" id="snippet-age">
+
+          </div>
+       </div>
+
+       <div class="snippet-row">
+          <!-- מין -->
+          <div class="snippet-val" id="snippet-sex">
+
+          </div>
+
+      </div>
+
+      </div>
+
+
+</div>
+
+
+<script>
+  function get_user_snippet_details_ajax(user, callback)
+  {
+    var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+       $.ajax({
+            type: 'GET',
+            url: "{% url 'users:user-snippet-info' %}",
+            data: {
+
+                  'csrfmiddlewaretoken': csrftoken,
+                  'username':user,
+           },
+           dataType: 'json',
+           success:callback,
+           error: function (response) {
+               console.log(response);
+           }
+       });
+  }
+  </script>
+
+
+  <script>
+    function get_a_user_online_status_ajax(user, callback)
+    {
+      var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+         $.ajax({
+              type: 'GET',
+              url: "{% url 'users:check-user-online-status' %}",
+              data: {
+
+                    'csrfmiddlewaretoken': csrftoken,
+                    'username':user,
+             },
+             dataType: 'json',
+             success:callback,
+             error: function (response) {
+                 console.log(response);
+             }
+         });
+    }
+    </script>
+
+   <script>
+     function redirect_to_public_profile_ajax(profile_id, callback)
+     {
+       var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+          $.ajax({
+               type: 'GET',
+               url: "{% url 'users:get-user-public-profile-url' %}",
+               data: {
+
+                     'csrfmiddlewaretoken': csrftoken,
+                     'profile_id':profile_id,
+              },
+              dataType: 'json',
+              success:callback,
+              error: function (response) {
+                  console.log(response);
+              }
+          });
+     }
+   </script>
+  <script type="text/javascript" src="{% static 'memebers/js/user_snippet.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'memebers/css/user_snippet.css' %}">
+
+  <input type="hidden" id="hid-snippet-profile-id" value="">
+
+
+</div>

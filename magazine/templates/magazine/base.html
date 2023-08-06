@@ -123,7 +123,7 @@
          {% if user.profile.id %}
          <a class= "subMenuItem" href = "{% url 'users:UpdateProfile' user.profile.id %}">
            {% include 'magazine/components/svg/person_plus.svg' %}
-         עדכן פרופיל
+         בנה פרופיל
          </a>
          {% else %}
          <a class= "subMenuItem" href = "{% url 'users:CreateProfile' %}">
@@ -257,6 +257,7 @@
 {% include 'magazine/components/popups/popup_label_post.html' %}
 {% include 'members/components/popups/tagged_user_suggestion_lst.html' %}
 {%include 'components/footer.html'%}
+{%include 'members/standalones/user_snippet.html' %}
 
 
 

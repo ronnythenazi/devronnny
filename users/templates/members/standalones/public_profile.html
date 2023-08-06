@@ -1,0 +1,351 @@
+
+{% load static %}
+
+{%block meta%}
+<meta property="og:locale" content="he_IL">
+<meta property="og:type" content="public profile">
+<meta property="og:title" content="{{profile.nick}}">
+<meta property="og:description" content="פרופיל ציבורי">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:image" content="{{profile.profile_img.url}}">
+<meta property="og:image:height" content="250">
+<meta property="og:image:width" content="250">
+<meta property="og:site_name" content="רוני צדק">
+
+
+<meta name="twitter:card" content="summary_profile_image">
+<meta name="twitter:site" content="@judonazimwebsite">
+<meta name="twitter:image" content="{{profile.profile_img.url}}">
+<meta name="twitter:title" content="{{profile.nick}}">
+<meta name="twitter:description" content="{{profile.user.username}}">
+{%endblock meta%}
+
+<div class="profile-public-page">
+
+
+    <div class="box-section-profile-body">
+
+
+        <div class="main-header-public-profile">
+
+
+            <div class="main-header-profile-thumb-holder">
+                  <img src="{{profile.profile_img.url}}" class="img-main-header-public-profile" alt="">
+            </div>
+
+            <div class="main-header-profile-details-body">
+                <div class="main-header-profile-details-body-content">
+                    <div class="main-header-profile-details-body-content-row darker-bg-row">
+                      <span class="field-key-main-header">כינוי</span>
+                      {% if profile.nick %}
+                      <span class="field-val-main-header">{{profile.nick}}</span>
+                      {% endif %}
+                    </div>
+                    <div class="main-header-profile-details-body-content-row">
+                      <span class="field-key-main-header">מין</span>
+                      {% if profile.sex == 'male' %}
+                      <span class="field-val-main-header">גבר</span>
+                      {% elif profile.sex == 'female' %}
+                      <span class="field-val-main-header">אישה</span>
+                      {% else %}
+                      <span class="field-val-main-header">לא מצוין</span>
+                      {% endif %}
+                    </div>
+                    <div class="main-header-profile-details-body-content-row darker-bg-row">
+                      <span class="field-key-main-header">הצטרף בתאריך</span>
+
+                      <span class="field-val-main-header">{{profile.joinDate | date:'d/m/Y' | safe}}</span>
+
+                    </div>
+                    <div class="main-header-profile-details-body-content-row">
+
+                      <span class="field-key-main-header">גיל</span>
+                      {% if age  %}
+                      <span class="field-val-main-header">{{age}}</span>
+                      {% endif %}
+                    </div>
+                    <div class="main-header-profile-details-body-content-row darker-bg-row">
+                      <span class="field-key-main-header">שם פרטי</span>
+                      {% if profile.first_name %}
+                      <span class="field-val-main-header">{{profile.first_name}}</span>
+                      {% else %}
+                      <span class="field-val-main-header" style="margin-right:40px;"></span>
+                      {% endif %}
+
+                      <span class="field-key-main-header">שם משפחה</span>
+                      {% if profile.last_name %}
+                      <span class="field-val-main-header">{{profile.last_name}}</span>
+                      {% else %}
+                      <span class="field-val-main-header" style="margin-right:40px;"></span>
+                      {% endif %}
+                    </div>
+                </div>
+
+                <div class="main-header-profile-details-body-footer">
+                    <div class="main-header-footer-row">
+                       <div class="main-h-footer-data-container">
+                         <span class="main-h-footer-cell-key">מספר לייקים שקיבל:</span>
+                         <span class="main-h-footer-cell-val">{{profile_data.likes_given}}</span>
+                       </div>
+                       <div class="main-h-footer-data-container">
+                         <span class="main-h-footer-cell-key">מספר דיסלייקים שקיבל:</span>
+                         <span class="main-h-footer-cell-val">{{profile_data.dislikes_given}}</span>
+                       </div>
+                    </div>
+
+                    <div class="main-header-footer-row">
+                       <div class="main-h-footer-data-container">
+                         <span class="main-h-footer-cell-key">נתן לייקים:</span>
+                         <span class="main-h-footer-cell-val">{{profile_data.likes_gave}}</span>
+                       </div>
+                       <div class="main-h-footer-data-container">
+                         <span class="main-h-footer-cell-key">נתן דיסלייקים:</span>
+                         <span class="main-h-footer-cell-val">{{profile_data.dislikes_gave}}</span>
+                       </div>
+                    </div>
+
+                    <div class="main-header-footer-row">
+                      <div class="main-h-footer-data-container">
+                        <span class="main-h-footer-cell-key">מספר תגובות שרשם:</span>
+                        <span class="main-h-footer-cell-val">{{profile_data.coms_count}}</span>
+                      </div>
+                       <div class="main-h-footer-data-container">
+                         <span class="main-h-footer-cell-key">כמות תגובות שקיבל מאנשים:</span>
+                         <span class="main-h-footer-cell-val">{{profile_data.total_coms_given}}</span>
+                       </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+          <div class="header-profile-deatils">
+              <span>השקפות ודעות</span>
+          </div>
+
+          <div class="section-profile-item">
+              <div class="section-profile-item-field-type">
+                השקפה פוליטית
+              </div>
+              {% if profile.politic_views %}
+              <div class="section-profile-item-field-val">
+                  {{profile.politic_views}}
+              </div>
+              {% endif %}
+          </div>
+
+          <div class="section-profile-item">
+              <div class="section-profile-item-field-type">
+                אמונה/דת
+              </div>
+              {% if profile.religion %}
+              <div class="section-profile-item-field-val">
+                  {{profile.religion}}
+              </div>
+              {% endif %}
+          </div>
+
+          <div class="section-profile-item">
+              <div class="section-profile-item-field-type">
+                משפט מחץ
+              </div>
+              {% if profile.slogan %}
+              <div class="section-profile-item-field-val">
+                  {{profile.slogan}}
+              </div>
+              {% endif %}
+          </div>
+
+
+    </div>
+
+    <div class="box-section-profile-body">
+
+
+          <div class="header-profile-deatils">
+              <span>מצב ביולוגי/זוגי/משפחתי</span>
+          </div>
+
+          <div class="section-profile-item">
+              <div class="section-profile-item-field-type">
+                גזע/מוצא
+              </div>
+              {% if profile.race %}
+              <div class="section-profile-item-field-val">
+                  {{profile.race}}
+              </div>
+              {% endif %}
+          </div>
+
+          <div class="section-profile-item">
+              <div class="section-profile-item-field-type">
+                מצב משפחתי
+              </div>
+              {% if profile.familial_status %}
+              <div class="section-profile-item-field-val">
+                  {{profile.familial_status}}
+              </div>
+              {% endif %}
+          </div>
+
+          <div class="section-profile-item">
+              <div class="section-profile-item-field-type">
+               אפלוגרופ של כרומוזום Y
+              </div>
+              {% if profile.y_dna %}
+              <div class="section-profile-item-field-val">
+                  {{profile.y_dna}}
+              </div>
+              {% endif %}
+          </div>
+
+          <div class="section-profile-item">
+              <div class="section-profile-item-field-type">
+                 אפלוגרופ של מיטוכונדריה
+              </div>
+              {% if profile.mtdna %}
+              <div class="section-profile-item-field-val">
+                  {{profile.mtdna}}
+              </div>
+              {% endif %}
+          </div>
+
+
+    </div>
+
+
+    <div class="box-section-profile-body">
+
+
+          <div class="header-profile-deatils">
+              <span>תחומי עניין והתמקצעות</span>
+          </div>
+
+          <div class="section-profile-item">
+              <div class="section-profile-item-field-type">
+                תחביבים
+              </div>
+              {% if profile.hobby %}
+              <div class="section-profile-item-field-val">
+                  {{profile.hobby}}
+              </div>
+              {% endif %}
+          </div>
+
+          <div class="section-profile-item">
+              <div class="section-profile-item-field-type">
+                 כישורים
+              </div>
+              {% if profile.skills %}
+              <div class="section-profile-item-field-val">
+                  {{profile.skills}}
+              </div>
+              {% endif %}
+          </div>
+
+          <div class="section-profile-item">
+              <div class="section-profile-item-field-type">
+                  השכלה
+              </div>
+              {% if profile.education %}
+              <div class="section-profile-item-field-val">
+                  {{profile.education}}
+              </div>
+              {% endif %}
+          </div>
+
+          <div class="section-profile-item">
+              <div class="section-profile-item-field-type">
+                  מקצוע
+              </div>
+              {% if profile.profession %}
+              <div class="section-profile-item-field-val">
+                  {{profile.profession}}
+              </div>
+              {% endif %}
+          </div>
+
+
+    </div>
+
+    <div class="box-section-profile-body">
+
+
+          <div class="header-profile-deatils">
+              <span>אישיות</span>
+          </div>
+
+          <div class="section-profile-item">
+              <div class="section-profile-item-field-type">
+                אני הכי שונא/ת
+              </div>
+              {% if profile.hate %}
+              <div class="section-profile-item-field-val">
+                  {{profile.hate}}
+              </div>
+              {% endif %}
+          </div>
+
+          <div class="section-profile-item">
+              <div class="section-profile-item-field-type">
+                 אני הכי אוהב/ת
+              </div>
+              {% if profile.love %}
+              <div class="section-profile-item-field-val">
+                  {{profile.love}}
+              </div>
+              {% endif %}
+          </div>
+
+          <div class="section-profile-item">
+              <div class="section-profile-item-field-type">
+                 הסיוט הכי גדול שלי
+              </div>
+              {% if profile.nightmare %}
+              <div class="section-profile-item-field-val">
+                  {{profile.nightmare}}
+              </div>
+              {% endif %}
+          </div>
+
+          <div class="section-profile-item">
+              <div class="section-profile-item-field-type">
+                  הפנטזיה הכי גדולה שלי
+              </div>
+              {% if profile.fantasy %}
+              <div class="section-profile-item-field-val">
+                  {{profile.fantasy}}
+              </div>
+              {% endif %}
+          </div>
+
+          <div class="section-profile-item">
+              <div class="section-profile-item-field-type">
+                  הדבר הכי קשה/רע או טראומטי שחוויתי בחיי
+              </div>
+              {% if profile.worstEvent %}
+              <div class="section-profile-item-field-val">
+                  {{profile.worstEvent}}
+              </div>
+              {% endif %}
+          </div>
+
+          <div class="section-profile-item">
+              <div class="section-profile-item-field-type">
+                  הדבר הכי טוב שהיה לי בחיים
+              </div>
+              {% if profile.bestEvent %}
+              <div class="section-profile-item-field-val">
+                  {{profile.bestEvent}}
+              </div>
+              {% endif %}
+          </div>
+
+
+    </div>
+
+<link rel="stylesheet" href="{% static 'memebers/css/public_profile.css' %}">
+</div>

@@ -20,10 +20,52 @@ from django.contrib.sites.shortcuts import get_current_site
 from .utils import token_generator, token_generator_general
 from django.template.loader import get_template
 from django.template import Context
-from .members import is_username_active
+from .members import (is_username_active, get_profile_from_profile_id
+,get_profile_snippet, check_if_user_online, get_profile_from_user_id,)
 from django.views import View
 import threading
 from .signals import user_logged_in
+from general.time import get_years_passed
+from analytics.profile_data import (get_total_comments_of_profile, get_total_likes_given_to_profile,
+get_total_coms_given_to_profile, get_total_dislikes_given_to_profile,
+get_total_likes_profile_gave, get_total_dislikes_profile_gave,
+)
+from django.http import JsonResponse
+
+def get_public_profile_url_from_user_id_ajax(request):
+    if request.is_ajax and request.method == "GET":
+        user_id = request.GET.get('user_id')
+        profile = get_profile_from_user_id(user_id)
+        profile_id = profile.id
+        url = request.build_absolute_uri(reverse('users:public-profile', args = [str(profile_id)]))
+        return JsonResponse({'url':url})
+
+
+
+def get_user_public_profile_url_ajax(request):
+    if request.is_ajax and request.method == "GET":
+        profile_id = request.GET.get('profile_id')
+        url = request.build_absolute_uri(reverse('users:public-profile', args = [str(profile_id)]))
+        return JsonResponse({'url':url})
+
+def user_online_status_ajax(request):
+    if request.is_ajax and request.method == "GET":
+        username = request.GET.get('username')
+        status = check_if_user_online(username)
+        return JsonResponse({'status':status})
+
+
+
+def get_user_snippet_info_ajax(request):
+
+    if request.is_ajax and request.method == "GET":
+        username = request.GET.get('username')
+        dict = get_profile_snippet(username)
+
+        return JsonResponse(dict)
+
+
+
 
 
 class EmailThread(threading.Thread):
@@ -74,16 +116,28 @@ class CreateProfile(generic.CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
-"""
-def updateProfileV(request, id):
-    obj = get_object_or_404(Profile, id = id)
-    frm = frmProfile(request.POST or None, request.FILES or None, instance = obj)
-    if(request.method == 'POST'):
-        if frm.is_valid():
-            frm.save()
-            return redirect('magazine:magazineNews')
-    return render(request, 'registration/update_profile.html', {'form':frm , 'obj':obj})
-"""
+
+
+def get_public_profile_page(request, id):
+    profile = get_profile_from_profile_id(id)
+    if profile.birthDate:
+        age = get_years_passed(profile.birthDate)
+    else:
+        age = None
+
+    profile_data = {}
+    coms_count = get_total_comments_of_profile(profile)
+    profile_data['coms_count'] = coms_count
+    profile_data['likes_given'] = get_total_likes_given_to_profile(profile)
+    profile_data['dislikes_given'] = get_total_dislikes_given_to_profile(profile)
+    profile_data['likes_gave'] = get_total_likes_profile_gave(profile)
+    profile_data['dislikes_gave'] = get_total_dislikes_profile_gave(profile)
+    profile_data['total_coms_given'] = get_total_coms_given_to_profile(profile)
+
+
+    return render(request, 'members/public_profile.html', {'profile': profile, 'age':age, 'profile_data':profile_data} )
+
+
 def updateProfileV(request, id):
     fields = ['description', 'myfile']
     profile_obj = get_object_or_404(Profile, id = id) #profile obj
