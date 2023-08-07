@@ -63,6 +63,7 @@ INSTALLED_APPS = [
         #'easy_thumbnails',
         'ckeditor_uploader',
         'analytics',
+        'chat',
     ]
 
 

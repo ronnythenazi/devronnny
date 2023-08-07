@@ -1,0 +1,28 @@
+{% load static %}
+
+<div class="chat_room_dialog">
+    <div class="chat_room_header">
+
+    </div>
+
+    <div class="chat-input">
+        <div class="chat-input-svgs">
+            <div class="chat-input-svgs-floor">
+
+            </div>
+            <div class="chat-input-svgs-floor">
+
+            </div>
+        </div>
+
+        <div class="chat-input-txt">
+          <span class="chat-icon-user"></span>
+            <textarea type="text" id="txt-chat" maxlength="200" placeholder="רשום פה הודעה עבור צ'אט"></textarea>
+            <div class="chat-send-btn">
+               <button id="chat-send-btn"></button>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{% static 'chat/js/private_chat.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'chat/js/private_chat.css' %}">
+</div>

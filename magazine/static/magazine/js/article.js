@@ -5,13 +5,20 @@ $('.order-num, .user-com-label').hover(function(){
 
   var com_ancestor = $(this).parents('.item').first();
   var user = get_com_author(com_ancestor);
-  display_user_snippet(user, $(this));
+
+  var vis = $('#the_snippet').css('display');
+   if(vis != 'none')
+   {
+     return;
+   }
+
+   display_user_snippet(user, $(this));
 });
 
 
 $(document).mousemove(function(e){
 
-  var vis = $('#the_snippet').css('display');
+ var vis = $('#the_snippet').css('display');
   if(vis == 'none')
   {
     return;
