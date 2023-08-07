@@ -5,7 +5,9 @@ $('.snippet-txt-body').hover(function(){
   $(this).find('.snippet-row').css('color', '#f207ee');
 });
 $('.snippet-txt-body').mouseleave(function(){
-   $(this).find('.snippet-row').css('color', '#6babf0');
+
+  
+  $(this).find('.snippet-row').css('color', '#6babf0');
 });
 
 function redirect_to_public_profile()
