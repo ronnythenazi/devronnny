@@ -6,15 +6,11 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        print('connnnnnnnnnnnnnnnect')
         self.room_name = self.scope["url_route"]["kwargs"]["room_name"]
         self.room_group_name = f"chat_{self.room_name}"
-        print('connnnnnnnnnnnnnnnect 222222222')
         # Join room group
         await self.channel_layer.group_add(self.room_group_name, self.channel_name)
-        print('make accccccccccccccccccccccccccceppppppppppt')
         await self.accept()
-        print('eeeeeeeeeeeeeeeeeeeeennnnnnnnnnnnnnnnnnnnnnnndddddddddddddd')
     async def disconnect(self, close_code):
         # Leave room group
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
