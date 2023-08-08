@@ -90,7 +90,7 @@ function update_private_chat_log(e)
 {
   const data = JSON.parse(e.data);
   $('#chat-log').append('<div class="chat-row chat-row-sender">' + data.message + '</div>');
-  
+
 }
 
 function close_chat()
@@ -112,7 +112,7 @@ $(document).ready(function(){
 
  var roomName = $('#room-name').val();
 
-  chatSocket = new WebSocket('ws://'+window.location.host+'/ws/chat/'+roomName + '/');
+  chatSocket = new WebSocket('wss://'+window.location.host+'/ws/chat/'+roomName + '/');
 
 
   chatSocket.onmessage =  update_private_chat_log;

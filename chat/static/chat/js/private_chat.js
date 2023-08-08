@@ -112,7 +112,7 @@ $(document).ready(function(){
 
  var roomName = $('#room-name').val();
 
-  chatSocket = new WebSocket('ws://'+window.location.host+'/ws/chat/'+roomName + '/');
+  chatSocket = new WebSocket('wss://'+window.location.host+'/ws/chat/'+roomName + '/');
 
 
   chatSocket.onmessage =  update_private_chat_log;
