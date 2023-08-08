@@ -105,25 +105,17 @@ TEMPLATES = [
 WSGI_APPLICATION = 'judonazim.wsgi.application'
 ASGI_APPLICATION = 'judonazim.asgi.application'
 
-if DEBUG:
-    CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],
-        },
-    },
-}
 
-else:
-    CHANNEL_LAYERS = {
-        "default": {
-            "BACKEND": "channels_redis.core.RedisChannelLayer",
-            "CONFIG": {
-                "hosts": [('judonazim.com', 6379)],
-            },
-        },
-    }
+CHANNEL_LAYERS = {
+"default": {
+    "BACKEND": "channels_redis.core.RedisChannelLayer",
+    "CONFIG": {
+        "hosts": [("127.0.0.1", 6379)],
+    },
+},
+}    
+
+
 
 
 
