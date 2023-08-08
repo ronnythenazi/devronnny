@@ -1,5 +1,5 @@
 3==0.0.0
-asgiref==3.3.1
+asgiref==3.3.2
 async-timeout==4.0.2
 attrs==22.2.0
 autobahn==21.2.1
