@@ -90,7 +90,7 @@ function update_private_chat_log(e)
 {
   const data = JSON.parse(e.data);
   $('#chat-log').append('<div class="chat-row chat-row-sender">' + data.message + '</div>');
-  
+
 }
 
 function close_chat()

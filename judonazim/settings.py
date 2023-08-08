@@ -106,14 +106,6 @@ WSGI_APPLICATION = 'judonazim.wsgi.application'
 ASGI_APPLICATION = 'judonazim.asgi.application'
 
 
-CHANNEL_LAYERS = {
-"default": {
-    "BACKEND": "channels_redis.core.RedisChannelLayer",
-    "CONFIG": {
-        "hosts": [("127.0.0.1", 6379)],
-    },
-},
-}    
 
 
 
@@ -178,6 +170,47 @@ if POSTGRES_READY:
 
         }
     }
+
+
+
+
+
+
+if DEBUG:
+    CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+
+
+        },
+
+    },
+    }
+
+else:
+
+    REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD")
+    REDIS_USER = os.environ.get("REDIS_USER")
+    REDIS_HOST = os.environ.get("REDIS_HOST")
+    REDIS_PORT = os.environ.get("REDIS_PORT")
+    REDIS_DB   = os.environ.get("REDIS_DB")
+
+    CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [(REDIS_HOST, REDIS_PORT)],
+
+               },
+        "PASSWORD": REDIS_PASSWORD,
+          },
+        }
+
+
+
+
 
 
 
