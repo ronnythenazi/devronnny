@@ -122,10 +122,12 @@
         </div>
 
         <div class="toolbar-profile-operations">
-            <div class="toolbar-profile-item">
+            <div id="open-chat-with-user" class="toolbar-profile-item">
                {% include 'magazine/components/svg/chat_quote.svg' %}
             </div>
-            <div class="toolbar-profile-item">
+            <!-- in the mean time don't display because I havnt
+              built any mailbox interface yet-->
+            <div class="toolbar-profile-item" style="display:none;">
                {% include 'magazine/components/svg/mail32.svg' %}
             </div>
         </div>
@@ -357,4 +359,11 @@
     </div>
 
 <link rel="stylesheet" href="{% static 'memebers/css/public_profile.css' %}">
+<script src="{% static 'memebers/js/public_profile.js' %}"> </script>
+
+
+<input type="hidden" id="hid_username" value="{{profile.user.id}}">
+
+
+
 </div>

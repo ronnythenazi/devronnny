@@ -1,0 +1,13 @@
+{% load static %}
+<div id="popup-ok-msg" style="display:none;">
+  <div class="popup-msg-msg deep-blue-90-clr">
+    <span class="popup-msg-title">אינך מחובר</span>
+    <span class="popup-msg-body shiny-blue-clr">רק משתמשים רשומים ומחוברים יכולים להגיב</span>
+  </div>
+  <div class="super-tiny-row-center-align popup-msg-confirm-select-panel" style="justify-content:center;">
+    <span id="popup-ok-msg-cancel" style="margin-right:5px;" class="bluish-clr">הבנתי</span>
+  </div>
+
+  <script type="text/javascript" src="{% static 'general/js/popup_ok.js' %}"> </script>
+  <link rel="stylesheet" href="{% static 'general/css/popup_ok.css' %}">
+</div>

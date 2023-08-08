@@ -1,3 +1,25 @@
+
+
+
+function set_txtarea_caret(elem, caret=10)
+{
+  $(elem).append('<div id="bookmark" style="display:none;">א</div>');
+  var node = $('#bookmark');
+  node.focus();
+  var textNode = node.firstChild;
+  var range = document.createRange();
+  range.setStart(textNode, caret);
+  range.setEnd(textNode, caret);
+  var sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+  $('#bookmark').html('');
+}
+
+
+
+
+
 function hide_elem_if_close_to_bottom(elem, bottom, display='flex', extra_space=0)
 {
   var scrollHeight = $(document).height();

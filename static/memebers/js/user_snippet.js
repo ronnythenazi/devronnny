@@ -6,7 +6,7 @@ $('.snippet-txt-body').hover(function(){
 });
 $('.snippet-txt-body').mouseleave(function(){
 
-  
+
   $(this).find('.snippet-row').css('color', '#6babf0');
 });
 
@@ -67,8 +67,9 @@ function fill_user_snippet_html_details(user, dict)
 function fill_user_snippet_the_rest(dict)
 {
   $('#snippet-name').html(dict['name']);
-  $('#snippet-age').html(dict['age']);
+
   var sex = "";
+  var gender_prefix = "בן";
   if(dict['sex'] == 'male')
   {
       sex = "גבר";
@@ -76,11 +77,23 @@ function fill_user_snippet_the_rest(dict)
   else if(dict['sex'] == 'female')
   {
      sex = "אישה";
+     gender_prefix = 'בת';
   }
   else
   {
     sex = "חסר מין";
   }
+
+  var age = dict['age'];
+  if(age == '0')
+  {
+    age = '';
+  }
+  else
+  {
+    age = gender_prefix + ' ' + age;
+  }
+  $('#snippet-age').html(age);
 
   $('#snippet-sex').html(sex);
   $('#snippet-img').attr('src', dict['avatar']);

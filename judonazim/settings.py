@@ -40,6 +40,7 @@ DEBUG = str(os.environ.get("DEBUG")) == "1"
 
 
 INSTALLED_APPS = [
+        'daphne',
         'django.contrib.admin',
         'django.contrib.auth',
         'django.contrib.contenttypes',
@@ -64,6 +65,7 @@ INSTALLED_APPS = [
         'ckeditor_uploader',
         'analytics',
         'chat',
+        'channels',
     ]
 
 
@@ -101,6 +103,30 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'judonazim.wsgi.application'
+ASGI_APPLICATION = 'judonazim.asgi.application'
+
+if DEBUG:
+    CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}
+
+else:
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels_redis.core.RedisChannelLayer",
+            "CONFIG": {
+                "hosts": [('judonazim.com', 6379)],
+            },
+        },
+    }
+
+
+
 DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.sqlite3',
@@ -210,6 +236,7 @@ if DEBUG:
         os.path.join(BASE_DIR, 'social', 'static'),
         os.path.join(BASE_DIR, 'general', 'static'),
         os.path.join(BASE_DIR, 'analytics', 'static'),
+        os.path.join(BASE_DIR, 'chat', 'static'),
       )
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 else:

@@ -16,6 +16,7 @@ from django.contrib.auth import (authenticate, get_user_model, login, logout,)
 
 from django.utils.encoding import force_bytes, force_text, DjangoUnicodeDecodeError
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.safestring import mark_safe
 from django.contrib.sites.shortcuts import get_current_site
 from .utils import token_generator, token_generator_general
 from django.template.loader import get_template

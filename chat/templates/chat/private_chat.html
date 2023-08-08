@@ -2,8 +2,19 @@
 
 <div class="chat_room_dialog">
     <div class="chat_room_header">
-
+     <span>צאט</span>
+     {% include 'general/components/svg/minimize.svg' %}
+     {% include 'general/components/svg/maximize.svg' %}
     </div>
+
+
+     <div class="chat-log" id="chat-log">
+       <div class="chat-row chat-row-reciver first-row-chat">
+         <span class="reciever-name blood-clr"></span>
+         <span class="chat-icon-user-body"><img class="reciever-avatar" src="" alt=""></span>
+       </div>
+     </div>
+
 
     <div class="chat-input">
         <div class="chat-input-svgs">
@@ -16,13 +27,44 @@
         </div>
 
         <div class="chat-input-txt">
-          <span class="chat-icon-user"></span>
-            <textarea type="text" id="txt-chat" maxlength="200" placeholder="רשום פה הודעה עבור צ'אט"></textarea>
-            <div class="chat-send-btn">
-               <button id="chat-send-btn"></button>
-            </div>
+          <span class="chat-icon-user"><img class="sender-avatar" src="" alt=""></span>
+            <textarea type="text" id="txt-chat" maxlength="200" placeholder="רשום הודעה כאן">
+
+            </textarea>
+
         </div>
+        <div class="chat-dialog-footer">
+          <div id="chat-send-btn-wrapper">
+             <span id="chat-send-btn">שלח</span>
+          </div>
+        </div>
+
     </div>
+
+
+    <script>
+      function get_names_and_avatars_private_chat_ajax(to_user_id, callback)
+      {
+        var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+           $.ajax({
+                type: 'GET',
+                url: "{% url 'chat:private-chat-users-details' %}",
+                data: {
+
+                      'csrfmiddlewaretoken': csrftoken,
+                      'to_user_id':to_user_id,
+               },
+               dataType: 'json',
+               success:callback,
+               error: function (response) {
+                   console.log(response);
+               }
+           });
+      }
+    </script>
     <script type="text/javascript" src="{% static 'chat/js/private_chat.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'chat/js/private_chat.css' %}">
+    <link rel="stylesheet" href="{% static 'chat/css/private_chat.css' %}">
+    <input type="hidden" id="hid-is-chat-activated" value="false">
+    <input type="hidden" id="room-name" value="privatechat">
+
 </div>
