@@ -111,9 +111,7 @@ $(document).ready(function(){
 
 
  var roomName = $('#room-name').val();
-  alert(window.location.host);
-  chatSocket = new WebSocket('ws://'+window.location.host+'/ws/chat/'+roomName + '/');
-  alert(window.location.host);
+ chatSocket = new WebSocket('ws://'+window.location.host+'/ws/chat/'+roomName + '/');
 
 
 
