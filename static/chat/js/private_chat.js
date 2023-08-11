@@ -263,8 +263,8 @@ function connect_private_chat(chat_dialog, from_username, to_username)
   else
   {
 
-    chatSocket = new WebSocket('ws://'+window.location.host+'/ws/chat/'+ roomName + '/');
-    //chatSocket = new WebSocket('wss://'+window.location.host+'/ws/chat/'+ roomName + '/');
+    //chatSocket = new WebSocket('ws://'+window.location.host+'/ws/chat/'+ roomName + '/');
+    chatSocket = new WebSocket('wss://'+window.location.host+'/ws/chat/'+ roomName + '/');
     //chatSocket = new ReconnectingWebSocket('wss://'+window.location.host+'/ws/chat/'+ roomName + '/');
   }
 
