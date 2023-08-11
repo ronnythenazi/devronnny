@@ -1,3 +1,18 @@
+function get_css_variable_val(css_var_name)
+{
+  var bodyStyles = window.getComputedStyle(document.body);
+  var val = bodyStyles.getPropertyValue(css_var_name); //get
+  return val;
+
+}
+
+function set_css_variable_val(css_var_name, new_val)
+{
+  var bodyStyles = window.getComputedStyle(document.body);
+  var val = bodyStyles.getPropertyValue(css_var_name); //getvar bodyStyles = window.getComputedStyle(document.body);
+  document.body.style.setProperty(css_var_name, new_val);//set
+}
+
 function is_elem_exists(selector)
 {
   var count_items = $(selector).length;

@@ -246,6 +246,10 @@
 <input type="hidden" id="caret-y" value="-1">
 <input type="hidden" id="activated_editor" value="">
 
+{% if user.is_authenticated %}
+<input type="hidden" id="hid-global-username-log-in" value="{{user.username}}">
+{% endif %}
+
 
 
 

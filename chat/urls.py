@@ -10,4 +10,6 @@ urlpatterns = [
 path('private-chat-users-details', get_private_chat_users_details, name="private-chat-users-details"),
 
 
+
+
 ]

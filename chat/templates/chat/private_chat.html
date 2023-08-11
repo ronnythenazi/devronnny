@@ -1,6 +1,6 @@
 {% load static %}
 
-<div class="chat_room_dialog">
+<div class="chat_room_dialog chat-room-template">
     <div class="chat_room_header">
      <span>צאט</span>
      {% include 'general/components/svg/minimize.svg' %}
@@ -8,11 +8,11 @@
     </div>
 
 
-     <div class="chat-log" id="chat-log">
-       <div class="chat-row chat-row-reciver first-row-chat">
+     <div class="chat-log" class="chat-log">
+       <!--<div class="chat-row chat-row-reciver first-row-chat">
          <span class="reciever-name blood-clr"></span>
          <span class="chat-icon-user-body"><img class="reciever-avatar" src="" alt=""></span>
-       </div>
+       </div>-->
      </div>
 
 
@@ -28,14 +28,14 @@
 
         <div class="chat-input-txt">
           <span class="chat-icon-user"><img class="sender-avatar" src="" alt=""></span>
-            <textarea type="text" id="txt-chat" maxlength="200" placeholder="רשום הודעה כאן">
+            <textarea type="text" class="txt-chat" maxlength="200" placeholder="רשום הודעה כאן">
 
             </textarea>
 
         </div>
         <div class="chat-dialog-footer">
-          <div id="chat-send-btn-wrapper">
-             <span id="chat-send-btn">שלח</span>
+          <div class="chat-send-btn-wrapper">
+             <span class="chat-send-btn">שלח</span>
           </div>
         </div>
 
@@ -43,7 +43,7 @@
 
 
     <script>
-      function get_names_and_avatars_private_chat_ajax(to_user_id, callback)
+      function get_names_and_avatars_private_chat_ajax(to_username, callback)
       {
         var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
            $.ajax({
@@ -52,7 +52,7 @@
                 data: {
 
                       'csrfmiddlewaretoken': csrftoken,
-                      'to_user_id':to_user_id,
+                      'to_username':to_username,
                },
                dataType: 'json',
                success:callback,
@@ -62,9 +62,19 @@
            });
       }
     </script>
+
+
+
+
     <script type="text/javascript" src="{% static 'chat/js/private_chat.js' %}"></script>
+    <!--<script type="text/javascript" src="{% static 'chat/js/reconnecting-websocket.js' %}"></script>-->
+
     <link rel="stylesheet" href="{% static 'chat/css/private_chat.css' %}">
-    <input type="hidden" id="hid-is-chat-activated" value="false">
-    <input type="hidden" id="room-name" value="privatechat">
+    <input type="hidden" class="hid-is-chat-activated" value="false">
+    <input type="hidden" class="room-name" value="privatechat">
+    <input type="hidden" class="user-log-in-to-chat-dialog" value="">
+    <input type="hidden" class="hid-chat-id" value="">
+
+
 
 </div>

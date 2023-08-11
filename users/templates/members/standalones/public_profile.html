@@ -362,7 +362,10 @@
 <script src="{% static 'memebers/js/public_profile.js' %}"> </script>
 
 
-<input type="hidden" id="hid_username" value="{{profile.user.id}}">
+<input type="hidden" id="hid_username" value="{{profile.user.username}}">
+{% if user.is_authenticated %}
+<input type="hidden" id="hid_username_log_in" value="{{user.username}}">
+{% endif %}
 
 
 
