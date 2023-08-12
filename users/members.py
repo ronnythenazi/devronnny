@@ -6,6 +6,7 @@ from magazine.models import Profile
 from general.time import get_years_passed
 
 from analytics.models import UserSession
+from asgiref.sync import sync_to_async
 
 def check_if_user_online(username):
     is_online = UserSession.objects.filter(user__username=username).exists()
@@ -121,6 +122,7 @@ def get_profile_info_for_validated_user(username):
     info['username'] = str(username)
     info['avatar'] = str(profile.profile_img.url)
     return info
+
 
 def get_profile_info_nick_or_user(user):
     profile = get_profile(user)

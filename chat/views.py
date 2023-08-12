@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.utils.dateparse import parse_datetime
 from users.members import get_profile_info_nick_or_user
 from django.contrib.auth.models import User
-from asgiref.sync import async_to_sync
+from asgiref.sync import sync_to_async, async_to_sync
 
 # Create your views here.
 
@@ -16,6 +16,7 @@ from users.models import Contact
 
 
 User = get_user_model()
+
 
 
 
@@ -43,7 +44,7 @@ def get_private_chat_users_details(request):
 
 
 
-
+@sync_to_async
 def save_message_for_chat(current_chat, user_contact, content):
     message = Message.objects.create(
         contact=user_contact,
@@ -54,7 +55,7 @@ def save_message_for_chat(current_chat, user_contact, content):
 
     return message
 
-
+@sync_to_async
 def get_or_create_private_chat_room(chat_owner_username, to_username):
     user_owner = get_object_or_404(User, username=chat_owner_username)
 
@@ -108,32 +109,53 @@ def get_or_create_private_chat_room(chat_owner_username, to_username):
     return chat_id
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@sync_to_async
 def get_last_messages(chatId):
     chat = get_object_or_404(Chat, id=chatId)
-    return chat.messages.order_by('-timestamp').all()[:10]
+    return reversed(chat.messages.order_by('-timestamp').all()[:10])
 
-
+@sync_to_async
 def get_user_contact(username):
     user = get_object_or_404(User, username=username)
     return get_object_or_404(Contact, user=user)
 
-
+@sync_to_async
 def get_current_chat(chatId):
     return get_object_or_404(Chat, id=chatId)
+
+
+
+@sync_to_async
+def messages_to_json(messages):
+    result = []
+    #return [await async_to_sync(self.message_to_json)(messages[i]) for i in range(len(messages))]
+    #result.append(await async_to_sync(self.message_to_json)(messages[i]) for i in range(len(messages)))
+    #return result
+    for message in messages:
+        result.append(message_to_json(message))
+    return result
+
+
+def message_to_json(message):
+
+    info =  get_profile_info_nick_or_user(message.contact.user)
+
+    avatar = info['avatar']
+    name   = info['name']
+
+    dict = {
+        'id': str(message.id),
+        'author': message.contact.user.username,
+        'content': str(message.content),
+        'timestamp': str(message.timestamp),
+        'avatar'   : avatar,
+        'name'     : name,
+    }
+
+    return dict
+
+@sync_to_async
+def message_to_json_called_from_async(message):
+    return message_to_json(message)
+
+    #return asyncio.run(get_chat_msg_dict_json(message))

@@ -2,6 +2,7 @@
 {
   --snippet-h:100px;
   --snippet-w:200px;
+  --snippet-max-w:300px;
 
   --status-rdbtn-size:15px;
 
@@ -51,7 +52,10 @@ div.online-green-rdbtn, div.offline-red-rdbtn
 {
   position: absolute;
   display: flex;
-  width: var(--snippet-w);
+  min-width: var(--snippet-w);
+  max-width: var(--snippet-max-w);
+  box-sizing: border-box;
+  overflow-x: hidden;
   height: var(--snippet-h);
   z-index: 50;
   background: white;

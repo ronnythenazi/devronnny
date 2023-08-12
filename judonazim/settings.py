@@ -179,8 +179,7 @@ if POSTGRES_READY:
 
 
 
-if not DEBUG:
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 
 
 
@@ -198,6 +197,9 @@ CHANNEL_LAYERS = {
 
     }
 }
+
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 
