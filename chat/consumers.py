@@ -80,12 +80,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def connect(self):
 
+        print(11111111111111111111111111111111111111)
+
         self.room_name = self.scope['url_route']['kwargs']['room_name']
-
+        print(22222222222222222222222222222222222222)
         self.room_group_name = f"chat_{self.room_name}"
-
+        print(3333333333333333333333333333333333333333)
         await self.channel_layer.group_add(self.room_group_name,self.channel_name)
-
+        print(44444444444444444444444444444444444444444444444444)
         await self.accept()
 
 
