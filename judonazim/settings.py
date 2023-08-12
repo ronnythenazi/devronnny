@@ -40,7 +40,7 @@ DEBUG = str(os.environ.get("DEBUG")) == "1"
 
 
 INSTALLED_APPS = [
-        #'daphne',
+        'daphne',
         'django.contrib.admin',
         'django.contrib.auth',
         'django.contrib.contenttypes',
