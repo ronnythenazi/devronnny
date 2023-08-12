@@ -41,38 +41,29 @@ class ChatConsumer(WebsocketConsumer):
 
     def fetch_messages(self, data):
 
-        try:
-            chat_id =  get_or_create_private_chat_room(data['from'], data['to'])
+        chat_id =  get_or_create_private_chat_room(data['from'], data['to'])
 
-            messages = get_last_messages(chat_id)
-            content = {
-                'command': 'messages',
-                'chatId' :  str(chat_id),
-                'messages': self.messages_to_json(messages)
-            }
+        messages = get_last_messages(chat_id)
+        content = {
+            'command': 'messages',
+            'chatId' :  str(chat_id),
+            'messages': self.messages_to_json(messages)
+        }
 
-            self.send_message(content)
-        except Exception as e:
-            print('exxxxxxxxxxxxxxxxxceppppppppption in fetch_messages_%s' %  e)
-
-
+        self.send_message(content)
 
 
     def new_message(self, data):
-        try:
-            user_contact =  get_user_contact(data['from'])
-            current_chat = get_current_chat(data['chatId'])
-            message = save_message_for_chat(current_chat, user_contact, data['message'])
+        user_contact =  get_user_contact(data['from'])
+        current_chat = get_current_chat(data['chatId'])
+        message = save_message_for_chat(current_chat, user_contact, data['message'])
 
 
-            content = {
-                'command': 'new_message',
-                'message': self.message_to_json(message)
-            }
-            return self.send_chat_message(content)
-        except Exception as e:
-            print('exxxxxxxxxxxxxxxxxceppppppppptionin new message_%s' %  e)
-
+        content = {
+            'command': 'new_message',
+            'message': self.message_to_json(message)
+        }
+        return self.send_chat_message(content)
 
 
 
@@ -89,21 +80,14 @@ class ChatConsumer(WebsocketConsumer):
     }
 
     def connect(self):
-        try:
-            print('1111111111111111111111111')
-            self.room_name = self.scope['url_route']['kwargs']['room_name']
-            print('22222222222222222222222222')
-            self.room_group_name = 'chat_%s' % self.room_name
-            print('333333333333333333333333333')
-            async_to_sync(self.channel_layer.group_add)(self.room_group_name,self.channel_name)
-            print('44444444444444444444444444')
-            self.accept()
-            print('55555555555555555555555555')
 
-        except Exception as e:
-            print('exxxxxxxxxxxxxxxxxceppppppppption in connect_%s' %  e)
+        self.room_name = self.scope['url_route']['kwargs']['room_name']
 
+        self.room_group_name = 'chat_%s' % self.room_name
 
+        async_to_sync(self.channel_layer.group_add)(self.room_group_name,self.channel_name)
+
+        self.accept()
 
 
     def disconnect(self, close_code):
