@@ -13,6 +13,8 @@
   --chat-svg-floor-height:16px;
   --chat-btn-height:30px;
 
+  --chat-log-gap:20px;
+
   --wine-chat-1:linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
   --wine-chat-2:-webkit-linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
 
@@ -119,7 +121,7 @@
   box-shadow: 0 4px 2px -2px gray;
   justify-content: flex-start;
   align-items: stretch;
-  gap:10px;
+  gap:var(--chat-log-gap);
   overflow-y: scroll;
   padding-top: 5px;
 
@@ -166,6 +168,7 @@
   padding-right: 5px;
   box-sizing: border-box;
   max-width: 80%;
+  align-self: center;
 
 }
 .reciver-bubble
@@ -315,7 +318,19 @@
 
 }
 
+.contact
+{
+  display: flex;
+  align-self: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  position: relative;
+  top:-8px;
 
+}
 
 .txt-chat
 {
@@ -377,6 +392,7 @@
 
 .reciever-name, .sender-name
 {
+  align-self: center;
   font-size: 0.7rem;
   font-family: formal2;
 }

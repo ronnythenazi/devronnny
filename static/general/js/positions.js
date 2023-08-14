@@ -1,6 +1,33 @@
 
+//not only relveant to chat messages
+//but relvant to many other cases when the scorllheight
+//is updated to be greater, and you need to
+//scroll down a bit to offset the new gap
+//the whell position will move down
+//depnding on where your current wheel now
+//and what is the update in height for the new scorllheight
+function scroll_down_the_gap_on_new_msg(dialog, inserted_elem, extra=0)
+{
+  $(dialog).scrollTop($(dialog).scrollTop() + $(inserted_elem).height() + extra);
 
+}
 
+function scroll_to_bottom_most(dialog)
+{
+  $(dialog).scrollTop($(dialog).prop("scrollHeight"));
+}
+
+function get_wheel_height(elem)
+{
+
+  var scrollHeight = $(elem).prop("scrollHeight");
+  var clientHeight = $(elem).prop("clientHeight");
+
+  var scrollbarHeight = scrollHeight - clientHeight;
+
+  return scrollbarHeight;
+
+}
 function set_txtarea_caret(elem, caret=10)
 {
   $(elem).append('<div id="bookmark" style="display:none;">א</div>');

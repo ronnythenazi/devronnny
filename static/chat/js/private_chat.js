@@ -86,7 +86,7 @@ function cloned_and_assign_events()
   $(cloned).find('.minimize_svg').first().on('click', minimize_chat);
   $(cloned).find('.maximize_svg').first().on('click', maximize_chat);
   $(cloned).find('.close_chat_svg').first().on('click', close_chat_dialog)
-  $(cloned).find('.chat-send-btn-wrapper').first().on('click', send_message_chat);
+  $(cloned).find('.chat-send-btn-wrapper').first().on('click', btn_send_clicked);
   $(cloned).find('.txt-chat').first().on('keyup',chat_key_up);
 
   return cloned;
@@ -155,7 +155,7 @@ function init_private_chat(cloned_chat, from_username, to_username, roomName, ch
     $(chat_dialog).not('.chat-room-template').first().css('display', 'flex');
 
     maximize_chat($(chat_dialog));
-    set_txtarea_caret($(chat_dialog).find('.txt-chat').first());
+    //set_txtarea_caret($(chat_dialog).find('.txt-chat').first());
   });
 
 
@@ -170,15 +170,18 @@ $('.ronny-style-field').focusout(function(){
 });
 
 
-
-
-
-async function send_message_chat()
+function btn_send_clicked()
 {
+  send_message_chat($(this));
+}
 
 
-  var ancestor = $(this).parents('.chat_room_dialog').not('.chat-room-template').first();
+function send_message_chat(sender)
+{
+  var ancestor = $(sender).parents('.chat_room_dialog').not('.chat-room-template').first();
+
   var username = get_chat_user_login(ancestor);
+
   var message = $(ancestor).find('.txt-chat').first().val();
   var chat_id = $(ancestor).find('.hid-chat-id').first().val();
   chatSocket.send(JSON.stringify({
@@ -189,8 +192,6 @@ async function send_message_chat()
   }));
 
   $(ancestor).find('.txt-chat').first().val('');
-
-
 }
 
 
@@ -228,7 +229,7 @@ function create_message(data, chat_dialog)
   var ancestor = $(chat_dialog);
   var chat_log = $(ancestor).find('.chat-log').first()
 
-  var message = data.content;//data['message'];
+  var message = data.content;
   var author =  data['author'];
 
   var username = get_chat_user_login(ancestor);
@@ -240,16 +241,23 @@ function create_message(data, chat_dialog)
 
     $(chat_log).append('<div class="chat-row"></div>');
     var log_row =$(chat_log).find('.chat-row').last();
-    $(log_row).append('<span class="sender-name blood-clr"></span>');
-    $(log_row).append('<span class="chat-icon-user-body"><img class="sender-avatar" src="" alt=""></span>');
+
+    $(log_row).append('<div class="contact"></div>');
+    var contact = $(log_row).find('.contact').first();
+    $(contact).append('<span class="sender-name blood-clr"></span>');
+    $(contact).append('<span class="chat-icon-user-body"><img class="sender-avatar" src="" alt=""></span>');
     $(log_row).append('<span class="sender-bubble bubble"></span>');
+
+    /*$(log_row).append('<span class="sender-name blood-clr"></span>');
+    $(log_row).append('<span class="chat-icon-user-body"><img class="sender-avatar" src="" alt=""></span>');
+    $(log_row).append('<span class="sender-bubble bubble"></span>');*/
 
     var bubble = $(log_row).find('.sender-bubble').first();
     $(bubble).html(message);
 
 
     var name = $(log_row).find('.sender-name').first();
-    $(name).val(data['name']);
+    $(name).html(data['name']);
     var avatar = $(log_row).find('.sender-avatar').first();
     $(avatar).attr('src', data['avatar']);
 
@@ -261,21 +269,33 @@ function create_message(data, chat_dialog)
     //you recieve message
     $(chat_log).append('<div class="chat-row row-reciever"></div>');
     var log_row =$(chat_log).find('.chat-row').last();
-    $(log_row).append('<span class="reciever-name blood-clr"></span>');
-    $(log_row).append('<span class="chat-icon-user-body"><img class="reciever-avatar" src="" alt=""></span>');
+
+
+    $(log_row).append('<div class="contact"></div>');
+    var contact = $(log_row).find('.contact').first();
+    $(contact).append('<span class="reciever-name blood-clr"></span>');
+    $(contact).append('<span class="chat-icon-user-body"><img class="reciever-avatar" src="" alt=""></span>');
     $(log_row).append('<span class="reciver-bubble bubble"></span>');
+
+    /*$(log_row).append('<span class="reciever-name blood-clr"></span>');
+    $(log_row).append('<span class="chat-icon-user-body"><img class="reciever-avatar" src="" alt=""></span>');
+    $(log_row).append('<span class="reciver-bubble bubble"></span>');*/
 
     var bubble = $(log_row).find('.reciver-bubble').first();
     $(bubble).html(message);
 
 
     var name = $(log_row).find('.reciever-name').first();
-    $(name).val(data['name']);
+    $(name).html(data['name']);
     var avatar = $(log_row).find('.reciever-avatar').first();
     $(avatar).attr('src', data['avatar']);
 
 
   }
+  var inserted_elem = $(chat_log).find('.chat-row').last();
+  var extra = get_css_variable_val('--chat-log-gap').replace('px', '');
+  scroll_down_the_gap_on_new_msg($(chat_log), inserted_elem, extra);
+
 }
 
 function get_chat_user_login(chat_dialog)
@@ -290,35 +310,35 @@ function close_chat(chat_dialog)
 }
 
 
-async function chat_key_up(e)
+function chat_key_up(e)
 {
+   var keyCode = e.keyCode || e.which;
 
-  if (e.key === 'Enter' && !e.ctrlKey)
-  {  // enter, return
+   if (keyCode === 13 && !e.ctrlKey)
+   {
       e.preventDefault();
-      await send_message_chat($(this));
+      send_message_chat($(this));
       return false;
-  }
-  /*if (e.ctrlKey && e.keyCode == 13)
+    // Ajax code here
+
+   }
+
+
+  if (keyCode === 13  && e.ctrlKey)
   {
-    return true;
+    $(this).val(function(i,val)
+    {
+        var line_height = $(this).prop('line-height');
 
-  }*/
+        $(this).scrollTop($(this).scrollTop() + line_height);
+        return val + "\n";
+    });
 
-};
-/*function connect(chat_dialog, chatId)
-{
-   var url = $(chat_dialog).find('.ws-url').first().val();
-   chatSocket = new WebSocket(url);
-   chatSocket.onopen = function(e){
-     //fetchMessages(chat_dialog, from_username, to_username, chatId);
-     fetchMessages(chat_dialog, chatId);
-   };
-}*/
+  }
+
+}
 
 
-
-//function set_private_chat(chat_dialog, from_username, to_username, roomName, chatId)
 function connect(chat_dialog, roomName, chatId)
 {
 
@@ -328,7 +348,7 @@ function connect(chat_dialog, roomName, chatId)
   {
 
     url = 'ws://'+window.location.host+'/ws/chat/'+ roomName + '/';
-    
+
     //$(chat_dialog).find('.ws-url').first().val(url);
 
     //chatSocket = new WebSocket('ws://'+window.location.host+'/ws/chat/'+ roomName + '/');
