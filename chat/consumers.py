@@ -4,8 +4,8 @@ from channels.generic.websocket import WebsocketConsumer
 import json
 from .models import Message, Chat
 from users.models import Contact
-from .views import (get_last_messages, get_user_contact, get_current_chat, get_or_create_private_chat_room
-, save_message_for_chat, messages_to_json, message_to_json_called_from_async
+from .views import (get_last_messages, get_user_contact, get_current_chat
+, save_message_for_chat, messages_to_json, message_to_json_called_from_async, is_authorize_to_private_chat
 )
 from users.members import get_profile_info_nick_or_user
 
@@ -30,13 +30,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
 
 
+
+
     async def fetch_messages(self, data):
 
-        chat_id =  await get_or_create_private_chat_room(data['from'], data['to'])
-
+        #chat_id =  await get_or_create_private_chat_room(data['from'], data['to'])
+        chat_id =  data['chatId']
         messages = await get_last_messages(chat_id)
-
-
 
 
         content = {
@@ -49,9 +49,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.send_message(content)
 
 
+
     async def new_message(self, data):
+
         user_contact =  await get_user_contact(data['from'])
         current_chat = await get_current_chat(data['chatId'])
+
+
         message = await save_message_for_chat(current_chat, user_contact, data['message'])
 
 
@@ -63,31 +67,33 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
 
 
-
-
-
-
-
-
     commands = {
-        'fetch_messages': fetch_messages,
-        'new_message': new_message,
+    'fetch_messages': fetch_messages,
+    'new_message': new_message,
 
     }
 
 
 
 
+
+
+
+
+
+
+
+
+
+
     async def connect(self):
-
-        print(11111111111111111111111111111111111111)
-
-        self.room_name = self.scope['url_route']['kwargs']['room_name']
-        print(22222222222222222222222222222222222222)
+        self.room_name = self.scope['url_route']['kwargs']['room_name']        
         self.room_group_name = f"chat_{self.room_name}"
-        print(3333333333333333333333333333333333333333)
         await self.channel_layer.group_add(self.room_group_name,self.channel_name)
-        print(44444444444444444444444444444444444444444444444444)
+
+        is_authenticated = await is_authorize_to_private_chat(self, self.room_name)
+        if(is_authenticated == False):
+            return
         await self.accept()
 
 

@@ -5,9 +5,9 @@
   --chat-popup-min-height:100px;
   --chat-popup-max-height:500px;
 
-  --chat-popup-height:430px;
+  --chat-popup-height:440px;
   --log-height:300px;
-  --chat-header-height:30px;
+  --chat-header-height:40px;
   --chat-footer-height:100px;
   --chat-text-input-height:38px;
   --chat-svg-floor-height:16px;
@@ -45,7 +45,7 @@
 
 }
 
-.minimize_svg:hover
+.minimize_svg>svg:hover
 {
   fill:black;
 }
@@ -72,15 +72,24 @@
 
 .minimize_svg, .maximize_svg
 {
-  top:0;
+  top:calc((var(--chat-header-height) / 2) - 15px);
   left:0;
   position: absolute;
+  cursor: pointer;
+}
+
+.close_chat_svg
+{
+  position: absolute;
+  right:0;
+  cursor: pointer;
+  top:calc((var(--chat-header-height) / 2) - 12.5px);
 }
 
 .chat_room_header>span
 {
   color:white;
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-family: formal3-bold;
 }
 
@@ -112,6 +121,7 @@
   align-items: stretch;
   gap:10px;
   overflow-y: scroll;
+  padding-top: 5px;
 
 }
 

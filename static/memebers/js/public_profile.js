@@ -9,7 +9,11 @@ $('#open-chat-with-user').click(function(){
 
   var to_username = $('#hid_username').val();
 
-  clone_and_open_private_chat(from_username, to_username);
+
+
+  open_private_chat(from_username, to_username);
+
+
 
 
 });

@@ -1,25 +1,61 @@
 
 let chatSocket;
 
-function clone_and_open_private_chat(from_username, to_username)
+function close_chat_dialog()
 {
-  var cloned_chat = $('.chat-room-template').first().clone();
-  $(cloned_chat).removeClass('chat-room-template');
+  var chat_dialog = $(this).parents('.chat_room_dialog').first();
+  $(chat_dialog).remove();
+}
+
+
+function open_private_chat(from_username, to_username)
+{
+  generate_private_room(from_username, to_username, function(result){
+    var status = result['status'];
+
+    if (status == 'not_authenticated')
+    {
+      //ok_not_authenticated_to_chat();
+      //return;
+    }
+    var roomName = result['roomName'];
+    var chat_win_id = 'room-name-' + roomName;
+    var chat_win_selector = '#' + chat_win_id;
+    var chat_dialog;
+    if($(chat_win_selector).length)
+    {
+
+      chat_dialog = $(chat_win_selector).parents('.chat_room_dialog').first();
+      maximize_chat($(chat_dialog));
+    }
+    else
+    {
+      chat_dialog = cloned_and_assign_events();
+      $(chat_dialog).find('.room-name').first().attr('id', chat_win_id);
+      var chatId   = result['chatId'];
+      init_private_chat(chat_dialog, from_username, to_username, roomName, chatId);
+    }
+
+
+
+
+
+
+
+  //var cloned_chat = $('.chat-room-template').first().clone();
+  //$(cloned_chat).removeClass('chat-room-template');
+  //$(cloned_chat).find('.room-name').first().attr(id, chat_win_id);
 
    //maybe not must done
-  $(cloned_chat).find('script').remove();
+  //$(cloned_chat).find('script').remove();
 
-   $('.chat-room-template').first().after(cloned_chat);
+   //$('.chat-room-template').first().after(cloned_chat);
 
 
-   assign_event_to_cloned_chat(cloned_chat);
-   /*create_private_chat_room_ajax(from_username, to_username, function(callback){
 
-       var chat_id = callback['chatId'];
 
-       init_private_chat(chat_id, cloned_chat, from_username, to_username);
-   });*/
-   init_private_chat(cloned_chat, from_username, to_username);
+
+   });
 }
 
 $(document).scroll(function(){
@@ -37,12 +73,23 @@ $(document).scroll(function(){
 
 });
 
-function assign_event_to_cloned_chat(cloned)
+function cloned_and_assign_events()
 {
+  var cloned = $('.chat-room-template').first().clone();
+  $(cloned).removeClass('chat-room-template');
+
+
+   //maybe not must done
+  $(cloned).find('script').remove();
+
+   $('.chat-room-template').first().after(cloned);
   $(cloned).find('.minimize_svg').first().on('click', minimize_chat);
   $(cloned).find('.maximize_svg').first().on('click', maximize_chat);
+  $(cloned).find('.close_chat_svg').first().on('click', close_chat_dialog)
   $(cloned).find('.chat-send-btn-wrapper').first().on('click', send_message_chat);
   $(cloned).find('.txt-chat').first().on('keyup',chat_key_up);
+
+  return cloned;
 
 }
 /*$('.minimize_svg').click(minimize_chat);
@@ -79,14 +126,14 @@ function minimize_chat()
   $(ancestor).find('.maximize_svg').first().show();
 }
 
-function init_private_chat(cloned_chat, from_username, to_username)
+function init_private_chat(cloned_chat, from_username, to_username, roomName, chatId)
 {
 
   var chat_dialog = $(cloned_chat);
 
   $(chat_dialog).find('.user-log-in-to-chat-dialog').first().val(from_username);
   $(chat_dialog).find('.hid-is-chat-activated').first().val('true');
-  //$(chat_dialog).find('.hid-chat-id').first().val(chat_id);
+  $(chat_dialog).find('.hid-chat-id').first().val(chatId);
   get_names_and_avatars_private_chat_ajax(from_username ,function(callback){
 
     var status = callback[0]['status'];
@@ -96,7 +143,8 @@ function init_private_chat(cloned_chat, from_username, to_username)
       return;
     }
 
-    connect_private_chat(chat_dialog, from_username, to_username);
+    //set_private_chat(chat_dialog, from_username, to_username, roomName, chatId);
+    connect(chat_dialog, roomName, chatId);
 
     $(chat_dialog).find('.chat-input-txt').first().find('.sender-avatar').first().attr('src', callback[0]['avatar']);
 
@@ -122,16 +170,16 @@ $('.ronny-style-field').focusout(function(){
 });
 
 
-//$('.chat-send-btn-wrapper').click(send_message_chat);
 
 
-function send_message_chat()
+
+async function send_message_chat()
 {
 
 
   var ancestor = $(this).parents('.chat_room_dialog').not('.chat-room-template').first();
   var username = get_chat_user_login(ancestor);
-  const message = $(ancestor).find('.txt-chat').first().val();
+  var message = $(ancestor).find('.txt-chat').first().val();
   var chat_id = $(ancestor).find('.hid-chat-id').first().val();
   chatSocket.send(JSON.stringify({
       'command': 'new_message',
@@ -141,6 +189,8 @@ function send_message_chat()
   }));
 
   $(ancestor).find('.txt-chat').first().val('');
+
+
 }
 
 
@@ -236,63 +286,98 @@ function get_chat_user_login(chat_dialog)
 
 function close_chat(chat_dialog)
 {
-  $(chat_dialog).hide();
+  //$(chat_dialog).remove();
 }
 
 
-function chat_key_up(e)
+async function chat_key_up(e)
 {
-  if (e.key === 'Enter')
+
+  if (e.key === 'Enter' && !e.ctrlKey)
   {  // enter, return
-      //send_message_chat($(this));
+      e.preventDefault();
+      await send_message_chat($(this));
+      return false;
   }
-}
-function connect_private_chat(chat_dialog, from_username, to_username)
+  /*if (e.ctrlKey && e.keyCode == 13)
+  {
+    return true;
+
+  }*/
+
+};
+/*function connect(chat_dialog, chatId)
+{
+   var url = $(chat_dialog).find('.ws-url').first().val();
+   chatSocket = new WebSocket(url);
+   chatSocket.onopen = function(e){
+     //fetchMessages(chat_dialog, from_username, to_username, chatId);
+     fetchMessages(chat_dialog, chatId);
+   };
+}*/
+
+
+
+//function set_private_chat(chat_dialog, from_username, to_username, roomName, chatId)
+function connect(chat_dialog, roomName, chatId)
 {
 
-  var roomName = $(chat_dialog).find('.room-name').first().val();
-
+  //var roomName = $(chat_dialog).find('.room-name').first().val();
+  var url="";
   if(is_debug(window.location.host))
   {
 
+    url = 'ws://'+window.location.host+'/ws/chat/'+ roomName + '/';
+    
+    //$(chat_dialog).find('.ws-url').first().val(url);
 
     //chatSocket = new WebSocket('ws://'+window.location.host+'/ws/chat/'+ roomName + '/');
-    chatSocket = new ReconnectingWebSocket('ws://'+window.location.host+'/ws/chat/'+ roomName + '/');
+    //chatSocket = new ReconnectingWebSocket('ws://'+window.location.host+'/ws/chat/'+ 'PrivateChat92' + '/');
 
   }
   else
   {
+    url = 'wss://'+window.location.host+'/ws/chat/'+ roomName + '/';
+  //  $(chat_dialog).find('.ws-url').first().val(url);
 
     //chatSocket = new WebSocket('ws://'+window.location.host+'/ws/chat/'+ roomName + '/');
     //chatSocket = new WebSocket('wss://'+window.location.host+'/ws/chat/'+ roomName + '/');
-    chatSocket = new ReconnectingWebSocket('wss://'+window.location.host+'/ws/chat/'+ roomName + '/');
+    //chatSocket = new ReconnectingWebSocket('wss://'+window.location.host+'/ws/chat/'+ roomName + '/');
   }
+  chatSocket = new WebSocket(url);
 
-
-
-
+  chatSocket.onopen = function(e){
+    //fetchMessages(chat_dialog, from_username, to_username, chatId);
+    fetchMessages(chat_dialog, chatId);
+  };
 
 
    chatSocket.onmessage =  function(e){
 
 
 
-     update_private_chat_log(e, chat_dialog);};
+   update_private_chat_log(e, chat_dialog);};
 
 
-   chatSocket.onclose = function(){close_chat(chat_dialog);};
+   chatSocket.onclose = function(){
+     setTimeout(function() {
+      connect(chat_dialog, roomName, chatId);
+    }, 1000);
 
-   chatSocket.onopen = function(e){
-     fetchMessages(chat_dialog, from_username, to_username);
    };
+
+
 
    $(chat_dialog).find('.txt-chat').first().focus();
 
 }
 
 
-function fetchMessages(chat_dialog, from, to)
+//function fetchMessages(chat_dialog, from, to, chatId)
+function fetchMessages(chat_dialog, chatId)
 {
-  //var chat_id = $(chat_dialog).find('.hid-chat-id').first().val();
-  chatSocket.send(JSON.stringify({'command':'fetch_messages', 'from':from, 'to':to}));
+
+
+   //chatSocket.send(JSON.stringify({'command':'fetch_messages', 'from':from, 'to':to, 'chatId':chatId}));
+   chatSocket.send(JSON.stringify({'command':'fetch_messages',  'chatId':chatId}));
 }

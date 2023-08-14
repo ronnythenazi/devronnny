@@ -1,12 +1,20 @@
 function ok_not_log_in_chat()
 {
   body = "התחבר כמשתמש רשום כדי שהשיחות צאט יהיו זמינות עבורך";
-  ok_msg_show(body);
+  title = "אינך מחובר";
+  ok_msg_show(body, title);
 }
 
-function ok_msg_show(body)
+function ok_not_authenticated_to_chat()
 {
-  title = "אינך מחובר";
+  body = "אין לך הרשאה לחדר זה";
+  title = "גישה נדחתה";
+  ok_msg_show(body, title);
+}
+
+function ok_msg_show(body, title)
+{
+
   //
   ok_btn = "הבנתי";
   set_ok_popup_msg(title, body, ok_btn);

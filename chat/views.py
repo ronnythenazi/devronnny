@@ -14,8 +14,89 @@ from django.contrib.auth import get_user_model
 from .models import Chat, Message
 from users.models import Contact
 
+from django.db.models import Count
+
 
 User = get_user_model()
+
+
+def get_or_create_private_chat_room_ajax(request):
+
+    if request.user.is_authenticated == False:
+        return JsonResponse({'status':'not-log-in'})
+
+
+
+    if request.is_ajax and request.method == "GET":
+        chat_owner_username = request.GET.get('username_starter')
+        to_username = request.GET.get('username_reciever')
+
+        if request.user.username != chat_owner_username and request.user.username != to_username:
+            return JsonResponse({'status':'not_authenticated'})
+
+        user_owner = get_object_or_404(User, username=chat_owner_username)
+        contact_owner_tuple = Contact.objects.get_or_create(user=user_owner)
+        contact_owner = contact_owner_tuple[0]
+        contact_owner_created = contact_owner_tuple[1]
+
+
+
+        user_reciever = get_object_or_404(User, username=to_username)
+
+        contact_reciever_tuple = Contact.objects.get_or_create(user=user_reciever)
+        contact_reciever = contact_reciever_tuple[0]
+        contact_reciever_created = contact_reciever_tuple[1]
+
+
+
+        #contact_owner.friends.add(contact_reciver)
+
+        #contact_reciver.friends.add(contact_owner)
+
+
+        #rooms = Chat.objects.all()
+
+        rooms = Chat.objects.annotate(participants_count=Count('participants', distinct=True)).filter(participants_count = 2)
+
+        for room in rooms:
+
+            is_reciever_exist = False
+            is_chat_owner_exist = False
+
+            if(room.participants.filter(user = user_reciever).exists()):
+                is_reciever_exist = True
+
+            if(room.participants.filter(user = user_owner).exists()):
+                is_chat_owner_exist = True
+
+
+            if(is_reciever_exist and is_chat_owner_exist and room.participants.all().count() == 2):
+
+               chat = room
+
+               chat_id = str(chat.id)
+               chat_name = str(chat.chat_name)
+               return JsonResponse({'status':'success', 'chatId':chat_id, 'roomName': chat_name})
+
+
+        chat = Chat.objects.create()
+
+        chat_id = str(chat.id)
+        chat_name = 'PrivateChat' + str(chat_id)
+        chat.chat_name = chat_name
+        chat.save()
+        chat.participants.add(contact_owner)
+
+        chat.participants.add(contact_reciever)
+
+
+
+        return JsonResponse({'status':'success', 'chatId':chat_id, 'roomName': chat_name})
+
+
+
+
+
 
 
 
@@ -55,6 +136,9 @@ def save_message_for_chat(current_chat, user_contact, content):
 
     return message
 
+
+
+'''
 @sync_to_async
 def get_or_create_private_chat_room(chat_owner_username, to_username):
     user_owner = get_object_or_404(User, username=chat_owner_username)
@@ -74,8 +158,9 @@ def get_or_create_private_chat_room(chat_owner_username, to_username):
     #contact_reciver.friends.add(contact_owner)
 
 
-    rooms = Chat.objects.all()
+    #rooms = Chat.objects.all()
 
+    rooms = Chat.objects.annotate(participants_count=Count('participants', distinct=True)).filter(participants_count = 2)
 
     for room in rooms:
 
@@ -89,7 +174,7 @@ def get_or_create_private_chat_room(chat_owner_username, to_username):
             is_chat_owner_exist = True
 
 
-        if(is_reciver_exist and is_chat_owner_exist):
+        if(is_reciver_exist and is_chat_owner_exist and room.participants.all().count() == 2):
 
            chat = room
 
@@ -107,7 +192,24 @@ def get_or_create_private_chat_room(chat_owner_username, to_username):
     chat_id = str(chat.id)
 
     return chat_id
+'''
 
+@sync_to_async
+def is_authorize_to_private_chat(ws, roomName):
+    log_in_user = ws.scope["user"].username
+
+    #if log in user is allow\belong to this private chat
+    return is_login_user_in_particpants(log_in_user, roomName)
+        #not authorize
+
+
+
+
+def is_login_user_in_particpants(username, roomName):
+    chat = get_object_or_404(Chat, chat_name=roomName)
+    if chat.participants.filter(user__username = username).exists():
+        return True
+    return False
 
 @sync_to_async
 def get_last_messages(chatId):

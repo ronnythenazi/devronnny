@@ -3,8 +3,9 @@
 <div class="chat_room_dialog chat-room-template">
     <div class="chat_room_header">
      <span>צאט</span>
-     {% include 'general/components/svg/minimize.svg' %}
-     {% include 'general/components/svg/maximize.svg' %}
+     <span class="minimize_svg">{% include 'general/components/svg/minimize.svg' %}</span>
+     <span class="maximize_svg">{% include 'general/components/svg/maximize.svg' %}</span>
+     <span class="close_chat_svg">{% include 'general/components/svg/close.svg' %}</span>
     </div>
 
 
@@ -63,6 +64,28 @@
       }
     </script>
 
+    <script>
+      function generate_private_room(from_username, to_username, callback)
+      {
+        var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+           $.ajax({
+                type: 'GET',
+                url: "{% url 'chat:get-or-generate-chatid' %}",
+                data: {
+
+                      'csrfmiddlewaretoken': csrftoken,
+                      'username_starter':from_username,
+                      'username_reciever':to_username,
+               },
+               dataType: 'json',
+               success:callback,
+               error: function (response) {
+                   console.log(response);
+               }
+           });
+      }
+    </script>
+
 
 
 
@@ -71,10 +94,10 @@
 
     <link rel="stylesheet" href="{% static 'chat/css/private_chat.css' %}">
     <input type="hidden" class="hid-is-chat-activated" value="false">
-    <input type="hidden" class="room-name" value="privatechat">
+    <input type="hidden" class="room-name" id="not-set" value="">
     <input type="hidden" class="user-log-in-to-chat-dialog" value="">
     <input type="hidden" class="hid-chat-id" value="">
-
+    <!--<input type="hidden" class="ws-url" value="">-->
 
 
 </div>
