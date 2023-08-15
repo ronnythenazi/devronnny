@@ -5,6 +5,8 @@ from .models import Profile
 
 
 
+
+
 user_visit_site = Signal(providing_args=['instance', 'request'])
 
 @receiver(post_save, sender=User)
@@ -13,13 +15,14 @@ def create_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user = instance)
         print('profile created')
 
-#post_save.connect(create_profile, sender = User)
+
+
 
 @receiver(post_save, sender=User)
 def update_profile(sender, instance, created, **kwargs):
     if created == False:
         try:
-            insatnce.profile.save()
+            instance.profile.save()
         except:
             try:
                 Profile.objects.create(user = instance)

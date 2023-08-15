@@ -8,6 +8,8 @@ from django.urls import reverse
 from datetime import datetime, date
 from django.utils import timezone
 from social.calcs import get_total_seconds, get_curr_datetime
+from django.db.models.signals import post_save
+from users.models import Contact
 
 exposed_request = None
 
@@ -265,6 +267,14 @@ class Profile(models.Model):
     def __str__(self):
         return str(self.user)
 
+
+def post_save_profile_reciever(sender, instance, created, *args, **kwargs):
+    if not created:
+        return
+    Contact.objects.create(user=instance.user)
+    print('contact created')
+
+post_save.connect(post_save_profile_reciever, sender = Profile)
 
 class Album(models.Model):
 
