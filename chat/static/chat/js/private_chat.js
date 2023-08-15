@@ -180,14 +180,14 @@ function send_message_chat(sender)
 {
   var ancestor = $(sender).parents('.chat_room_dialog').not('.chat-room-template').first();
 
-  var username = get_chat_user_login(ancestor);
+  //var username = get_chat_user_login(ancestor);
 
   var message = $(ancestor).find('.txt-chat').first().val();
   var chat_id = $(ancestor).find('.hid-chat-id').first().val();
   chatSocket.send(JSON.stringify({
       'command': 'new_message',
       'message': message,
-      'from'   : username,
+      //'from'   : username,
       'chatId' : chat_id,
   }));
 
@@ -217,7 +217,63 @@ function update_private_chat_log(e, chat_dialog)
 
       create_message(data['message'], chat_dialog);
     }
+    else if(data['command'] == 'typing')
+    {
+      notify_that_user_is_typing(data, chat_dialog);
+    }
 
+
+
+}
+
+
+function get_typing_elem_unique_cname(chatId, author)
+{
+   var typing_elem_unique_cname = 'typing-' + chatId + '-' + author;
+   return typing_elem_unique_cname;
+}
+
+function notify_that_user_is_typing(data, chat_dialog)
+{
+  var chat_log = $(chat_dialog).find('.chat-log').first();
+
+  var author = data['author'];
+  var username_log_in = get_chat_user_login(chat_dialog);
+
+  if(author == username_log_in)
+  {
+    return;
+  }
+  var chatId = $(chat_dialog).find('.hid-chat-id').first().val();
+
+  var typing_elem_unique_cname = get_typing_elem_unique_cname(chatId, author);
+  var typing_elem = '<div class="typing ' + typing_elem_unique_cname +  ' reciever-clr"></div>';
+  var typing_elem_selector = '.' + typing_elem_unique_cname;
+  if($(typing_elem_selector).length)
+  {
+    return;
+  }
+
+  $(chat_log).append('<div class="chat-row row-reciever"></div>');
+  var log_row =$(chat_log).find('.chat-row').last();
+
+  $(log_row).append('<div class="contact"></div>');
+  var contact = $(log_row).find('.contact').first();
+  $(contact).append('<span class="reciever-name reciever-clr"></span>');
+  $(contact).append('<span class="chat-icon-user-log"><img class="reciever-avatar" src="" alt=""></span>');
+
+  var name = $(log_row).find('.reciever-name').first();
+  $(name).html(data['name']);
+  var avatar = $(log_row).find('.reciever-avatar').first();
+  $(avatar).attr('src', data['avatar']);
+
+  $(log_row).append(typing_elem);
+
+  var inserted_elem = $(chat_log).find('.chat-row').last();
+  var extra = get_css_variable_val('--chat-log-gap').replace('px', '');
+  scroll_down_the_gap_on_new_msg($(chat_log), inserted_elem, extra);
+
+  setTimeout(function(){$(log_row).remove()}, 6000);
 
 
 
@@ -227,10 +283,23 @@ function create_message(data, chat_dialog)
 {
 
   var ancestor = $(chat_dialog);
-  var chat_log = $(ancestor).find('.chat-log').first()
+
+  var chat_log = $(ancestor).find('.chat-log').first();
 
   var message = data.content;
   var author =  data['author'];
+
+
+
+  var chatId = $(chat_dialog).find('.hid-chat-id').first().val();
+  var typing_elem_unique_cname = get_typing_elem_unique_cname(chatId, author);
+  var typing_elem_selector = '.' + typing_elem_unique_cname;
+  if($(typing_elem_selector).length)
+  {
+    $(typing_elem_selector).find('.chat-row').first().remove();
+  }
+
+
 
   var username = get_chat_user_login(ancestor);
 
@@ -244,12 +313,12 @@ function create_message(data, chat_dialog)
 
     $(log_row).append('<div class="contact"></div>');
     var contact = $(log_row).find('.contact').first();
-    $(contact).append('<span class="sender-name blood-clr"></span>');
-    $(contact).append('<span class="chat-icon-user-body"><img class="sender-avatar" src="" alt=""></span>');
+    $(contact).append('<span class="sender-name sender-clr"></span>');
+    $(contact).append('<span class="chat-icon-user-log"><img class="sender-avatar" src="" alt=""></span>');
     $(log_row).append('<span class="sender-bubble bubble"></span>');
 
     /*$(log_row).append('<span class="sender-name blood-clr"></span>');
-    $(log_row).append('<span class="chat-icon-user-body"><img class="sender-avatar" src="" alt=""></span>');
+    $(log_row).append('<span class="chat-icon-user-log"><img class="sender-avatar" src="" alt=""></span>');
     $(log_row).append('<span class="sender-bubble bubble"></span>');*/
 
     var bubble = $(log_row).find('.sender-bubble').first();
@@ -273,13 +342,11 @@ function create_message(data, chat_dialog)
 
     $(log_row).append('<div class="contact"></div>');
     var contact = $(log_row).find('.contact').first();
-    $(contact).append('<span class="reciever-name blood-clr"></span>');
-    $(contact).append('<span class="chat-icon-user-body"><img class="reciever-avatar" src="" alt=""></span>');
+    $(contact).append('<span class="reciever-name reciever-clr"></span>');
+    $(contact).append('<span class="chat-icon-user-log"><img class="reciever-avatar" src="" alt=""></span>');
     $(log_row).append('<span class="reciver-bubble bubble"></span>');
 
-    /*$(log_row).append('<span class="reciever-name blood-clr"></span>');
-    $(log_row).append('<span class="chat-icon-user-body"><img class="reciever-avatar" src="" alt=""></span>');
-    $(log_row).append('<span class="reciver-bubble bubble"></span>');*/
+
 
     var bubble = $(log_row).find('.reciver-bubble').first();
     $(bubble).html(message);
@@ -323,6 +390,7 @@ function chat_key_up(e)
 
    }
 
+  chatSocket.send(JSON.stringify({'command':'typing'}));
 
   if (keyCode === 13  && e.ctrlKey)
   {

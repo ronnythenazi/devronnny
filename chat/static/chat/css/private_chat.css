@@ -14,6 +14,7 @@
   --chat-btn-height:30px;
 
   --chat-log-gap:20px;
+  --chat-icon-user-width:30px;
 
   --wine-chat-1:linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
   --wine-chat-2:-webkit-linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
@@ -21,12 +22,29 @@
   --chat-row-white-1:linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
   --chat-row-white-2:-webkit-linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
 
+  --var-reciever-clr1: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,85,1) 0%, rgba(39,62,85,1) 0%, rgba(10,9,41,1) 100%);
+  --var-reciever-clr12: -webkit-linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(25,25,85,1) 0%, rgba(39,62,85,1) 0%, rgba(10,9,41,1) 100%);
+
+  --var-sender-clr1: radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(25,25,85,1) 0%, rgba(179,211,255,1) 0%, rgba(87,208,255,1) 100%);
+  --var-sender-clr2: -webkit-radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(25,25,85,1) 0%, rgba(179,211,255,1) 0%, rgba(87,208,255,1) 100%);
+
   $green: #1ECD97;
   $gray: #bbbbbb;
 
 }
 
-
+.sender-clr
+{
+  -webkit-text-fill-color:transparent;
+  -webkit-background-clip:text;
+   background-image: var(--var-sender-clr1, --var-sender-clr2);
+}
+.reciever-clr
+{
+  -webkit-text-fill-color:transparent;
+  -webkit-background-clip:text;
+   background-image: var(--var-reciever-clr1, --var-reciever-clr2);
+}
 .chat_room_dialog
 {
   display:none;
@@ -135,7 +153,6 @@
   justify-content: flex-start;
   align-items: flex-start;
 
-
   position: relative;
 
 
@@ -167,7 +184,7 @@
   padding-left: 5px;
   padding-right: 5px;
   box-sizing: border-box;
-  max-width: 80%;
+  max-width: 70%;
   align-self: center;
 
 }
@@ -208,7 +225,7 @@
   background: -webkit-radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(25,25,85,1) 0%, rgba(179,211,255,1) 0%, rgba(87,208,255,1) 100%);
 
 
-  color: 000000;
+  color: rgba(25,25,85,1);
 }
 
 .sender-bubble:before {
@@ -223,6 +240,50 @@
   left: 32px;
   bottom: -24px;
 }
+@keyframes typing
+{
+  0%  {content: 'רושם'}
+  33% {content: '.רושם'}
+  66% {content: '..רושם'}
+  100%{content: '...רושם'}
+}
+
+.typing::after
+{
+  content: 'רושם';
+
+
+  font-family: formal3;
+  font-style: italic;
+  font-weight: bolder;
+  font-size: 1rem;
+  line-height: 1rem;
+  animation-name: typing;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+
+
+
+
+}
+
+.typing
+{
+  height: 50px;
+  width: 70px;
+  align-self: center;
+  text-align: right;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  vertical-align: middle;
+  opacity: 0.7;
+  /*vertical-align: middle;*/
+
+}
+
 
 
 /*.chat-row-sender
@@ -276,6 +337,8 @@
   font-family: formal3-regular;
   background: white;
   position: relative;
+  box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset, rgb(8 6 12) 0px 0px 0px 1px;
+
 }
 .chat-icon-span
 {
@@ -286,11 +349,10 @@
 
 .chat-icon-user
 {
-  width: 25px;
+  width: var(--chat-icon-user-width);
   height: 100%;
-  position:absolute;
-  top:0;
-  right:10px;
+  /*position:absolute;
+  top:0;*/
   border-radius: 50%;
   display: flex;
   flex-direction: column;
@@ -298,19 +360,30 @@
   align-items: center;
 }
 
-.chat-icon-user-body
+/*sibiling selector*/
+/*.sender-name~.chat-icon-user
+{
+
+}*/
+
+.chat-input-txt>.chat-icon-user
+{
+  /*right: 10px;*/
+}
+
+.chat-icon-user-log
 {
   width: 50px;
-  height: 50x;
+  height: 50px;
   position:relative;
   border-radius: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
-.chat-icon-user img, .chat-icon-user-body img
+.chat-icon-user img, .chat-icon-user-log img
 {
   width: 30px;
   height: 30px;
@@ -325,8 +398,8 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  overflow-x: hidden;
   overflow-y: hidden;
+  overflow-x: hidden;
   position: relative;
   top:-8px;
 
@@ -334,9 +407,16 @@
 
 .txt-chat
 {
-   width: 100%;
-   height: var(--chat-text-input-height);
+   /*width: 100%;*/
+   height: 100%;/*var(--chat-text-input-height);*/
    resize: none;
+   border:none;
+   outline: none;
+   font-family: formal2;
+   font-size: 1rem;
+   line-height: 1rem;
+   color:rgb(28, 132, 237);
+   width:calc(var(--chat-popup-width) - var(--chat-icon-user-width));
 
 }
 .txt-chat::placeholder
@@ -392,7 +472,10 @@
 
 .reciever-name, .sender-name
 {
-  align-self: center;
+  align-self: flex-start;
   font-size: 0.7rem;
   font-family: formal2;
+  box-sizing: border-box;
+  text-align: center;
+  opacity: 0.5;
 }

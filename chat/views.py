@@ -214,7 +214,7 @@ def is_login_user_in_particpants(username, roomName):
 @sync_to_async
 def get_last_messages(chatId):
     chat = get_object_or_404(Chat, id=chatId)
-    return reversed(chat.messages.order_by('-timestamp').all()[:10])
+    return reversed(chat.messages.order_by('-timestamp').all()[:1000])
 
 @sync_to_async
 def get_user_contact(username):
@@ -259,5 +259,11 @@ def message_to_json(message):
 @sync_to_async
 def message_to_json_called_from_async(message):
     return message_to_json(message)
+
+@sync_to_async
+def get_user_avatar_and_name(user):
+    info =  get_profile_info_nick_or_user(user)
+    return info
+
 
     #return asyncio.run(get_chat_msg_dict_json(message))
