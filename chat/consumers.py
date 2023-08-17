@@ -6,7 +6,7 @@ from .models import Message, Chat
 from users.models import Contact
 from .views import (get_last_messages, get_user_contact, get_current_chat
 , save_message_for_chat, messages_to_json, message_to_json_called_from_async, is_authorize_to_private_chat
-,get_user_avatar_and_name,
+,get_user_avatar_and_name, save_chat_msg_notification, get_participants_for_chat
 )
 from users.members import get_profile_info_nick_or_user
 
@@ -35,8 +35,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def fetch_messages(self, data):
 
-        #chat_id =  await get_or_create_private_chat_room(data['from'], data['to'])
+
         chat_id =  data['chatId']
+
+        current_chat = await get_current_chat(data['chatId'])
+        is_authenticated = await is_authorize_to_private_chat(self, current_chat.chat_name)
+        if(is_authenticated == False):
+            return
+
+
         messages = await get_last_messages(chat_id)
 
 
@@ -53,17 +60,27 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def new_message(self, data):
 
-        #user_contact =  await get_user_contact(data['from'])
+
         user_contact =  await get_user_contact(self.scope["user"].username)
         current_chat = await get_current_chat(data['chatId'])
+
+        is_authenticated = await is_authorize_to_private_chat(self, current_chat.chat_name)
+        if(is_authenticated == False):
+            return
 
 
         message = await save_message_for_chat(current_chat, user_contact, data['message'])
 
+        #new
+        notification = await save_chat_msg_notification(current_chat, message)
+        #participants   = await get_participants_for_chat(data['chatId'])
+
 
         content = {
             'command': 'new_message',
-            'message': await message_to_json_called_from_async(message)
+            'author' : str(self.scope["user"].username),
+            'notificationId':str(notification.id),
+            'message': await message_to_json_called_from_async(message),
         }
         return await self.send_chat_message(content)
 

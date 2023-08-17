@@ -7,21 +7,42 @@ function close_chat_dialog()
   $(chat_dialog).remove();
 }
 
-
-function open_private_chat(from_username, to_username)
+function open_chat(username, chatId, roomName)
 {
-  generate_private_room(from_username, to_username, function(result){
+  var chat_win_id = 'room-name-' + roomName;
+  var chat_win_selector = '#' + chat_win_id;
+  var chat_dialog;
+  if($(chat_win_selector).length)
+  {
+
+    chat_dialog = $(chat_win_selector).parents('.chat_room_dialog').first();
+    maximize_chat($(chat_dialog));
+  }
+  else
+  {
+    chat_dialog = cloned_and_assign_events();
+    $(chat_dialog).find('.room-name').first().attr('id', chat_win_id);
+
+    init_private_chat(chat_dialog, username, roomName, chatId);
+  }
+}
+
+function open_personal_chat(from_username, to_username)
+{
+    generate_private_room(from_username, to_username, function(result){
     var status = result['status'];
 
     if (status == 'not_authenticated')
     {
-      //ok_not_authenticated_to_chat();
-      //return;
+      ok_not_authenticated_to_chat();
+      return;
     }
+
     var roomName = result['roomName'];
     var chat_win_id = 'room-name-' + roomName;
     var chat_win_selector = '#' + chat_win_id;
     var chat_dialog;
+    var chatId  = result['chatId'];
     if($(chat_win_selector).length)
     {
 
@@ -32,29 +53,11 @@ function open_private_chat(from_username, to_username)
     {
       chat_dialog = cloned_and_assign_events();
       $(chat_dialog).find('.room-name').first().attr('id', chat_win_id);
-      var chatId   = result['chatId'];
-      init_private_chat(chat_dialog, from_username, to_username, roomName, chatId);
+
+      init_private_chat(chat_dialog, from_username, roomName, chatId);
     }
 
-
-
-
-
-
-
-  //var cloned_chat = $('.chat-room-template').first().clone();
-  //$(cloned_chat).removeClass('chat-room-template');
-  //$(cloned_chat).find('.room-name').first().attr(id, chat_win_id);
-
-   //maybe not must done
-  //$(cloned_chat).find('script').remove();
-
-   //$('.chat-room-template').first().after(cloned_chat);
-
-
-
-
-
+   return {'roomName':roomName, 'chatId':chatId};
    });
 }
 
@@ -126,7 +129,7 @@ function minimize_chat()
   $(ancestor).find('.maximize_svg').first().show();
 }
 
-function init_private_chat(cloned_chat, from_username, to_username, roomName, chatId)
+function init_private_chat(cloned_chat, from_username, roomName, chatId)
 {
 
   var chat_dialog = $(cloned_chat);
@@ -143,7 +146,7 @@ function init_private_chat(cloned_chat, from_username, to_username, roomName, ch
       return;
     }
 
-    //set_private_chat(chat_dialog, from_username, to_username, roomName, chatId);
+
     connect(chat_dialog, roomName, chatId);
 
     $(chat_dialog).find('.chat-input-txt').first().find('.sender-avatar').first().attr('src', callback[0]['avatar']);
@@ -210,12 +213,16 @@ function update_private_chat_log(e, chat_dialog)
       {
 
         create_message(data['messages'][i], chat_dialog);
+
       }
     }
     else if(data['command'] == 'new_message')
     {
 
       create_message(data['message'], chat_dialog);
+      $('.hide_audio').first()[0].play();
+
+
     }
     else if(data['command'] == 'typing')
     {
@@ -317,9 +324,7 @@ function create_message(data, chat_dialog)
     $(contact).append('<span class="chat-icon-user-log"><img class="sender-avatar" src="" alt=""></span>');
     $(log_row).append('<span class="sender-bubble bubble"></span>');
 
-    /*$(log_row).append('<span class="sender-name blood-clr"></span>');
-    $(log_row).append('<span class="chat-icon-user-log"><img class="sender-avatar" src="" alt=""></span>');
-    $(log_row).append('<span class="sender-bubble bubble"></span>');*/
+
 
     var bubble = $(log_row).find('.sender-bubble').first();
     $(bubble).html(message);
@@ -410,32 +415,25 @@ function chat_key_up(e)
 function connect(chat_dialog, roomName, chatId)
 {
 
-  //var roomName = $(chat_dialog).find('.room-name').first().val();
   var url="";
   if(is_debug(window.location.host))
   {
 
     url = 'ws://'+window.location.host+'/ws/chat/'+ roomName + '/';
 
-    //$(chat_dialog).find('.ws-url').first().val(url);
 
-    //chatSocket = new WebSocket('ws://'+window.location.host+'/ws/chat/'+ roomName + '/');
-    //chatSocket = new ReconnectingWebSocket('ws://'+window.location.host+'/ws/chat/'+ 'PrivateChat92' + '/');
 
   }
   else
   {
     url = 'wss://'+window.location.host+'/ws/chat/'+ roomName + '/';
-  //  $(chat_dialog).find('.ws-url').first().val(url);
 
-    //chatSocket = new WebSocket('ws://'+window.location.host+'/ws/chat/'+ roomName + '/');
-    //chatSocket = new WebSocket('wss://'+window.location.host+'/ws/chat/'+ roomName + '/');
-    //chatSocket = new ReconnectingWebSocket('wss://'+window.location.host+'/ws/chat/'+ roomName + '/');
   }
   chatSocket = new WebSocket(url);
+  $(chat_dialog).find('.room-name').first().val(roomName);
 
   chatSocket.onopen = function(e){
-    //fetchMessages(chat_dialog, from_username, to_username, chatId);
+
     fetchMessages(chat_dialog, chatId);
   };
 
@@ -461,11 +459,11 @@ function connect(chat_dialog, roomName, chatId)
 }
 
 
-//function fetchMessages(chat_dialog, from, to, chatId)
+
 function fetchMessages(chat_dialog, chatId)
 {
 
 
-   //chatSocket.send(JSON.stringify({'command':'fetch_messages', 'from':from, 'to':to, 'chatId':chatId}));
+
    chatSocket.send(JSON.stringify({'command':'fetch_messages',  'chatId':chatId}));
 }

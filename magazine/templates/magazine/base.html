@@ -266,6 +266,10 @@
 {%include 'chat/private_chat.html' %}
 {% include 'general/components/popups/popup_ok_msg.html' %}
 
+{% if user.is_authenticated %}
+{% include 'chat/chat_notifications_win.html' %}
+{% endif %}
+
 
   <script type="text/javascript" src="{% static 'plugins/jquery.js' %}"> </script>
   <script type="text/javascript" src="{% static 'magazine/js/magazine.js' %}"> </script>
@@ -684,8 +688,7 @@ function get_caret_y()
    }, 15);
   }
    setInterval(check_notficiations, 10000);
-   //setInterval(is_at_the_bottom, 5000);
-   //create_fan_loader();
+
   });
 
 

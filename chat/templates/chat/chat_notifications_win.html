@@ -1,0 +1,33 @@
+{%load static%}
+<div class="chat-notifications-win" style="display:hidden;">
+
+
+<script type="text/javascript" src="{% static 'chat/js/chat_notifications.js' %}"></script>
+
+<script>
+  function get_you_rooms_ajax(callback)
+  {
+    var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+       $.ajax({
+            type: 'GET',
+            url: "{% url 'chat:get_login_user_rooms' %}",
+            data: {
+
+                  'csrfmiddlewaretoken': csrftoken,
+           },
+           dataType: 'json',
+           success:callback,
+           error: function (response) {
+               console.log(response);
+           }
+       });
+  }
+</script>
+<link rel="stylesheet" href="{% static 'chat/css/chat_notifications.css' %}">
+
+<!-- cn is acronym to Chat Notifications -->
+{% if user.is_authenticated %}
+<input type="hidden" id="curr-username-cn" value="{{user.username}}">
+{% endif %}
+
+</div>

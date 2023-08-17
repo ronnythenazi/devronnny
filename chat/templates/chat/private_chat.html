@@ -70,7 +70,7 @@
         var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
            $.ajax({
                 type: 'GET',
-                url: "{% url 'chat:get-or-generate-chatid' %}",
+                url: "{% url 'chat:get-or-generate-chatid-for-personal-chat' %}",
                 data: {
 
                       'csrfmiddlewaretoken': csrftoken,
@@ -97,6 +97,18 @@
     <input type="hidden" class="room-name" id="not-set" value="">
     <input type="hidden" class="user-log-in-to-chat-dialog" value="">
     <input type="hidden" class="hid-chat-id" value="">
+
+    <audio style="display:none;" class="update_audio" controls>
+        <source src="{% static 'general/audio/update.mp3' %}" type="audio/mp3">
+    </audio>
+
+    <audio style="display:none;" class="hide_audio" controls>
+        <source src="{% static 'general/audio/hide_popup.mp3' %}" type="audio/mp3">
+    </audio>
+
+    <audio style="display:none;" class="press_audio" controls>
+        <source src="{% static 'general/audio/press.mp3' %}" type="audio/mp3">
+    </audio>
     <!--<input type="hidden" class="ws-url" value="">-->
 
 

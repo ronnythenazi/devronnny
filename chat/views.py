@@ -11,7 +11,7 @@ from asgiref.sync import sync_to_async, async_to_sync
 
 from django.contrib.auth import get_user_model
 
-from .models import Chat, Message
+from .models import Chat, Message, ChatMsgNotification
 from users.models import Contact
 
 from django.db.models import Count
@@ -19,8 +19,23 @@ from django.db.models import Count
 
 User = get_user_model()
 
+def get_login_user_rooms_ajax(request):
+    if request.user.is_authenticated == False:
+        return JsonResponse({'status':'not-log-in'})
+    if not request.is_ajax or not request.method == "GET":
+        return JsonResponse({'status':'not ajax get'})
+    user = request.user
+    contact = Contact.objects.get(user=user)
+    chats = contact.chats.all()
+    rooms = []
+    for chat in chats:
+        rooms.append({'chatId':str(chat.id), 'roomName':chat.chat_name})
+    return JsonResponse(rooms, safe=False)
 
-def get_or_create_private_chat_room_ajax(request):
+
+
+
+def get_or_create_personal_chat_room_ajax(request):
 
     if request.user.is_authenticated == False:
         return JsonResponse({'status':'not-log-in'})
@@ -137,62 +152,12 @@ def save_message_for_chat(current_chat, user_contact, content):
     return message
 
 
-
-'''
 @sync_to_async
-def get_or_create_private_chat_room(chat_owner_username, to_username):
-    user_owner = get_object_or_404(User, username=chat_owner_username)
+def save_chat_msg_notification(current_chat, message):
+    notification = ChatMsgNotification.objects.create(message = message)
+    notification.chat.add(current_chat)
+    return notification
 
-    contact_owner_tuple = Contact.objects.get_or_create(user=user_owner)
-    contact_owner = contact_owner_tuple[0]
-    contact_owner_created = contact_owner_tuple[1]
-
-    user_reciver = get_object_or_404(User, username=to_username)
-
-    contact_reciver_tuple = Contact.objects.get_or_create(user=user_reciver)
-    contact_reciver = contact_reciver_tuple[0]
-    contact_reciver_created = contact_reciver_tuple[1]
-
-    #contact_owner.friends.add(contact_reciver)
-
-    #contact_reciver.friends.add(contact_owner)
-
-
-    #rooms = Chat.objects.all()
-
-    rooms = Chat.objects.annotate(participants_count=Count('participants', distinct=True)).filter(participants_count = 2)
-
-    for room in rooms:
-
-        is_reciver_exist = False
-        is_chat_owner_exist = False
-
-        if(room.participants.filter(user = user_reciver).exists()):
-            is_reciver_exist = True
-
-        if(room.participants.filter(user = user_owner).exists()):
-            is_chat_owner_exist = True
-
-
-        if(is_reciver_exist and is_chat_owner_exist and room.participants.all().count() == 2):
-
-           chat = room
-
-           chat_id = str(chat.id)
-
-           return chat_id
-
-    chat_name = 'private-chat-' + user_owner.username + '-to-' +  user_reciver.username
-    chat = Chat.objects.create(chat_name = chat_name)
-
-    chat.participants.add(contact_owner)
-
-    chat.participants.add(contact_reciver)
-
-    chat_id = str(chat.id)
-
-    return chat_id
-'''
 
 @sync_to_async
 def is_authorize_to_private_chat(ws, roomName):
@@ -226,13 +191,22 @@ def get_current_chat(chatId):
     return get_object_or_404(Chat, id=chatId)
 
 
+@sync_to_async
+def get_participants_for_chat(chatId):
+    result = []
+    chat = get_object_or_404(Chat, id=chatId)
+
+    for contact in chat.participants.all():
+        username = contact.user.username
+        result.append({'username':username})
+    return result
+
+
 
 @sync_to_async
 def messages_to_json(messages):
     result = []
-    #return [await async_to_sync(self.message_to_json)(messages[i]) for i in range(len(messages))]
-    #result.append(await async_to_sync(self.message_to_json)(messages[i]) for i in range(len(messages)))
-    #return result
+
     for message in messages:
         result.append(message_to_json(message))
     return result

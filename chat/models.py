@@ -19,8 +19,8 @@ class Message(models.Model):
 
 class Chat(models.Model):
     participants = models.ManyToManyField(
-        Contact, related_name='chats', blank=True,  null=True)
-    messages = models.ManyToManyField(Message, blank=True, null=True)
+        Contact, related_name='chats', blank=True)
+    messages = models.ManyToManyField(Message, blank=True)
 
     chat_name = models.TextField(blank = True, null = True)
 
