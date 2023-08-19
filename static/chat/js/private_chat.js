@@ -105,7 +105,7 @@ $('.maximize_svg').click(maximize_chat);*/
 function maximize_chat()
 {
   var ancestor = $(this).parents('.chat_room_dialog').not('.chat-room-template').first();
-  $(ancestor).children().not('script,link').css('display', 'flex');
+  $(ancestor).children().not('script,link,audio, audio>*').css('display', 'flex');
   $(ancestor).css('right', '50%');
 
   var popup_height = get_css_variable_val('--chat-popup-height').replace('px', '');
