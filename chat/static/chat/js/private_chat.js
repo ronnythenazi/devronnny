@@ -186,6 +186,10 @@ function send_message_chat(sender)
   //var username = get_chat_user_login(ancestor);
 
   var message = $(ancestor).find('.txt-chat').first().val();
+  if(String(message).replace(/\s+/g, ' ').trim().length <= 0)
+  {
+    return;
+  }
   var chat_id = $(ancestor).find('.hid-chat-id').first().val();
   chatSocket.send(JSON.stringify({
       'command': 'new_message',

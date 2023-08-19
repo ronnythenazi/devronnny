@@ -186,11 +186,35 @@
   box-sizing: border-box;
   max-width: 70%;
   align-self: center;
+}
+
+.reciver-bubble:after
+{
+  content:'';
+  position:absolute;
+  left:-5px;
+  top:50%;
+  border-bottom-left-radius:100%;
+  background:inherit;
+  width:10px;
+  height:10px;
 
 }
+.sender-bubble:after
+{
+  content:'';
+  position:absolute;
+  right:-5px;
+  top:50%;
+  border-bottom-right-radius:100%;
+  background:inherit;
+  width:10px;
+  height:10px;
+
+}
+
 .reciver-bubble
 {
-
   font-family: sans-serif;
 
   /*width: 300px;*/
@@ -201,18 +225,7 @@
   color: #ffffff;
 }
 
-.reciver-bubble:before {
-  content: "";
-  width: 0px;
-  height: 0px;
-  position: absolute;
-  border-left: 4px solid #fff;
-  border-right: 4px solid transparent;
-  border-top: 4px solid #fff;
-  border-bottom: 2.8px solid transparent;
-  left: 32px;
-  bottom: -24px;
-}
+
 .sender-bubble
 {
 
@@ -228,18 +241,7 @@
   color: rgba(25,25,85,1);
 }
 
-.sender-bubble:before {
-  content: "";
-  width: 0px;
-  height: 0px;
-  position: absolute;
-  border-right: 4px solid #fff;
-  border-left: 2px solid transparent;
-  border-top: 2px solid #fff;
-  border-bottom: 2.8px solid transparent;
-  left: 32px;
-  bottom: -24px;
-}
+
 @keyframes typing
 {
   0%  {content: 'רושם'}
