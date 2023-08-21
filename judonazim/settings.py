@@ -306,7 +306,12 @@ CKEDITOR_CONFIGS = {
 """
 
 CKEDITOR_IMAGE_BACKEND = "pillow"
-CKEDITOR_UPLOAD_PATH = 'ckeditor/uploads/'
+
+#CKEDITOR_UPLOAD_PATH = 'ckeditor/uploads/'  commented at # added in 21-08-2023 21:33
+
+#changed in 21-08-2023 21:33
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+
 CKEDITOR_UPLOAD_SLUGIFY_FILENAME = False
 
 CKEDITOR_CONFIGS = {

@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.urls import path, include
+from django.urls import path, include, re_path
 from blog import urls
 from magazine import urls
 from social import urls
@@ -48,6 +48,10 @@ if settings.DEBUG:
         url(r'^ckeditor/upload/',uploader_views.upload, name='ckeditor_upload'),
         url(r'^ckeditor/browse/',never_cache(uploader_views.browse), name='ckeditor_browse'),
 
+        # added in 21-08-2023 21:33
+        url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+
+
 
 
     ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
@@ -69,10 +73,14 @@ else:
       path('users/', include('django.contrib.auth.urls')),
       path('users/', include('users.urls')),
       path('analytics/', include('analytics.urls')),
-      path('chat/', include('chat.urls')),      
+      path('chat/', include('chat.urls')),
       #url(r'^ckeditor/', include('ckeditor_uploader.urls')),
       url(r'^ckeditor/upload/',uploader_views.upload, name='ckeditor_upload'),
       url(r'^ckeditor/browse/',never_cache(uploader_views.browse), name='ckeditor_browse'),
+
+      # added in 21-08-2023 21:33
+      url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+
 
 
     ]
