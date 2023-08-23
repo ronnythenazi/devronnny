@@ -124,7 +124,7 @@
   gap:5px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   max-height: 400px;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
 
 }
