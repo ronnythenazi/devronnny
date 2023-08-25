@@ -94,13 +94,14 @@ def send_mail_notification(notification_pk):
         pos = ''
         com_or_sub_com = 'post'
 
-    domain  = get_current_site(exposed_request).domain
+    #domain  = get_current_site(exposed_request).domain
+    url = ''
     if pos == '':
-        link = reverse('magazine:anArticle', args = [post.pk])
+        url = exposed_request.build_absolute_uri(reverse('magazine:anArticle', args = [post.pk]))
     else:
-        link = reverse('magazine:anArticle', args = [post.pk, pos])
+        url = exposed_request.build_absolute_uri(reverse('magazine:anArticle', args = [post.pk, pos]))
 
-    url = 'http://' + domain + link
+    
 
     template_name = "general/"
     if notification_type == 1 and com_or_sub_com == 'post':
