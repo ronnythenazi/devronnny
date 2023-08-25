@@ -222,11 +222,11 @@ def SignUp(request):
         # -  token
 
         uidb64 = urlsafe_base64_encode(force_bytes(usr.pk))
-        domain  = get_current_site(request).domain
-        link = reverse('users:activation', kwargs={'uidb64':uidb64, 'token':token_generator.make_token(usr)})
-        active_url = 'http://' + domain + link
+        #domain  = get_current_site(request).domain
+        #link = reverse('users:activation', kwargs={'uidb64':uidb64, 'token':token_generator.make_token(usr)})
+        #active_url = 'http://' + domain + link
 
-        #body = 'Hello ' + usr.username + ' Please use this link to verify your account\n' + active_url
+        active_url = request.build_absolute_uri(reverse('users:activation', kwargs={'uidb64':uidb64, 'token':token_generator.make_token(usr)}))
 
         msg_htmly = get_template('general/verify_account_msg.html')
         msg_plaintext = get_template('general/verify_account_msg.txt')
