@@ -132,8 +132,8 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS':{'access_type':'online'},
 
         'APP': {
-            'client_id': os.environ.get("google_client_id"),
-            'secret': os.environ.get("google_secret"),
+            'client_id': os.environ.get("GOOGLE_CLIENT_ID"),
+            'secret': os.environ.get("GOOGLE_SECRET"),
             'key': '',
         }
     },
@@ -146,8 +146,8 @@ SOCIALACCOUNT_PROVIDERS = {
         # credentials, or list them here:
 
         'APP': {
-            'client_id': os.environ.get("facebook_client_id"),
-            'secret':os.environ.get("facebook_secret"),
+            'client_id': os.environ.get("FACEBOOK_CLIENT_ID"),
+            'secret':os.environ.get("FACEBOOK_SECRET"),
             'key': '',
         }
     }
