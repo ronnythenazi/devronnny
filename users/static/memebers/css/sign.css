@@ -1,3 +1,37 @@
+
+#login-with-social-accounts-lbl
+{
+  font-size:1.5rem;
+  margin-bottom:50px;
+
+
+  font-family: formal3-bold;
+  color:#17116b;
+  opacity: 0.5;
+
+}
+
+.social-login-btn
+{
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+.social-login-btn>svg
+{
+  width: 80%;
+  height: 80%;
+}
+
+
 .signfield
 {
   border-top-left-radius: 2px;

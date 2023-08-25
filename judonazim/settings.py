@@ -314,6 +314,8 @@ CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 CKEDITOR_UPLOAD_SLUGIFY_FILENAME = True
 
+CKEDITOR_RESTRICT_BY_DATE = False
+
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'Custom',

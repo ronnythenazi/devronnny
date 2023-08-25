@@ -22,7 +22,7 @@
 <div class="center">
   <div class="writepost" style="width:100%;font-size:1rem !important;">
     {% if not user.is_authenticated %}
-    <h1 style="font-family:robot;margin-bottom:60px;" class="bluish-clr"><u>התחברות</u></h1>
+    <h1 style="font-family:formal2;font-size:3rem;margin-bottom:60px;" class="bluish-clr"><u>התחברות</u></h1>
 
     <div class="signfieldcolumn" style="gap:50px;">
 
@@ -63,6 +63,18 @@
 
         </div>
       </div>
+
+      <div class="signfieldcolumn" style="width:100%;align-items:flex-start;margin-top:25px;">
+        <div class="signfieldrow" style="width:100%;justify-content:flex-start;">
+          <span id="login-with-social-accounts-lbl" style="margin-right:112.5px;">או התחבר עם החשבונות הבאים</span>
+        </div>
+        <div class="signfieldrow" style="width:100%;justify-content:flex-end;">
+              <div class="social-login-btn google-login-btn">
+              {% include 'users/svg/google.svg' %}
+              </div>
+         </div>
+      </div>
+
     </div>
 
 
