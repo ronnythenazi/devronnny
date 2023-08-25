@@ -78,7 +78,7 @@
               </div>
 
               <div class="social-login-btn facebook-login-btn">
-              <a href="{% provider_login_url 'facebook' method='js_sdk' %}?next={% url 'magazine:magazineNews' %}">
+              <a href="{% provider_login_url 'facebook' method='oauth2' %}?next={% url 'magazine:magazineNews' %}">
               {% include 'users/svg/facebook.svg' %}
               </a>
               </div>
