@@ -193,9 +193,10 @@ def create_and_send_activation_link(body_template_name, subject, user, url_to_go
 
 def create_activation_link(user, url_to_go, request):
     uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
-    domain  = get_current_site(request).domain
-    link = reverse(url_to_go, kwargs={'uidb64':uidb64, 'token':token_generator_general.make_token(user)})
-    active_url = 'http://' + domain + link
+    #domain  = get_current_site(request).domain
+    #link = reverse(url_to_go, kwargs={'uidb64':uidb64, 'token':token_generator_general.make_token(user)})
+    #active_url = 'http://' + domain + link
+    active_url = request.build_absolute_uri(reverse(url_to_go, kwargs={'uidb64':uidb64, 'token':token_generator_general.make_token(user)}))
     return active_url
 
 
