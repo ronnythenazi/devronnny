@@ -1,5 +1,7 @@
 {%extends 'magazine/base.html'%}
 {%load static%}
+{% load socialaccount %}
+{% providers_media_js %}
 
 
 {%block title%}התחבר{%endblock%}
@@ -68,10 +70,19 @@
         <div class="signfieldrow" style="width:100%;justify-content:flex-start;">
           <span id="login-with-social-accounts-lbl" style="margin-right:112.5px;">או התחבר עם החשבונות הבאים</span>
         </div>
-        <div class="signfieldrow" style="width:100%;justify-content:flex-end;">
+        <div class="signfieldrow social-media-row">
               <div class="social-login-btn google-login-btn">
+              <a href="{% provider_login_url 'google' %}?next={% url 'magazine:magazineNews' %}">
               {% include 'users/svg/google.svg' %}
+              </a>
               </div>
+
+              <div class="social-login-btn facebook-login-btn">
+              <a href="{% provider_login_url 'facebook' method='oauth2' %}?next={% url 'magazine:magazineNews' %}">
+              {% include 'users/svg/facebook.svg' %}
+              </a>
+              </div>
+
          </div>
       </div>
 

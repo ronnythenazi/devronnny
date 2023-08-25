@@ -1,3 +1,51 @@
+.social-media-row
+{
+  width:100%;
+  justify-content:flex-start;
+  gap:20px !important;
+  margin-right:112.5px;
+}
+#login-with-social-accounts-lbl
+{
+  font-size:1.5rem;
+  margin-bottom:50px;
+
+
+  font-family: formal3-bold;
+  color:#17116b;
+  opacity: 0.5;
+
+}
+
+.social-login-btn, .social-login-btn>a
+{
+  width: 60px;
+  height: 60px;
+  background-color: white;
+
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+
+}
+.social-login-btn
+{
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.social-login-btn svg
+{
+  width: 80%;
+  height: 80%;
+}
+
+
 .signfield
 {
   border-top-left-radius: 2px;

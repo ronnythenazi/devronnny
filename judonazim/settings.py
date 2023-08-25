@@ -37,7 +37,15 @@ SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY") #or get_random_secret_key()
 DEBUG = str(os.environ.get("DEBUG")) == "1"
 
 
+AUTHENTICATION_BACKENDS = [
 
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by email
+    'allauth.account.auth_backends.AuthenticationBackend',
+
+]
 
 INSTALLED_APPS = [
         'daphne',
@@ -66,6 +74,14 @@ INSTALLED_APPS = [
         'analytics',
         'chat',
         'channels',
+
+
+        'django.contrib.sites',
+        'allauth',
+        'allauth.account',
+        'allauth.socialaccount',
+        'allauth.socialaccount.providers.google',
+        'allauth.socialaccount.providers.facebook',
     ]
 
 
@@ -101,6 +117,45 @@ TEMPLATES = [
         },
     },
 ]
+
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'SCOPE':{
+            'profile',
+            'email',
+        },
+
+        'AUTH_PARAMS':{'access_type':'online'},
+
+        'APP': {
+            'client_id': os.environ.get("google_client_id"),
+            'secret': os.environ.get("google_secret"),
+            'key': '',
+        }
+    },
+
+
+
+    'facebook': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+
+        'APP': {
+            'client_id': os.environ.get("facebook_client_id"),
+            'secret':os.environ.get("facebook_secret"),
+            'key': '',
+        }
+    }
+
+
+}
+
+SOCIALACCOUNT_LOGIN_ON_GET=True
 
 WSGI_APPLICATION = 'judonazim.wsgi.application'
 ASGI_APPLICATION = 'judonazim.asgi.application'
@@ -314,6 +369,7 @@ CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 CKEDITOR_UPLOAD_SLUGIFY_FILENAME = True
 
+#added in 25-08-2023 11:16
 CKEDITOR_RESTRICT_BY_DATE = False
 
 CKEDITOR_CONFIGS = {
@@ -348,12 +404,16 @@ CKEDITOR_CONFIGS = {
 
 ALLOWED_HOSTS = []
 
+SITE_ID = 1
+
 if not DEBUG:
     #ALLOWED_HOSTS = [os.environ.get("DJANGO_ALLOWED_HOSTS")]
     ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '').split()
 
 
+#uncomment in 25/08/2023
 #LOGIN_REDIRECT_URL = 'magazine:magazineNews'
+
 LOGOUT_REDIRECT_URL = 'magazine:magazineNews'
 
 

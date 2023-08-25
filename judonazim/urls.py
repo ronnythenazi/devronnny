@@ -50,6 +50,7 @@ if settings.DEBUG:
 
         # added in 21-08-2023 21:33
         url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+        path('accounts/', include('allauth.urls')),
 
 
 
@@ -80,6 +81,7 @@ else:
 
       # added in 21-08-2023 21:33
       url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+      path('accounts/', include('allauth.urls')),
 
 
 
