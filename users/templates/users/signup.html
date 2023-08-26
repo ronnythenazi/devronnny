@@ -1,6 +1,7 @@
 {%extends 'magazine/base.html'%}
 {%load static%}
-
+{% load socialaccount %}
+{% providers_media_js %}
 
 {%block title%}הרשמה ליהודונאציזם{%endblock%}
 
@@ -19,10 +20,57 @@
 <div class="writepost" style="width:80%;font-size:1rem !important;">
 {% if not user.is_authenticated %}
 <h1 style="font-family:robot;" class="bluish-clr"><u>הרשמה</u></h1>
-<div class="center" style="gap:50px;">
+<div class="center" style="gap:25px;">
+
+
+
+     <a class="social-media-wide-btn" href="{% provider_login_url 'google' %}?next={% url 'magazine:magazineNews' %}">
+        <span>התחבר עם גוגל</span>
+        {% include 'users/svg/google.svg' %}
+     </a>
+
+
+
+
+     <a class="social-media-wide-btn" href="{% provider_login_url 'facebook' method='oauth2' %}?next={% url 'magazine:magazineNews' %}">
+       <span>התחבר עם פייסבוק</span>
+        {% include 'users/svg/facebook.svg' %}
+     </a>
+
+
+
+
+     <a class="social-media-wide-btn" href="{% provider_login_url 'discord' %}?next={% url 'magazine:magazineNews' %}">
+        <span>התחבר עם דיסקורד</span>
+        {% include 'users/svg/discord.svg' %}
+     </a>
+
+
+
+
+
+     <a class="social-media-wide-btn" href="{% provider_login_url 'spotify' %}?next={% url 'magazine:magazineNews' %}">
+       <span>התחבר עם ספוטיפיי</span>
+        {% include 'users/svg/spotify.svg' %}
+     </a>
+
+
+
+     <div class="signfieldrow" style="width:100%;justify-content:center;margin-bottom:-50px;margin-top:50px;">
+       <span id="login-with-social-accounts-lbl" >או הירשם רגיל</span>
+     </div>
+
+
 <div class="signfieldcolumn" style="width:100%;">
   <span style="color:red;">{{ form.username.errors }}</span>
   {% if no_error == 'true' %}
+
+
+
+
+
+
+
   <div style="display:flex;flex-direction:column;align-items:center;color:green;font-size:2rem;">
     <span>פרטיך נשמרו, אך חשבונך עדין לא פעיל</span>
     <span>ברגעים אלו אמור להישלח לך דואר למייל שהזנת</span>
