@@ -48,7 +48,6 @@ def link_to_local_user(sender, request, sociallogin, **kwargs):
     email_address = sociallogin.account.extra_data.get('email')
 
     if(email_address == None):
-        raise ImmediateHttpResponse(redirect(settings.LOGIN_REDIRECT_URL.format(id=request.user.id)))
         return
 
     #email_address = sociallogin.account.extra_data['email']
