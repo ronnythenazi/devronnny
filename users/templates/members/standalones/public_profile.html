@@ -178,9 +178,21 @@
               <div class="section-profile-item-field-type">
                 מצב משפחתי
               </div>
-              {% if profile.familial_status %}
+              {% if profile.familial_status == 'single' %}
               <div class="section-profile-item-field-val">
-                  {{profile.familial_status}}
+                  רווק
+              </div>
+              {% elif profile.familial_status == 'married' %}
+              <div class="section-profile-item-field-val">
+                  נשוי
+              </div>
+              {% elif profile.familial_status == 'divorced' %}
+              <div class="section-profile-item-field-val">
+                  גרוש
+              </div>
+              {% elif profile.familial_status == 'married_again' %}
+              <div class="section-profile-item-field-val">
+                  נשוי שוב
               </div>
               {% endif %}
           </div>
