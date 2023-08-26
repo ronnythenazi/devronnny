@@ -82,6 +82,8 @@ INSTALLED_APPS = [
         'allauth.socialaccount',
         'allauth.socialaccount.providers.google',
         'allauth.socialaccount.providers.facebook',
+        'allauth.socialaccount.providers.discord',
+        'allauth.socialaccount.providers.spotify',
     ]
 
 
@@ -150,8 +152,38 @@ SOCIALACCOUNT_PROVIDERS = {
             'secret':os.environ.get("FACEBOOK_SECRET"),
             'key': '',
         }
-    }
+    },
 
+
+    'discord': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'SCOPE':{
+            'identify',
+            'email',
+        },
+
+        'AUTH_PARAMS':{'access_type':'online'},
+
+        'APP': {
+            'client_id': os.environ.get("DISCORD_CLIENT_ID"),
+            'secret': os.environ.get("DISCORD_SECRET"),
+            'key': '',
+        }
+    },
+
+    'spotify': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+
+        'APP': {
+            'client_id': os.environ.get("SPOTIFY_CLIENT_ID"),
+            'secret':os.environ.get("SPOTIFY_SECRET"),
+            'key': '',
+        }
+    },
 
 }
 
