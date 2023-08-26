@@ -6,21 +6,21 @@
 
 {%block meta%}
 <meta property="og:locale" content="he_IL">
-<meta property="og:type" content="profile">
-<meta property="og:title" content="">
-<meta property="og:description" content="">
+<meta property="og:type" content="public profile">
+<meta property="og:title" content="{{profile.nick}}">
+<meta property="og:description" content="פרופיל ציבורי">
 <meta property="og:url" content="{{ request.build_absolute_uri }}">
-<meta property="og:image" content="">
-<meta property="og:image:height" content="324">
-<meta property="og:image:width" content="583">
+<meta property="og:image" content="{{profile.profile_img.url}}">
+<meta property="og:image:height" content="250">
+<meta property="og:image:width" content="250">
 <meta property="og:site_name" content="רוני צדק">
 
 
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary_profile_image">
 <meta name="twitter:site" content="@judonazimwebsite">
-<meta name="twitter:image" content="">
-<meta name="twitter:title" content="">
-<meta name="twitter:description" content="">
+<meta name="twitter:image" content="{{profile.profile_img.url}}">
+<meta name="twitter:title" content="{{profile.nick}}">
+<meta name="twitter:description" content="{{profile.user.username}}">
 {%endblock meta%}
 
 {%block title%}בס"ד פרופיל משתמש{%endblock%}

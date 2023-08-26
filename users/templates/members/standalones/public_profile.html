@@ -1,24 +1,7 @@
 
 {% load static %}
 
-{%block meta%}
-<meta property="og:locale" content="he_IL">
-<meta property="og:type" content="public profile">
-<meta property="og:title" content="{{profile.nick}}">
-<meta property="og:description" content="פרופיל ציבורי">
-<meta property="og:url" content="{{ request.build_absolute_uri }}">
-<meta property="og:image" content="{{profile.profile_img.url}}">
-<meta property="og:image:height" content="250">
-<meta property="og:image:width" content="250">
-<meta property="og:site_name" content="רוני צדק">
 
-
-<meta name="twitter:card" content="summary_profile_image">
-<meta name="twitter:site" content="@judonazimwebsite">
-<meta name="twitter:image" content="{{profile.profile_img.url}}">
-<meta name="twitter:title" content="{{profile.nick}}">
-<meta name="twitter:description" content="{{profile.user.username}}">
-{%endblock meta%}
 
 <div class="profile-public-page">
 
