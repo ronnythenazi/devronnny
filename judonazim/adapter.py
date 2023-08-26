@@ -19,8 +19,7 @@ class MyLoginAccountAdapter(DefaultAccountAdapter):
     '''
 
     def get_login_redirect_url(self, request):
-        """
-        """
+
         if request.user.is_authenticated:
             return settings.LOGIN_REDIRECT_URL.format(
                 id=request.user.id)
@@ -46,13 +45,16 @@ def link_to_local_user(sender, request, sociallogin, **kwargs):
     * https://github.com/pennersr/django-allauth/issues/215
 
     '''
-    try:
-        email_address = sociallogin.account.extra_data['email']
-        User = get_user_model()
-        users = User.objects.filter(email=email_address)
-        if users:
-            # allauth.account.app_settings.EmailVerificationMethod
-            perform_login(request, users[0], email_verification='optional')
-            raise ImmediateHttpResponse(redirect(settings.LOGIN_REDIRECT_URL.format(id=request.user.id)))
-    except Exception as e:
+    email_address = sociallogin.account.extra_data.get('email')
+
+    if(email_address == None):
+        raise ImmediateHttpResponse(redirect(settings.LOGIN_REDIRECT_URL.format(id=request.user.id)))
+        return
+
+    #email_address = sociallogin.account.extra_data['email']
+    User = get_user_model()
+    users = User.objects.filter(email=email_address)
+    if users:
+        # allauth.account.app_settings.EmailVerificationMethod
+        perform_login(request, users[0], email_verification='optional')
         raise ImmediateHttpResponse(redirect(settings.LOGIN_REDIRECT_URL.format(id=request.user.id)))
