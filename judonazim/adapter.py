@@ -10,6 +10,7 @@ from django.dispatch import receiver
 from django.shortcuts import redirect
 from django.conf import settings
 import json
+from django.urls import reverse
 
 
 class MyLoginAccountAdapter(DefaultAccountAdapter):
@@ -47,7 +48,7 @@ def link_to_local_user(sender, request, sociallogin, **kwargs):
     email_address = sociallogin.account.extra_data.get('email')
 
     if(email_address == None):
-        redirect(settings.LOGIN_REDIRECT_URL)
+        return HttpResponseRedirect(reverse(settings.LOGIN_REDIRECT_URL))
 
     #email_address = sociallogin.account.extra_data['email']
     User = get_user_model()
@@ -55,4 +56,4 @@ def link_to_local_user(sender, request, sociallogin, **kwargs):
     if users:
         # allauth.account.app_settings.EmailVerificationMethod
         perform_login(request, users[0], email_verification='optional')
-        raise redirect(settings.LOGIN_REDIRECT_URL)
+        return HttpResponseRedirect(reverse(settings.LOGIN_REDIRECT_URL))
