@@ -47,7 +47,7 @@ def link_to_local_user(sender, request, sociallogin, **kwargs):
     email_address = sociallogin.account.extra_data.get('email')
 
     if(email_address == None):
-        return
+        redirect(settings.LOGIN_REDIRECT_URL)
 
     #email_address = sociallogin.account.extra_data['email']
     User = get_user_model()
@@ -55,4 +55,4 @@ def link_to_local_user(sender, request, sociallogin, **kwargs):
     if users:
         # allauth.account.app_settings.EmailVerificationMethod
         perform_login(request, users[0], email_verification='optional')
-        raise ImmediateHttpResponse(redirect(settings.LOGIN_REDIRECT_URL))
+        raise redirect(settings.LOGIN_REDIRECT_URL)
