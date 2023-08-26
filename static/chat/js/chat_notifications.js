@@ -18,10 +18,11 @@ function load_chat_message(e, username, chatId, roomName)
    {
      return;
    }
-   open_chat(username, chatId, roomName);
+
 
    if(data['command'] == 'new_message')
    {
+     open_chat(username, chatId, roomName);
      $('.update_audio').first()[0].play();
    }
 

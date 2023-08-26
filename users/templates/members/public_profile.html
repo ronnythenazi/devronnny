@@ -7,7 +7,11 @@
 {%block meta%}
 <meta property="og:locale" content="he_IL">
 <meta property="og:type" content="public profile">
+{% if profile.nick %}
 <meta property="og:title" content="{{profile.nick}}">
+{% else %}
+<meta name="og:title" content="{{profile.user.username}}">
+{% endif %}
 <meta property="og:description" content="פרופיל ציבורי">
 <meta property="og:url" content="{{ request.build_absolute_uri }}">
 <meta property="og:image" content="{{profile.profile_img.url}}">
@@ -19,7 +23,11 @@
 <meta name="twitter:card" content="summary_profile_image">
 <meta name="twitter:site" content="@judonazimwebsite">
 <meta name="twitter:image" content="{{profile.profile_img.url}}">
+{% if profile.nick %}
 <meta name="twitter:title" content="{{profile.nick}}">
+{% else %}
+<meta name="twitter:title" content="{{profile.user.username}}">
+{% endif %}
 <meta name="twitter:description" content="{{profile.user.username}}">
 {%endblock meta%}
 
