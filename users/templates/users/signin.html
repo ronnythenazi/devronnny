@@ -72,7 +72,7 @@
         </div>
         <div class="signfieldrow social-media-row">
               <div class="social-login-btn google-login-btn">
-              <a href="{% provider_login_url 'google' %}?next={% url 'magazine:magazineNews' %}">
+              <a href="{% provider_login_url 'google'  method='oauth2' %}?next={% url 'magazine:magazineNews' %}">
               {% include 'users/svg/google.svg' %}
               </a>
               </div>
@@ -84,13 +84,13 @@
               </div>
 
               <div class="social-login-btn discord-login-btn">
-              <a href="{% provider_login_url 'discord' %}?next={% url 'magazine:magazineNews' %}">
+              <a href="{% provider_login_url 'discord'  method='oauth2' %}?next={% url 'magazine:magazineNews' %}">
               {% include 'users/svg/discord.svg' %}
               </a>
               </div>
 
               <div class="social-login-btn spotify-login-btn">
-              <a href="{% provider_login_url 'spotify' %}?next={% url 'magazine:magazineNews' %}">
+              <a href="{% provider_login_url  'spotify'  method='oauth2' %}?next={% url 'magazine:magazineNews' %}">
               {% include 'users/svg/spotify.svg' %}
               </a>
               </div>

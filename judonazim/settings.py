@@ -119,7 +119,7 @@ TEMPLATES = [
         },
     },
 ]
-
+SOCIALACCOUNT_LOGIN_ON_GET=True
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -187,7 +187,7 @@ SOCIALACCOUNT_PROVIDERS = {
 
 }
 
-SOCIALACCOUNT_LOGIN_ON_GET=True
+
 
 WSGI_APPLICATION = 'judonazim.wsgi.application'
 ASGI_APPLICATION = 'judonazim.asgi.application'
