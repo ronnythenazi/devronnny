@@ -120,11 +120,8 @@ TEMPLATES = [
     },
 ]
 SOCIALACCOUNT_LOGIN_ON_GET=True
-SOCIALACCOUNT_AUTO_SIGNUP = True
-SOCIALACCOUNT_EMAIL_REQUIRED = False
-ACCOUNT_ADAPTER = "judonazim.adapter.MyLoginAccountAdapter"
-SOCIALACCOUNT_ADAPTER = 'judonazim.adapter.MySocialAccountAdapter'
-LOGIN_REDIRECT_URL =    'magazine:magazineNews'
+
+#LOGIN_REDIRECT_URL =    'magazine:magazineNews'
 
 
 # Provider specific settings
