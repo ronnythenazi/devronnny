@@ -21,8 +21,7 @@ class MyLoginAccountAdapter(DefaultAccountAdapter):
     def get_login_redirect_url(self, request):
 
         if request.user.is_authenticated:
-            return settings.LOGIN_REDIRECT_URL.format(
-                id=request.user.id)
+            return settings.LOGIN_REDIRECT_URL
         else:
             return "/"
 
@@ -56,4 +55,4 @@ def link_to_local_user(sender, request, sociallogin, **kwargs):
     if users:
         # allauth.account.app_settings.EmailVerificationMethod
         perform_login(request, users[0], email_verification='optional')
-        raise ImmediateHttpResponse(redirect(settings.LOGIN_REDIRECT_URL.format(id=request.user.id)))
+        raise ImmediateHttpResponse(redirect(settings.LOGIN_REDIRECT_URL))
