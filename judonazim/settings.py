@@ -19,8 +19,9 @@ from pathlib import Path
 import sys
 import dj_database_url
 from dotenv import load_dotenv
-from django.core.cache import caches, cache
-import urllib.parse
+
+
+
 
 #from . import cdn
 #from .cdn import *
@@ -86,7 +87,9 @@ INSTALLED_APPS = [
         'allauth.socialaccount.providers.facebook',
         'allauth.socialaccount.providers.discord',
         'allauth.socialaccount.providers.spotify',
+        'workers',
         'defender',
+
     ]
 
 
@@ -483,25 +486,26 @@ FORCE_INACTIVE_USER_ENDSESSION = False
 
 
 
-KEY_PREFIX = cache.make_key('judonazim')
 
 
-# caches
+
+
+from django.core.cache import caches, cache
+#KEY_PREFIX = cache.make_key('judonazim')
+
+REDIS_SERVER_PASSWORD = os.environ.get('REDIS_SERVER_PASSWORD')
+
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": 'redis://127.0.0.1:6379/1',
         "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "PASSWORD":REDIS_SERVER_PASSWORD,
         },
-        "KEY_PREFIX": KEY_PREFIX,
+        #"KEY_PREFIX": KEY_PREFIX,
     }
 }
 
-
-
-from redis import Redis
-
-urllib.parse.uses_netloc.append('redis')
-url = urllib.parse.urlparse(REDIS_URL)
-conn = Redis(host=url.hostname, port=url.port, db=0, password=url.password)
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
