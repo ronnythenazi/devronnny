@@ -294,19 +294,18 @@ CHANNEL_LAYERS = {
     }
 }
 
-REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD")
-DOMAIN         = os.environ.get("DOMAIN")
+
 
 
 CACHES = {
-    "default": {
+    "default" : {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": os.path.join("redis://", DOMAIN, ":6379/1"),
+        "LOCATION": REDIS_URL,
         "OPTIONS": {
-            "PASSWORD": REDIS_PASSWORD,
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        }
-    }
+        },
+    },
+
 }
 
 if not DEBUG:
