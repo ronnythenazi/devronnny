@@ -21,6 +21,7 @@ from social import urls
 from general import urls
 from analytics import urls
 from chat import urls
+from staticpages import urls
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
 from django.conf.urls.static import static
@@ -46,6 +47,7 @@ if settings.DEBUG:
         path('users/', include('users.urls')),
         path('analytics/', include('analytics.urls')),
         path('chat/', include('chat.urls')),
+        path('staticpages/', include('staticpages.urls')),
         #url(r'^ckeditor/', include('ckeditor_uploader.urls')),
         url(r'^ckeditor/upload/',uploader_views.upload, name='ckeditor_upload'),
         url(r'^ckeditor/browse/',never_cache(uploader_views.browse), name='ckeditor_browse'),
@@ -79,6 +81,7 @@ else:
       path('users/', include('users.urls')),
       path('analytics/', include('analytics.urls')),
       path('chat/', include('chat.urls')),
+      path('staticpages/', include('staticpages.urls')),
       #url(r'^ckeditor/', include('ckeditor_uploader.urls')),
       url(r'^ckeditor/upload/',uploader_views.upload, name='ckeditor_upload'),
       url(r'^ckeditor/browse/',never_cache(uploader_views.browse), name='ckeditor_browse'),

@@ -89,6 +89,7 @@ INSTALLED_APPS = [
         'allauth.socialaccount.providers.spotify',
         'workers',
         'defender',
+        'staticpages',
 
     ]
 
@@ -362,6 +363,7 @@ if DEBUG:
         os.path.join(BASE_DIR, 'general', 'static'),
         os.path.join(BASE_DIR, 'analytics', 'static'),
         os.path.join(BASE_DIR, 'chat', 'static'),
+        os.path.join(BASE_DIR, 'staticpages', 'static'),
       )
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 else:
@@ -491,21 +493,22 @@ FORCE_INACTIVE_USER_ENDSESSION = False
 
 
 from django.core.cache import caches, cache
-#KEY_PREFIX = cache.make_key('judonazim')
+KEY_PREFIX = cache.make_key('judonazim')
 
-REDIS_SERVER_PASSWORD = os.environ.get('REDIS_SERVER_PASSWORD')
+
+
 
 CACHES = {
     "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": 'redis://127.0.0.1:6379/1',
+        "BACKEND": "redis_cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            #"PASSWORD":REDIS_SERVER_PASSWORD,
+            "IGNORE_EXCEPTIONS": True,
         },
-        #"KEY_PREFIX": KEY_PREFIX,
+        "KEY_PREFIX": KEY_PREFIX,
     }
 }
+#SESSION_COOKIE_SECURE = False
 
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-SESSION_CACHE_ALIAS = "default"
+DEFENDER_LOCKOUT_TEMPLATE = 'staticpages/too_many_login_attempts.html'
