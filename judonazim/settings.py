@@ -19,7 +19,7 @@ from pathlib import Path
 import sys
 import dj_database_url
 from dotenv import load_dotenv
-from django.core.cache import caches as CACHES
+
 
 #from . import cdn
 #from .cdn import *
@@ -295,18 +295,6 @@ CHANNEL_LAYERS = {
 }
 
 
-
-
-CACHES = {
-    "default" : {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": REDIS_URL,
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        },
-    },
-
-}
 
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
