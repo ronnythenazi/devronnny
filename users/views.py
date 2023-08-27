@@ -32,6 +32,7 @@ get_total_coms_given_to_profile, get_total_dislikes_given_to_profile,
 get_total_likes_profile_gave, get_total_dislikes_profile_gave,
 )
 from django.http import JsonResponse
+from defender.decorators import watch_login
 
 def get_public_profile_url_from_user_id_ajax(request):
     if request.is_ajax and request.method == "GET":
@@ -77,6 +78,8 @@ class EmailThread(threading.Thread):
     def run(self):
         self.EmailMultiAlternatives.send(fail_silently=True)
 
+
+@watch_login(status_code=302)
 def login_view(request):
     form = SignInFrm(request.POST or None)
     if request.method == 'POST':

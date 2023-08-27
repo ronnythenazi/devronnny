@@ -32,6 +32,8 @@ from django.views.decorators.cache import never_cache
 if settings.DEBUG:
     from django.contrib import admin
 
+
+
 if settings.DEBUG:
     urlpatterns = [
         path('info/', include('blog.urls')),
@@ -51,6 +53,8 @@ if settings.DEBUG:
         # added in 21-08-2023 21:33
         url(r'^ckeditor/', include('ckeditor_uploader.urls')),
         path('accounts/', include('allauth.urls')),
+        path('admin/defender/', include('defender.urls')),
+
 
 
 
@@ -82,7 +86,6 @@ else:
       # added in 21-08-2023 21:33
       url(r'^ckeditor/', include('ckeditor_uploader.urls')),
       path('accounts/', include('allauth.urls')),
-
 
 
     ]

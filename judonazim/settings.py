@@ -84,6 +84,7 @@ INSTALLED_APPS = [
         'allauth.socialaccount.providers.facebook',
         'allauth.socialaccount.providers.discord',
         'allauth.socialaccount.providers.spotify',
+        'defender',
     ]
 
 
@@ -96,7 +97,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'magazine.request_exposer.RequestExposerMiddleware',
+    'defender.middleware.FailedLoginMiddleware',
 ]
+
+
 
 ROOT_URLCONF = 'judonazim.urls'
 
