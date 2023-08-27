@@ -20,6 +20,7 @@ import sys
 import dj_database_url
 from dotenv import load_dotenv
 from django.core.cache import caches, cache
+import urllib.parse
 
 #from . import cdn
 #from .cdn import *
@@ -483,6 +484,8 @@ FORCE_INACTIVE_USER_ENDSESSION = False
 
 
 KEY_PREFIX = cache.make_key('judonazim')
+
+
 # caches
 CACHES = {
     "default": {
@@ -494,3 +497,11 @@ CACHES = {
         "KEY_PREFIX": KEY_PREFIX,
     }
 }
+
+
+
+from redis import Redis
+
+urllib.parse.uses_netloc.append('redis')
+url = urllib.parse.urlparse(REDIS_URL)
+conn = Redis(host=url.hostname, port=url.port, db=0, password=url.password)
