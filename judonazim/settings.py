@@ -19,6 +19,7 @@ from pathlib import Path
 import sys
 import dj_database_url
 from dotenv import load_dotenv
+from django.core.cache import caches as CACHES
 
 #from . import cdn
 #from .cdn import *
@@ -293,6 +294,21 @@ CHANNEL_LAYERS = {
     }
 }
 
+REDIS_PASSWORD = os.environ.get("REDIS_PASSWORD")
+DOMAIN         = os.environ.get("DOMAIN")
+
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": os.path.join("redis://", DOMAIN, ":6379/1"),
+        "OPTIONS": {
+            "PASSWORD": REDIS_PASSWORD,
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
@@ -476,13 +492,3 @@ else:
 
 FORCE_SESSION_TO_ONE = False
 FORCE_INACTIVE_USER_ENDSESSION = False
-
-
-
-'''EMAIL_HOST = os.environ.get('EMAIL_HOST')
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL')
-EMAIL_PORT = 587
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL =  os.environ.get(DEFAULT_FROM_EMAIL)'''
