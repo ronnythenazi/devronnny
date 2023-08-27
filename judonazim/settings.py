@@ -19,7 +19,7 @@ from pathlib import Path
 import sys
 import dj_database_url
 from dotenv import load_dotenv
-from django.core.cache import caches
+from django.core.cache import caches, cache
 
 #from . import cdn
 #from .cdn import *
@@ -482,15 +482,15 @@ FORCE_INACTIVE_USER_ENDSESSION = False
 
 
 
-
+KEY_PREFIX = cache.make_key('judonazim')
 # caches
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://redis:6379",
+        "LOCATION": 'redis://127.0.0.1:6379/1',
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient"
         },
-        "KEY_PREFIX": "judonazim"
+        "KEY_PREFIX": KEY_PREFIX,
     }
 }
