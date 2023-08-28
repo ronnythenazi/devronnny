@@ -57,7 +57,7 @@ if settings.DEBUG:
         path('accounts/', include('allauth.urls')),
         path('admin/defender/', include('defender.urls')),
 
-
+    
 
 
 
