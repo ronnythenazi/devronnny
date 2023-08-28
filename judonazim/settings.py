@@ -491,7 +491,7 @@ FORCE_INACTIVE_USER_ENDSESSION = False
 
 
 
-
+'''
 from django.core.cache import caches, cache
 KEY_PREFIX = cache.make_key('judonazim')
 
@@ -501,7 +501,7 @@ KEY_PREFIX = cache.make_key('judonazim')
 CACHES = {
     "default": {
         "BACKEND": "redis_cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
+        "LOCATION":"redis://127.0.0.1:6379/1",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
             "IGNORE_EXCEPTIONS": True,
@@ -509,6 +509,27 @@ CACHES = {
         "KEY_PREFIX": KEY_PREFIX,
     }
 }
-#SESSION_COOKIE_SECURE = False
 
+
+
+CACHES = {
+    "default": {
+        "BACKEND": "redis_cache.RedisCache",
+        "LOCATION":"redis://104.131.121.169:25061/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "IGNORE_EXCEPTIONS": True,
+        },
+        "KEY_PREFIX": KEY_PREFIX,
+    }
+}
+'''
+#SESSION_COOKIE_SECURE = False
+#import urllib.parse
+DROPLET_IP = os.environ.get('DROPLET_IP')
+#DEFENDER_REDIS_PASSWORD_QUOTE = True
+REDIS_SERVER_PASSWORD = os.environ.get('REDIS_SERVER_PASSWORD')
+#REDIS_SERVER_PASSWORD = urllib.parse.quote(REDIS_SERVER_PASSWORD)
+DEFENDER_REDIS_URL = "redis://" + REDIS_SERVER_PASSWORD + '@' + DROPLET_IP + ":6379/1"
+#DEFENDER_REDIS_URL = "redis://104.131.121.169:6379/1"
 DEFENDER_LOCKOUT_TEMPLATE = 'staticpages/too_many_login_attempts.html'
