@@ -154,8 +154,7 @@ def save_message_for_chat(current_chat, user_contact, content):
 
 @sync_to_async
 def save_chat_msg_notification(current_chat, message):
-    notification = ChatMsgNotification.objects.create(message = message)
-    notification.chat.add(current_chat)
+    notification = ChatMsgNotification.objects.create(chat = current_chat, message = message)
     return notification
 
 

@@ -33,7 +33,7 @@ class Chat(models.Model):
 
 
 class ChatMsgNotification(models.Model):
-    chat = models.ManyToManyField(Chat, related_name="chat_notifications")
+    chat = models.ForeignKey(Chat, related_name="chat_notifications", on_delete = models.CASCADE)
     message =  models.OneToOneField(Message, related_name="message_notification", on_delete=models.CASCADE)
     read_by_contacts = models.ManyToManyField(Contact, related_name="read_by_contacts")
 
