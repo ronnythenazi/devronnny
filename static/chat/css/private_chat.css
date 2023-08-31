@@ -156,6 +156,7 @@
   align-items: stretch;
   gap:var(--chat-log-gap);
   overflow-y: scroll;
+  overflow-x: hidden;
   padding-top: 5px;
 
 }
@@ -177,7 +178,7 @@
 
   position: relative;
 
-
+  overflow-x: hidden;
   cursor: pointer;
 
 }
@@ -208,6 +209,7 @@
   box-sizing: border-box;
   max-width: 70%;
   align-self: center;
+  word-wrap: break-word;
 }
 
 .reciver-bubble:after
