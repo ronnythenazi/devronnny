@@ -15,6 +15,60 @@
 
 }
 
+@keyframes spill-down /*hourgalss-waiting-animation*/
+{
+  0% {fill:#32B7B4;}
+  90% {fill:transparent;}
+
+}
+@keyframes spill-up
+{
+  0%
+  {
+     fill:transparent;
+  }
+  90%
+  {
+    fill:#32B7B4;
+  }
+
+}
+@keyframes flip-vertically
+{
+  0%
+  {
+     transform: rotate(0deg);
+  }
+  90%
+  {
+    transform: rotate(0deg);
+  }
+  100%
+  {
+   transform: rotate(180deg);
+  }
+
+}
+.hourgalss_svg
+{
+  animation-name: flip-vertically;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+
+}
+
+.liquid_upper
+{
+  animation-name:spill-down;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+.liquid_down
+{
+  animation-name:spill-up;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
 
 @keyframes c-quote-blink-red
 {

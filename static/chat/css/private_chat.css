@@ -129,6 +129,21 @@
 
 }
 
+.chat_log .hourgalss
+{
+  width: 100%;
+  height: var(--log-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+}
+.hourgalss>svg
+{
+  transform: translateX(25%);
+}
+
 .chat-log
 {
   display: flex;
@@ -143,6 +158,13 @@
   overflow-y: scroll;
   padding-top: 5px;
 
+}
+.chat-log.effect-activated
+{
+  justify-content: center;
+  align-items:center;
+  padding-top: 0;
+  gap:0;
 }
 
 .chat-row

@@ -6,6 +6,18 @@ function close_chat_dialog()
   var chat_dialog = $(this).parents('.chat_room_dialog').first();
   $(chat_dialog).remove();
 }
+function active_chat_waiting_animation(chat_dialog)
+{
+  $(chat_dialog).find('.chat-log').addClass('effect-activated');
+  $(chat_dialog).find('.hourgalss').show();
+  //hourgalss-waiting-animation
+}
+
+function end_chat_waiting_animation(chat_dialog)
+{
+  $(chat_dialog).find('.chat-log').removeClass('effect-activated');
+  $(chat_dialog).find('.hourgalss').hide();
+}
 
 function open_chat(username, chatId, roomName)
 {
@@ -20,11 +32,13 @@ function open_chat(username, chatId, roomName)
   }
   else
   {
+
     chat_dialog = cloned_and_assign_events();
     $(chat_dialog).find('.room-name').first().attr('id', chat_win_id);
-
+    active_chat_waiting_animation(chat_dialog);
     init_private_chat(chat_dialog, username, roomName, chatId);
   }
+
 }
 
 function open_personal_chat(from_username, to_username)
@@ -233,7 +247,7 @@ function update_private_chat_log(e, chat_dialog)
       notify_that_user_is_typing(data, chat_dialog);
     }
 
-
+  end_chat_waiting_animation(chat_dialog);
 
 }
 
