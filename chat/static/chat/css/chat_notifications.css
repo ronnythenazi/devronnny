@@ -36,6 +36,7 @@ html
   -webkit-box-shadow:rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   background-color: white;
+
 }
 
 .chat_notification_header
@@ -58,20 +59,19 @@ html
    align-items: flex-start;
    position: relative;
    gap:10px;
+   overflow-x: hidden;
 
 }
 .chat_notification_item
 {
   width: var(--chat-notifications-w);
   height:100px;
-  overflow-y: hidden;
   position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap:20px;
+  gap: 10px;
   cursor: pointer;
-
 }
 
 .chat_notification_item::after
@@ -84,6 +84,7 @@ html
   left: 0;
   opacity: 0;
   background-color:#404040;
+
 }
 .chat_notification_item:hover::after
 {
@@ -95,10 +96,9 @@ html
   position: relative;
   flex-direction: column;
   justify-content: flex-start;
-  flex-basis:0;
-  flex-grow: 1;
-  flex-shrink: 0;
+
   margin-right: 10px;
+  width: 10%;
 }
 .c_notification_cell_author img
 {
@@ -112,18 +112,14 @@ html
   display: flex;
   position: relative;
   flex-direction: column;
-  flex-basis:auto;
-  flex-grow: 1;
-  flex-shrink: 0;
 
   gap:10px;
+
+  height:100%;
+  width:80%;
+
 }
-/*.c_notification_cell_contentsnip>*
-{
-  flex-basis:auto;
-  flex-grow:0;
-  flex-shrink:0;
-}*/
+
 .c_notification_subcell_contentsnip_msg
 {
    width: 100%;
@@ -135,16 +131,22 @@ html
 
    font-family: "Roboto","Arial",sans-serif;
    font-size: 1rem;
-   line-height: 2rem;
+   line-height: 1rem;
    font-weight: 400;
-   overflow: hidden;
    color:#3b3939;
-   gap:5px;
-   word-wrap: break-word;
+   gap:10px;
+
+   overflow-y: hidden;
+   height: 80%;
+
 }
+
+
+
 
 .c_notification_subcell_contentsnip_timepassed
 {
+
    width: 100%;
    display: flex;
    flex-direction: row;
@@ -156,25 +158,25 @@ html
    font-size: 0.8rem;
    line-height: 1.8rem;
    font-weight: 400;
+   white-space: nowrap;
+   height: 10%;
 
 }
+
 .c_notification_cell_thumb
 {
-  flex-basis:0;
-  flex-grow: 1;
-  flex-shrink: 0;
+
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   position: relative;
+  width: 9%;
 }
 
 .c_notification_cell_settings
 {
-  flex-basis:0;
-  flex-grow: 1;
-  flex-shrink: 0;
+
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -185,6 +187,7 @@ html
   align-self: flex-start;
   margin-top: 22px;
   margin-left: 10px;
+  width:1%;
 }
 .c_notification_cell_settings::after
 {
@@ -243,4 +246,23 @@ html
   display: flex;
   justify-content: center;
   flex-direction: row;
+}
+
+.c_notification_subcell_contentsnip_msg>.nowrap-child
+{
+  white-space: nowrap;
+  font-size: 0.7rem;
+  font-weight: 400;
+  line-height: 1rem;
+  width:40%;
+
+}
+
+.c_notification_subcell_contentsnip_msg .wrap-child
+{
+  word-wrap: break-word;
+  width:60%;
+  box-sizing: border-box;
+  word-break: break-word;
+  line-height: 1rem;
 }
