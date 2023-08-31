@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{% static 'magazine/css/global.css' %}">
     <link rel="stylesheet" href="{% static 'general/css/general.css' %}">
     <link rel="stylesheet" href="{% static 'general/css/animated.css' %}">
+    <link rel="stylesheet" href="{% static 'general/effects/svg/css/svg_animation.css' %}">
     {%block moreLinks%} {%endblock moreLinks%}
 
 <!--<script>
@@ -139,10 +140,10 @@
            {% include 'magazine/components/svg/key.svg' %}
             שינוי סיסמא
          </a>
-         <a class= "subMenuItem">
+         <!--<a class= "subMenuItem">
            {% include 'magazine/components/svg/mail.svg' %}
             תיבת דואר
-         </a>
+         </a>-->
          <a class="subMenuItem" href="{% url 'logout' %}">
 
           <span>{% include 'magazine/components/svg/reverse.html' %} צא</span>
@@ -169,7 +170,10 @@
        {% endif %}
 
        {% if user.is_authenticated %}
+        <div class="menuItem" id="chat-notifications-menuItem">
 
+          {% include 'general/components/svg/chat_quote.svg' %}
+        </div>
          {% if request.user.groups.all.0.name == 'owner' or request.user.groups.all.0.name == 'admin' %}
          <div class="menuItem">
       <!--    <span>האזור האישי</span>-->
@@ -284,6 +288,7 @@
   <script type="text/javascript" src="{% static 'general/js/effects.js' %}"> </script>
   <script type="text/javascript" src="{% static 'general/js/positions.js' %}"> </script>
   <script type="text/javascript" src="{% static 'general/js/environements.js' %}"> </script>
+  <script type="text/javascript" src="{% static 'general/js/time.js' %}"> </script>
 
 
  <script>

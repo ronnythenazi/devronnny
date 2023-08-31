@@ -3,7 +3,9 @@ from .views import (SignUp, verificationView, accountUpdateView, ChangePasswordV
 updateProfileV, CreateProfile, login_view,
 create_new_password, mail_for_password_recovery,
 get_public_profile_page, get_user_snippet_info_ajax,
-user_online_status_ajax,get_user_public_profile_url_ajax,get_public_profile_url_from_user_id_ajax,)
+user_online_status_ajax,get_user_public_profile_url_ajax,get_public_profile_url_from_user_id_ajax,
+getProfilePageforUsername_ajax,
+)
 from django.contrib.auth import views as auth_views
 
 app_name = 'users'
@@ -23,4 +25,5 @@ urlpatterns = [
     path('user-online-status', user_online_status_ajax, name='check-user-online-status'),
     path('user-public-profile-url',get_user_public_profile_url_ajax, name='get-user-public-profile-url'),
     path('public-profile-url-from-user-id',get_public_profile_url_from_user_id_ajax ,name='public-profile-url-from-user-id'),
+    path('public-profile-url-from-username',getProfilePageforUsername_ajax ,name='public-profile-url-from-username'),
 ]

@@ -7,22 +7,42 @@ from users.members import get_profile_info_nick_or_user
 from django.contrib.auth.models import User
 from .models import Chat, ChatMsgNotification
 from users.models import Contact
+from general.time import FriendlyTimePassedView
 
 
 
-def show_last_notifications(user):
+def show_last_notifications(user, max_messages):
     contact = Contact.objects.get(user = user)
-    notifications = ChatMsgNotification.objects.filter(chat__in = contact.chats).exclude(message__in = contact.messages)
+    qs = ChatMsgNotification.objects.filter(chat__in = contact.chats.all()).exclude(message__in = contact.messages.all()).order_by('-message__timestamp')
+    qs_lst = list(qs)
+    notifications = set()
+    chats = set()
+    for i in qs_lst:
+        chats.add(i.chat)
+        notifications.add(i.chat.messages.exclude(contact  = contact).order_by('-timestamp').first())
+        if(len(notifications)==max_messages):
+            break
+
+    return notifications
 
 
+def notifications_minimal_view(user):
+    result = show_last_notifications(user, 5)
+    notifications = []
+    for i in result:
+        chat = get_chat_of_message(i)
+        author = get_profile_info_nick_or_user(i.contact.user)
+        details = {}
+        details['avatar']               = author['avatar'] #str(i.contact.user.profile.profile_img.url)
+        details['author_name']          = author['name']
+        details['content']              = i.content
+        details['time_passed']          = FriendlyTimePassedView(i.timestamp)
+        details['chatId']               = str(chat.id)
+        details['roomName']             = chat.chat_name;
+        notifications.append(details)
+    return notifications
 
-def is_user_permitted_for_chat(user, chatId):
-    chat = Chat.objects.get(id = chatId)
-    return chat.participants.filter(user = user).exists()
-
-
-def is_it_my_notification(msg_notification, username):
-    sent_to = msg_notification.get_to_username()
-    if sent_to != username:
-        return False
-    return True
+def get_chat_of_message(message):
+    notification = ChatMsgNotification.objects.get(message = message)
+    chat = notification.chat
+    return chat

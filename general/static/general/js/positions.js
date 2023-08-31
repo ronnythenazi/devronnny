@@ -92,16 +92,75 @@ function show_popup_at_cursor_23(popup, show_near_elem)
 {
    var x = $(show_near_elem).offset().left;
    var y = $(show_near_elem).offset().top;
-
    $(popup).css('left', x);
    $(popup).css('top', y);
    $('body').append(popup);
    $(popup).css('display', 'flex');
-   //$(popup).fadeIn('slow');
+
+}
+
+function set_popup_inline_and_beneath_of_an_object(popup, show_near_elem)
+{
+  var x = $(show_near_elem).offset().left;
+  var y = $(show_near_elem).offset().top;
+  var object_width = $(show_near_elem).width();
+  var popup_width  = $(popup).width();
+  var inlineX = x + object_width - popup_width;
+  $(popup).css('left',inlineX);
+  var object_height = $(show_near_elem).height();
+  var beneathY = y + object_height;
+  $(popup).css('top', beneathY);
+  $('body').append(popup);
+  //$(popup).css('display', 'flex');
 }
 
 function forget_popup_snippet_23(popup)
 {
   //$(popup).remove();
   $(popup).fadeOut('fast');
+}
+
+
+
+function clickLeave(e, elem_to_focus, trigger_elem)
+{
+
+  if(is_curs_inside_rect_elem(trigger_elem, e) && $(elem_to_focus).css('display') == 'none')
+  {
+
+    $(elem_to_focus).css('display', 'flex');
+    return;
+  }
+  else if (!is_curs_inside_rect_elem(elem_to_focus, e) && $(elem_to_focus).css('display') != 'none')
+  {
+
+     $(elem_to_focus).hide();
+  }
+
+}
+
+
+function focusout(elem_to_focus, trigger_elem)
+{
+   $('body').on('click', function(e){
+     clickLeave(e, elem_to_focus, trigger_elem);
+   });
+}
+
+function offset_right(elem)
+{
+  var left = $(elem).offset().left;
+  var w = $(elem).width();
+  var total_w = $('body').width();
+  var right = total_w - w - left;
+  return right;
+}
+
+function get_fixed_beneathY(elem)
+{
+  var top = $(elem).offset().top;
+  var h = $(elem).height();
+  var total_h = window.outerHeight();
+  var beneathY = total_h - top + h;
+  return beneathY;
 }

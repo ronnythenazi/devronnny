@@ -17,7 +17,12 @@ function redirect_to_public_profile()
       window.location = callback['url'];
   });
 }
-
+function go_to_user_public_profile(username)
+{
+  getProfilePageforUsername_ajax(username, function(callback){
+      window.location = callback['url'];
+  });
+}
 function display_user_snippet(user, show_near_elem)
 {
      get_user_snippet_details_ajax(user, function(result){

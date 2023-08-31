@@ -125,6 +125,28 @@
           });
      }
    </script>
+
+   <script>
+     function getProfilePageforUsername_ajax(username, callback)
+     {
+       var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+          $.ajax({
+               type: 'GET',
+               url: "{% url 'users:public-profile-url-from-username' %}",
+               data: {
+
+                     'csrfmiddlewaretoken': csrftoken,
+                     'username':username,
+              },
+              dataType: 'json',
+              success:callback,
+              error: function (response) {
+                  console.log(response);
+              }
+          });
+     }
+   </script>
+
   <script type="text/javascript" src="{% static 'memebers/js/user_snippet.js' %}"></script>
   <link rel="stylesheet" href="{% static 'memebers/css/user_snippet.css' %}">
 

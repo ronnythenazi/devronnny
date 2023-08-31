@@ -15,6 +15,17 @@ from .models import Chat, Message, ChatMsgNotification
 from users.models import Contact
 
 from django.db.models import Count
+from .messages import notifications_minimal_view
+
+
+def notifications_minimal_view_ajax(request):
+    if request.user.is_authenticated == False:
+        return JsonResponse({'status':'not-log-in'})
+    if not request.is_ajax or not request.method == "GET":
+        return JsonResponse({'status':'not ajax get'})
+
+    result = notifications_minimal_view(request.user)
+    return JsonResponse(result, safe=False)
 
 
 User = get_user_model()

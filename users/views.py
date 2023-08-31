@@ -34,6 +34,16 @@ get_total_likes_profile_gave, get_total_dislikes_profile_gave,
 from django.http import JsonResponse
 from defender.decorators import watch_login
 
+
+def getProfilePageforUsername_ajax(request):
+    if request.is_ajax and request.method == "GET":
+        username = request.GET.get('username')
+        user = User.objects.get(username = username)
+        profile = get_profile_from_user_id(user.id)
+        profile_id = profile.id
+        url = request.build_absolute_uri(reverse('users:public-profile', args = [str(profile_id)]))
+        return JsonResponse({'url':url})
+
 def get_public_profile_url_from_user_id_ajax(request):
     if request.is_ajax and request.method == "GET":
         user_id = request.GET.get('user_id')
