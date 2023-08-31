@@ -64,6 +64,7 @@ html
 {
   width: var(--chat-notifications-w);
   height:100px;
+  overflow-y: hidden;
   position: relative;
   display: flex;
   flex-direction: row;
@@ -139,6 +140,7 @@ html
    overflow: hidden;
    color:#3b3939;
    gap:5px;
+   word-wrap: break-word;
 }
 
 .c_notification_subcell_contentsnip_timepassed
