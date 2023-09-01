@@ -27,7 +27,7 @@
   {
     fill:#32B7B4;
   }
-  90%
+  100%
   {
    fill:transparent;
   }
@@ -114,5 +114,4 @@
   animation-name:spill-middle;
   animation-duration: 2s;
   animation-iteration-count: infinite;
-  animation-direction: alternate;
 }
