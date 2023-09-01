@@ -170,9 +170,9 @@ function init_private_chat(cloned_chat, from_username, roomName, chatId)
 
 
     $(chat_dialog).not('.chat-room-template').first().css('display', 'flex');
-
+    set_draggable(chat_dialog);
     maximize_chat($(chat_dialog));
-    //set_txtarea_caret($(chat_dialog).find('.txt-chat').first());
+
   });
 
 
