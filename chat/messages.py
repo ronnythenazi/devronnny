@@ -22,7 +22,6 @@ def show_last_notifications(user, max_messages):
         notifications.add(i.chat.messages.exclude(contact  = contact).order_by('-timestamp').first())
         if(len(notifications)==max_messages):
             break
-
     return notifications
 
 
@@ -40,7 +39,8 @@ def notifications_minimal_view(user):
         details['chatId']               = str(chat.id)
         details['roomName']             = chat.chat_name;
         notifications.append(details)
-    return notifications.reverse()
+    notifications.reverse()    
+    return notifications
 
 def get_chat_of_message(message):
     notification = ChatMsgNotification.objects.get(message = message)
