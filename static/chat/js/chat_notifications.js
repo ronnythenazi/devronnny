@@ -106,7 +106,7 @@ $('#chat-notifications-menuItem').click(function(){
 
 $(window).scroll(function(){
   var elem_to_focus = $('#c_notifications_popup_mini');
-  var top = $('.main-menu').height();
+  var top = $('.main-menu').height() - 50;
   $(elem_to_focus).css('top', top + 'px');
 });
 
@@ -123,7 +123,7 @@ $(document).ready(function(){
    var trigger_elem = $('#chat-notifications-menuItem');
    focusout(elem_to_focus, trigger_elem);
    $(elem_to_focus).css('right', offset_right($(trigger_elem)));
-   var top = $('.main-menu').height();
+   var top = $('.main-menu').height() - 50;
    $(elem_to_focus).css('top', top + 'px');
 
 });
