@@ -26,7 +26,7 @@ def show_last_notifications(user, max_messages):
 
 
 def notifications_minimal_view(user):
-    result = show_last_notifications(user, 5)
+    result = show_last_notifications(user, 4)
     notifications = []
     for i in result:
         chat = get_chat_of_message(i)
@@ -39,7 +39,7 @@ def notifications_minimal_view(user):
         details['chatId']               = str(chat.id)
         details['roomName']             = chat.chat_name;
         notifications.append(details)
-    notifications.reverse()    
+    notifications.reverse()
     return notifications
 
 def get_chat_of_message(message):

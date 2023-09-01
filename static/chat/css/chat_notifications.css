@@ -3,8 +3,8 @@ html
 {
    --chat-notifications-w:480px;
    --chat-notifications-header-h:49px;
-   --chat_notifications_popup-h:642;
-   --chat_notification_items-h:593px;
+   --chat_notifications_popup-h: 592px;   /*642;*/
+   --chat_notification_items-h: 543px;  /*593px;*/
 }
 
 .cnh_header_title
