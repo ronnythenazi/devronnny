@@ -58,8 +58,13 @@ function update_chat_notifications(result)
 
 
   }
-  $('.chat-path1, .chat-path2').addClass('effect-active');
+
   assign_delegates();
+  if(result.length>0)
+  {
+    $('.chat-path1, .chat-path2').addClass('effect-active');
+  }
+
 
 }
 

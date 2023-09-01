@@ -24,6 +24,10 @@ function get_friendly_time_format(time_dict)
     lbl += cnt + ' ';
     lbl += translate_dict['plural'][unit];
   }
+  else if(cnt == 0)
+  {
+    lbl = 'עכשיו';
+  }
   else
   {
     return '';

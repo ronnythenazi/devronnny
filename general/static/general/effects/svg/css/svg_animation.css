@@ -21,6 +21,18 @@
   90% {fill:transparent;}
 
 }
+@keyframes spill-middle
+{
+  0%
+  {
+    fill:#32B7B4;
+  }
+  90%
+  {
+   fill:transparent;
+  }
+}
+
 @keyframes spill-up
 {
   0%
@@ -95,4 +107,12 @@
   }
 
 
+}
+
+.spill-middle
+{
+  animation-name:spill-middle;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
