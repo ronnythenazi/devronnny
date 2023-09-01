@@ -120,7 +120,7 @@ function maximize_chat()
 {
   var ancestor = $(this).parents('.chat_room_dialog').not('.chat-room-template').first();
   $(ancestor).children().not('script,link,audio, audio>*').css('display', 'flex');
-  $(ancestor).css('right', '50%');
+  $(ancestor).css('left', '50%');
 
   var popup_height = get_css_variable_val('--chat-popup-height').replace('px', '');
   var top = (parseInt(popup_height) / 2) + "px";
@@ -137,7 +137,7 @@ function minimize_chat()
 {
   var ancestor = $(this).parents('.chat_room_dialog').not('.chat-room-template').first();
   $(ancestor).children().not('.chat_room_header').css('display', 'none');
-  $(ancestor).css('right','200px');
+  $(ancestor).css('left','90%');
   $(ancestor).css('top', '90%');
   $(ancestor).find('.minimize_svg').first().hide();
   $(ancestor).find('.maximize_svg').first().show();

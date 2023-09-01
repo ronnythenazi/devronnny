@@ -58,9 +58,9 @@
   background: var(--chat-row-white-1, --chat-row-white-2);
   position: fixed;
   top: calc(var(--chat-popup-height) / 2);
-  right:50%;
+  left:50%;
   direction: rtl;
-  transform: translateX(50%);
+  transform: translateX(-50%);
 
 
 }
