@@ -16,9 +16,9 @@ def show_last_notifications(user, max_messages):
     qs = ChatMsgNotification.objects.filter(chat__in = contact.chats.all()).exclude(message__in = contact.messages.all()).order_by('-message__timestamp')
     qs_lst = list(qs)
     notifications = set()
-    chats = set()
+    #chats = set()
     for i in qs_lst:
-        chats.add(i.chat)
+        #chats.add(i.chat)
         notifications.add(i.chat.messages.exclude(contact  = contact).order_by('-timestamp').first())
         if(len(notifications)==max_messages):
             break
