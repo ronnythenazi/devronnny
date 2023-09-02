@@ -1,5 +1,5 @@
 
-let chatSocket;
+let sockets = {};
 
 function close_chat_dialog()
 {
@@ -9,6 +9,7 @@ function close_chat_dialog()
 function active_chat_waiting_animation(chat_dialog)
 {
   $(chat_dialog).find('.chat-log').addClass('effect-activated');
+  $(chat_dialog).find('.chat-input').addClass('effect-activated');
   $(chat_dialog).find('.hourgalss').show();
   //hourgalss-waiting-animation
 }
@@ -16,6 +17,7 @@ function active_chat_waiting_animation(chat_dialog)
 function end_chat_waiting_animation(chat_dialog)
 {
   $(chat_dialog).find('.chat-log').removeClass('effect-activated');
+  $(chat_dialog).find('.chat-input').removeClass('effect-activated');
   $(chat_dialog).find('.hourgalss').hide();
 }
 
@@ -170,13 +172,34 @@ function init_private_chat(cloned_chat, from_username, roomName, chatId)
 
 
     $(chat_dialog).not('.chat-room-template').first().css('display', 'flex');
-    set_draggable(chat_dialog);
+
+    draggable($(chat_dialog));
+    disable_draggable(chat_dialog);
+    enable_draggable(chat_dialog);
+
     maximize_chat($(chat_dialog));
 
   });
 
 
 }
+function disable_draggable(dialog)
+{
+  $(dialog).children('.chat-log').on('mouseover', function(){
+
+    set_undraggable(dialog);
+  });
+}
+
+function enable_draggable(dialog)
+{
+  $(dialog).children('.chat-log').on('mouseleave', function(){
+
+    set_draggable(dialog);
+  });
+}
+
+
 
 $('.ronny-style-field').focusin(function(){
   $(this).addClass('chat-input-activate');
@@ -195,8 +218,9 @@ function btn_send_clicked()
 
 function send_message_chat(sender)
 {
-  var ancestor = $(sender).parents('.chat_room_dialog').not('.chat-room-template').first();
 
+  var ancestor = $(sender).parents('.chat_room_dialog').not('.chat-room-template').first();
+  var roomName = $(ancestor).find('.room-name').first().val();
   //var username = get_chat_user_login(ancestor);
 
   var message = $(ancestor).find('.txt-chat').first().val();
@@ -205,7 +229,7 @@ function send_message_chat(sender)
     return;
   }
   var chat_id = $(ancestor).find('.hid-chat-id').first().val();
-  chatSocket.send(JSON.stringify({
+  sockets[roomName].send(JSON.stringify({
       'command': 'new_message',
       'message': message,
       //'from'   : username,
@@ -412,8 +436,9 @@ function chat_key_up(e)
     // Ajax code here
 
    }
-
-  chatSocket.send(JSON.stringify({'command':'typing'}));
+  var chat_dialog = $(this).parents('.chat_room_dialog').not('.chat-room-template').first();
+  var roomName = $(chat_dialog).find('.room-name').first().val();
+  sockets[roomName].send(JSON.stringify({'command':'typing'}));
 
   if (keyCode === 13  && e.ctrlKey)
   {
@@ -447,23 +472,23 @@ function connect(chat_dialog, roomName, chatId)
     url = 'wss://'+window.location.host+'/ws/chat/'+ roomName + '/';
 
   }
-  chatSocket = new WebSocket(url);
+  sockets[roomName] = new WebSocket(url);
   $(chat_dialog).find('.room-name').first().val(roomName);
 
-  chatSocket.onopen = function(e){
+  sockets[roomName].onopen = function(e){
 
-    fetchMessages(chat_dialog, chatId);
+    fetchMessages(chat_dialog, chatId, roomName);
   };
 
 
-   chatSocket.onmessage =  function(e){
+   sockets[roomName].onmessage =  function(e){
 
 
 
    update_private_chat_log(e, chat_dialog);};
 
 
-   chatSocket.onclose = function(){
+   sockets[roomName].onclose = function(){
      setTimeout(function() {
       connect(chat_dialog, roomName, chatId);
     }, 1000);
@@ -478,10 +503,10 @@ function connect(chat_dialog, roomName, chatId)
 
 
 
-function fetchMessages(chat_dialog, chatId)
+function fetchMessages(chat_dialog, chatId, roomName)
 {
 
 
 
-   chatSocket.send(JSON.stringify({'command':'fetch_messages',  'chatId':chatId}));
+   sockets[roomName].send(JSON.stringify({'command':'fetch_messages',  'chatId':chatId}));
 }

@@ -13,10 +13,40 @@ function drop_object(e, elem)
 
 }
 
+function draggable(elem)
+{
+
+  $(elem).draggable(
+    {
+     containment: '#page-inner',
+     scroll:'true',
+     snap:true,
+     snapMode:'outer',
+     stack   :'true',
+     cursorAt: { left: -25 },
+     disabled: false,
+
+     start: function( event, ui ) {
+         $(this).addClass('dragging');
+     },
+     stop: function( event, ui ) {
+         $(this).removeClass('dragging');
+     },
+
+    });
+
+
+
+
+}
+
+function set_undraggable(elem)
+{
+
+  $(elem).draggable('disable');
+
+}
 function set_draggable(elem)
 {
-  $(elem).draggable(
-    {containment: '#page-inner'}
-  );
-
+  $(elem).draggable('enable');
 }

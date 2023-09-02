@@ -85,7 +85,7 @@
   justify-content: center;
   align-items: center;
   background: var(--wine-chat-1, --wine-chat-2);
-  cursor: pointer;
+  cursor: grab;
   overflow:hidden;
   position: relative;
 }
@@ -158,14 +158,34 @@
   overflow-y: scroll;
 
   padding-top: 5px;
+  z-index: 1000;
 
 }
+
+.chat_room_dialog.dragging
+{
+  z-index: 1001;
+  cursor: grabbing;
+
+}
+
 .chat-log.effect-activated
 {
   justify-content: center;
   align-items:center;
   padding-top: 0;
   gap:0;
+  cursor:wait;
+}
+
+.chat-input.effect-activated
+{
+
+  cursor:wait;
+}
+.chat-input.effect-activated .chat-input-txt, .chat-input.effect-activated .chat-send-btn
+{
+  pointer-events:none;
 }
 
 .chat-row
@@ -179,7 +199,7 @@
   position: relative;
 
 
-  cursor: pointer;
+  cursor: default;
 
 }
 
@@ -211,6 +231,7 @@
   align-self: center;
   word-wrap: break-word;
   word-break: break-word;
+  cursor: text;
 }
 
 .reciver-bubble:after
