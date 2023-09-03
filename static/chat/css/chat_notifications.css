@@ -159,7 +159,7 @@ html
    line-height: 1.8rem;
    font-weight: 400;
    white-space: nowrap;
-   height: 20%;
+   height: 10%;
 
 }
 
@@ -266,6 +266,6 @@ html
   box-sizing: border-box;
   word-break: break-word;
   line-height: 1rem;
-  align-self:flex-end;
+  align-self:flex-start;
 
 }
