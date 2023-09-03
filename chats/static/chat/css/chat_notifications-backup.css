@@ -130,7 +130,7 @@ html
    align-items: flex-start;
 
    font-family: "Roboto","Arial",sans-serif;
-   font-size: 0.9rem;
+   font-size: 1rem;
    line-height: 1rem;
    font-weight: 400;
    color:#3b3939;
@@ -155,11 +155,11 @@ html
 
    color:#909090;
    font-family: "Roboto","Arial",sans-serif;
-   font-size: 0.7rem;
+   font-size: 0.8rem;
    line-height: 1.8rem;
    font-weight: 400;
    white-space: nowrap;
-   height: 20%;
+   height: 10%;
 
 }
 
@@ -168,11 +168,10 @@ html
 
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   position: relative;
-  width: 10%;
-  margin-left:20px;
+  width: 9%;
 }
 
 .c_notification_cell_settings
@@ -262,10 +261,8 @@ html
 .c_notification_subcell_contentsnip_msg .wrap-child
 {
   word-wrap: break-word;
-  width:85%;
+  width:60%;
   box-sizing: border-box;
   word-break: break-word;
   line-height: 1rem;
-  align-self:flex-end;
-
 }

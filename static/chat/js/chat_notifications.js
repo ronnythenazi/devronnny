@@ -13,13 +13,13 @@ function update_chat_notifications(result)
     var time_passed          = item['time_passed'];
     var roomName             = item['roomName'];
     var chatId               = item['chatId'];
-    var author_username      = item['author_username']
+    var authorUsername       = item['author'];
 
 
     var popup_body = $('#c_notifications_popup_mini .chat_notification_items');
-    var data = 'roomName="' + roomName +'" ';
-        data+= 'chatId ="' + chatId  +'" ';
-        data+= 'author_username ="' + author_username  +'"';
+    var data = 'roomName="' + roomName + '" ';
+        data += 'chatId ="' + chatId  + '" ';
+        data += 'authorUsername ="' + authorUsername  + '" ';
     $(popup_body).append('<div class="chat_notification_item" '+ data +'></div>');
     var item = $(popup_body).find('.chat_notification_item').last();
     $(item).append('<div class="c_notification_cell_author"></div>');
@@ -32,7 +32,7 @@ function update_chat_notifications(result)
     $(thumb_holder).append(cloned);
     $(cloned).css('display', 'block');
 
-    $(item).append('<div class="c_notification_cell_settings"></div>');
+    //$(item).append('<div class="c_notification_cell_settings"></div>');
 
     $(item).find('.c_notification_cell_author').append('<img src="">');
     var img = $(item).find('.c_notification_cell_author').find('img');
@@ -53,10 +53,10 @@ function update_chat_notifications(result)
 
 
 
-    subitem = $(item).find('.c_notification_cell_settings');
-    $(subitem).append('<div class="c_notification_cell_settings_dot"></div>');
-    $(subitem).append('<div class="c_notification_cell_settings_dot"></div>');
-    $(subitem).append('<div class="c_notification_cell_settings_dot"></div>');
+    //subitem = $(item).find('.c_notification_cell_settings');
+  //  $(subitem).append('<div class="c_notification_cell_settings_dot"></div>');
+  //  $(subitem).append('<div class="c_notification_cell_settings_dot"></div>');
+  //  $(subitem).append('<div class="c_notification_cell_settings_dot"></div>');
 
 
   }
@@ -78,8 +78,8 @@ function assign_delegates()
 
 function notification_item_click(e)
 {
-  var login_username $('#curr-username-cn').val();
-  var author = $(this).attr("author_username");
+  var loginUsername = $('#curr-username-cn').val();
+  var author = $(this).attr("authorUsername");
   if(is_curs_inside_rect_elem($(this).find('.c_notification_cell_author'), e))
   {
     go_to_user_public_profile(author);
@@ -89,7 +89,7 @@ function notification_item_click(e)
   var roomName = $(this).attr("roomName");
   var chatId   = $(this).attr("chatId");
 
-  open_chat(login_username, chatId, roomName);
+  open_chat(loginUsername, chatId, roomName);
   $('#c_notifications_popup_mini').hide();
 }
 
