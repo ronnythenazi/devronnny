@@ -34,6 +34,7 @@ def notifications_minimal_view(user):
         details = {}
         details['avatar']               = author['avatar'] #str(i.contact.user.profile.profile_img.url)
         details['author_name']          = author['name']
+        details['author']               = i.contact.user.username
         details['content']              = i.content
         details['time_passed']          = FriendlyTimePassedView(i.timestamp)
         details['chatId']               = str(chat.id)

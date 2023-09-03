@@ -7,17 +7,19 @@ function update_chat_notifications(result)
   {
     $('#empty-notifications-chat').hide();
     var item = result[i];
-    var author_name = item['author_name'];
-    var avatar      = item['avatar'];
-    var content     = item['content'];
-    var time_passed = item['time_passed'];
-    var roomName    = item['roomName'];
-    var chatId      = item['chatId'];
+    var author_name          = item['author_name'];
+    var avatar               = item['avatar'];
+    var content              = item['content'];
+    var time_passed          = item['time_passed'];
+    var roomName             = item['roomName'];
+    var chatId               = item['chatId'];
+    var author_username      = item['author_username']
 
 
     var popup_body = $('#c_notifications_popup_mini .chat_notification_items');
-    var data = 'roomName="' + roomName +'"';
-        data+= 'chatId ="' + chatId  +'"';
+    var data = 'roomName="' + roomName +'" ';
+        data+= 'chatId ="' + chatId  +'" ';
+        data+= 'author_username ="' + author_username  +'"';
     $(popup_body).append('<div class="chat_notification_item" '+ data +'></div>');
     var item = $(popup_body).find('.chat_notification_item').last();
     $(item).append('<div class="c_notification_cell_author"></div>');
@@ -76,7 +78,7 @@ function assign_delegates()
 
 function notification_item_click(e)
 {
-  var username = $('#curr-username-cn').val();
+  var username = $(this).attr("author_username");
   if(is_curs_inside_rect_elem($(this).find('.c_notification_cell_author'), e))
   {
     go_to_user_public_profile(username);
