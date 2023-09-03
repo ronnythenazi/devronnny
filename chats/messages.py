@@ -14,11 +14,11 @@ from general.time import FriendlyTimePassedView
 def show_last_notifications(user, max_messages):
     contact = Contact.objects.get(user = user)
     qs = ChatMsgNotification.objects.filter(chat__in = contact.chats.all()).exclude(message__in = contact.messages.all()).order_by('-message__timestamp')
-    qs_lst = list(qs)
+
     notifications = set()
     #chats = set()
-    for i in qs_lst:
-        #chats.add(i.chat)
+    for i in qs:
+
         notifications.add(i.chat.messages.exclude(contact  = contact).order_by('-timestamp').first())
         if(len(notifications)==max_messages):
             break
@@ -26,7 +26,7 @@ def show_last_notifications(user, max_messages):
 
 
 def notifications_minimal_view(user):
-    result = show_last_notifications(user, 4)
+    result = show_last_notifications(user, 10)
     notifications = []
     for i in result:
         chat = get_chat_of_message(i)
