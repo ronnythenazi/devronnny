@@ -75,7 +75,7 @@ INSTALLED_APPS = [
         #'easy_thumbnails',
         'ckeditor_uploader',
         'analytics',
-        'chat',
+        'chats',
         'channels',
 
 
@@ -362,7 +362,7 @@ if DEBUG:
         os.path.join(BASE_DIR, 'social', 'static'),
         os.path.join(BASE_DIR, 'general', 'static'),
         os.path.join(BASE_DIR, 'analytics', 'static'),
-        os.path.join(BASE_DIR, 'chat', 'static'),
+        os.path.join(BASE_DIR, 'chats', 'static'),
         os.path.join(BASE_DIR, 'staticpages', 'static'),
       )
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')

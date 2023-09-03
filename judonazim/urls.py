@@ -20,7 +20,7 @@ from magazine import urls
 from social import urls
 from general import urls
 from analytics import urls
-from chat import urls
+from chats import urls
 from staticpages import urls
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf import settings
@@ -46,7 +46,7 @@ if settings.DEBUG:
         path('users/', include('django.contrib.auth.urls')),
         path('users/', include('users.urls')),
         path('analytics/', include('analytics.urls')),
-        path('chat/', include('chat.urls')),
+        path('chats/', include('chats.urls')),
         path('staticpages/', include('staticpages.urls')),
         #url(r'^ckeditor/', include('ckeditor_uploader.urls')),
         url(r'^ckeditor/upload/',uploader_views.upload, name='ckeditor_upload'),
@@ -57,7 +57,7 @@ if settings.DEBUG:
         path('accounts/', include('allauth.urls')),
         path('admin/defender/', include('defender.urls')),
 
-    
+
 
 
 
@@ -80,7 +80,7 @@ else:
       path('users/', include('django.contrib.auth.urls')),
       path('users/', include('users.urls')),
       path('analytics/', include('analytics.urls')),
-      path('chat/', include('chat.urls')),
+      path('chats/', include('chats.urls')),
       path('staticpages/', include('staticpages.urls')),
       #url(r'^ckeditor/', include('ckeditor_uploader.urls')),
       url(r'^ckeditor/upload/',uploader_views.upload, name='ckeditor_upload'),
