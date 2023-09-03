@@ -78,17 +78,18 @@ function assign_delegates()
 
 function notification_item_click(e)
 {
-  var username = $(this).attr("author_username");
+  var login_username $('#curr-username-cn').val();
+  var author = $(this).attr("author_username");
   if(is_curs_inside_rect_elem($(this).find('.c_notification_cell_author'), e))
   {
-    go_to_user_public_profile(username);
+    go_to_user_public_profile(author);
     return;
   }
 
   var roomName = $(this).attr("roomName");
   var chatId   = $(this).attr("chatId");
 
-  open_chat(username, chatId, roomName);
+  open_chat(login_username, chatId, roomName);
   $('#c_notifications_popup_mini').hide();
 }
 
