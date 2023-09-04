@@ -69,7 +69,7 @@ function open_personal_chat(from_username, to_username)
     {
       chat_dialog = cloned_and_assign_events();
       $(chat_dialog).find('.room-name').first().attr('id', chat_win_id);
-
+      active_chat_waiting_animation(chat_dialog);
       init_private_chat(chat_dialog, from_username, roomName, chatId);
     }
 
