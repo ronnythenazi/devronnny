@@ -6,12 +6,13 @@ from django.utils.dateparse import parse_datetime
 from users.members import get_profile_info_nick_or_user
 from django.contrib.auth.models import User
 from asgiref.sync import sync_to_async, async_to_sync
+from django.db.models import Q
 
 # Create your views here.
 
 from django.contrib.auth import get_user_model
 
-from .models import Chat, Message, ChatMsgNotification
+from .models import Chat, Message, ChatMsgNotification, chatType
 from users.models import Contact
 
 from django.db.models import Count
@@ -57,7 +58,7 @@ def get_or_create_personal_chat_room_ajax(request):
         chat_owner_username = request.GET.get('username_starter')
         to_username = request.GET.get('username_reciever')
 
-        if request.user.username != chat_owner_username and request.user.username != to_username:
+        if request.user.username != chat_owner_username:
             return JsonResponse({'status':'not_authenticated'})
 
         user_owner = get_object_or_404(User, username=chat_owner_username)
@@ -75,14 +76,13 @@ def get_or_create_personal_chat_room_ajax(request):
 
 
 
-        #contact_owner.friends.add(contact_reciver)
-
-        #contact_reciver.friends.add(contact_owner)
 
 
-        #rooms = Chat.objects.all()
+        #rooms = Chat.objects.annotate(participants_count=Count('participants', distinct=True)).filter(participants_count = 2)
 
-        rooms = Chat.objects.annotate(participants_count=Count('participants', distinct=True)).filter(participants_count = 2)
+        #rooms = Chat.objects.annotate(participants_count=Count('participants', distinct=True)).filter(Q(participants_count__gte=1) & Q(participants_count__lte=2))
+
+        rooms = Chat.objects.filter(chatType = chatType['personal'])
 
         for room in rooms:
 
@@ -96,19 +96,19 @@ def get_or_create_personal_chat_room_ajax(request):
                 is_chat_owner_exist = True
 
 
-            if(is_reciever_exist and is_chat_owner_exist and room.participants.all().count() == 2):
 
-               chat = room
 
-               chat_id = str(chat.id)
-               chat_name = str(chat.chat_name)
-               return JsonResponse({'status':'success', 'chatId':chat_id, 'roomName': chat_name})
+                chat = room
+
+                chat_id = str(chat.id)
+                chat_name = str(chat.chat_name)
+                return JsonResponse({'status':'success', 'chatId':chat_id, 'roomName': chat_name})
 
 
         chat = Chat.objects.create()
 
         chat_id = str(chat.id)
-        chat_name = 'PrivateChat' + str(chat_id)
+        chat_name = 'Chat' + str(chat_id)
         chat.chat_name = chat_name
         chat.save()
         chat.participants.add(contact_owner)
