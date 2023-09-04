@@ -96,13 +96,15 @@ def get_or_create_personal_chat_room_ajax(request):
                 is_chat_owner_exist = True
 
 
-
+            #if(is_reciever_exist and is_chat_owner_exist and room.participants.all().count() == 2):
+            if(is_reciever_exist and is_chat_owner_exist):
 
                 chat = room
-
                 chat_id = str(chat.id)
                 chat_name = str(chat.chat_name)
                 return JsonResponse({'status':'success', 'chatId':chat_id, 'roomName': chat_name})
+
+
 
 
         chat = Chat.objects.create()

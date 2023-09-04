@@ -6,7 +6,7 @@ User = get_user_model()
 
 
 
-chatType = {'personal':1, 'private':2, 'public':3} 
+chatType = {'personal':1, 'private':2, 'public':3}
 
 
 
@@ -15,7 +15,8 @@ class Chat(models.Model):
         Contact, related_name='chats', blank=True)
 
 
-    # 1 = personal chat, 2 = private multi memebers chat, 3= public multi part chat
+    # 1 = personal chat, 2 = multi memebers personal chat, 3= privat chat, 4 = public chat
+    # 5 = save messages chat 
     chatType = models.IntegerField(null = False, blank = True, default = 1)
 
     chat_name = models.TextField(blank = True, null = True)
