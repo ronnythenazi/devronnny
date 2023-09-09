@@ -33,6 +33,8 @@ $(document).ready(function(){
 
 function set_subscribe_btn_val()
 {
+  $('#btn-subscribe-push').css('display', 'flex');
+
   if($('#webpush-subscribe-button').text().trim() == 'Unsubscribe from Push Messaging')
   {
 

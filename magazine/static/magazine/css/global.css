@@ -274,7 +274,7 @@
  font-family: formal3;
  cursor: pointer;
  height: 100%;
- display: flex;
+ display: none;
  flex-direction: column;
  justify-content: center;
  align-items: center;
@@ -284,6 +284,7 @@
  border-left: 1px solid #5e72e4;
  padding-left:2px;
  margin-right: 5px;
+
 }
 
 #btn-subscribe-push.push_ubsubscribe

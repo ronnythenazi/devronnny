@@ -492,7 +492,7 @@ SITE_URL  = ''
 if DEBUG:
     SITE_URL = SITE_URL  = 'http://127.0.0.1:8000'
 else:
-    SITE_URL  =  ALLOWED_HOSTS[0]
+    SITE_URL  =  'https://' + ALLOWED_HOSTS[0]
 
 
 #uncomment in 25/08/2023
