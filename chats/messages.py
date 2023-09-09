@@ -4,24 +4,38 @@ from django.http import HttpResponse, JsonResponse
 from django.utils.dateparse import parse_datetime
 from users.members import get_profile_info_nick_or_user
 from django.contrib.auth.models import User
-from .models import Chat, ChatMsgNotification
+from .models import Chat, ChatMsgNotification, Message
 from users.models import Contact
 from general.time import FriendlyTimePassedView
-
+from django.db.models import Max
 
 
 def show_last_notifications(user, max_messages):
     contact = Contact.objects.get(user = user)
-    qs = ChatMsgNotification.objects.filter(chat__in = contact.chats.all()).exclude(message__in = contact.messages.all()).order_by('-message__timestamp')
+    dict = Message.objects.filter(chat__in = contact.chats.all()).exclude(contact = contact).values('chat__id').distinct().annotate(last_msg_time=Max('timestamp')).order_by('-last_msg_time')[:max_messages]
 
+
+    notifications =  []
+    for i in dict:
+        last_msg = Chat.objects.get(id = i['chat__id']).messages.exclude(contact = contact).order_by('timestamp').last()
+        notifications.append(last_msg)
+
+
+    notifications.reverse()
+    return notifications
+
+
+
+    '''
     notifications = set()
-    #chats = set()
+
     for i in qs:
 
         notifications.add(i.chat.messages.exclude(contact  = contact).order_by('-timestamp').first())
         if(len(notifications)==max_messages):
             break
-    return notifications
+    '''
+
 
 
 def notifications_minimal_view(user):
