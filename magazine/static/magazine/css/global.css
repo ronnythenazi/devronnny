@@ -268,8 +268,6 @@
 #btn-subscribe-push
 {
   /*background: rgb(255, 255, 255);*/
- border: 1px solid rgb(216, 218, 232);
- background: rgb(255, 255, 255);
  font-size: 1rem;
  font-family: formal3;
  cursor: pointer;
@@ -278,29 +276,42 @@
  flex-direction: column;
  justify-content: center;
  align-items: center;
- background: transparent;
- color:#6969c1;
+ /*background: transparent;*/
+ color:white;
  font-weight: 600;
- border-left: 1px solid #5e72e4;
+ border-left: 1px solid white;
  padding-left:2px;
  padding-right: 5px;
 
 }
 
-#btn-subscribe-push.push_ubsubscribe
+#btn-subscribe-push.push_unsubscribe
 {
-   background: rgb(255, 255, 255);
-   color:white;
+   background-color: transparent;
+   color: #ff4141;
 }
+
+#btn-subscribe-push.push_subscribe
+{
+   background-color: transparent;
+   color:#4dff3e;
+}
+
 
 
 #webpush-message
 {
   display: none;
 }
-#btn-subscribe-push:hover
+#btn-subscribe-push.push_unsubscribe:hover
 {
-  background-color: #5e72e4;
+  background: red;
+  color: white;
+}
+
+#btn-subscribe-push.push_subscribe:hover
+{
+  background: green;
   color: white;
 }
 

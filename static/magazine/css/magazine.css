@@ -39,7 +39,8 @@
    display: flex;
    flex-direction: row;
    align-items: center;
-   background-image:var(--silver-glow1,   --silver-glow2);
+   /*background-image:var(--silver-glow1,   --silver-glow2);*/
+   background-image: var(--ronny-bg-stellar1, --ronny-bg-stellar2);
    box-shadow: inset 0 0 20px rgba(96, 81, 255, 0.5);
 }
 .seacrh-btn

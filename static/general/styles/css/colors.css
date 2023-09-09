@@ -1,0 +1,27 @@
+html
+{
+  --ronny-bg-Lawrencium1: linear-gradient(to left, #0f0c29, #302b63, #24243e);
+  --ronny-bg-Lawrencium2: -webkit-linear-gradient(to left, #0f0c29, #302b63, #24243e);
+
+  --ronny-bg-mango1: radial-gradient(circle farthest-side, #fceabb, #f8b500);
+  --ronny-bg-mango2: -webkit-radial-gradient(circle farthest-side, #fceabb, #f8b500);
+
+  --ronny-bg-cherry-blossom1: linear-gradient(25deg,#d64c7f,#ee4758 50%);
+  --ronny-bg-cherry-blossom2: -webkit-linear-gradient(25deg,#d64c7f,#ee4758 50%);
+
+
+  --ronny-bg-stellar1: radial-gradient( circle farthest-corner at 22.4% 21.7%, rgba(4,189,228,1) 0%, rgba(2,83,185,1) 100.2% );
+  --ronny-bg-stellar2: -webkit-radial-gradient( circle farthest-corner at 22.4% 21.7%, rgba(4,189,228,1) 0%, rgba(2,83,185,1) 100.2% );
+
+  --ronny-bg-freshair1: linear-gradient( -95.2deg, rgba(173,252,234,1) 26.8%, rgba(192,229,246,1) 64% );
+  --ronny-bg-freshair2: -webkit-linear-gradient( -95.2deg, rgba(173,252,234,1) 26.8%, rgba(192,229,246,1) 64% );
+
+  --ronny-bg-oldwine1: linear-gradient(to left, #33001b, #ff0084);
+  --ronny-bg-oldwine2: -webkit-linear-gradient(to left, #33001b, #ff0084);
+
+  --ronny-bg-morningsky1: linear-gradient(to left, #b6fbff, #83a4d4);
+  --ronny-bg-morningsky2: -webkit-linear-gradient(to left, #b6fbff, #83a4d4);
+
+  --ronny-bg-dusk1: linear-gradient(to left, #9796f0, #fbc7d4);
+  --ronny-bg-dusk2: -webkit-linear-gradient(to left, #9796f0, #fbc7d4);
+}
