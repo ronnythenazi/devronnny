@@ -34,7 +34,7 @@ def send_chat_webpush_notification_called_from_async(chatId, author, msg):
 
 
 
-        site_url = url = settings.SITE_URL
+        site_url = settings.SITE_URL
         dict = {'author_avatar':author_avatar, 'author_name':author_name, 'msg_content':msg, 'push_link':site_url}
 
 

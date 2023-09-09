@@ -488,8 +488,10 @@ if not DEBUG:
     ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '').split()
 
 
-SITE_URL  = 'http://127.0.0.1:8000'
-if not DEBUG:
+SITE_URL  = ''
+if DEBUG:
+    SITE_URL = SITE_URL  = 'http://127.0.0.1:8000'
+else:
     SITE_URL  =  ALLOWED_HOSTS[0]
 
 
