@@ -243,7 +243,7 @@ function send_message_chat(sender)
 function update_private_chat_log(e, chat_dialog)
 {
 
-
+    end_chat_waiting_animation(chat_dialog);
     const data = JSON.parse(e.data);
 
     if(data['command'] == 'messages')
@@ -271,7 +271,7 @@ function update_private_chat_log(e, chat_dialog)
       notify_that_user_is_typing(data, chat_dialog);
     }
 
-  end_chat_waiting_animation(chat_dialog);
+
 
 }
 

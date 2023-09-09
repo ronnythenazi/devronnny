@@ -87,9 +87,10 @@ INSTALLED_APPS = [
         'allauth.socialaccount.providers.facebook',
         'allauth.socialaccount.providers.discord',
         'allauth.socialaccount.providers.spotify',
-        'workers',
+        #'workers',
         'defender',
         'staticpages',
+        'webpush',
 
     ]
 
@@ -110,6 +111,20 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'judonazim.urls'
 
+VAPID_PUBLIC_KEY = os.environ.get("WEBPUSH_PUBLIC_KEY")
+VAPID_PRIVATE_KEY = os.environ.get("WEBPUSH_PRIVATE_KEY")
+VAPID_ADMIN_EMAIL = os.environ.get("WEBPUSH_CONTACT_MAIL")
+
+
+
+WEBPUSH_SETTINGS = {
+    "VAPID_PUBLIC_KEY": VAPID_PUBLIC_KEY,
+    "VAPID_PRIVATE_KEY":VAPID_PRIVATE_KEY,
+    "VAPID_ADMIN_EMAIL": VAPID_ADMIN_EMAIL,
+}
+
+from django_jinja.builtins import DEFAULT_EXTENSIONS
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -128,6 +143,18 @@ TEMPLATES = [
             ],
         },
     },
+
+
+    {
+        "BACKEND": "django_jinja.backend.Jinja2",
+        "OPTIONS": {
+            "extensions": DEFAULT_EXTENSIONS + [
+                "webpush.jinja2.WebPushExtension"
+            ]
+        }
+    },
+
+
 ]
 SOCIALACCOUNT_LOGIN_ON_GET=True
 
@@ -455,9 +482,15 @@ ALLOWED_HOSTS = []
 
 SITE_ID = 1
 
+
 if not DEBUG:
     #ALLOWED_HOSTS = [os.environ.get("DJANGO_ALLOWED_HOSTS")]
     ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '').split()
+
+
+SITE_URL  = 'http://127.0.0.1:8000'
+if not DEBUG:
+    SITE_URL  =  ALLOWED_HOSTS[0]
 
 
 #uncomment in 25/08/2023

@@ -3,7 +3,7 @@ import urllib.parse
 from redis import Redis
 #from rq import Worker, Queue, Connection
 from django.conf import settings
-from workers import task
+#from workers import task
 
 '''
 @task()

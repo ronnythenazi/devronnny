@@ -17,6 +17,8 @@ nest_asyncio.apply()
 
 User = get_user_model()
 
+from .utils import send_chat_webpush_notification_called_from_async
+
 
 
 
@@ -26,11 +28,6 @@ User = get_user_model()
 class ChatConsumer(AsyncWebsocketConsumer):
     #loop = asyncio.new_event_loop()
     #asyncio.set_event_loop(loop)
-
-
-
-
-
 
 
     async def fetch_messages(self, data):
@@ -74,6 +71,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
         #new
         notification = await save_chat_msg_notification(current_chat, message)
         #participants   = await get_participants_for_chat(data['chatId'])
+
+        ###########################################################
+        await send_chat_webpush_notification_called_from_async(current_chat.id, self.scope["user"], message.content)
+        ###########################################################
 
 
         content = {

@@ -265,6 +265,44 @@
     justify-content:space-evenly;
 }
 
+#btn-subscribe-push
+{
+  /*background: rgb(255, 255, 255);*/
+ border: 1px solid rgb(216, 218, 232);
+ background: rgb(255, 255, 255);
+ font-size: 1rem;
+ font-family: formal3;
+ cursor: pointer;
+ height: 100%;
+ display: flex;
+ flex-direction: column;
+ justify-content: center;
+ align-items: center;
+ background: transparent;
+ color:#6969c1;
+ font-weight: 600;
+ border-left: 1px solid #5e72e4;
+ padding-left:2px;
+ margin-right: 5px;
+}
+
+#btn-subscribe-push.push_ubsubscribe
+{
+   background: rgb(255, 255, 255);
+   color:white;
+}
+
+
+#webpush-message
+{
+  display: none;
+}
+#btn-subscribe-push:hover
+{
+  background-color: #5e72e4;
+  color: white;
+}
+
 .tiny-row-end-align
 {
   display: flex;

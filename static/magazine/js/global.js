@@ -24,7 +24,76 @@ $('.rotate-arrow-up').mouseleave(function(){
 $(document).ready(function(){
   $('.btn-loader').append('<div class="loader"></div>');
   setInterval(bell_ring, 7000);
+
+  setTimeout(set_subscribe_btn_val, 5000);
+
+
+
 });
+
+function set_subscribe_btn_val()
+{
+  if($('#webpush-subscribe-button').text().trim() == 'Unsubscribe from Push Messaging')
+  {
+
+     $('#btn-subscribe-push').html('בטל הרשמה');
+     $('#btn-subscribe-push').removeClass('push_subscribe');
+     $('#btn-subscribe-push').addClass('push_unsubscribe');
+
+
+  }
+
+  else if($('#webpush-subscribe-button').text().trim() == 'Subscribe to Push Messaging')
+  {
+    $('#btn-subscribe-push').html('לחץ לקבלת עדכונים');
+    $('#btn-subscribe-push').removeClass('push_unsubscribe');
+    $('#btn-subscribe-push').addClass('push_subscribe');
+  }
+  else
+  {
+
+  }
+}
+
+$('#btn-subscribe-push').click(function(){
+        if($(this).hasClass('push_subscribe'))
+        {
+          user_subscribed_to_push($(this));
+        }
+        else if($(this).hasClass('push_unsubscribe'))
+        {
+          user_unsubscribed_to_push($(this));
+        }
+        else
+        {
+
+        }
+});
+
+
+
+
+function user_subscribed_to_push(e)
+{
+
+  $('#webpush-subscribe-button')[0].click();
+
+    $(e).html('בטל הרשמה');
+    $(e).removeClass('push_subscribe');
+    $(e).addClass('push_unsubscribe');
+}
+
+function user_unsubscribed_to_push(e)
+{
+
+    $('#webpush-subscribe-button')[0].click();
+
+    $(e).html('לחץ לקבלת עדכונים');
+    $(e).removeClass('push_unsubscribe');
+    $(e).addClass('push_subscribe');
+}
+
+
 
 $('form').submit(function(){
   var btn_loader = $(this).find('.btn-loader');

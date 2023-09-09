@@ -56,6 +56,7 @@ if settings.DEBUG:
         url(r'^ckeditor/', include('ckeditor_uploader.urls')),
         path('accounts/', include('allauth.urls')),
         path('admin/defender/', include('defender.urls')),
+        url(r'^webpush/', include('webpush.urls')),
 
 
 
@@ -90,6 +91,7 @@ else:
       url(r'^ckeditor/', include('ckeditor_uploader.urls')),
       path('accounts/', include('allauth.urls')),
       path('admin/defender/', include('defender.urls')),
+      url(r'^webpush/', include('webpush.urls')),
 
 
     ]

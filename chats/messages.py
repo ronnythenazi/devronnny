@@ -1,7 +1,6 @@
-from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, Http404, redirect
 from django.urls import reverse
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.utils.dateparse import parse_datetime
 from users.members import get_profile_info_nick_or_user
 from django.contrib.auth.models import User

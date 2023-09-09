@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 {%load static%}
 {% load custom_tag_notification %}
+{% load webpush_notifications %}
+
 <html lang="he-IL" dir="rtl">
 
 
   <head>
+
+
     <meta charset="utf-8">
+  {% webpush_header %}
 
   {%block meta%}
   {%endblock meta%}
@@ -221,7 +226,11 @@
  </div>
  <form method="GET"  action="{% url 'magazine:search-articles' %}" class="nav-bar" style="justify-content:space-between;">
    {% csrf_token %}
-     <div></div>
+
+     <div id="btn-subscribe-push">
+        
+     </div>
+
      <div class="search-bar">
        <input type="text" name="search" class="serach-txt" placeholder="חיפוש...">
        <button class="seacrh-btn" type="submit">
@@ -229,6 +238,7 @@
        </button>
      </div>
  </form>
+
 </div>
  <!-- end uga buga -->
 
@@ -238,6 +248,12 @@
      <div class="arrow-up"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
    <path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
  </svg></div>
+
+
+
+
+
+
  <div id="page-inner" style="display:flex;flex-direction:row; justify-content:flex-start;align-items:flex-start;">
 {%include 'components/sharestickybar.html'%}
 {%block body%}
@@ -272,6 +288,10 @@
 {%include 'members/standalones/user_snippet.html' %}
 {%include 'chat/private_chat.html' %}
 {% include 'general/components/popups/popup_ok_msg.html' %}
+
+<div style="display:none;">
+ {% webpush_button %}
+</div>
 
 {% if user.is_authenticated %}
 {% include 'chat/chat_notifications_win.html' %}
