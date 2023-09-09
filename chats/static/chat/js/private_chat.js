@@ -221,7 +221,7 @@ function send_message_chat(sender)
 
   var ancestor = $(sender).parents('.chat_room_dialog').not('.chat-room-template').first();
   var roomName = $(ancestor).find('.room-name').first().val();
-  //var username = get_chat_user_login(ancestor);
+
 
   var message = $(ancestor).find('.txt-chat').first().val();
   if(String(message).replace(/\s+/g, ' ').trim().length <= 0)
@@ -362,14 +362,15 @@ function create_message(data, chat_dialog)
 
     $(log_row).append('<div class="contact"></div>');
     var contact = $(log_row).find('.contact').first();
-    $(contact).append('<span class="sender-name sender-clr"></span>');
+    //$(contact).append('<span class="sender-name sender-clr"></span>');
     $(contact).append('<span class="chat-icon-user-log"><img class="sender-avatar" src="" alt=""></span>');
     $(log_row).append('<span class="sender-bubble bubble"></span>');
 
 
 
     var bubble = $(log_row).find('.sender-bubble').first();
-    $(bubble).html(message);
+    $(bubble).html('<p class="bubble-content">' + message + '</p>');
+    $(bubble).prepend('<span class="sender-name sender-clr"></span>');
 
 
     var name = $(log_row).find('.sender-name').first();
@@ -389,14 +390,15 @@ function create_message(data, chat_dialog)
 
     $(log_row).append('<div class="contact"></div>');
     var contact = $(log_row).find('.contact').first();
-    $(contact).append('<span class="reciever-name reciever-clr"></span>');
+    //$(contact).append('<span class="reciever-name reciever-clr"></span>');
     $(contact).append('<span class="chat-icon-user-log"><img class="reciever-avatar" src="" alt=""></span>');
     $(log_row).append('<span class="reciver-bubble bubble"></span>');
 
 
 
     var bubble = $(log_row).find('.reciver-bubble').first();
-    $(bubble).html(message);
+    $(bubble).html('<p class="bubble-content">' + message + '</p>');
+    $(bubble).prepend('<span class="reciever-name reciever-clr"></span>');
 
 
     var name = $(log_row).find('.reciever-name').first();
