@@ -192,13 +192,12 @@ function fetchNotifications(token)
 
 function load_notifications(data)
 {
-   $('#notifications-popup .notification-items>*').remove();
-   $('#empty-notifications').hide();
+
 
 
    if(data['command'] == 'newNotification')
    {
-
+     $('#empty-notifications').hide();
      update_notifications_log(data['notification']);
 
 
@@ -207,7 +206,8 @@ function load_notifications(data)
    else if(data['command'] == 'fetchNotifications')
    {
 
-
+     $('#notifications-popup .notification-items>*').remove();
+     $('#empty-notifications').hide();
      for(let i=0;i<data['notifications'].length;i++)
      {
 

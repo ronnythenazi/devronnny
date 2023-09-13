@@ -147,7 +147,7 @@ html
   display: flex;
   position: relative;
   flex-direction: column;
-
+  overflow:hidden;
   gap:10px;
 
   height:100%;
@@ -170,8 +170,9 @@ html
    font-weight: 400;
    color:#3b3939;
    gap:10px;
+   overflow:hidden;
 
-   overflow-y: hidden;
+
    height: 80%;
 
 }
@@ -300,6 +301,12 @@ html
   line-height: 1rem;
   width:40%;
 
+}
+
+.notification-subcell-contentsnip-msg img
+{
+  height:20px !important;
+  width:40px !important;
 }
 
 .notification-subcell-contentsnip-msg .wrap-child
