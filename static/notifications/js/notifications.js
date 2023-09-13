@@ -168,13 +168,15 @@ function connectNotifications(token)
 
 
 }
-function fetchNewNotification(e, notificationId)
+
+
+function fetchNewNotification(e)
 {
   var data = JSON.parse(e.data);
   if(data['command'] == 'NotifyforNotification')
   {
     wsMyprivateToken.send(JSON.stringify({
-        'command'       : 'fetchNotifications',
+        'command'       : 'newNotification',
         'notificationId':  data['notificationId'],
     }));
   }
@@ -228,28 +230,27 @@ function setBellAnimation(data)
 {
 
 
-    if($('#notifications-popup .notification-item').length>0)
-    {
-      $('#ring-the-bell').show();
-      $('#dont-ring-the-bell').hide();
-      $('.notification-counter').text($('#notifications-popup .notification-item').length.toString());
-      return;
-    }
+  if($('#notifications-popup .notification-item').length>0)
+  {
+    $('#ring-the-bell').show();
+    $('#dont-ring-the-bell').hide();
+    $('.notification-counter').text($('#notifications-popup .notification-item').length.toString());
+
+  }
+  else
+  {
     $('#ring-the-bell').hide();
     $('#dont-ring-the-bell').show();
+  }
 
 
-    if(data['command'] != 'newNotification')
-    {
-      return;
-    }
 
-    if(data['notificationId'].length > 0)
-    {
+  if(data['command'] != 'newNotification')
+  {
+     return;
+  }
 
-      $('#notification-sound')[0].play();
-
-    }
+    $('#notification-sound')[0].play();
 }
 
 
