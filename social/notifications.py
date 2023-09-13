@@ -17,6 +17,12 @@ import threading
 from .coms import get_article_obj, get_this_obj_type, get_com_author
 from users.members import get_all_active_users, filter_lst_to_active_users
 from general.regex import get_taged_users, replaceWordNotStartWithWord
+
+from django.conf import settings
+
+
+
+
 exposed_request = None
 
 def replaceTaggedUsersToTaggedElemesInCom(com):
@@ -94,14 +100,14 @@ def send_mail_notification(notification_pk):
         pos = ''
         com_or_sub_com = 'post'
 
-    #domain  = get_current_site(exposed_request).domain
+
     url = ''
     if pos == '':
         url = exposed_request.build_absolute_uri(reverse('magazine:anArticle', args = [post.pk]))
     else:
         url = exposed_request.build_absolute_uri(reverse('magazine:anArticle', args = [post.pk, pos]))
 
-    
+
 
     template_name = "general/"
     if notification_type == 1 and com_or_sub_com == 'post':
@@ -153,7 +159,6 @@ def send_mail_notification(notification_pk):
         his_response = obj.com_of_com.body
 
     elif notification_type == 8:
-        print('notification_type == 8 tag you mother fucker')
         template_name += "tag_you.html"
         respond_to_com = ''
         his_response = ''
@@ -179,6 +184,8 @@ def send_mail_notification(notification_pk):
     #send_mail('dsds', 'sdsdd','notifications@em5210.ronnywasright.com', [to_user.email], fail_silently=False)
     email.attach_alternative(html_content, "text/html")
     EmailThread(email).start()
+
+
 
 
 def get_notification_obj(notification_pk):
@@ -211,7 +218,7 @@ def follow_post_by_sending_com(com):
     post = com.post
     follow_post(post, usr)
     follow_com(com, usr)
-    notify_all_followers(com, usr)
+    #notify_all_followers(com, usr)
 
 def follow_com_by_sending_sub_com(sub_com):
     com = sub_com.comment
@@ -219,15 +226,14 @@ def follow_com_by_sending_sub_com(sub_com):
     post = com.post
     follow_com(com, usr)
     follow_post(post, usr)
-    notify_all_followers(sub_com, usr)
-    print('notify_all_followers(sub_com, usr)')
+    #notify_all_followers(sub_com, usr)
+
 
 def unfollow_obj(obj, follower):
-    print('try to unfollow obj')
     is_already_follow = obj.followers.filter(id = follower.id).exists()
     if is_already_follow == True:
         obj.followers.remove(follower)
-        print('remove follower')
+
 
 def follow_obj(obj, follower):
     is_already_follow = obj.followers.filter(id = follower.id).exists()
@@ -268,6 +274,7 @@ def tag_user(com):
     s_body = str(body)
     com_type = get_this_obj_type(com)
     author = get_com_author(com_type, com.id)
+    notifications = []
     if '@' not in s_body:
         return
     users = get_all_active_users()
@@ -278,14 +285,23 @@ def tag_user(com):
             continue
         if ('@' + username) in tagged_users:
             notification = add_notification(8, author, user, com, com_type)
+            notifications.append({'notificationId':str(notification.id), 'toUserName':notification.to_user.username})
             send_mail_notification(notification.pk)
+    return notifications
+
+
 
 def notify_users_for_new_post(from_user, post):
+    notifications = []
     curr_user = from_user
     recipents = get_all_active_users()
     for recipent in recipents:
         notification = add_notification(9, from_user, recipent, post, 'post')
+        notifications.append({'notificationId':str(notification.id), 'toUserName':notification.to_user.username})
         send_mail_notification(notification.pk)
+    return notifications
+
+
 
 def add_notification(type, from_user, to, obj, obj_type = None):
     if obj_type == None:
@@ -301,7 +317,45 @@ def add_notification(type, from_user, to, obj, obj_type = None):
         return notification
     return None
 
+def getNotificationsForContentFollowers(notificationId):
+    notifications = []
+    notification = Notification.objects.get(id = notificationId)
+    author = notification.from_user
+    if (notification.com_of_com):
+        com  = notification.com_of_com.comment
+        post = com.post
 
+        for follower in post.followers.all():
+            if (author.username == follower.username):
+                continue
+            newNotification = Notification.objects.create(notification_type = 6, from_user = author, com_of_com = notification.com_of_com, to_user = follower)
+            notifications.append({'notificationId':str(newNotification.id), 'toUserName':newNotification.to_user.username})
+            send_mail_notification(notification.pk)
+
+
+
+        for follower in com.followers.all():
+            if (author.username == follower.username):
+                continue
+            is_usr_follow_post = post.followers.filter(id = follower.id).exists()
+            if is_usr_follow_post:
+                continue
+            newNotification = Notification.objects.create(notification_type = 6, from_user = author, com_of_com = notification.com_of_com, to_user = follower)
+            notifications.append({'notificationId':str(newNotification.id), 'toUserName':newNotification.to_user.username})
+            send_mail_notification(notification.pk)
+
+
+
+    elif (notification.comment):
+        post = notification.comment.post
+        for follower in post.followers.all():
+            if (author.username == follower.username):
+                continue
+            notification = Notification.objects.create(notification_type = 5, from_user = author, comment = notification.comment, to_user = follower)
+            notifications.append({'notificationId':str(newNotification.id), 'toUserName':newNotification.to_user.username})
+            send_mail_notification(notification.pk)
+
+    return notifications
 
 
 def notify_all_followers(obj, notifyer):

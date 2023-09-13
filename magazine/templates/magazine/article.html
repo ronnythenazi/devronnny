@@ -823,10 +823,10 @@ function f_ajax_update_com(com_type, com_id, body)
        }
        return;
      }
-     if(last_update == 'none')
+     if(last_update != 'none')
      {
-       return;
-     }
+
+
      var update_lbl = $(com_selector_name).find('.last-update').first();
      var last_update = response['last_update'];
      $(update_lbl).text(last_update + ' ' + 'עודכן לאחרונה ב');
@@ -836,6 +836,12 @@ function f_ajax_update_com(com_type, com_id, body)
      var cke_edit = $(com_selector_name).find('.comment-edit-parent .ckeditor');
      var cke_edit_name = $(cke_edit).attr('name');
      set_cke_body(s_body, cke_edit_name);
+     }
+
+     notifyAllforNotifications(response['notifications']);
+
+
+
 
 
     },
@@ -859,7 +865,6 @@ function f_follow(type, id, flag)
              'csrfmiddlewaretoken': csrftoken,
              },
        success: function (response) {
-
        },
        error: function (response) {
 
@@ -1255,6 +1260,8 @@ function f_sub_com_save()
          //29/01/2022
          CKEDITOR.instances[ck_name].setData('');
          //end 29/01/2022
+
+        notifyAllforNotifications(response['notifications']);
        },
        error: function (response) {
 
@@ -1502,7 +1509,7 @@ function check_sub_com_rating()
                 $(rate_green).text(likes_cnt);
               }
             }
-
+            notifyAllforNotifications(response['notifications']);
           },
           error: function (response) {
 
@@ -1628,7 +1635,7 @@ function check_sub_com_rating()
                 $(rate_green).text(likes_cnt);
               }
             }
-
+            notifyAllforNotifications(response['notifications']);
           },
           error: function (response) {
 
@@ -1862,7 +1869,7 @@ function check_com_rating()
                   $(rate_green).text(likes_cnt);
                 }
               }
-
+              notifyAllforNotifications(response['notifications']);
             },
             error: function (response) {
 

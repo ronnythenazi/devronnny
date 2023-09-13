@@ -326,6 +326,7 @@
   animation-name: typing;
   animation-duration: 3s;
   animation-iteration-count: infinite;
+  color: #0000e9;
 
 
 
@@ -344,7 +345,8 @@
   justify-content: center;
   align-items: flex-end;
   vertical-align: middle;
-  opacity: 0.7;
+  opacity: 1;
+
   /*vertical-align: middle;*/
 
 }

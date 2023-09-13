@@ -39,7 +39,7 @@ def send_chat_webpush_notification_called_from_async(chatId, author, msg):
 
 
         content = author_name + ":" + msg
-        head =  get_template('chat/files/webpush_reciece_chat_msg.html').render()
+        head =  get_template('chat/files/webpush_recieve_chat_msg.html').render()
         payload = {"head": head, 'body':content, "icon":author_avatar, 'url':site_url}
 
 

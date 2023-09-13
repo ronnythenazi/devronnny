@@ -1,7 +1,6 @@
-from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, Http404, redirect
 from django.urls import reverse
-from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, HttpResponseRedirect as http_response_redirect, JsonResponse
 from django.utils.dateparse import parse_datetime
 from users.members import get_profile_info_nick_or_user
 from django.contrib.auth.models import User
@@ -82,29 +81,45 @@ def get_or_create_personal_chat_room_ajax(request):
 
         #rooms = Chat.objects.annotate(participants_count=Count('participants', distinct=True)).filter(Q(participants_count__gte=1) & Q(participants_count__lte=2))
 
-        rooms = Chat.objects.filter(chatType = chatType['personal'])
 
-        for room in rooms:
+        user_chats = contact_owner.chats.filter(chatType = chatType['personal'])
 
-            is_reciever_exist = False
-            is_chat_owner_exist = False
-
-            if(room.participants.filter(user = user_reciever).exists()):
-                is_reciever_exist = True
-
-            if(room.participants.filter(user = user_owner).exists()):
-                is_chat_owner_exist = True
+        if (chat_owner_username == to_username):
 
 
-            #if(is_reciever_exist and is_chat_owner_exist and room.participants.all().count() == 2):
-            if(is_reciever_exist and is_chat_owner_exist):
-
-                chat = room
+            for chat in user_chats:
+                if chat.participants.all().count() != 1:
+                    continue
                 chat_id = str(chat.id)
                 chat_name = str(chat.chat_name)
                 return JsonResponse({'status':'success', 'chatId':chat_id, 'roomName': chat_name})
 
+            chat = Chat.objects.create()
 
+            chat_id = str(chat.id)
+            chat_name = 'Chat' + str(chat_id)
+            chat.chat_name = chat_name
+            chat.save()
+            chat.participants.add(contact_owner)
+
+
+        for chat in user_chats:
+
+            if chat.participants.all().count() != 2:
+                continue
+            is_reciever_exist = False
+            is_chat_owner_exist = False
+
+            if(chat.participants.filter(user = user_reciever).exists()):
+                is_reciever_exist = True
+
+            if(chat.participants.filter(user = user_owner).exists()):
+                is_chat_owner_exist = True
+
+            if(is_reciever_exist and is_chat_owner_exist):
+                chat_id = str(chat.id)
+                chat_name = str(chat.chat_name)
+                return JsonResponse({'status':'success', 'chatId':chat_id, 'roomName': chat_name})
 
 
         chat = Chat.objects.create()

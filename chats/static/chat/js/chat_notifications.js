@@ -3,9 +3,10 @@ const ws_arr = {};
 function update_chat_notifications(result)
 {
   $('#c_notifications_popup_mini .chat_notification_items>*').remove();
+  $('#empty-notifications-chat').hide();
+  
   for(var i=0;i<result.length;i++)
   {
-    $('#empty-notifications-chat').hide();
     var item = result[i];
     var author_name          = item['author_name'];
     var avatar               = item['avatar'];

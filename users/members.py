@@ -7,6 +7,7 @@ from general.time import get_years_passed
 
 from analytics.models import UserSession
 from asgiref.sync import sync_to_async
+from .models import UserTokenKey, UserTokenPublicKey
 
 def check_if_user_online(username):
     is_online = UserSession.objects.filter(user__username=username).exists()
@@ -139,3 +140,25 @@ def get_profile_info(username):
     if is_username_exists(username) == False:
         return {}
     return get_profile_info_for_validated_user(username)
+
+
+def get_user_token_key(username):
+    user = User.objects.get(username = username)
+    isTokenExist = UserTokenKey.objects.filter(user = user).exists()
+    if(isTokenExist == False):
+        password = User.objects.make_random_password(length=14, allowed_chars="abcdefghjkmnpqrstuvwxyz01234567889")
+        UserTokenKey.objects.create(user = user, token = password)
+        return password
+    token = UserTokenKey.objects.get(user = user).token
+    return token
+
+
+def get_user_public_token_key(username):
+    user = User.objects.get(username = username)
+    isTokenExist = UserTokenPublicKey.objects.filter(user = user).exists()
+    if(isTokenExist == False):
+        password = User.objects.make_random_password(length=14, allowed_chars="abcdefghjkmnpqrstuvwxyz01234567889")
+        UserTokenPublicKey.objects.create(user = user, token = password)
+        return password
+    token = UserTokenPublicKey.objects.get(user = user).token
+    return token

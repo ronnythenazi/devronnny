@@ -2,6 +2,13 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 exposed_request = None
 
+def safeExtend(lst, lst2):
+    if lst2 != None:
+        lst.extend(lst2)
+    return lst
+
+
+
 def get_curr_domain():
     domain  = get_current_site(exposed_request).domain
     return str(domain)

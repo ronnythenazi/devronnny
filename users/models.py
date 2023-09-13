@@ -17,3 +17,13 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class UserTokenKey(models.Model):
+    user =  models.OneToOneField(User, related_name='token', on_delete=models.CASCADE)
+    token = models.CharField(blank = True, max_length = 20)
+
+
+class UserTokenPublicKey(models.Model):
+    user =  models.OneToOneField(User, related_name='public_token', on_delete=models.CASCADE)
+    token = models.CharField(blank = True, max_length = 20)

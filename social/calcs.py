@@ -9,8 +9,7 @@ def get_total_seconds(date1, date2):
     start =   datetime.strptime(date_2, date_format_str)
     # Get the interval between two datetimes as timedelta object
     diff = end - start
-    print('Difference between two datetimes in seconds:')
-    print(diff.total_seconds())
+
     return diff.total_seconds()
 
 def get_curr_datetime():

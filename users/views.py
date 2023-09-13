@@ -22,7 +22,9 @@ from .utils import token_generator, token_generator_general
 from django.template.loader import get_template
 from django.template import Context
 from .members import (is_username_active, get_profile_from_profile_id
-,get_profile_snippet, check_if_user_online, get_profile_from_user_id,)
+,get_profile_snippet, check_if_user_online, get_profile_from_user_id, get_user_token_key,
+get_user_public_token_key,
+)
 from django.views import View
 import threading
 from .signals import user_logged_in
@@ -34,6 +36,25 @@ get_total_likes_profile_gave, get_total_dislikes_profile_gave,
 from django.http import JsonResponse
 from defender.decorators import watch_login
 
+
+def getUserTokensAjax(request):
+    if request.user.is_authenticated == False:
+        return JsonResponse({'status':'not-log-in'})
+    if not request.is_ajax or not request.method == "GET":
+        return JsonResponse({'status':'not ajax get'})
+    user = request.user
+    token = get_user_token_key(user.username)
+    publicToken = get_user_public_token_key(user.username)
+    return JsonResponse({'token':token, 'publicToken':publicToken})
+
+def getUserPublicTokenAjax(request):
+    if request.user.is_authenticated == False:
+        return JsonResponse({'status':'not-log-in'})
+    if not request.is_ajax or not request.method == "GET":
+        return JsonResponse({'status':'not ajax get'})
+    username = request.GET.get('username')
+    publicToken = get_user_public_token_key(username)
+    return JsonResponse({'publicToken':publicToken})
 
 def getProfilePageforUsername_ajax(request):
     if request.is_ajax and request.method == "GET":

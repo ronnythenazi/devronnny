@@ -69,6 +69,7 @@ INSTALLED_APPS = [
         'users',
         'social',
         'general',
+        'notifications',
 
         #'filer',
         #'ckeditor_filebrowser_filer',
@@ -391,6 +392,7 @@ if DEBUG:
         os.path.join(BASE_DIR, 'analytics', 'static'),
         os.path.join(BASE_DIR, 'chats', 'static'),
         os.path.join(BASE_DIR, 'staticpages', 'static'),
+        os.path.join(BASE_DIR, 'notifications', 'static'),
       )
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 else:
@@ -490,7 +492,7 @@ if not DEBUG:
 
 SITE_URL  = ''
 if DEBUG:
-    SITE_URL = SITE_URL  = 'http://127.0.0.1:8000'
+    SITE_URL = 'http://127.0.0.1:8000'
 else:
     SITE_URL  =  'https://' + ALLOWED_HOSTS[0]
 

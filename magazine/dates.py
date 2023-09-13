@@ -25,14 +25,12 @@ def get_curr_s_datetime():
 
 def get_total_date_diff_hours(date_start, date_end):
     total_hours = get_total_diff_seconds(date_start, date_end) / 3600
-    print('Difference between two datetimes in hours:')
-    print(total_hours)
+
     return total_hours
 
 def get_total_diff_minutes(date_start, date_end):
     total_minutes = get_total_diff_seconds(date_start, date_end) / 60
-    print('Difference between two datetimes in minutes:')
-    print(total_minutes)
+
     return total_minutes
 
 def get_total_diff_days(date_start, date_end):
@@ -43,15 +41,14 @@ def get_total_diff_days(date_start, date_end):
     f_date_start =   datetime.datetime.strptime(s_date_start, date_format_str)
     diff = f_date_end.date() - f_date_start.date()
     total_days = diff.days
-    print('Difference between two datetimes in days:')
-    print(total_days)
+
+
     return total_days
 
 def get_total_diff_weeks(date_start, date_end):
     days_gap =  get_total_diff_days(date_start, date_end)
     total_weeks = days_gap / 168
-    print('Difference between two datetimes in weeks:')
-    print(total_weeks)
+
     return total_weeks
 
 def get_date_diff_months(date_start, date_end):
@@ -61,8 +58,7 @@ def get_date_diff_months(date_start, date_end):
     f_date_end = datetime.datetime.strptime(s_date_end, date_format_str)
     f_date_start =   datetime.datetime.strptime(s_date_start, date_format_str)
     diff = relativedelta.relativedelta(f_date_end, f_date_start)
-    print('Difference between two datetimes in months:')
-    print(diff.months)
+
     return diff.months
 
 def get_date_diff_years(date_start, date_end):
@@ -72,8 +68,7 @@ def get_date_diff_years(date_start, date_end):
     f_date_end = datetime.datetime.strptime(s_date_end, date_format_str)
     f_date_start =   datetime.datetime.strptime(s_date_start, date_format_str)
     diff = relativedelta.relativedelta(f_date_end, f_date_start)
-    print('Difference between two datetimes in years:')
-    print(diff.years)
+
     return diff.years
 
 def get_total_diff_seconds(date_start, date_end):
@@ -84,6 +79,5 @@ def get_total_diff_seconds(date_start, date_end):
     f_date_start =   datetime.datetime.strptime(s_date_start, date_format_str)
     diff = f_date_end - f_date_start
     total_seconds = diff.total_seconds()
-    print('Difference between two datetimes in seconds:')
-    print(total_seconds)
+
     return total_seconds

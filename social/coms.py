@@ -59,7 +59,6 @@ def get_com_author(com_type, com_id):
     com = get_com(com_type, com_id)
     if com_type == 'com':
         return com.comment_usr
-        print('com.comment_usr\author -' + str(com.comment_usr))
     elif com_type == 'sub_com':
         return com.comment_of_comment_usr
     return None

@@ -20,6 +20,7 @@ from magazine import urls
 from social import urls
 from general import urls
 from analytics import urls
+from notifications import urls
 from chats import urls
 from staticpages import urls
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -48,6 +49,7 @@ if settings.DEBUG:
         path('analytics/', include('analytics.urls')),
         path('chats/', include('chats.urls')),
         path('staticpages/', include('staticpages.urls')),
+        path('notifications/', include('notifications.urls')),
         #url(r'^ckeditor/', include('ckeditor_uploader.urls')),
         url(r'^ckeditor/upload/',uploader_views.upload, name='ckeditor_upload'),
         url(r'^ckeditor/browse/',never_cache(uploader_views.browse), name='ckeditor_browse'),
@@ -83,6 +85,7 @@ else:
       path('analytics/', include('analytics.urls')),
       path('chats/', include('chats.urls')),
       path('staticpages/', include('staticpages.urls')),
+      path('notifications/', include('notifications.urls')),
       #url(r'^ckeditor/', include('ckeditor_uploader.urls')),
       url(r'^ckeditor/upload/',uploader_views.upload, name='ckeditor_upload'),
       url(r'^ckeditor/browse/',never_cache(uploader_views.browse), name='ckeditor_browse'),

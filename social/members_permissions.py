@@ -31,9 +31,9 @@ def is_user_owner(user):
 def f_is_user_author(com_type, com_id):
     author = get_com_author(com_type, com_id)
     if exposed_request.user == author:
-        print('curr user ' + str(exposed_request.user))
+
         return True
-    print('curr user ' +  str(exposed_request.user))
+
     return False
 
 def is_edit_period_over(com_date):
