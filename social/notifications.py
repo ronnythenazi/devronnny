@@ -330,7 +330,7 @@ def getNotificationsForContentFollowers(notificationId):
                 continue
             newNotification = Notification.objects.create(notification_type = 6, from_user = author, com_of_com = notification.com_of_com, to_user = follower)
             notifications.append({'notificationId':str(newNotification.id), 'toUserName':newNotification.to_user.username})
-            send_mail_notification(notification.pk)
+            send_mail_notification(newNotification.pk)
 
 
 
@@ -342,7 +342,7 @@ def getNotificationsForContentFollowers(notificationId):
                 continue
             newNotification = Notification.objects.create(notification_type = 6, from_user = author, com_of_com = notification.com_of_com, to_user = follower)
             notifications.append({'notificationId':str(newNotification.id), 'toUserName':newNotification.to_user.username})
-            send_mail_notification(notification.pk)
+            send_mail_notification(newNotification.pk)
 
 
 
@@ -351,9 +351,9 @@ def getNotificationsForContentFollowers(notificationId):
         for follower in post.followers.all():
             if (author.username == follower.username):
                 continue
-            notification = Notification.objects.create(notification_type = 5, from_user = author, comment = notification.comment, to_user = follower)
+            newNotification = Notification.objects.create(notification_type = 5, from_user = author, comment = notification.comment, to_user = follower)
             notifications.append({'notificationId':str(newNotification.id), 'toUserName':newNotification.to_user.username})
-            send_mail_notification(notification.pk)
+            send_mail_notification(newNotification.pk)
 
     return notifications
 
