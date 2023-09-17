@@ -1,10 +1,13 @@
-var wsMyprivateToken;
-var wsMyPublicToken;
-var wsUsersPublicTokens = {};
+//var wsMyprivateToken;
+//var wsMyPublicToken;
+//var wsUsersPublicTokens = {};
+var wsUsersNotifications = {};
 
 
 $(document).ready(function(){
-  secure_connect();
+  var username = $('#curr-username-cn').val();
+  var roomName = username + 'Notifications';
+  connectNotifications(roomName, 'read');
 
 
   var elem_to_focus = $('#notifications-popup');
@@ -45,14 +48,17 @@ function notifyAllforNotifications(notifications)
 
 function NotifyforNotification(toUserName, notificationId)
 {
-   get_user_public_token_ajax(toUserName, function(callback){
+  var roomName = toUserName + 'Notifications';
+  connectNotifications(roomName, 'send', notificationId);
+   /*get_user_public_token_ajax(toUserName, function(callback){
       var publicToken = callback['publicToken'];
       connectToSendNotification(publicToken, notificationId);
-   });
+   });*/
 }
 
-function secure_connect()
+/*function secure_connect()
 {
+
     get_user_tokens_ajax(function(callback){
     var token       = callback['token'];
     var publicToken = callback['publicToken'];
@@ -61,9 +67,9 @@ function secure_connect()
     connectNotifications(token);
     connectToBeNotifiedforNotifiations(publicToken);
   });
-}
+}*/
 
-function connectToSendNotification(publicToken, notificationId)
+/*function connectToSendNotification(publicToken, notificationId)
 {
   var url="";
   if(is_debug(window.location.host))
@@ -89,17 +95,11 @@ function connectToSendNotification(publicToken, notificationId)
 
   };
 
-}
+}*/
 
-function sendNotificationOfNotification(publicToken, notificationId)
-{
-  wsUsersPublicTokens[publicToken].send(JSON.stringify({
-      'command'       : 'NotifyforNotification',
-      'notificationId':  notificationId,
-  }));
-}
 
-function connectToBeNotifiedforNotifiations(publicToken)
+
+/*function connectToBeNotifiedforNotifiations(publicToken)
 {
   var url="";
   if(is_debug(window.location.host))
@@ -131,37 +131,44 @@ function connectToBeNotifiedforNotifiations(publicToken)
    }, 1000);
 
   };
-}
+}*/
 
-function connectNotifications(token)
+function connectNotifications(roomName, flag, notificationId = null)
 {
   var url="";
   if(is_debug(window.location.host))
   {
-    url = 'ws://'+window.location.host+'/ws/notifications/'+ token  + '/';
+    url = 'ws://'+window.location.host+'/ws/notifications/'+ roomName  + '/';
   }
   else
   {
-    url = 'wss://'+window.location.host+'/ws/notifications/'+ token  + '/';
+    url = 'wss://'+window.location.host+'/ws/notifications/'+ roomName  + '/';
 
   }
-  wsMyprivateToken = new WebSocket(url);
+  wsUsersNotifications[roomName] = new WebSocket(url);
 
-  wsMyprivateToken.onopen = function(e){
+  wsUsersNotifications[roomName].onopen = function(e){
+    if(flag == 'send')
+    {
+      sendNotificationOfNotification(roomName, notificationId);
+    }
+    else if(flag == 'read')
+    {
+      fetchNotifications(roomName);
+    }
 
-    fetchNotifications(token);
   };
 
 
-   wsMyprivateToken.onmessage =  function(e){
+   wsUsersNotifications[roomName].onmessage =  function(e){
      var data = JSON.parse(e.data);
 
-   load_notifications(data);};
+   load_notifications(roomName, data);};
 
 
-   wsMyprivateToken.onclose = function(){
+   wsUsersNotifications[roomName].onclose = function(){
      setTimeout(function() {
-      connectNotifications(token);
+      connectNotifications(roomName, flag, notificationId);
     }, 1000);
 
    };
@@ -169,33 +176,34 @@ function connectNotifications(token)
 
 }
 
-
-function fetchNewNotification(e)
+function sendNotificationOfNotification(roomName, notificationId)
 {
-  var data = JSON.parse(e.data);
-  if(data['command'] == 'NotifyforNotification')
-  {
-    wsMyprivateToken.send(JSON.stringify({
-        'command'       : 'newNotification',
-        'notificationId':  data['notificationId'],
-    }));
-  }
-
+  wsUsersNotifications[roomName].send(JSON.stringify({
+      'command'       : 'NotifyforNotification',
+      'notificationId':  notificationId,
+  }));
 }
-function fetchNotifications(token)
+
+function fetchNotifications(roomName)
 {
 
-  wsMyprivateToken.send(JSON.stringify({
+  wsUsersNotifications[roomName].send(JSON.stringify({
       'command'       : 'fetchNotifications',
   }));
 }
 
-function load_notifications(data)
+function load_notifications(roomName, data)
 {
 
+   if(data['command'] == 'NotifyforNotification')
+   {
+     wsUsersNotifications[roomName].send(JSON.stringify({
+         'command'       : 'newNotification',
+         'notificationId':  data['notificationId'],
+     }));
+   }
 
-
-   if(data['command'] == 'newNotification')
+   else if(data['command'] == 'newNotification')
    {
      $('#empty-notifications').hide();
      update_notifications_log(data['notification']);
