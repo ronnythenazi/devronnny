@@ -147,7 +147,7 @@ def get_user_token_key(username):
     isTokenExist = UserTokenKey.objects.filter(user = user).exists()
     if(isTokenExist == False):
         password = User.objects.make_random_password(length=14, allowed_chars="abcdefghjkmnpqrstuvwxyz01234567889")
-        token = username + password
+        token = username + password + 'private'
         UserTokenKey.objects.create(user = user, token = token)
         return token
     token = UserTokenKey.objects.get(user = user).token
@@ -159,7 +159,7 @@ def get_user_public_token_key(username):
     isTokenExist = UserTokenPublicKey.objects.filter(user = user).exists()
     if(isTokenExist == False):
         password = User.objects.make_random_password(length=14, allowed_chars="abcdefghjkmnpqrstuvwxyz01234567889")
-        token = username + password
+        token = username + password + 'public'
         UserTokenPublicKey.objects.create(user = user, token = token)
         return token
     token = UserTokenPublicKey.objects.get(user = user).token
