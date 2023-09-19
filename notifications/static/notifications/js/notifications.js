@@ -135,27 +135,44 @@ function update_unvoting(objName, objId, unvoteType, total_likes,  total_dislike
     return;
   }*/
 
-  var upvoteSelector   = '';
-  var downvoteSelector = '';
-  var ancestor         = '';
+  var upvoteSelector     = '';
+  var downvoteSelector   = '';
+  var ancestor           = '';
+  var userLikedElem      = '';
+  var userDislikedElem   = '';
+  var userUnlikedElem    = '';
+  var userUndislikedElem = '';
+
   if(objName == 'com')
   {
     upvoteSelector   = '#comment' + objId + ' .rate-count.rate-green';
     downvoteSelector = '#comment' + objId + ' .rate-count.rate-red';
     ancestor         = '#comment' + objId;
+    userLikedElem       =  ancestor + ' .user_liked';
+    userDislikedElem    =  ancestor + ' .user_disliked';
+    userUnlikedElem     =  ancestor + ' .user_unliked';
+    userUndislikedElem  =  ancestor + ' .user_undisliked';
 
   }
   if(objName == 'subcom')
   {
-    upvoteSelector   = '#sub-comment' + objId + ' .rate-green';
-    downvoteSelector = '#sub-comment' + objId + ' .rate-red';
-    ancestor         = '#sub-comment' + objId;
+    upvoteSelector      = '#sub-comment' + objId + ' .rate-green';
+    downvoteSelector    = '#sub-comment' + objId + ' .rate-red';
+    ancestor            = '#sub-comment' + objId;
+    userLikedElem       =   ancestor + ' .sub_com_user_liked';
+    userDislikedElem    =   ancestor + ' .sub_com_user_disliked';
+    userUnlikedElem     =   ancestor + ' .sub_com_user_unliked';
+    userUndislikedElem  =   ancestor + ' .sub_com_user_undisliked';
   }
   if(objName == 'post')
   {
     upvoteSelector   = '#rate-post-form' + ' .rate-count.rate-green';
     downvoteSelector = '#rate-post-form' + ' .rate-count.rate-red';
     ancestor         = '#rate-post-form';
+    userLikedElem       =  ancestor + ' .user_liked';
+    userDislikedElem    =  ancestor + ' .user_disliked';
+    userUnlikedElem     =  ancestor + ' .user_unliked';
+    userUndislikedElem  =  ancestor + ' .user_undisliked';
   }
 
 
@@ -184,14 +201,14 @@ function update_unvoting(objName, objId, unvoteType, total_likes,  total_dislike
 
   if(unvoteType == 'unlike' && curr_user == author)
   {
-    $(ancestor + ' .user_liked').hide();
-    $(ancestor + ' .user_unliked').show();
+    $(userLikedElem).hide();
+    $(userUnlikedElem).show();
   }
 
-  if(unvoteType =='undislike' && curr_user == author)
+  if(unvoteType == 'undislike' && curr_user == author)
   {
-    $(ancestor + ' .user_disliked').hide();
-    $(ancestor + ' .user_undisliked').show();
+    $(userDislikedElem).hide();
+    $(userUndislikedElem).show();
   }
 
 
@@ -215,23 +232,40 @@ function update_rating(objName, objId, total_likes,  total_dislikes, notificatio
   var downvoteSelector = '';
   var ancestor         = '';
 
+  var userLikedElem      = '';
+  var userDislikedElem   = '';
+  var userUnlikedElem    = '';
+  var userUndislikedElem = '';
+
   if(objName == 'com')
   {
     upvoteSelector   = '#comment' + objId + ' .rate-count.rate-green';
     downvoteSelector = '#comment' + objId + ' .rate-count.rate-red';
     ancestor         = '#comment' + objId;
+    userLikedElem       =  ancestor + ' .user_liked';
+    userDislikedElem    =  ancestor + ' .user_disliked';
+    userUnlikedElem     =  ancestor + ' .user_unliked';
+    userUndislikedElem  =  ancestor + ' .user_undisliked';
   }
   if(objName == 'subcom')
   {
-    upvoteSelector =   '#sub-comment' + objId + ' .rate-green';
-    downvoteSelector = '#sub-comment' + objId + ' .rate-red';
-    ancestor       =   '#sub-comment' + objId;
+    upvoteSelector      =   '#sub-comment' + objId + ' .rate-green';
+    downvoteSelector    =   '#sub-comment' + objId + ' .rate-red';
+    ancestor            =   '#sub-comment' + objId;
+    userLikedElem       =   ancestor + ' .sub_com_user_liked';
+    userDislikedElem    =   ancestor + ' .sub_com_user_disliked';
+    userUnlikedElem     =   ancestor + ' .sub_com_user_unliked';
+    userUndislikedElem  =   ancestor + ' .sub_com_user_undisliked';
   }
   if(objName == 'post')
   {
     upvoteSelector   = '#rate-post-form' + ' .rate-count.rate-green';
     downvoteSelector = '#rate-post-form' + ' .rate-count.rate-red';
     ancestor         = '#rate-post-form';
+    userLikedElem       =  ancestor + ' .user_liked';
+    userDislikedElem    =  ancestor + ' .user_disliked';
+    userUnlikedElem     =  ancestor + ' .user_unliked';
+    userUndislikedElem  =  ancestor + ' .user_undisliked';
   }
 
   $(upvoteSelector).text(total_likes);
@@ -273,18 +307,18 @@ function update_rating(objName, objId, total_likes,  total_dislikes, notificatio
 
   if(is_user_liked)
   {
-    $(ancestor + ' .user_liked').show();
-    $(ancestor + ' .user_unliked').hide();
-    $(ancestor + ' .user_disliked').hide();
-    $(ancestor + ' .user_undisliked').show();
+    $(userLikedElem).show();
+    $(userUnlikedElem).hide();
+    $(userDislikedElem).hide();
+    $(userUndislikedElem).show();
 
   }
   else if(is_user_disliked)
   {
-    $(ancestor + ' .user_liked').hide();
-    $(ancestor + ' .user_unliked').show();
-    $(ancestor + ' .user_disliked').show();
-    $(ancestor + ' .user_undisliked').hide();
+    $(userLikedElem).hide();
+    $(userUnlikedElem).show();
+    $(userDislikedElem).show();
+    $(userUndislikedElem).hide();
   }
   else
   {
@@ -293,6 +327,8 @@ function update_rating(objName, objId, total_likes,  total_dislikes, notificatio
     $(ancestor + ' .user_disliked').hide();
     $(ancestor + ' .user_undisliked').show();*/
   }
+
+
 
 }
 
