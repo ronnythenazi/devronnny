@@ -4,7 +4,7 @@ function update_chat_notifications(result)
 {
   $('#c_notifications_popup_mini .chat_notification_items>*').remove();
   $('#empty-notifications-chat').hide();
-  
+
   for(var i=0;i<result.length;i++)
   {
     var item = result[i];
@@ -116,19 +116,25 @@ $(window).scroll(function(){
 
 $(document).ready(function(){
 
-   if(!$('#curr-username-cn').length)
-   {
-     return;
-   }
-   connect_to_your_chat_rooms($('#curr-username-cn').val());
-   show_chat_notifications();
+  if(!$('#curr-username-cn').length)
+  {
+    return;
+  }
 
+  
    var elem_to_focus = $('#c_notifications_popup_mini');
    var trigger_elem = $('#chat-notifications-menuItem');
    focusout(elem_to_focus, trigger_elem);
    $(elem_to_focus).css('right', offset_right($(trigger_elem)));
    var top = $('.main-menu').height() - 50;
    $(elem_to_focus).css('top', top + 'px');
+
+
+
+   connect_to_your_chat_rooms($('#curr-username-cn').val());
+   show_chat_notifications();
+
+
 
 });
 function show_chat_notifications()
