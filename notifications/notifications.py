@@ -4,6 +4,7 @@ from general.time import FriendlyTimePassedView
 from users.members import get_profile_info_nick_or_user
 from django.contrib.auth.models import User
 from django.template.loader import get_template
+from magazine.models import Comment, BlogPost, comment_of_comment
 
 
 
@@ -39,12 +40,95 @@ def isAuthenticated(notificationId, currUsername):
       return True
   return False
 
+
 @sync_to_async
 def isAuthenticatedForNotifyForNotification(notificationId, currUsername):
     notification = Notification.objects.get(id = notificationId)
     if(notification.from_user.username == currUsername):
         return True
     return False
+
+
+
+def getMagazineObj(objName, objId):
+    obj = None
+    if   objName == 'com':
+         obj = Comment.objects.get(id = objId)
+    elif objName == 'subcom':
+         obj = comment_of_comment.objects.get(id = objId)
+    elif objName == 'post':
+         obj = BlogPost.objects.get(id = objId)
+    return obj
+
+
+@sync_to_async
+def getTotalLikesforObj(objName, objId):
+    obj = getMagazineObj(objName, objId)
+    return str(obj.total_likes())
+
+
+@sync_to_async
+def getTotalDislikesforObj(objName, objId):
+    obj = getMagazineObj(objName, objId)
+    return str(obj.total_dislikes())
+
+
+
+@sync_to_async
+def getcomRateData(notificationId, notTrollKey):
+    notification     = Notification.objects.get(id = notificationId)
+    notificationType = notification.notification_type
+    comId            = notification.comment.id
+    total_likes         = str(notification.comment.total_likes())
+    total_dislikes      = str(notification.comment.total_dislikes())
+
+    comRateData = {
+      'notificationType'   :str(notificationType),
+      'comId'              :str(comId),
+      'author'             :notification.from_user.username,
+      'total_likes'        :total_likes,
+      'total_dislikes'     :total_dislikes,
+      'notTrollKey'        :notTrollKey,
+    }
+    return comRateData
+
+
+@sync_to_async
+def getsubComRateData(notificationId, notTrollKey):
+    notification        = Notification.objects.get(id = notificationId)
+    notificationType    = notification.notification_type
+    subComId            = notification.com_of_com.id
+    total_likes         = str(notification.com_of_com.total_likes())
+    total_dislikes      = str(notification.com_of_com.total_dislikes())
+
+    subComRateData = {
+      'notificationType'   :str(notificationType),
+      'subComId'           :str(subComId),
+      'author'             :notification.from_user.username,
+      'total_likes'        :total_likes,
+      'total_dislikes'     :total_dislikes,
+      'notTrollKey'        :notTrollKey,
+
+    }
+    return subComRateData
+
+
+@sync_to_async
+def getPostRateData(notificationId, notTrollKey):
+    notification     = Notification.objects.get(id = notificationId)
+    notificationType = notification.notification_type
+    total_likes         = str(notification.post.total_likes())
+    total_dislikes      = str(notification.post.total_dislikes())
+
+    PostRateData = {
+      'notificationType' :str(notificationType),
+      'author'           :notification.from_user.username,
+      'total_likes'        :total_likes,
+      'total_dislikes'     :total_dislikes,
+      'notTrollKey'        :notTrollKey,
+    }
+    return PostRateData
+
 
 
 

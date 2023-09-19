@@ -9,7 +9,8 @@ nest_asyncio.apply()
 
 
 from .notifications import (notifications_to_json, notification_to_json_called_from_async,
-get_last_notifications,isAuthenticatedForNotifyForNotification,
+get_last_notifications,isAuthenticatedForNotifyForNotification, getcomRateData,
+getsubComRateData, getPostRateData, getTotalLikesforObj, getTotalDislikesforObj,
 )
 #from .utils import send_chat_webpush_notification_called_from_async
 
@@ -21,11 +22,86 @@ class notificationsSockets(AsyncWebsocketConsumer):
         await self.channel_layer.group_add(self.room_group_name,self.channel_name)
         await self.accept()
 
+
+
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard(self.room_group_name,self.channel_name)
 
 
 
+
+    async def unvoteObj(self, data):
+        
+        notTrollKey    = data['notTrollKey']
+        objId          = data['objId']
+        objName        = data['objName']
+        username       = self.scope["user"].username
+        unvoteType     = data['unvoteType']
+
+        content = {
+         'objName'       : objName,
+         'objId'         : objId,
+         'notTrollKey'   : notTrollKey,
+         'command'       : 'unRated',
+         'author'        : username,
+         'unvoteType'    : unvoteType,
+         'total_likes'   : await getTotalLikesforObj(objName, objId),
+         'total_dislikes': await getTotalDislikesforObj(objName, objId),
+        }
+
+        return await self.notifyForNotificationHandler(content)
+
+
+
+    async def comRated(self, data):
+        username       =  self.scope["user"].username
+        notTrollKey    = data['notTrollKey']
+        notificationId = data['notificationId']
+        isAuthenticated = await isAuthenticatedForNotifyForNotification(notificationId, username)
+        if(isAuthenticated == False):
+            return
+
+        content = {
+              'command'         :  'comRated',
+              'comRateData'     :  await getcomRateData(notificationId, notTrollKey),
+            }
+
+        return await self.notifyForNotificationHandler(content)
+
+
+
+    async def subComRated(self, data):
+        username        = self.scope["user"].username
+        notTrollKey     = data['notTrollKey']
+        notificationId  = data['notificationId']
+        isAuthenticated = await isAuthenticatedForNotifyForNotification(notificationId, username)
+        if(isAuthenticated == False):
+            return
+
+        content = {
+              'command'         :  'subComRated',
+              'subComRateData'     :  await getsubComRateData(notificationId, notTrollKey),
+            }
+
+
+        return await self.notifyForNotificationHandler(content)
+
+
+    async def postRated(self, data):
+        username       = self.scope["user"].username
+        notTrollKey    = data['notTrollKey']
+        notificationId = data['notificationId']
+        isAuthenticated = await isAuthenticatedForNotifyForNotification(notificationId, username)
+        if(isAuthenticated == False):
+            return
+
+        content = {
+              'command'         :  'postRated',
+              'postRateData'     :  await getPostRateData(notificationId, notTrollKey),
+            }
+
+
+        return await self.notifyForNotificationHandler(content)
 
 
     async def new_notification(self, data):
@@ -57,7 +133,7 @@ class notificationsSockets(AsyncWebsocketConsumer):
         isAuthenticated = await isAuthenticatedForNotifyForNotification(notificationId, username)
         if(isAuthenticated == False):
             return
-            
+
         content = {
             'command': 'NotifyforNotification',
             'notificationId': str(notificationId),
@@ -106,11 +182,15 @@ class notificationsSockets(AsyncWebsocketConsumer):
 
 
 
-
     commands = {
-    'newNotification': new_notification,
-    'fetchNotifications':fetch_notifications,
+    'newNotification'        : new_notification,
+    'fetchNotifications'     :fetch_notifications,
     'NotifyforNotification'  :notificationOfNotification,
+    'comRated'               :comRated,
+    'subComRated'            :subComRated,
+    'postRated'              :postRated,
+    'unRated'                :unvoteObj,
+
     }
 
 

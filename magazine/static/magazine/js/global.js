@@ -33,7 +33,7 @@ $(document).ready(function(){
 
 function set_subscribe_btn_val()
 {
-  $('#btn-subscribe-push').css('display', 'flex');
+  //$('#btn-subscribe-push').css('display', 'flex');
 
   if($('#webpush-subscribe-button').text().trim() == 'Unsubscribe from Push Messaging')
   {
@@ -43,6 +43,9 @@ function set_subscribe_btn_val()
      $('#btn-subscribe-push').addClass('push_unsubscribe');
 
 
+
+
+
   }
 
   else if($('#webpush-subscribe-button').text().trim() == 'Subscribe to Push Messaging')
@@ -50,6 +53,7 @@ function set_subscribe_btn_val()
     $('#btn-subscribe-push').html('לחץ לקבלת עדכונים');
     $('#btn-subscribe-push').removeClass('push_unsubscribe');
     $('#btn-subscribe-push').addClass('push_subscribe');
+    $('#btn-subscribe-push')[0].click();
   }
   else
   {
@@ -70,6 +74,7 @@ $('#btn-subscribe-push').click(function(){
         {
 
         }
+
 });
 
 

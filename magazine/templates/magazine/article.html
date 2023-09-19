@@ -772,6 +772,8 @@
 <input type="hidden" id="caller-id" value="">
 <input type="hidden" id="caller-type" value="">
 
+<input type="hidden" id="article-notifications" value="postNotifications{{object.id}}">
+
   <script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"> </script>
   <script type="text/javascript" src="{% static 'ckeditor/ckeditor/custom_config1.js' %}"></script>
   <script type="text/javascript" src="{% static 'plugins/jquery.js' %}"> </script>
@@ -1037,9 +1039,9 @@ function update_total_coms_lbl()
 
       }
       //end jump to section
-      setInterval(check_post_rating, 10000);
-      setInterval(check_com_rating, 30000);
-      setInterval(check_sub_com_rating, 60000);
+      //setInterval(check_post_rating, 10000);
+    //  setInterval(check_com_rating, 30000);
+    //  setInterval(check_sub_com_rating, 60000);
       mark_banned_users();
     });
 
@@ -1406,7 +1408,7 @@ function check_sub_com_rating()
                 'csrfmiddlewaretoken': csrftoken,
                 },
           success: function (response) {
-            var btn_like =  $(parent).find('.sub_com_user_liked');
+            /*var btn_like =  $(parent).find('.sub_com_user_liked');
             var btn_dislike = $(parent).find('.sub_com_user_disliked');
             var btn_unlike = $(parent).find('.sub_com_user_unliked');
             var btn_undislike = $(parent).find('.sub_com_user_undisliked');
@@ -1508,8 +1510,16 @@ function check_sub_com_rating()
                 }
                 $(rate_green).text(likes_cnt);
               }
+            }*/
+            if(response['status'] == 'unvoted')
+            {
+              notifyForUnvoting(com_of_com_pk, 'subcom', response['unvoteType']);
+              return;
             }
+            //setTimeout(function(){notifyAllforNotifications(response['notifications']);}, 1000);
             notifyAllforNotifications(response['notifications']);
+            notifyForSubComRated(response['notifications'][0]['notificationId']);
+
           },
           error: function (response) {
 
@@ -1532,7 +1542,7 @@ function check_sub_com_rating()
                 'csrfmiddlewaretoken': csrftoken,
                 },
           success: function (response) {
-            var btn_like =  $(parent).find('.user_liked');
+          /*  var btn_like =  $(parent).find('.user_liked');
             var btn_dislike = $(parent).find('.user_disliked');
             var btn_unlike = $(parent).find('.user_unliked');
             var btn_undislike = $(parent).find('.user_undisliked');
@@ -1634,8 +1644,14 @@ function check_sub_com_rating()
                 }
                 $(rate_green).text(likes_cnt);
               }
+            }*/
+            if(response['status'] == 'unvoted')
+            {
+              notifyForUnvoting(com_pk, 'com', response['unvoteType']);
+              return;
             }
             notifyAllforNotifications(response['notifications']);
+            notifyForcomRated(response['notifications'][0]['notificationId']);
           },
           error: function (response) {
 
@@ -1765,7 +1781,7 @@ function check_com_rating()
                   'csrfmiddlewaretoken': csrftoken,
                   },
             success: function (response) {
-              parent = $('#rate-post-form');
+              /*parent = $('#rate-post-form');
               var btn_like =  $(parent).find('.user_liked');
               var btn_dislike = $(parent).find('.user_disliked');
               var btn_unlike = $(parent).find('.user_unliked');
@@ -1868,8 +1884,14 @@ function check_com_rating()
                   }
                   $(rate_green).text(likes_cnt);
                 }
+              }*/
+              if(response['status'] == 'unvoted')
+              {
+                notifyForUnvoting($('#post_pk').val(), 'post', response['unvoteType']);
+                return;
               }
               notifyAllforNotifications(response['notifications']);
+              notifyForPostRated(response['notifications'][0]['notificationId']);
             },
             error: function (response) {
 

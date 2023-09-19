@@ -170,6 +170,7 @@ def rate_sub_com_save_ajax(request):
     if request.method == 'POST' and request.is_ajax:
         notifications = []
         notification = None
+        unvoteType = None
         com_of_com_pk = request.POST.get('com_of_com_pk')
         com_of_com = get_object_or_404(comment_of_comment, id = com_of_com_pk)
         rate_type = request.POST.get('rate_type')
@@ -177,6 +178,7 @@ def rate_sub_com_save_ajax(request):
             is_already_liked = com_of_com.likes.filter(id = request.user.id).exists()
             if is_already_liked:
                 com_of_com.likes.remove(request.user)
+                unvoteType = 'unlike'
             else:
                 com_of_com.likes.add(request.user)
                 com_of_com.dislikes.remove(request.user)
@@ -186,15 +188,20 @@ def rate_sub_com_save_ajax(request):
             is_already_disliked = com_of_com.dislikes.filter(id = request.user.id).exists()
             if is_already_disliked:
                 com_of_com.dislikes.remove(request.user)
+                unvoteType = 'undislike'
             else:
                 com_of_com.dislikes.add(request.user)
                 com_of_com.likes.remove(request.user)
                 notification = Notification.objects.create(notification_type = 4, from_user = request.user, com_of_com = com_of_com, to_user = com_of_com.comment_of_comment_usr)
                 send_mail_notification(notification.pk)
 
-        notifications.append({'notificationId':notification.id, 'toUserName':notification.to_user.username})
         follow_com(com_of_com.comment, request.user)
-    return JsonResponse({'notifications':notifications})
+        if(notification != None):
+            notifications.append({'notificationId':notification.id, 'toUserName':notification.to_user.username})
+            return JsonResponse({'notifications':notifications, 'status':'voted'})
+        return JsonResponse({'status':'unvoted', 'unvoteType':unvoteType})
+
+
 
 def rate_post_refresh_ajax(request):
     if request.method == 'GET' and request.is_ajax:
@@ -258,6 +265,7 @@ def rate_com_save_ajax(request):
     if request.method == 'POST' and request.is_ajax:
         notifications = []
         notification = None
+        unvoteType   = None
         com_pk = request.POST.get('com_pk')
 
         com = get_object_or_404(Comment, id = com_pk)
@@ -269,6 +277,7 @@ def rate_com_save_ajax(request):
             if is_already_liked:
 
                 com.likes.remove(request.user)
+                unvoteType = 'unlike'
             else:
 
                 com.likes.add(request.user)
@@ -280,15 +289,20 @@ def rate_com_save_ajax(request):
             is_already_disliked = com.dislikes.filter(id = request.user.id).exists()
             if is_already_disliked:
                 com.dislikes.remove(request.user)
+                unvoteType = 'undislike'
             else:
                 com.dislikes.add(request.user)
                 com.likes.remove(request.user)
                 notification = Notification.objects.create(notification_type = 4, from_user = request.user, comment = com, to_user = com.comment_usr)
                 send_mail_notification(notification.pk)
         follow_com(com, request.user)
-        notifications.append({'notificationId':notification.id, 'toUserName':notification.to_user.username})
+        if(notification != None):
+            notifications.append({'notificationId':notification.id, 'toUserName':notification.to_user.username})
+            return JsonResponse({'notifications':notifications, 'status':'voted'})
+        return JsonResponse({'status':'unvoted', 'unvoteType':unvoteType})
 
-    return JsonResponse({'notifications':notifications})
+
+
 
 def rate_post_save_ajax(request):
     if not request.user.is_authenticated:
@@ -300,6 +314,7 @@ def rate_post_save_ajax(request):
 
         post = get_object_or_404(BlogPost, id = post_pk)
         rate_type = request.POST.get('rate_type')
+        unvoteType = None
 
         if rate_type == 'like-btn':
 
@@ -307,6 +322,7 @@ def rate_post_save_ajax(request):
             if is_already_liked:
 
                 post.likes.remove(request.user)
+                unvoteType = 'unlike'
             else:
 
                 post.likes.add(request.user)
@@ -318,14 +334,17 @@ def rate_post_save_ajax(request):
             is_already_disliked = post.dislikes.filter(id = request.user.id).exists()
             if is_already_disliked:
                 post.dislikes.remove(request.user)
+                unvoteType = 'undislike'
             else:
                 post.dislikes.add(request.user)
                 post.likes.remove(request.user)
                 notification = Notification.objects.create(notification_type = 4, from_user = request.user, post = post, to_user = post.author)
                 send_mail_notification(notification.pk)
         follow_post(post, request.user)
-        notifications.append({'notificationId':notification.id, 'toUserName':notification.to_user.username})
-    return JsonResponse({'notifications':notifications})
+        if(notification != None):
+            notifications.append({'notificationId':notification.id, 'toUserName':notification.to_user.username})
+            return JsonResponse({'notifications':notifications, 'status':'voted'})
+        return JsonResponse({'status':'unvoted', 'unvoteType':unvoteType})
 
 
 def ajax_notifications(request):

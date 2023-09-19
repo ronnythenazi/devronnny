@@ -1,6 +1,4 @@
-//var wsMyprivateToken;
-//var wsMyPublicToken;
-//var wsUsersPublicTokens = {};
+
 var wsUsersNotifications = {};
 
 
@@ -8,6 +6,11 @@ $(document).ready(function(){
   var username = $('#curr-username-cn').val();
   var roomName = username + 'Notifications';
   connectNotifications(roomName, 'read');
+  if($('#article-notifications').length)
+  {
+
+    connectNotifications($('#article-notifications').val(), 'readAndwrite');
+  }
 
 
   var elem_to_focus = $('#notifications-popup');
@@ -36,6 +39,8 @@ $('#bell-menu-item').click(function(){
 });
 
 
+
+
 function notifyAllforNotifications(notifications)
 {
    for(var i=0;i<notifications.length;i++)
@@ -50,88 +55,10 @@ function NotifyforNotification(toUserName, notificationId)
 {
   var roomName = toUserName + 'Notifications';
   connectNotifications(roomName, 'send', notificationId);
-   /*get_user_public_token_ajax(toUserName, function(callback){
-      var publicToken = callback['publicToken'];
-      connectToSendNotification(publicToken, notificationId);
-   });*/
+
 }
 
-/*function secure_connect()
-{
 
-    get_user_tokens_ajax(function(callback){
-    var token       = callback['token'];
-    var publicToken = callback['publicToken'];
-    $('#user-token').val(token);
-    $('#user-public-token').val(publicToken);
-    connectNotifications(token);
-    connectToBeNotifiedforNotifiations(publicToken);
-  });
-}*/
-
-/*function connectToSendNotification(publicToken, notificationId)
-{
-  var url="";
-  if(is_debug(window.location.host))
-  {
-    url = 'ws://'+window.location.host+'/ws/notifications/'+ publicToken  + '/';
-  }
-  else
-  {
-    url = 'wss://'+window.location.host+'/ws/notifications/'+ publicToken  + '/';
-
-  }
-    wsUsersPublicTokens[publicToken] = new WebSocket(url);
-
-    wsUsersPublicTokens[publicToken].onopen = function(e){
-
-    sendNotificationOfNotification(publicToken, notificationId);
-  };
-
-  wsUsersPublicTokens[publicToken].onclose = function(){
-    setTimeout(function() {
-     connectToSendNotification(publicToken, notificationId);
-   }, 1000);
-
-  };
-
-}*/
-
-
-
-/*function connectToBeNotifiedforNotifiations(publicToken)
-{
-  var url="";
-  if(is_debug(window.location.host))
-  {
-    url = 'ws://'+window.location.host+'/ws/notifications/'+ publicToken  + '/';
-  }
-  else
-  {
-    url = 'wss://'+window.location.host+'/ws/notifications/'+ publicToken  + '/';
-
-  }
-    wsMyPublicToken = new WebSocket(url);
-
-    wsMyPublicToken.onopen = function(e){
-
-
-  };
-
-
-  wsMyPublicToken.onmessage =  function(e){
-    fetchNewNotification(e);
-
-  };
-
-
-   wsMyPublicToken.onclose = function(){
-    setTimeout(function() {
-     connectToBeNotifiedforNotifiations(publicToken);
-   }, 1000);
-
-  };
-}*/
 
 function connectNotifications(roomName, flag, notificationId = null)
 {
@@ -192,10 +119,226 @@ function fetchNotifications(roomName)
   }));
 }
 
-function load_notifications(roomName, data)
+function update_unvoting(objName, objId, unvoteType, total_likes,  total_dislikes, author, notTrollKey)
+{
+  if(!$('#article-notifications').length)
+  {
+    return;
+  }
+  if($('#article-notifications').val() != notTrollKey)
+  {
+    return;
+  }
+  var curr_user = $('#curr-user').val();
+  /*if(curr_user == author)
+  {
+    return;
+  }*/
+
+  var upvoteSelector   = '';
+  var downvoteSelector = '';
+  var ancestor         = '';
+  if(objName == 'com')
+  {
+    upvoteSelector   = '#comment' + objId + ' .rate-count.rate-green';
+    downvoteSelector = '#comment' + objId + ' .rate-count.rate-red';
+    ancestor         = '#comment' + objId;
+
+  }
+  if(objName == 'subcom')
+  {
+    upvoteSelector   = '#sub-comment' + objId + ' .rate-green';
+    downvoteSelector = '#sub-comment' + objId + ' .rate-red';
+    ancestor         = '#sub-comment' + objId;
+  }
+  if(objName == 'post')
+  {
+    upvoteSelector   = '#rate-post-form' + ' .rate-count.rate-green';
+    downvoteSelector = '#rate-post-form' + ' .rate-count.rate-red';
+    ancestor         = '#rate-post-form';
+  }
+
+
+  $(upvoteSelector).text(total_likes);
+  $(downvoteSelector).text(total_dislikes);
+
+  if(total_likes == 0)
+  {
+    $(upvoteSelector).hide();
+  }
+
+  if(total_dislikes == 0)
+  {
+    $(downvoteSelector).hide();
+  }
+
+  if(total_likes > 0)
+  {
+    $(upvoteSelector).show();
+  }
+
+  if(total_dislikes > 0)
+  {
+    $(downvoteSelector).show();
+  }
+
+  if(unvoteType == 'unlike' && curr_user == author)
+  {
+    $(ancestor + ' .user_liked').hide();
+    $(ancestor + ' .user_unliked').show();
+  }
+
+  if(unvoteType =='undislike' && curr_user == author)
+  {
+    $(ancestor + ' .user_disliked').hide();
+    $(ancestor + ' .user_undisliked').show();
+  }
+
+
+
+}
+
+function update_rating(objName, objId, total_likes,  total_dislikes, notificationType, author, notTrollKey)
 {
 
-   if(data['command'] == 'NotifyforNotification')
+  if(!$('#article-notifications').length)
+  {
+    return;
+  }
+  if($('#article-notifications').val() != notTrollKey)
+  {
+    return;
+  }
+  var curr_user = $('#curr-user').val();
+
+  var upvoteSelector   = '';
+  var downvoteSelector = '';
+  var ancestor         = '';
+
+  if(objName == 'com')
+  {
+    upvoteSelector   = '#comment' + objId + ' .rate-count.rate-green';
+    downvoteSelector = '#comment' + objId + ' .rate-count.rate-red';
+    ancestor         = '#comment' + objId;
+  }
+  if(objName == 'subcom')
+  {
+    upvoteSelector =   '#sub-comment' + objId + ' .rate-green';
+    downvoteSelector = '#sub-comment' + objId + ' .rate-red';
+    ancestor       =   '#sub-comment' + objId;
+  }
+  if(objName == 'post')
+  {
+    upvoteSelector   = '#rate-post-form' + ' .rate-count.rate-green';
+    downvoteSelector = '#rate-post-form' + ' .rate-count.rate-red';
+    ancestor         = '#rate-post-form';
+  }
+
+  $(upvoteSelector).text(total_likes);
+  $(downvoteSelector).text(total_dislikes);
+
+  if(total_likes == 0)
+  {
+    $(upvoteSelector).hide();
+  }
+
+  if(total_dislikes == 0)
+  {
+    $(downvoteSelector).hide();
+  }
+
+  if(total_likes > 0)
+  {
+    $(upvoteSelector).show();
+  }
+
+  if(total_dislikes > 0)
+  {
+    $(downvoteSelector).show();
+  }
+
+  var is_user_liked    = false;
+  var is_user_disliked = false;
+
+  if(notificationType == '1' && author == curr_user)
+  {
+     is_user_liked = true;
+  }
+
+  if(notificationType == '4' && author == curr_user)
+  {
+     is_user_disliked = true;
+  }
+
+
+  if(is_user_liked)
+  {
+    $(ancestor + ' .user_liked').show();
+    $(ancestor + ' .user_unliked').hide();
+    $(ancestor + ' .user_disliked').hide();
+    $(ancestor + ' .user_undisliked').show();
+
+  }
+  else if(is_user_disliked)
+  {
+    $(ancestor + ' .user_liked').hide();
+    $(ancestor + ' .user_unliked').show();
+    $(ancestor + ' .user_disliked').show();
+    $(ancestor + ' .user_undisliked').hide();
+  }
+  else
+  {
+    /*$(ancestor + ' .user_liked').hide();
+    $(ancestor + ' .user_unliked').show();
+    $(ancestor + ' .user_disliked').hide();
+    $(ancestor + ' .user_undisliked').show();*/
+  }
+
+}
+
+
+
+
+function load_notifications(roomName, data)
+{
+   if(data['command'] == 'unRated')
+   {
+     notTrollKey    = data['notTrollKey'];
+     objId          = data['objId'];
+     objName        = data['objName'];
+     author         = data['author'];
+     total_likes    = data['total_likes'];
+     total_dislikes = data['total_dislikes'];
+     unvoteType     = data['unvoteType'];
+     update_unvoting(objName, objId, unvoteType, total_likes,  total_dislikes, author, notTrollKey);
+   }
+   else if(data['command'] == 'comRated')
+   {
+
+     var msg = data['comRateData'];
+     var total_likes = msg['total_likes']
+     var total_dislikes = msg['total_dislikes']
+     update_rating('com', msg['comId'], total_likes, total_dislikes, msg['notificationType'], msg['author'], msg['notTrollKey']);
+   }
+
+   else if(data['command'] == 'subComRated')
+   {
+     var msg = data['subComRateData'];
+     var total_likes = msg['total_likes']
+     var total_dislikes = msg['total_dislikes']
+     update_rating('subcom', msg['subComId'], total_likes, total_dislikes, msg['notificationType'], msg['author'], msg['notTrollKey']);
+   }
+
+   else if(data['command'] == 'postRated')
+   {
+     var msg = data['postRateData'];
+     var total_likes = msg['total_likes']
+     var total_dislikes = msg['total_dislikes']
+     update_rating('post', null, total_likes, total_dislikes, msg['notificationType'], msg['author'], msg['notTrollKey']);
+   }
+
+
+   else if(data['command'] == 'NotifyforNotification')
    {
      wsUsersNotifications[roomName].send(JSON.stringify({
          'command'       : 'newNotification',
@@ -227,12 +370,9 @@ function load_notifications(roomName, data)
 
   setBellAnimation(data);
 
-
-
-
-
-
 }
+
+
 
 function setBellAnimation(data)
 {
@@ -365,4 +505,56 @@ function notificationItemClick(e)
   getUrlOfNotificationObjajax(notificationId, urlType, function(callback){
     window.location = callback['url'];
   });
+}
+
+
+
+
+function notifyForcomRated(notificationId)
+{
+  wsUsersNotifications[$('#article-notifications').val()].send(JSON.stringify({
+      'command'       : 'comRated',
+      'notificationId':  notificationId,
+      'notTrollKey'   : $('#article-notifications').val(),
+  }));
+}
+
+function notifyForSubComRated(notificationId)
+{
+//  try
+//  {
+    wsUsersNotifications[$('#article-notifications').val()].send(JSON.stringify({
+        'command'       : 'subComRated',
+        'notificationId':  notificationId,
+        'notTrollKey'   : $('#article-notifications').val(),
+    }));
+//  }
+//  catch (e)
+//  {
+
+  //  setTimeout(function(){
+    //  notifyForSubComRated(notificationId)},
+  //   1000);
+//  }
+
+}
+
+function notifyForPostRated(notificationId)
+{
+  wsUsersNotifications[$('#article-notifications').val()].send(JSON.stringify({
+      'command'       : 'postRated',
+      'notificationId':  notificationId,
+      'notTrollKey'   : $('#article-notifications').val(),
+  }));
+}
+
+function notifyForUnvoting(objId, objName, unvoteType)
+{
+  wsUsersNotifications[$('#article-notifications').val()].send(JSON.stringify({
+      'command'       : 'unRated',
+      'objId'         :objId,
+      'objName'       :objName,
+      'unvoteType'    :unvoteType,
+      'notTrollKey'   : $('#article-notifications').val(),
+  }));
 }
