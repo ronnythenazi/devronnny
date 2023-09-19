@@ -3,6 +3,17 @@ var wsUsersNotifications = {};
 
 
 $(document).ready(function(){
+
+  var elem_to_focus = $('#notifications-popup');
+  var trigger_elem = $('#bell-menu-item');
+  focusout(elem_to_focus, trigger_elem);
+  $(elem_to_focus).css('right', offset_right($(trigger_elem)));
+  var top = $('.main-menu').height() - 50;
+  $(elem_to_focus).css('top', top + 'px');
+
+
+
+
   var username = $('#curr-username-cn').val();
   var roomName = username + 'Notifications';
   connectNotifications(roomName, 'read');
@@ -13,12 +24,7 @@ $(document).ready(function(){
   }
 
 
-  var elem_to_focus = $('#notifications-popup');
-  var trigger_elem = $('#bell-menu-item');
-  focusout(elem_to_focus, trigger_elem);
-  $(elem_to_focus).css('right', offset_right($(trigger_elem)));
-  var top = $('.main-menu').height() - 50;
-  $(elem_to_focus).css('top', top + 'px');
+
 });
 
 $(window).scroll(function(){
