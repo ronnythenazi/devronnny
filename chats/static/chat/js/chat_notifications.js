@@ -1,10 +1,8 @@
 const ws_arr = {};
 
-function update_chat_notifications(result)
-{
-  $('#c_notifications_popup_mini .chat_notification_items>*').remove();
-  $('#empty-notifications-chat').hide();
 
+function loadChatNotifications(result)
+{
   for(var i=0;i<result.length;i++)
   {
     var item = result[i];
@@ -27,15 +25,25 @@ function update_chat_notifications(result)
     $(item).append('<div class="c_notification_cell_contentsnip"></div>');
     $(item).append('<div class="c_notification_cell_thumb"></div>');
 
-    var cloned = $('#chat-thumb').clone(true);
+    var thumb_holder = $(item).find('.c_notification_cell_thumb');
+
+
+    var prefix = author_name + " " + "שלח" + ":" ;
+    $(item).append('<p class="author-name-lbl bluish-clr nowrap-child">'+ prefix +'</p>');
+    //$(thumb_holder).append('<div class="c_notification_subcell_contentsnip_timepassed"></div>');
+    //var t_lbl = $(thumb_holder).find('.c_notification_subcell_contentsnip_timepassed');
+    //$(t_lbl).html(get_friendly_time_format(time_passed));
+
+    /*var cloned = $('#chat-thumb').clone(true);
     $(cloned).attr('id', '');
     var thumb_holder = $(item).find('.c_notification_cell_thumb');
     $(thumb_holder).append(cloned);
-    $(cloned).css('display', 'block');
+    $(cloned).css('display', 'block');*/
 
-    //$(item).append('<div class="c_notification_cell_settings"></div>');
-
+    var prefix = author_name + " " + "שלח" + ":" ;
+    //$(item).find('.c_notification_cell_author').append('<p class="author-name-lbl bluish-clr nowrap-child">'+ prefix +'</p>');
     $(item).find('.c_notification_cell_author').append('<img src="">');
+
     var img = $(item).find('.c_notification_cell_author').find('img');
     $(img).attr('src', avatar);
 
@@ -44,21 +52,12 @@ function update_chat_notifications(result)
     $(subitem).append('<div class="c_notification_subcell_contentsnip_msg"></div>');
     $(subitem).append('<div class="c_notification_subcell_contentsnip_timepassed"></div>');
     var msg = $(subitem).find('.c_notification_subcell_contentsnip_msg');
-    var prefix = author_name + " " + "שלח" + ":" ;
-    $(msg).append('<p class="bluish-clr nowrap-child">'+ prefix +'</p>');
+    //var prefix = author_name + " " + "שלח" + ":" ;
+    //$(msg).append('<p class="bluish-clr nowrap-child">'+ prefix +'</p>');
     $(msg).append('<p class="wrap-child">'+ content +'</p>');
-    //$(msg).html(content);
+
     var t_lbl = $(subitem).find('.c_notification_subcell_contentsnip_timepassed');
     $(t_lbl).html(get_friendly_time_format(time_passed));
-
-
-
-
-    //subitem = $(item).find('.c_notification_cell_settings');
-  //  $(subitem).append('<div class="c_notification_cell_settings_dot"></div>');
-  //  $(subitem).append('<div class="c_notification_cell_settings_dot"></div>');
-  //  $(subitem).append('<div class="c_notification_cell_settings_dot"></div>');
-
 
   }
 
@@ -66,10 +65,18 @@ function update_chat_notifications(result)
   if(result.length>0)
   {
     $('.chat-path1, .chat-path2').addClass('effect-active');
+    $('#c_notifications_popup_mini').find('.arrowDownHolder').first().show();
   }
-
-
+  var popupBody = $('#c_notifications_popup_mini .chat_notification_items');
+  $(popupBody).scrollTop($(popupBody)[0].scrollHeight);
 }
+
+/*function update_chat_notifications(result)
+{
+  $('#c_notifications_popup_mini .chat_notification_items>*').remove();
+  $('#empty-notifications-chat').hide();
+  loadChatNotifications(result);
+}*/
 
 
 function assign_delegates()
@@ -121,7 +128,7 @@ $(document).ready(function(){
     return;
   }
 
-  
+
    var elem_to_focus = $('#c_notifications_popup_mini');
    var trigger_elem = $('#chat-notifications-menuItem');
    focusout(elem_to_focus, trigger_elem);
@@ -132,15 +139,20 @@ $(document).ready(function(){
 
 
    connect_to_your_chat_rooms($('#curr-username-cn').val());
-   show_chat_notifications();
+   show_chat_notifications(0, 4, freshLoad=true);
 
 
 
 });
-function show_chat_notifications()
+function show_chat_notifications(fromNumOfNotifications, numOfnewNotifications, freshLoad=false)
 {
-    notifications_minimal_view_ajax(function(result){
-    update_chat_notifications(result);
+    fetchNextChatNotificationsAjax(fromNumOfNotifications, numOfnewNotifications, function(result){
+    if(freshLoad == true)
+    {
+      $('#empty-notifications-chat').hide();
+    }
+    loadChatNotifications(result)
+    //update_chat_notifications(result);
   });
 }
 function load_chat_message(e, username, chatId, roomName)
@@ -158,7 +170,14 @@ function load_chat_message(e, username, chatId, roomName)
    {
      open_chat(username, chatId, roomName);
      $('.update_audio').first()[0].play();
-     show_chat_notifications();
+
+     //not use
+     var items    = $('#c_notifications_popup_mini .chat_notification_items .chat_notification_item');
+     var numofNotifications = items.length;
+     //show_chat_notifications(0, numofNotifications);
+     //end not use
+     $('#c_notifications_popup_mini .chat_notification_items>*').remove();
+     show_chat_notifications(0, 4, freshLoad=true);
    }
 
 
@@ -206,4 +225,36 @@ function connect_to_your_chat_rooms(username)
 
       }
    });
+}
+
+$('.loadMoreArrow').click(function(){
+  $(this).children('.arrowDownHolder').hide();
+  $(this).children('.spinnerHolder').show();
+  callfetchNextChatNotificationsAjax(this);
+});
+
+
+
+
+function callfetchNextChatNotificationsAjax(e)
+{
+    var ancestor = $(e).parents('.ronny-notification-popup').first();
+    var items    = $(ancestor).find('.chat_notification_items .chat_notification_item');
+    var numofNotifications = items.length;
+
+    fetchNextChatNotificationsAjax(numofNotifications.toString(), 4, function(callback){
+    loadChatNotifications(callback);
+    $(e).children('.spinnerHolder').hide();
+    if(callback.length > 0)
+    {
+      $(e).children('.arrowDownHolder').show();
+      return;
+    }
+
+    $(e).children('.arrowDownHolder').hide();
+
+
+  });
+
+
 }

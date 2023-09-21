@@ -1,0 +1,21 @@
+.arrowDownSvg
+{
+  animation-name: arrowDownyoyo;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+  opacity: 0.5;
+}
+
+@keyframes arrowDownyoyo
+{
+  from
+  {
+    transform: translateY(0);
+
+  }
+  to
+  {
+    transform: translateY(5px);
+  }
+}

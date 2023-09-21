@@ -1,0 +1,19 @@
+.svgColorChange
+{
+  animation-name: colorChange;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: normal;
+}
+
+@keyframes colorChange
+{
+
+  0%{fill:currentColor !important;}
+  20%{fill:#0b06aC !important;}
+  40%{fill:#7511e7 !important;}
+  60%{fill:#fe0ed3 !important;}
+  80%{fill:#fe380e !important;}
+  100%{fill:#5cfe0e !important;}
+
+}

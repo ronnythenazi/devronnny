@@ -1,5 +1,5 @@
 {%load static%}
-<div id ="c_notifications_popup_mini" class="chat_notifications_popup" style="display:none;">
+<div id ="c_notifications_popup_mini" class="chat_notifications_popup ronny-notification-popup" style="display:none;">
    <div class="chat_notification_header">
      <span class="cnh_header_title">הודעות</span>
      <span class="geer"></span>
@@ -30,7 +30,12 @@
  {% include 'general/components/svg/chat.svg' %}
 </div>
 
-
+   <div class="loadMoreArrow">
+     <div style="display:none;" class="arrowDownHolder">{% include 'general/styles/animated_svgs/arrowDown.svg' %}</div>
+     <div style="display:none;" class="spinnerHolder">{% include 'general/styles/animated_svgs/spinner.svg' %}</div>
+     <link rel="stylesheet" href="{% static 'general/styles/animations/css/colors.css' %}">
+     <link rel="stylesheet" href="{% static 'general/styles/animations/css/arrowDown.css' %}">
+   </div>
 </div>
 
 
@@ -61,16 +66,21 @@
         }
       </script>
 
+      
+
+
       <script>
-        function notifications_minimal_view_ajax(callback)
+        function fetchNextChatNotificationsAjax(numofNotifications, maxNotifications, callback)
         {
           var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
              $.ajax({
                   type: 'GET',
-                  url: "{% url 'chats:last-chat-messages' %}",
+                  url: "{% url 'chats:fetchNextNotifications' %}",
                   data: {
 
                         'csrfmiddlewaretoken': csrftoken,
+                        'numofNotifications' :numofNotifications,
+                        'maxNotifications'   :maxNotifications,
                  },
                  dataType: 'json',
                  success:callback,
@@ -86,6 +96,7 @@
       <!-- cn is acronym to Chat Notifications -->
       {% if user.is_authenticated %}
       <input type="hidden" id="curr-username-cn" value="{{user.username}}">
+      <!--<input type="hidden" id="notifications-counter" value="0">-->
       {% endif %}
 
       </div>
