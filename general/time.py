@@ -4,22 +4,22 @@ from dateutil import relativedelta
 
 def FriendlyTimePassedView(d):
     years = get_years_passed(d)
-    if(years > 0):
+    if(years >= 1):
         return {'unit':'years', 'cnt':years}
     months = get_months_passed(d)
-    if(months > 0):
+    if(months >= 1):
         return {'unit':'months', 'cnt':months}
 
     weeks = get_weeks_passed(d)
-    if(weeks > 2):
+    if(weeks >= 1):
         return {'unit':'weeks', 'cnt':weeks}
 
     days  = get_days_passed(d)
-    if(days > 0):
+    if(days >=1):
         return {'unit':'days', 'cnt':days}
 
     hours = get_hours_passed(d)
-    if(hours > 0):
+    if(hours >= 1):
         return {'unit':'hours', 'cnt':hours}
 
     miniutes = get_miniutes_passed(d)

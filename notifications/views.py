@@ -2,17 +2,25 @@ from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, Ht
 from django.urls import reverse
 from django.http import HttpResponse, JsonResponse
 from magazine.models import Notification
-from .notifications import getNotificationPredcesorsUris
+from .notifications import (getNotificationPredcesorsUris, getLastNotifications,)
 from users.members import get_profile_from_user_id
 # Create your views here.
 
 
 
+def fetchNextNotificationsAjax(request):
+    if request.user.is_authenticated == False:
+        return JsonResponse({'status':'not-log-in'})
+    if not request.is_ajax or not request.method == "GET":
+        return JsonResponse({'status':'not ajax get'})
 
+    startCnt            = int(request.GET.get('startCnt'))
+    maxNotificationsCnt = int(request.GET.get('maxNotificationsCnt'))
 
+    notifications = getLastNotifications(request.user.username, maxNotificationsCnt, startCnt)
 
+    return JsonResponse(notifications, safe=False)
 
-    #request.build_absolute_uri(reverse('magazine:anArticle', args = [post.pk, pos]))
 
 def getClickedNotificationObjectUriAjax(request):
     if request.user.is_authenticated == False:

@@ -23,6 +23,12 @@
 
   </div>
 
+  <div class="ronny-loadMoreArrow">
+    <div style="display:none;" class="arrowDownHolder">{% include 'general/styles/animated_svgs/arrowDown.svg' %}</div>
+    <div style="display:none;" class="spinnerHolder">{% include 'general/styles/animated_svgs/spinner.svg' %}</div>
+    <link rel="stylesheet" href="{% static 'general/styles/animations/css/colors.css' %}">
+    <link rel="stylesheet" href="{% static 'general/styles/animations/css/arrowDown.css' %}">
+  </div>
 </div>
 
 
@@ -52,4 +58,28 @@
        });
   }
 </script>
+
+<script>
+
+  function fetchNextNotificationsAjax(startCnt, maxNotificationsCnt, callback)
+  {
+    var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+       $.ajax({
+            type: 'GET',
+            url: "{% url 'notifications:fetchNextNotifications' %}",
+            data: {
+
+                  'csrfmiddlewaretoken'  : csrftoken,
+                  'startCnt'             : startCnt,
+                  'maxNotificationsCnt'  : maxNotificationsCnt,
+           },
+           dataType: 'json',
+           success:callback,
+           error: function (response) {
+               console.log(response);
+           }
+       });
+  }
+</script>
+
 </div>

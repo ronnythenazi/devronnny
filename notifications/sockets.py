@@ -8,9 +8,10 @@ import nest_asyncio
 nest_asyncio.apply()
 
 
-from .notifications import (notifications_to_json, notification_to_json_called_from_async,
+from .notifications import (notification_to_json_called_from_async,
 get_last_notifications,isAuthenticatedForNotifyForNotification, getcomRateData,
 getsubComRateData, getPostRateData, getTotalLikesforObj, getTotalDislikesforObj,
+get_num_of_notifications,
 )
 #from .utils import send_chat_webpush_notification_called_from_async
 
@@ -31,7 +32,7 @@ class notificationsSockets(AsyncWebsocketConsumer):
 
 
     async def unvoteObj(self, data):
-        
+
         notTrollKey    = data['notTrollKey']
         objId          = data['objId']
         objName        = data['objName']
@@ -110,9 +111,12 @@ class notificationsSockets(AsyncWebsocketConsumer):
         username =  self.scope["user"].username
         notificationId = data['notificationId']
 
+        totalNotificationsCount = await get_num_of_notifications(username)
+
 
         content = {
             'command': 'newNotification',
+            'totalNotificationsCount': str(totalNotificationsCount),
             'notification': await notification_to_json_called_from_async(notificationId, username),
         }
         return await self.send_notification_message(content)
@@ -165,12 +169,17 @@ class notificationsSockets(AsyncWebsocketConsumer):
 
 
         username =  self.scope["user"].username
-        notifications = await get_last_notifications(username)
 
+        startCnt               = int(data['startCnt'])
+        maxNotificationsCnt    = int(data['maxNotificationsCnt'])
+        #notifications = await get_last_notifications(username, maxNotificationsCnt, startCnt)
+        totalNotificationsCount = await get_num_of_notifications(username)
 
         content = {
-            'command': 'fetchNotifications',
-            'notifications': await notifications_to_json(notifications),
+            'command'               : 'fetchNotifications',
+            'totalNotificationsCount': str(totalNotificationsCount),
+            #'notifications': await notifications_to_json(notifications),
+            'notifications': await get_last_notifications(username, maxNotificationsCnt, startCnt),
         }
 
         await self.send_notifications(content)
@@ -183,7 +192,7 @@ class notificationsSockets(AsyncWebsocketConsumer):
 
 
     commands = {
-    'newNotification'        : new_notification,
+    'newNotification'        :new_notification,
     'fetchNotifications'     :fetch_notifications,
     'NotifyforNotification'  :notificationOfNotification,
     'comRated'               :comRated,

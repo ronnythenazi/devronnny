@@ -400,7 +400,7 @@ function load_notifications(roomName, data)
    else if(data['command'] == 'newNotification')
    {
      $('#empty-notifications').hide();
-     update_notifications_log(data['notification'], newNotification=true);
+     update_notifications_log(data['notification']);
    }
 
    else if(data['command'] == 'fetchNotifications')
@@ -464,7 +464,7 @@ function setBellAnimation(data, totalNotificationsCount)
 
 
 
-function update_notifications_log(item, newNotification = false)
+function update_notifications_log(item)
 {
 
    //alert(1);
@@ -491,19 +491,14 @@ function update_notifications_log(item, newNotification = false)
     var popup_body = $('#notifications-popup .notification-items');
     var data = 'notificationId="' + notificationId + '" ';
         data += 'author ="' + author  + '" ';
-
-    var item = null;
-    if(newNotification == true)
-    {
-      $(popup_body).prepend('<div class="notification-item" '+ data +'></div>');
-      item = $(popup_body).find('.notification-item').first();
-    }
-    else
-    {
-      $(popup_body).append('<div class="notification-item" '+ data +'></div>');
-      item = $(popup_body).find('.notification-item').last();
-    }
-
+    //if(newNotification == true)
+    //{
+    //}
+    //else
+    //{
+    $(popup_body).append('<div class="notification-item" '+ data +'></div>');
+    //}
+    var item = $(popup_body).find('.notification-item').last();
     $(item).append('<div class="notification-cell-author"></div>');
     $(item).append('<div class="notification-cell-contentsnip"></div>');
     $(item).append('<div class="notification-cell-thumb"></div>');

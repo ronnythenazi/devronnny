@@ -65,6 +65,10 @@ function loadChatNotifications(result)
   if(result.length>0)
   {
     $('.chat-path1, .chat-path2').addClass('effect-active');
+
+  }
+  if(result.length>=4)
+  {
     $('#c_notifications_popup_mini').find('.arrowDownHolder').first().show();
   }
   var popupBody = $('#c_notifications_popup_mini .chat_notification_items');

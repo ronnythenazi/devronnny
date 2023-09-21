@@ -121,7 +121,11 @@ function fetchNotifications(roomName)
 {
 
   wsUsersNotifications[roomName].send(JSON.stringify({
-      'command'       : 'fetchNotifications',
+      'command'            : 'fetchNotifications',
+      'startCnt'           :'0',
+      'maxNotificationsCnt':'4',
+
+
   }));
 }
 
@@ -353,6 +357,7 @@ function load_notifications(roomName, data)
      total_dislikes = data['total_dislikes'];
      unvoteType     = data['unvoteType'];
      update_unvoting(objName, objId, unvoteType, total_likes,  total_dislikes, author, notTrollKey);
+     return;
    }
    else if(data['command'] == 'comRated')
    {
@@ -361,6 +366,7 @@ function load_notifications(roomName, data)
      var total_likes = msg['total_likes']
      var total_dislikes = msg['total_dislikes']
      update_rating('com', msg['comId'], total_likes, total_dislikes, msg['notificationType'], msg['author'], msg['notTrollKey']);
+     return;
    }
 
    else if(data['command'] == 'subComRated')
@@ -369,6 +375,7 @@ function load_notifications(roomName, data)
      var total_likes = msg['total_likes']
      var total_dislikes = msg['total_dislikes']
      update_rating('subcom', msg['subComId'], total_likes, total_dislikes, msg['notificationType'], msg['author'], msg['notTrollKey']);
+     return;
    }
 
    else if(data['command'] == 'postRated')
@@ -377,6 +384,7 @@ function load_notifications(roomName, data)
      var total_likes = msg['total_likes']
      var total_dislikes = msg['total_dislikes']
      update_rating('post', null, total_likes, total_dislikes, msg['notificationType'], msg['author'], msg['notTrollKey']);
+     return;
    }
 
 
@@ -386,37 +394,47 @@ function load_notifications(roomName, data)
          'command'       : 'newNotification',
          'notificationId':  data['notificationId'],
      }));
+     return;
    }
 
    else if(data['command'] == 'newNotification')
    {
      $('#empty-notifications').hide();
-     update_notifications_log(data['notification']);
-
-
+     update_notifications_log(data['notification'], newNotification=true);
    }
 
    else if(data['command'] == 'fetchNotifications')
    {
+      if(data['notifications'].length<4)
+      {
+        $('#notifications-popup>.ronny-loadMoreArrow>.arrowDownHolder').first().hide();
+      }
+
+     $('#notifications-popup .notification-items').scrollTop($('#notifications-popup .notification-items')[0].scrollHeight);
 
      $('#notifications-popup .notification-items>*').remove();
      $('#empty-notifications').hide();
+
      for(let i=0;i<data['notifications'].length;i++)
      {
 
        update_notifications_log(data['notifications'][i]);
 
      }
+     if(data['notifications'].length>=4)
+     {
+      $('#notifications-popup>.ronny-loadMoreArrow .arrowDownHolder').first().show();
+     }
 
   }
 
-  setBellAnimation(data);
+  setBellAnimation(data, data['totalNotificationsCount']);
 
 }
 
 
 
-function setBellAnimation(data)
+function setBellAnimation(data, totalNotificationsCount)
 {
 
 
@@ -424,7 +442,8 @@ function setBellAnimation(data)
   {
     $('#ring-the-bell').show();
     $('#dont-ring-the-bell').hide();
-    $('.notification-counter').text($('#notifications-popup .notification-item').length.toString());
+    //$('.notification-counter').text($('#notifications-popup .notification-item').length.toString());
+    $('.notification-counter').text(totalNotificationsCount);
 
   }
   else
@@ -445,15 +464,16 @@ function setBellAnimation(data)
 
 
 
-function update_notifications_log(item)
+function update_notifications_log(item, newNotification = false)
 {
 
-
-  var author = item['author'];
-  var username_log_in = $('#curr-username-cn').val();
-
+   //alert(1);
+   var author = item['author'];
+   var username_log_in = $('#curr-username-cn').val();
+   //alert('author:' + author + '  userLogin:' + username_log_in);
    if(author == username_log_in)
    {
+
      return;
    }
 
@@ -471,8 +491,19 @@ function update_notifications_log(item)
     var popup_body = $('#notifications-popup .notification-items');
     var data = 'notificationId="' + notificationId + '" ';
         data += 'author ="' + author  + '" ';
-    $(popup_body).prepend('<div class="notification-item" '+ data +'></div>');
-    var item = $(popup_body).find('.notification-item').first();
+
+    var item = null;
+    if(newNotification == true)
+    {
+      $(popup_body).prepend('<div class="notification-item" '+ data +'></div>');
+      item = $(popup_body).find('.notification-item').first();
+    }
+    else
+    {
+      $(popup_body).append('<div class="notification-item" '+ data +'></div>');
+      item = $(popup_body).find('.notification-item').last();
+    }
+
     $(item).append('<div class="notification-cell-author"></div>');
     $(item).append('<div class="notification-cell-contentsnip"></div>');
     $(item).append('<div class="notification-cell-thumb"></div>');
@@ -599,4 +630,49 @@ function notifyForUnvoting(objId, objName, unvoteType)
       'unvoteType'    :unvoteType,
       'notTrollKey'   : $('#article-notifications').val(),
   }));
+}
+
+$('.ronny-loadMoreArrow').click(function(){
+  $(this).children('.arrowDownHolder').hide();
+  $(this).children('.spinnerHolder').show();
+  callfetchNextNotificationsAjax(this);
+});
+
+
+
+
+function callfetchNextNotificationsAjax(e)
+{
+    var ancestor = $(e).parents('.notifications-popup').first();
+    var items    = $(ancestor).find('.notification-items .notification-item');
+    var numofNotifications = items.length;
+    var maxNotificationsCnt = 4
+
+    fetchNextNotificationsAjax(numofNotifications.toString(), maxNotificationsCnt.toString(), function(callback){
+    loadNotificationLog(callback);
+    $(e).children('.spinnerHolder').hide();
+    if(callback.length < maxNotificationsCnt)
+    {
+      $(e).children('.arrowDownHolder').hide();
+      return;
+    }
+
+
+    $(e).children('.arrowDownHolder').show();
+
+   $('#notifications-popup .notification-items').scrollTop($('#notifications-popup .notification-items')[0].scrollHeight);
+
+
+  });
+
+
+}
+
+function loadNotificationLog(notifications)
+{
+  for(i=0;i<notifications.length;i++)
+  {
+    update_notifications_log(notifications[i]);
+  }
+
 }

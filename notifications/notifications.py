@@ -10,13 +10,34 @@ from magazine.models import Comment, BlogPost, comment_of_comment
 
 
 @sync_to_async
-def get_last_notifications(username, max_notifications=1000):
-    notifications = Notification.objects.filter(to_user__username = username).exclude(user_has_seen = True).order_by('-date')[:max_notifications]
+def get_last_notifications(username, maxNotificationsCnt=1000, startCnt=0):
+    return getLastNotifications(username, maxNotificationsCnt, startCnt)
+
+def getLastNotifications(username, maxNotificationsCnt, startCnt):
+    endCnt = startCnt + maxNotificationsCnt
+    qs = Notification.objects.filter(to_user__username = username).exclude(user_has_seen = True).exclude(from_user__username = username).order_by('-date')[startCnt:endCnt]
+    notifications = notificationsToJson(qs)
+    #notifications.reverse()
     return notifications
 
 
+@sync_to_async
+def get_num_of_notifications(username):
+    return getNumOfNotifications(username)
+
+def getNumOfNotifications(username):
+    return Notification.objects.filter(to_user__username = username).exclude(user_has_seen = True).exclude(from_user__username = username).count()
 
 
+def notificationsToJson(notifications):
+    result = []
+    for notification in notifications:
+        result.append(notification_to_json(notification.id))
+    #result.reverse()
+    return result
+
+
+'''
 @sync_to_async
 def notifications_to_json(notifications):
     result = []
@@ -24,7 +45,7 @@ def notifications_to_json(notifications):
         result.append(notification_to_json(notification.id))
     result.reverse()
     return result
-
+'''
 
 @sync_to_async
 def notification_to_json_called_from_async(notificationId, currUsername):
