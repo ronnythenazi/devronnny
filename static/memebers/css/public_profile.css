@@ -86,7 +86,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   height: 100%;
-  width:calc(100% - var(--profile-img-height));
+  width: 100%;
   overflow:hidden;
 }
 .main-header-profile-details-body-content
@@ -120,7 +120,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
   height: var(--footer-main-header-height);
   /*background-color:#b0b1dd;*/
@@ -130,23 +130,27 @@
 
 .main-header-footer-row
 {
+  width:100%;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: stretch;
-  width: var(--main-header-footer-row);
+  gap:20px;
+
   /*gap:20px;*/
   /*height: ;*/
-
   cursor: pointer;
+  background-image:var(--ronny-bg-stellar1)
 }
 .main-h-footer-data-container
 {
   display: flex;
+  width:50%;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
-  width: calc(var(--main-header-footer-row) / 2);
+  position:relative;
+  /* width: calc(var(--main-header-footer-row) / 2); */
   /*gap:5px;*/
 }
 
@@ -154,13 +158,19 @@
 {
   font-size: 0.8em;
   font-family: formal2;
-   color:red;
+   color:#b0ff00;
+   width:50%;
+  white-space:nowrap;
 }
 .main-h-footer-cell-val
 {
   font-size: 0.8em;
   font-family: formal3-bold;
   color:white;
+  width:50%;
+  white-space:nowrap;
+  text-align:left;
+  overflow:hidden;
 }
 
 .main-header-profile-thumb-holder
@@ -254,14 +264,14 @@
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   height: 25px;
   position: relative;
   /*box-shadow: 0 4px 2px -2px gray;*/
   background: var(--studio-white-23-1,   --studio-white-23-2);
   cursor: pointer;
-  overflow-x: hidden;
+  overflow: hidden;
   gap:20px;
 
 
@@ -310,6 +320,8 @@
   -webkit-text-fill-color:transparent;
   -webkit-background-clip:text;
    background-image:var(  --blood1,   --blood2);
+   width:25%;
+
 
 
 }
@@ -317,10 +329,13 @@
 {
   font-size: 1rem;
   font-family: formal2;
-
+   overflow:hidden;
+  white-space:nowrap;
   -webkit-text-fill-color:transparent;
   -webkit-background-clip:text;
   background-image: var(--bluish1, --bluish2);
+  width:75%;
+
 
 }
 
