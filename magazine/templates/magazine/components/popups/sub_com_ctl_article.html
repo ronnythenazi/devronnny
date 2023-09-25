@@ -1,5 +1,5 @@
    {% if user.is_authenticated %}
-     {% if comment_of_comment.comment_of_comment_usr == user or request.user.groups.all.0.name == 'owner' or request.user.groups.all.0.name == 'admin' and not comment_of_comment.comment_of_comment_usr.groups.all.0.name == 'admin' and not comment_of_comment.comment_of_comment_usr.groups.all.0.name == 'owner' %}
+     {% if user.rights or comment_of_comment.comment_of_comment_usr == user or request.user.groups.all.0.name == 'owner' or request.user.groups.all.0.name == 'admin' and not comment_of_comment.comment_of_comment_usr.groups.all.0.name == 'admin' and not comment_of_comment.comment_of_comment_usr.groups.all.0.name == 'owner' %}
 <div class="com-edit-popup" style="left:0;">
   <div class="popup-3-dots">
    <div class="ul-popup-3-dots">
@@ -22,6 +22,10 @@
 
  {% if request.user.groups.all.0.name == 'owner' and comment_of_comment.comment_of_comment_usr.is_active  and not comment_of_comment.comment_of_comment_usr == request.user %}
      {% include 'magazine/components/popups/deactivate_user.html' %}
+ {% endif %}
+
+ {% if user.rights.hideComment == True %}
+    {% include 'magazine/components/popups/hidecomment.html' %}
  {% endif %}
 
  {% if request.user.groups.all.0.name == 'owner' and not comment_of_comment.comment_of_comment_usr.is_active and not comment_of_comment.comment_of_comment_usr == request.user %}

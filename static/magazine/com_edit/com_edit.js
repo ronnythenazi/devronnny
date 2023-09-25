@@ -48,6 +48,25 @@ $('.edit-popup-item').click(function(){
    $(btn_edit).parents('.comment-edit-parent').first().find('.form-view').show();
 });
 
+$('.hide-popup-item').click(function(){
+  var id    = get_com_id($(this));
+  var comType  = getComTypeV2($(this));
+  hideComAjax(id, comType, function(result){
+   var com = getComObj(comType, id);
+   $(com).hide();
+  });
+
+});
+
+function getComObj(comType, id)
+{
+  if(comType == 'com')
+  {
+    return $('#comment' + id);
+  }
+  return $('#sub-comment' + id)
+}
+
 $('.deactivate-popup-item').click(function(){
    var com_ancestor = $(this).parents('.item').first();
    var user = get_com_author(com_ancestor);
@@ -154,6 +173,17 @@ $('#confirm-delete').click(function(){
   var id = $('#caller-id').val();
   f_com_delete(caller_type, id);
 });
+
+function getComTypeV2(e)
+{
+  var ancestor = $(e).parents('.organ').first().parents('.item').first();
+  var id = $(ancestor).attr('id');
+  if(id.indexOf('sub-comment')>=0)
+  {
+    return 'subcom';
+  }
+  return 'com';
+}
 
 function get_com_type(e)
 {

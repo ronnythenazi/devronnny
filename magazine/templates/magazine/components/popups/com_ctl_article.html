@@ -30,7 +30,7 @@
   {% endif %}
  </div>
  {% if user.is_authenticated %}
- {% if comment.comment_usr == user or request.user.groups.all.0.name == 'owner' or request.user.groups.all.0.name == 'admin' and not comment.comment_usr.groups.all.0.name == 'admin' and not comment.comment_usr.groups.all.0.name == 'owner' %}
+ {% if user.rights or comment.comment_usr == user or request.user.groups.all.0.name == 'owner' or request.user.groups.all.0.name == 'admin' and not comment.comment_usr.groups.all.0.name == 'admin' and not comment.comment_usr.groups.all.0.name == 'owner' %}
 <div style="left:0;position:absolute;align-self:flex-start;">
  <div class="com-edit-popup">
    <div class="popup-3-dots">
@@ -57,9 +57,15 @@
        {% include 'magazine/components/popups/deactivate_user.html' %}
    {% endif %}
 
+   {% if user.rights.hideComment == True %}
+      {% include 'magazine/components/popups/hidecomment.html' %}
+   {% endif %}
+
    {% if request.user.groups.all.0.name == 'owner' and not comment.comment_usr.is_active and not comment.comment_usr == request.user %}
        {% include 'magazine/components/popups/activate.html' %}
    {% endif %}
+
+
 
 
    </div>

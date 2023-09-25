@@ -215,6 +215,7 @@
 
 
       {% for comment in object.comments.all %}
+        {% if comment.hidden == False or user.profile.seeHiddenComments == True %}
         <div class="comment item" id="comment{{comment.pk}}" style="gap:10px;margin-bottom:50px;width:500px;">
           {% if comment.comment_usr %}
           <input type="hidden" class="com-author" value="{{ comment.comment_usr }}">
@@ -386,6 +387,7 @@
           <!-- end 23:26 28/01/2022-->
           <div class="comment-of-comment">
           {% for comment_of_comment in comment.comments_of_comment.all %}
+            {% if comment_of_comment.hidden == False or user.profile.seeHiddenComments == True  %}
           <div class="item subitem rate-com-of-com-form" id="sub-comment{{comment_of_comment.pk}}" style="margin-top:10px;">
             {% if comment_of_comment.comment_of_comment_usr %}
             <input type="hidden" class="sub-com-author" value="{{ comment_of_comment.comment_of_comment_usr }}">
@@ -615,6 +617,7 @@
              </div>
            </div>
        </div>
+       {% endif %} <!-- endif sub comment is hidden -->
       <!-- 23:26 28/01/2022-->
       {% if not comment_of_comment.comment_of_comment_usr.groups.all.0.name == 'admin' and  not comment_of_comment.comment_of_comment_usr.groups.all.0.name == 'owner' %}
       {% if comment_of_comment.date_last_update and comment_of_comment.is_com_edited %}
@@ -625,7 +628,7 @@
         {% endfor %}
       </div>
         </div>
-
+      {% endif %}
       {% endfor %}
 
    {% endif %}
@@ -2079,6 +2082,50 @@ function quick_delete_label_item_ajax(id, cblist_of_what, callback)
          data: {
                 'label_id':id,
                 'cblist_of_what': cblist_of_what,
+                'csrfmiddlewaretoken': csrftoken,
+         },
+         dataType: 'json',
+         success:callback,
+         error: function (response) {
+             console.log(response);
+         }
+     });
+}
+</script>
+
+
+<script>
+function hideComAjax(id, comType, callback)
+{
+  var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+     $.ajax({
+         type: 'POST',
+         url: "{% url 'administration:hideComment' %}",
+         data: {
+                'comType':comType,
+                'id': id,
+                'csrfmiddlewaretoken': csrftoken,
+         },
+         dataType: 'json',
+         success:callback,
+         error: function (response) {
+             console.log(response);
+         }
+     });
+}
+</script>
+
+
+<script>
+function unhideComAjax(id, comType, callback)
+{
+  var csrftoken = $('[name="csrfmiddlewaretoken"]').val();
+     $.ajax({
+         type: 'POST',
+         url: "{% url 'administration:unhideComment' %}",
+         data: {
+                'comType':comType,
+                'id': id,
                 'csrfmiddlewaretoken': csrftoken,
          },
          dataType: 'json',

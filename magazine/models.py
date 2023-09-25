@@ -10,6 +10,7 @@ from django.utils import timezone
 from social.calcs import get_total_seconds, get_curr_datetime
 from django.db.models.signals import post_save
 from users.models import Contact
+from administration.models import (PermissionGroup, Rights,)
 
 exposed_request = None
 
@@ -111,6 +112,10 @@ class Comment(models.Model):
     likes = models.ManyToManyField(User, related_name ="likes_com", blank = True)
     dislikes = models.ManyToManyField(User, related_name ="dislikes_com", blank = True)
     followers = models.ManyToManyField(User, related_name = "com_followers", blank = True)
+    hidden    = models.BooleanField(default=False, blank = True)
+
+    def isHidden(self):
+        return self.hidden
 
     def total_followers(self):
         return self.followers.count()
@@ -162,6 +167,11 @@ class comment_of_comment(models.Model):
 
     followers = models.ManyToManyField(User, related_name = "sub_com_followers", blank = True)
 
+    hidden    = models.BooleanField(default=False, blank = True)
+
+    def isHidden(self):
+        return self.hidden
+
     def total_followers(self):
         return self.followers.count()
 
@@ -202,7 +212,9 @@ class comment_of_comment(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, null = True, blank = True, on_delete = models.CASCADE)
+    user        = models.OneToOneField(User, null = True, blank = True, on_delete = models.CASCADE)
+    role        = models.ForeignKey(PermissionGroup, null = True, default = 1, related_name = "users", on_delete = models.SET_NULL)
+
     bio = models.TextField(max_length = 1000, null = True, blank = True)
     profile_img =  models.ImageField(default="default.jpg", blank = True, null = True, upload_to = 'members/profile/avatar')
 
@@ -266,6 +278,14 @@ class Profile(models.Model):
 
     def __str__(self):
         return str(self.user)
+
+    def seeHiddenComments(self):
+        if(Rights.objects.filter(user=self.user).exists()):
+            return Rights.objects.filter(user=self.user).values_list('seeHiddenComments',flat=True)[0]
+
+        return self.user.role.permissions.seeHiddenComments
+
+
 
 
 def post_save_profile_reciever(sender, instance, created, *args, **kwargs):
