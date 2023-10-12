@@ -21,6 +21,12 @@ align-items:center;
 position:relative;
 
 }
+
+.hiddencom
+{
+  opacity: 0.5;
+}
+
 .ul-popup-3-dots>span
 {
 margin-top:1px;

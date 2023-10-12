@@ -216,7 +216,16 @@
 
       {% for comment in object.comments.all %}
         {% if comment.hidden == False or user.profile.seeHiddenComments == True %}
+
+        {% if comment.hidden == False %}
         <div class="comment item" id="comment{{comment.pk}}" style="gap:10px;margin-bottom:50px;width:500px;">
+        {% endif %}
+
+        {% if comment.hidden == True %}
+        <div class="comment item hiddencom" id="comment{{comment.pk}}" style="gap:10px;margin-bottom:50px;width:500px;">
+        {% endif %}
+
+
           {% if comment.comment_usr %}
           <input type="hidden" class="com-author" value="{{ comment.comment_usr }}">
           {% else %}
@@ -388,7 +397,17 @@
           <div class="comment-of-comment">
           {% for comment_of_comment in comment.comments_of_comment.all %}
             {% if comment_of_comment.hidden == False or user.profile.seeHiddenComments == True  %}
-          <div class="item subitem rate-com-of-com-form" id="sub-comment{{comment_of_comment.pk}}" style="margin-top:10px;">
+
+            {% if comment_of_comment.hidden == False %}
+            <div class="item subitem rate-com-of-com-form" id="sub-comment{{comment_of_comment.pk}}" style="margin-top:10px;">
+            {% endif %}
+
+            {% if comment_of_comment.hidden == True %}
+            <div class="item subitem rate-com-of-com-form hiddencom" id="sub-comment{{comment_of_comment.pk}}" style="margin-top:10px;">
+            {% endif %}
+
+
+
             {% if comment_of_comment.comment_of_comment_usr %}
             <input type="hidden" class="sub-com-author" value="{{ comment_of_comment.comment_of_comment_usr }}">
             {% else %}

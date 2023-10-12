@@ -57,9 +57,14 @@
        {% include 'magazine/components/popups/deactivate_user.html' %}
    {% endif %}
 
-   {% if user.rights.hideComment == True %}
+   {% if user.rights.hideComment == True and comment.hidden == False %}
       {% include 'magazine/components/popups/hidecomment.html' %}
    {% endif %}
+
+   {% if user.rights.hideComment == True and comment.hidden == True %}
+      {% include 'magazine/components/popups/unhidecom.html' %}
+   {% endif %}
+
 
    {% if request.user.groups.all.0.name == 'owner' and not comment.comment_usr.is_active and not comment.comment_usr == request.user %}
        {% include 'magazine/components/popups/activate.html' %}

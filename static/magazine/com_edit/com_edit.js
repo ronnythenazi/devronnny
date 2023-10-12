@@ -49,14 +49,31 @@ $('.edit-popup-item').click(function(){
 });
 
 $('.hide-popup-item').click(function(){
-  var id    = get_com_id($(this));
-  var comType  = getComTypeV2($(this));
-  hideComAjax(id, comType, function(result){
+   var id    = get_com_id($(this));
+   var comType  = getComTypeV2($(this));
+   hideComAjax(id, comType, function(result){
    var com = getComObj(comType, id);
-   $(com).hide();
+   $(com).addClass('hiddencom');
+   $(this).hide();
+   $(this).siblings('.unhide-popup-item').first().show();
   });
 
 });
+
+
+$('.unhide-popup-item').click(function(){
+   var id    = get_com_id($(this));
+   var comType  = getComTypeV2($(this));
+   unhideComAjax(id, comType, function(result){
+   var com = getComObj(comType, id);
+   $(com).removeClass('hiddencom');
+   $(this).hide();
+   $(this).siblings('.hide-popup-item').first().show();
+  });
+
+});
+
+
 
 function getComObj(comType, id)
 {
